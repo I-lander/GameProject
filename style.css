@@ -12,3 +12,10 @@ canvas{
     display: block;
     background: #282828;
 }
+
+.score{
+    position: fixed;
+    color: white;
+    margin: 12px;
+    user-select: none;
+}
