@@ -7,7 +7,7 @@ const xCenter = canvas.width / 2;
 const yCenter = canvas.height / 2;
 let scoreValue = 0;
 const scoreElement = document.getElementById("score");
-let finalScore = document.getElementById("finalScore");
+const finalScore = document.getElementById("finalScore");
 const mainMenu = document.getElementById("mainMenu");
 
 function startGame() {
@@ -167,6 +167,7 @@ function animate() {
     if (distance - enemy.radius - player.radius < 1) {
       cancelAnimationFrame(animationId);
       mainMenu.classList.remove("disable")
+      console.log(finalScore);
       finalScore.innerText = scoreValue
     }
 
@@ -210,7 +211,6 @@ function init() {
   console.log('init');
   player = new Player(xCenter, yCenter, 15, "hsl(0, 100%, 100%)");
   scoreValue = 0
-  finalScore = 0
   projectiles = [];
   enemies = [];
   particles = [];
