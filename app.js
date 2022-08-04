@@ -5,6 +5,8 @@ canvas.width = innerWidth;
 canvas.height = innerHeight;
 const xCenter = canvas.width / 2;
 const yCenter = canvas.height / 2;
+let scoreValue = 0;
+document.getElementById("score").innerText = scoreValue;
 
 class Player {
   constructor(x, y, radius, color) {
@@ -67,7 +69,7 @@ class Particle {
     this.draw();
     this.x += this.velocity.x * this.speed;
     this.y += this.velocity.y * this.speed;
-    this.radius -= 0.1
+    this.radius -= 0.1;
   }
 }
 
@@ -143,8 +145,8 @@ function animate() {
 
   particles.forEach((particle, index) => {
     particle.update();
-    if( particle.radius < 0 ){
-      particles.splice(index, 1)
+    if (particle.radius < 0) {
+      particles.splice(index, 1);
     }
   });
 
@@ -155,15 +157,16 @@ function animate() {
       cancelAnimationFrame(animationId);
     }
 
+    // kill enemy
     projectiles.forEach((projectile, projectileIndex) => {
       const distance = Math.hypot(
         projectile.x - enemy.x,
         projectile.y - enemy.y
       );
       if (distance - enemy.radius - projectile.radius < 1) {
-        for (let i = 0; i < enemy.radius; i++) {
+        for (let i = 0; i < enemy.radius * 2; i++) {
           particles.push(
-            new Particle(projectile.x, projectile.y, Math.random() * 3, enemy.color, {
+            new Particle(enemy.x, enemy.y, Math.random() * 3, enemy.color, {
               x: Math.random() - 0.5,
               y: Math.random() - 0.5,
             })
@@ -173,6 +176,8 @@ function animate() {
           enemies.splice(index, 1);
           projectiles.splice(projectileIndex, 1);
         });
+        scoreValue += 1;
+        document.getElementById("score").innerText = scoreValue;
       }
     });
   });
