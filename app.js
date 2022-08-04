@@ -6,7 +6,18 @@ canvas.height = innerHeight;
 const xCenter = canvas.width / 2;
 const yCenter = canvas.height / 2;
 let scoreValue = 0;
-document.getElementById("score").innerText = scoreValue;
+const scoreElement = document.getElementById("score");
+let finalScore = document.getElementById("finalScore");
+const mainMenu = document.getElementById("mainMenu");
+
+function startGame() {
+  init()
+  mainMenu.classList.add("disable");
+  scoreElement.classList.remove("disable");
+  scoreElement.innerText = scoreValue;
+  animate();
+  spawnEnemies();
+}
 
 class Player {
   constructor(x, y, radius, color) {
@@ -96,11 +107,10 @@ class Enemy {
   }
 }
 
-const player = new Player(xCenter, yCenter, 15, "hsl(0, 100%, 100%)");
-
-const projectiles = [];
-const enemies = [];
-const particles = [];
+let player = new Player(xCenter, yCenter, 15, "hsl(0, 100%, 100%)");
+let projectiles = [];
+let enemies = [];
+let particles = [];
 
 function spawnEnemies() {
   setInterval(() => {
@@ -150,14 +160,17 @@ function animate() {
     }
   });
 
+  // Detect lose
   enemies.forEach((enemy, index) => {
     enemy.update();
     const distance = Math.hypot(player.x - enemy.x, player.y - enemy.y);
     if (distance - enemy.radius - player.radius < 1) {
       cancelAnimationFrame(animationId);
+      mainMenu.classList.remove("disable")
+      finalScore.innerText = scoreValue
     }
 
-    // kill enemy
+    // Kill enemy
     projectiles.forEach((projectile, projectileIndex) => {
       const distance = Math.hypot(
         projectile.x - enemy.x,
@@ -177,7 +190,7 @@ function animate() {
           projectiles.splice(projectileIndex, 1);
         });
         scoreValue += 1;
-        document.getElementById("score").innerText = scoreValue;
+        scoreElement.innerText = scoreValue;
       }
     });
   });
@@ -193,5 +206,12 @@ window.addEventListener("click", (event) => {
   projectiles.push(new Projectile(xCenter, yCenter, 5, color, velocity));
 });
 
-animate();
-spawnEnemies();
+function init() {
+  console.log('init');
+  player = new Player(xCenter, yCenter, 15, "hsl(0, 100%, 100%)");
+  scoreValue = 0
+  finalScore = 0
+  projectiles = [];
+  enemies = [];
+  particles = [];
+}
