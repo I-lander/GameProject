@@ -10,7 +10,7 @@ html, body{
 
 canvas{
     display: block;
-    background: #282828;
+    background: radial-gradient(circle, rgb(105, 102, 96) 0%, rgb(33, 34, 36) 100%);
 }
 
 .score{

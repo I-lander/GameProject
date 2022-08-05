@@ -1,8 +1,14 @@
+import TileMap from "./tileMap.js";
+import Player from "./player.js";
+
 const canvas = document.getElementById("canvas");
-const c = canvas.getContext("2d");
+const ctx = canvas.getContext("2d");
+const tileMap = new TileMap();
 
 canvas.width = innerWidth;
 canvas.height = innerHeight;
+tileMap.setCanvasSize(canvas)
+
 const xCenter = canvas.width / 2;
 const yCenter = canvas.height / 2;
 let scoreValue = 0;
@@ -10,34 +16,20 @@ const scoreElement = document.getElementById("score");
 const finalScore = document.getElementById("finalScore");
 const mainMenu = document.getElementById("mainMenu");
 let onGame = false;
-let spawEnemiesInterval
-
+let spawEnemiesInterval;
+document.getElementById("startBtn").addEventListener("click", () => {
+  startGame();
+});
 
 function startGame() {
   init();
   setTimeout(() => {
-  onGame = true;
+    onGame = true;
   }, 300);
   mainMenu.classList.add("disable");
   scoreElement.classList.remove("disable");
   scoreElement.innerText = scoreValue;
   animate();
-}
-
-class Player {
-  constructor(x, y, radius, color) {
-    this.x = x;
-    this.y = y;
-    this.radius = radius;
-    this.color = color;
-  }
-
-  draw() {
-    c.beginPath();
-    c.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
-    c.fillStyle = this.color;
-    c.fill();
-  }
 }
 
 class Projectile {
@@ -51,10 +43,10 @@ class Projectile {
   }
 
   draw() {
-    c.beginPath();
-    c.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
-    c.fillStyle = this.color;
-    c.fill();
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
+    ctx.fillStyle = this.color;
+    ctx.fill();
   }
 
   update() {
@@ -75,10 +67,10 @@ class Particle {
   }
 
   draw() {
-    c.beginPath();
-    c.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
-    c.fillStyle = this.color;
-    c.fill();
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
+    ctx.fillStyle = this.color;
+    ctx.fill();
   }
 
   update() {
@@ -99,10 +91,10 @@ class Enemy {
   }
 
   draw() {
-    c.beginPath();
-    c.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
-    c.fillStyle = this.color;
-    c.fill();
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
+    ctx.fillStyle = this.color;
+    ctx.fill();
   }
 
   update() {
@@ -112,36 +104,37 @@ class Enemy {
   }
 }
 
-let player
-let projectiles 
-let enemies
-let particles 
+let player;
+let projectiles;
+let enemies;
+let particles;
 
 function spawnEnemies() {
-    const radius = Math.random() * (30 - 4) + 4;
-    let x, y;
-    if (Math.random() < 0.5) {
-      x = Math.random() < 0.5 ? 0 - radius : canvas.width + radius;
-      y = Math.random() * canvas.height;
-    } else {
-      x = Math.random() * canvas.width;
-      y = Math.random() < 0.5 ? 0 - radius : canvas.height + radius;
-    }
-    const color = `hsl(${Math.random() * 360}, 100%, 70%)`;
-    const angle = Math.atan2(yCenter - y, xCenter - x);
-    const velocity = {
-      x: Math.cos(angle),
-      y: Math.sin(angle),
-    };
-    if (onGame) {
-      enemies.push(new Enemy(x, y, radius, color, velocity));
-    }
+  const radius = Math.random() * (30 - 4) + 4;
+  let x, y;
+  if (Math.random() < 0.5) {
+    x = Math.random() < 0.5 ? 0 - radius : canvas.width + radius;
+    y = Math.random() * canvas.height;
+  } else {
+    x = Math.random() * canvas.width;
+    y = Math.random() < 0.5 ? 0 - radius : canvas.height + radius;
+  }
+  const color = `hsl(${Math.random() * 360}, 100%, 70%)`;
+  const angle = Math.atan2(yCenter - y, xCenter - x);
+  const velocity = {
+    x: Math.cos(angle),
+    y: Math.sin(angle),
+  };
+  if (onGame) {
+    enemies.push(new Enemy(x, y, radius, color, velocity));
+  }
 }
 
 let animationId;
 function animate() {
+  tileMap.draw()
   animationId = requestAnimationFrame(animate);
-  c.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
   player.draw();
 
   projectiles.forEach((projectile, index) => {
@@ -174,7 +167,7 @@ function animate() {
       mainMenu.classList.remove("disable");
       finalScore.innerText = scoreValue;
       onGame = false;
-      clearInterval(spawEnemiesInterval)
+      clearInterval(spawEnemiesInterval);
     }
 
     // Kill enemy
@@ -210,13 +203,13 @@ window.addEventListener("click", (event) => {
     y: Math.sin(angle),
   };
   const color = "hsl(0, 100%, 100%)";
-  if(onGame){
+  if (onGame) {
     projectiles.push(new Projectile(xCenter, yCenter, 5, color, velocity));
   }
 });
 
 function init() {
- spawEnemiesInterval = setInterval(spawnEnemies, 1000)
+  spawEnemiesInterval = setInterval(spawnEnemies, 1000);
 
   player = new Player(xCenter, yCenter, 15, "hsl(0, 100%, 100%)");
   scoreValue = 0;
@@ -224,7 +217,3 @@ function init() {
   enemies = [];
   particles = [];
 }
-
-document.getElementById("startBtn").addEventListener("click", () => {
-  startGame()
-});
