@@ -9,14 +9,17 @@ let scoreValue = 0;
 const scoreElement = document.getElementById("score");
 const finalScore = document.getElementById("finalScore");
 const mainMenu = document.getElementById("mainMenu");
+let onGame = false;
+let spawEnemiesInterval
+
 
 function startGame() {
-  init()
+  init();
+  onGame = true;
   mainMenu.classList.add("disable");
   scoreElement.classList.remove("disable");
   scoreElement.innerText = scoreValue;
   animate();
-  spawnEnemies();
 }
 
 class Player {
@@ -107,13 +110,12 @@ class Enemy {
   }
 }
 
-let player = new Player(xCenter, yCenter, 15, "hsl(0, 100%, 100%)");
-let projectiles = [];
-let enemies = [];
-let particles = [];
+let player
+let projectiles 
+let enemies
+let particles 
 
 function spawnEnemies() {
-  setInterval(() => {
     const radius = Math.random() * (30 - 4) + 4;
     let x, y;
     if (Math.random() < 0.5) {
@@ -129,8 +131,10 @@ function spawnEnemies() {
       x: Math.cos(angle),
       y: Math.sin(angle),
     };
-    enemies.push(new Enemy(x, y, radius, color, velocity));
-  }, 1000);
+    if (onGame) {
+      enemies.push(new Enemy(x, y, radius, color, velocity));
+      console.log(enemies.length);
+    }
 }
 
 let animationId;
@@ -160,15 +164,16 @@ function animate() {
     }
   });
 
-  // Detect lose
+  // Game over
   enemies.forEach((enemy, index) => {
     enemy.update();
     const distance = Math.hypot(player.x - enemy.x, player.y - enemy.y);
     if (distance - enemy.radius - player.radius < 1) {
       cancelAnimationFrame(animationId);
-      mainMenu.classList.remove("disable")
-      console.log(finalScore);
-      finalScore.innerText = scoreValue
+      mainMenu.classList.remove("disable");
+      finalScore.innerText = scoreValue;
+      onGame = false;
+      clearInterval(spawEnemiesInterval)
     }
 
     // Kill enemy
@@ -208,10 +213,12 @@ window.addEventListener("click", (event) => {
 });
 
 function init() {
-  console.log('init');
+ spawEnemiesInterval = setInterval(spawnEnemies, 1000)
+
   player = new Player(xCenter, yCenter, 15, "hsl(0, 100%, 100%)");
-  scoreValue = 0
+  scoreValue = 0;
   projectiles = [];
   enemies = [];
   particles = [];
 }
+
