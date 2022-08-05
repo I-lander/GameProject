@@ -1,7 +1,17 @@
+export default class TileMap {
+  constructor(tileSize) {
+    this.tileSize = tileSize
+  }
+
+  draw() {
+    console.log("draw");
+  }
+}
+
 const player = 1;
 const empty = 0;
 
-map = [
+let map = [
   [0, 0, 0, 0, 0, 0, 0],
   [0, 0, 0, 0, 0, 0, 0],
   [0, 0, 0, 0, 0, 0, 0],

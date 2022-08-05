@@ -15,7 +15,9 @@ let spawEnemiesInterval
 
 function startGame() {
   init();
+  setTimeout(() => {
   onGame = true;
+  }, 300);
   mainMenu.classList.add("disable");
   scoreElement.classList.remove("disable");
   scoreElement.innerText = scoreValue;
@@ -133,7 +135,6 @@ function spawnEnemies() {
     };
     if (onGame) {
       enemies.push(new Enemy(x, y, radius, color, velocity));
-      console.log(enemies.length);
     }
 }
 
@@ -209,7 +210,9 @@ window.addEventListener("click", (event) => {
     y: Math.sin(angle),
   };
   const color = "hsl(0, 100%, 100%)";
-  projectiles.push(new Projectile(xCenter, yCenter, 5, color, velocity));
+  if(onGame){
+    projectiles.push(new Projectile(xCenter, yCenter, 5, color, velocity));
+  }
 });
 
 function init() {
@@ -222,3 +225,6 @@ function init() {
   particles = [];
 }
 
+document.getElementById("startBtn").addEventListener("click", () => {
+  startGame()
+});

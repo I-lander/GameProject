@@ -37,6 +37,7 @@ canvas{
     max-width: 28rem;
     width: 100%;
     text-align: center;
+    user-select: none;
 }
 
 .scroreScreen button{
@@ -46,6 +47,7 @@ canvas{
     color: white;
     width: 100%;
     line-height: 1.25rem;
+    border: none;
 }
 
 .disable{
