@@ -1,13 +1,13 @@
-import TileMap from "./tileMap.js";
+// import TileMap from "./tileMap.js";
 import Player from "./player.js";
 
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
-const tileMap = new TileMap();
+// const tileMap = new TileMap();
 
 canvas.width = innerWidth;
 canvas.height = innerHeight;
-tileMap.setCanvasSize(canvas)
+// tileMap.setCanvasSize(canvas)
 
 const xCenter = canvas.width / 2;
 const yCenter = canvas.height / 2;
@@ -108,9 +108,11 @@ let player;
 let projectiles;
 let enemies;
 let particles;
+let difficulty;
 
 function spawnEnemies() {
-  const radius = Math.random() * (30 - 4) + 4;
+  // const radius = Math.random() * (30 - 4) + 4;
+  const radius = 30 - difficulty / 2;
   let x, y;
   if (Math.random() < 0.5) {
     x = Math.random() < 0.5 ? 0 - radius : canvas.width + radius;
@@ -122,8 +124,8 @@ function spawnEnemies() {
   const color = `hsl(${Math.random() * 360}, 100%, 70%)`;
   const angle = Math.atan2(yCenter - y, xCenter - x);
   const velocity = {
-    x: Math.cos(angle),
-    y: Math.sin(angle),
+    x: Math.cos(angle) * (difficulty / 10 + 1),
+    y: Math.sin(angle) * (difficulty / 10 + 1),
   };
   if (onGame) {
     enemies.push(new Enemy(x, y, radius, color, velocity));
@@ -132,7 +134,7 @@ function spawnEnemies() {
 
 let animationId;
 function animate() {
-  tileMap.draw()
+  // tileMap.draw()
   animationId = requestAnimationFrame(animate);
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   player.draw();
@@ -163,6 +165,7 @@ function animate() {
     enemy.update();
     const distance = Math.hypot(player.x - enemy.x, player.y - enemy.y);
     if (distance - enemy.radius - player.radius < 1) {
+      enemies = []
       cancelAnimationFrame(animationId);
       mainMenu.classList.remove("disable");
       finalScore.innerText = scoreValue;
@@ -190,6 +193,7 @@ function animate() {
           projectiles.splice(projectileIndex, 1);
         });
         scoreValue += 1;
+        difficulty = scoreValue;
         scoreElement.innerText = scoreValue;
       }
     });
@@ -216,4 +220,5 @@ function init() {
   projectiles = [];
   enemies = [];
   particles = [];
+  difficulty = 0;
 }
