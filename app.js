@@ -1,5 +1,6 @@
-import TileMap from "./tileMap.js";
-import Player from "./player.js";
+import { TileMap } from "./tileMap.js";
+import { Player, Projectile } from "./player.js";
+import { Enemy } from "./enemy.js";
 
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
@@ -7,7 +8,7 @@ const tileMap = new TileMap();
 
 canvas.width = innerWidth;
 canvas.height = innerHeight;
-tileMap.setCanvasSize(canvas)
+tileMap.setCanvasSize(canvas);
 
 const xCenter = canvas.width / 2;
 const yCenter = canvas.height / 2;
@@ -32,30 +33,6 @@ function startGame() {
   animate();
 }
 
-class Projectile {
-  constructor(x, y, radius, color, velocity) {
-    this.x = x;
-    this.y = y;
-    this.radius = radius;
-    this.color = color;
-    this.velocity = velocity;
-    this.speed = 5;
-  }
-
-  draw() {
-    ctx.beginPath();
-    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
-    ctx.fillStyle = this.color;
-    ctx.fill();
-  }
-
-  update() {
-    this.draw();
-    this.x += this.velocity.x * this.speed;
-    this.y += this.velocity.y * this.speed;
-  }
-}
-
 class Particle {
   constructor(x, y, radius, color, velocity) {
     this.x = x;
@@ -78,29 +55,6 @@ class Particle {
     this.x += this.velocity.x * this.speed;
     this.y += this.velocity.y * this.speed;
     this.radius -= 0.1;
-  }
-}
-
-class Enemy {
-  constructor(x, y, radius, color, velocity) {
-    this.x = x;
-    this.y = y;
-    this.radius = radius;
-    this.color = color;
-    this.velocity = velocity;
-  }
-
-  draw() {
-    ctx.beginPath();
-    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
-    ctx.fillStyle = this.color;
-    ctx.fill();
-  }
-
-  update() {
-    this.draw();
-    this.x += this.velocity.x;
-    this.y += this.velocity.y;
   }
 }
 
@@ -132,9 +86,10 @@ function spawnEnemies() {
 
 let animationId;
 function animate() {
-  // tileMap.draw()
   animationId = requestAnimationFrame(animate);
   ctx.clearRect(0, 0, canvas.width, canvas.height);
+  tileMap.draw();
+
   player.draw();
 
   projectiles.forEach((projectile, index) => {
@@ -208,8 +163,15 @@ window.addEventListener("click", (event) => {
   }
 });
 
+window.addEventListener("click", (event) => {
+  if (onGame) {
+    const clickPositionInGrid = tileMap.detectTileClick(event.x, event.y);
+    tileMap.map[clickPositionInGrid.x][clickPositionInGrid.y] = 2;
+  }
+});
+
 function init() {
-  spawEnemiesInterval = setInterval(spawnEnemies, 1000);
+  // spawEnemiesInterval = setInterval(spawnEnemies, 1000);
 
   player = new Player(xCenter, yCenter, 15, "hsl(0, 100%, 100%)");
   scoreValue = 0;
