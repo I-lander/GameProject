@@ -17,9 +17,9 @@ export class TileMap {
     [0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 1, 0, 2, 0],
+    [0, 0, 0, 1, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 2, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0],
   ];
 
@@ -27,22 +27,13 @@ export class TileMap {
     for (let row = 0; row < this.map.length; row++) {
       for (let column = 0; column < this.map[row].length; column++) {
         let tile = this.map[row][column];
-        if (tile === 0) {
-          ctx.fillStyle = "hsl(0, 0%, 10%)";
-          ctx.fillRect(
-            this.tileSize * row,
-            this.tileSize * column,
-            this.tileSize - margin,
-            this.tileSize - margin
-          );
-        }
         if (tile === 2) {
-          ctx.fillStyle = "hsl(100, 100%, 10%)";
+          ctx.fillStyle = "hsl(0, 0%, 50%)";
           ctx.fillRect(
             this.tileSize * row,
             this.tileSize * column,
-            this.tileSize - margin,
-            this.tileSize - margin
+            this.tileSize,
+            this.tileSize
           );
         }
       }

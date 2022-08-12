@@ -160,13 +160,13 @@ window.addEventListener("click", (event) => {
   const color = "hsl(0, 100%, 100%)";
   if (onGame) {
     projectiles.push(new Projectile(xCenter, yCenter, 5, color, velocity));
-  }
-});
-
-window.addEventListener("click", (event) => {
-  if (onGame) {
+    
     const clickPositionInGrid = tileMap.detectTileClick(event.x, event.y);
-    tileMap.map[clickPositionInGrid.x][clickPositionInGrid.y] = 2;
+    if (tileMap.map[clickPositionInGrid.x][clickPositionInGrid.y] === 0) {
+      tileMap.map[clickPositionInGrid.x][clickPositionInGrid.y] = 2;
+    } else {
+      tileMap.map[clickPositionInGrid.x][clickPositionInGrid.y] = 0;
+    }
   }
 });
 
