@@ -8,10 +8,8 @@ const ctx = canvas.getContext("2d");
 const margin = 3;
 
 export class TileMap {
-  player = 1;
-  empty = 0;
-
   tileSize = 0;
+  players = [];
 
   map = [
     [0, 0, 0, 0, 0, 0, 0],
@@ -27,17 +25,44 @@ export class TileMap {
     for (let row = 0; row < this.map.length; row++) {
       for (let column = 0; column < this.map[row].length; column++) {
         let tile = this.map[row][column];
+
+        if (tile === 1) {
+          let radius = 15;
+          this.players.push(
+            new Player(
+              this.tileSize * row + this.tileSize / 2,
+              this.tileSize * column + this.tileSize / 2,
+              radius,
+              "hsl(0, 100%, 100%)"
+            )
+          );
+        }
         if (tile === 2) {
-          ctx.fillStyle = "hsl(0, 0%, 50%)";
-          ctx.fillRect(
-            this.tileSize * row,
-            this.tileSize * column,
-            this.tileSize,
-            this.tileSize
+          let radius = 7;
+          this.players.push(
+            new Player(
+              this.tileSize * row + this.tileSize / 2,
+              this.tileSize * column + this.tileSize / 2,
+              radius,
+              "hsl(0, 100%, 100%)"
+            )
           );
         }
       }
     }
+  }
+
+  init() {
+    this.players = [];
+    this.map = [
+      [0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 1, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0],
+    ];
   }
 
   setCanvasSize(canvas) {
