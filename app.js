@@ -61,18 +61,19 @@ function spawnEnemies() {
 }
 
 let animationId;
-let updateId;
 let previousDelta = 0;
 let fpsLimit = 120;
 
 function animate(currentDelta) {
   animationId = requestAnimationFrame(animate);
-  var delta = currentDelta - previousDelta;
-
+  
+  // Handle frame rate
+  const delta = currentDelta - previousDelta;
   if (delta < 1000 / fpsLimit) {
     return;
   }
-console.log('x');
+  //
+  
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   tileMap.players.forEach((player, index) => {
     player.draw(ctx);
@@ -102,8 +103,13 @@ console.log('x');
         }
       });
     });
-    scoreElement.innerText = scoreValue;
+    //
 
+    // Update Score text
+    scoreElement.innerText = scoreValue;
+    //
+
+    // Detect projectile out of screen
     player.projectiles.forEach((projectile, index) => {
       projectile.update(ctx);
       if (
@@ -117,6 +123,7 @@ console.log('x');
         });
       }
     });
+    //
   });
 
   particles.forEach((particle, index) => {
