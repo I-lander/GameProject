@@ -4,6 +4,8 @@ import { Particle } from "./visualEffects.js";
 
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
+ctx.imageSmoothingEnabled = false;
+
 const tileMap = new TileMap();
 
 canvas.width = innerWidth;
@@ -50,8 +52,8 @@ function spawnEnemies() {
   const color = `hsl(${Math.random() * 360}, 100%, 70%)`;
   const angle = Math.atan2(yCenter - y, xCenter - x);
   const velocity = {
-    x: Math.cos(angle) * 3,
-    y: Math.sin(angle) * 3,
+    x: Math.cos(angle),
+    y: Math.sin(angle),
   };
   if (onGame) {
     enemies.push(new Enemy(x, y, radius, color, velocity));
@@ -63,8 +65,9 @@ function animate() {
   animationId = requestAnimationFrame(animate);
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   tileMap.players.forEach((player, index) => {
-    player.draw();
-    setInterval(player.autoFire(enemies), 1000);
+    player.draw(ctx);
+    player.autoFire(enemies);
+
     // Kill enemy
     player.projectiles.forEach((projectile, projectileIndex) => {
       enemies.forEach((enemy, index) => {
@@ -90,8 +93,9 @@ function animate() {
         }
       });
     });
+
     player.projectiles.forEach((projectile, index) => {
-      projectile.update();
+      projectile.update(ctx);
       if (
         projectile.x + projectile.radius < 1 ||
         projectile.y + projectile.radius < 1 ||
@@ -136,14 +140,14 @@ window.addEventListener("click", (event) => {
     }
     tileMap.players = [];
 
-    tileMap.draw();
+    tileMap.draw(ctx);
   }
 });
 
 function init() {
-  spawEnemiesInterval = setInterval(spawnEnemies, 1000);
+  spawEnemiesInterval = setInterval(spawnEnemies, 250);
   tileMap.init();
-  tileMap.draw();
+  tileMap.draw(ctx);
 
   scoreValue = 0;
   enemies = [];

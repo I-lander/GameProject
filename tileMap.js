@@ -1,49 +1,62 @@
 import { Player } from "./player.js";
 
-const canvas = document.getElementById("canvas");
-canvas.width = innerWidth;
-canvas.height = innerHeight;
-const ctx = canvas.getContext("2d");
-
-const margin = 3;
-
 export class TileMap {
-  tileSize = 0;
-  players = [];
+  constructor() {
+    this.tileSize = 0;
+    this.players = [];
 
-  map = [
-    [0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 1, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0],
-  ];
+    this.godImage = new Image();
+    this.godImage.src = "./god.png";
 
-  draw() {
+    this.map = [
+      [0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 1, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0],
+    ];
+  }
+
+  draw(ctx) {
+    ctx.rect(100, 100, 10, 100);
+    ctx.lineWidth = 5;
+    ctx.strokeStyle = "black";
+    ctx.stroke();
+
     for (let row = 0; row < this.map.length; row++) {
       for (let column = 0; column < this.map[row].length; column++) {
         let tile = this.map[row][column];
+        if (tile === 0) {
+          ctx.strokeStyle = "red";
+          var fillRect = false;
+          ctx.rect(
+            column * this.tileSize,
+            row * this.tileSize,
+            this.tileSize,
+            this.tileSize
+          );
+          ctx.stroke();
+        }
 
         if (tile === 1) {
-          let radius = 15;
           this.players.push(
             new Player(
               this.tileSize * row + this.tileSize / 2,
               this.tileSize * column + this.tileSize / 2,
-              radius,
-              "hsl(0, 100%, 100%)"
+              this.tileSize,
+              "./god.png",null
             )
           );
         }
         if (tile === 2) {
-          let radius = 7;
           this.players.push(
             new Player(
               this.tileSize * row + this.tileSize / 2,
               this.tileSize * column + this.tileSize / 2,
-              radius,
+              7,
+              '',
               "hsl(0, 100%, 100%)"
             )
           );
