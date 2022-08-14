@@ -63,16 +63,16 @@ function spawnEnemies() {
 let animationId;
 let updateId;
 let previousDelta = 0;
-let fpsLimit = 60;
+let fpsLimit = 120;
 
 function animate(currentDelta) {
   animationId = requestAnimationFrame(animate);
   var delta = currentDelta - previousDelta;
 
-  if (fpsLimit && delta < 1000 / fpsLimit) {
+  if (delta < 1000 / fpsLimit) {
     return;
   }
-
+console.log('x');
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   tileMap.players.forEach((player, index) => {
     player.draw(ctx);
@@ -102,7 +102,7 @@ function animate(currentDelta) {
         }
       });
     });
-    scoreElement.innerText = delta;
+    scoreElement.innerText = scoreValue;
 
     player.projectiles.forEach((projectile, index) => {
       projectile.update(ctx);
