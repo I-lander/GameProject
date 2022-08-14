@@ -99,10 +99,10 @@ function animate(currentDelta) {
             player.projectiles.splice(projectileIndex, 1);
           });
           scoreValue += 1;
-          scoreElement.innerText = scoreValue;
         }
       });
     });
+    scoreElement.innerText = delta;
 
     player.projectiles.forEach((projectile, index) => {
       projectile.update(ctx);

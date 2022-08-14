@@ -20,24 +20,10 @@ export class TileMap {
   }
 
   draw(ctx) {
-    ctx.rect(100, 100, 10, 100);
-    ctx.lineWidth = 5;
-    ctx.strokeStyle = "black";
-    ctx.stroke();
-
     for (let row = 0; row < this.map.length; row++) {
       for (let column = 0; column < this.map[row].length; column++) {
         let tile = this.map[row][column];
         if (tile === 0) {
-          ctx.strokeStyle = "red";
-          var fillRect = false;
-          ctx.rect(
-            column * this.tileSize,
-            row * this.tileSize,
-            this.tileSize,
-            this.tileSize
-          );
-          ctx.stroke();
         }
 
         if (tile === 1) {
