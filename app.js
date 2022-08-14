@@ -61,8 +61,18 @@ function spawnEnemies() {
 }
 
 let animationId;
-function animate() {
+let updateId;
+let previousDelta = 0;
+let fpsLimit = 60;
+
+function animate(currentDelta) {
   animationId = requestAnimationFrame(animate);
+  var delta = currentDelta - previousDelta;
+
+  if (fpsLimit && delta < 1000 / fpsLimit) {
+    return;
+  }
+
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   tileMap.players.forEach((player, index) => {
     player.draw(ctx);
@@ -128,6 +138,8 @@ function animate() {
       clearInterval(spawEnemiesInterval);
     }
   });
+
+  previousDelta = currentDelta;
 }
 
 window.addEventListener("click", (event) => {
