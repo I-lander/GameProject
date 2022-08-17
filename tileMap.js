@@ -9,14 +9,18 @@ export class TileMap {
     this.godImage.src = "./god.png";
 
     this.map = [
-      [0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 1, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 1, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0],
     ];
+
+    this.activeTiles = [];
   }
 
   draw(ctx) {
@@ -27,25 +31,44 @@ export class TileMap {
         }
 
         if (tile === 1) {
-          this.players.push(
-            new Player(
+          let currentTile = { row: row, column: column };
+          const isFound = this.activeTiles.some((tile) => {
+            if (tile.row === row && tile.column === column) {
+              return true;
+            }
+            return false;
+          });
+          if (!isFound) {
+            let player = new Player(
               this.tileSize * row + this.tileSize / 2,
               this.tileSize * column + this.tileSize / 2,
               this.tileSize,
-              "./god.png",null
-            )
-          );
+              "./god.png",
+              null
+            );
+            this.players.push(player);
+            this.activeTiles.push(currentTile);
+          }
         }
         if (tile === 2) {
-          this.players.push(
-            new Player(
+          let currentTile = { row: row, column: column };
+          const isFound = this.activeTiles.some((tile) => {
+            if (tile.row === row && tile.column === column) {
+              return true;
+            }
+            return false;
+          });
+          if (!isFound) {
+            let player = new Player(
               this.tileSize * row + this.tileSize / 2,
               this.tileSize * column + this.tileSize / 2,
-              7,
-              '',
-              "hsl(0, 100%, 100%)"
-            )
-          );
+              this.tileSize,
+              "./mouth.png",
+              null
+            );
+            this.players.push(player);
+            this.activeTiles.push(currentTile);
+          }
         }
       }
     }
@@ -54,13 +77,15 @@ export class TileMap {
   init() {
     this.players = [];
     this.map = [
-      [0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 1, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 1, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0],
     ];
   }
 

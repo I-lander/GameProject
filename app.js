@@ -62,19 +62,21 @@ function spawnEnemies() {
 
 let animationId;
 let previousDelta = 0;
-let fpsLimit = 120;
+let fpsLimit = 90;
 
 function animate(currentDelta) {
   animationId = requestAnimationFrame(animate);
-  
+
   // Handle frame rate
   const delta = currentDelta - previousDelta;
+
   if (delta < 1000 / fpsLimit) {
     return;
   }
   //
   
   ctx.clearRect(0, 0, canvas.width, canvas.height);
+  tileMap.draw(ctx);
   tileMap.players.forEach((player, index) => {
     player.draw(ctx);
     player.autoFire(enemies);
@@ -157,16 +159,16 @@ window.addEventListener("click", (event) => {
     } else {
       tileMap.map[clickPositionInGrid.x][clickPositionInGrid.y] = 0;
     }
-    tileMap.players = [];
+    // tileMap.players = [];
 
-    tileMap.draw(ctx);
+    // tileMap.draw(ctx);
   }
 });
 
 function init() {
   spawEnemiesInterval = setInterval(spawnEnemies, 250);
   tileMap.init();
-  tileMap.draw(ctx);
+  // tileMap.draw(ctx);
 
   scoreValue = 0;
   enemies = [];
