@@ -1,12 +1,13 @@
-import { TileMap } from "./tileMap.js";
-import { Enemy } from "./enemy.js";
-import { Particle } from "./visualEffects.js";
+import { TileMap } from "./src/tileMap.js";
+import { Enemy } from "./src/enemy.js";
+import { Particle } from "./src/visualEffects.js";
 
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 ctx.imageSmoothingEnabled = false;
 
 const tileMap = new TileMap();
+export { tileMap };
 
 canvas.width = innerWidth;
 canvas.height = innerHeight;
@@ -40,23 +41,25 @@ let enemies;
 let particles;
 
 function spawnEnemies() {
-  const radius = Math.random() * (30 - 4) + 4;
-  let x, y;
-  if (Math.random() < 0.5) {
-    x = Math.random() < 0.5 ? 0 - radius : canvas.width + radius;
-    y = Math.random() * canvas.height;
-  } else {
-    x = Math.random() * canvas.width;
-    y = Math.random() < 0.5 ? 0 - radius : canvas.height + radius;
-  }
-  const color = `hsl(${Math.random() * 360}, 100%, 70%)`;
-  const angle = Math.atan2(yCenter - y, xCenter - x);
-  const velocity = {
-    x: Math.cos(angle),
-    y: Math.sin(angle),
-  };
+  const radius = 15;
+  // let x, y;
+  // if (Math.random() < 0.5) {
+  //   x = Math.random() < 0.5 ? 0 - radius : canvas.width + radius;
+  //   y = Math.random() * canvas.height;
+  // } else {
+  //   x = Math.random() * canvas.width;
+  //   y = Math.random() < 0.5 ? 0 - radius : canvas.height + radius;
+  // }
+  // const color = `hsl(${Math.random() * 360}, 100%, 70%)`;
+  // const angle = Math.atan2(yCenter - y, xCenter - x);
+  // const velocity = {
+  //   x: Math.cos(angle),
+  //   y: Math.sin(angle),
+  // };
   if (onGame) {
-    enemies.push(new Enemy(x, y, radius, color, velocity));
+    enemies.push(
+      new Enemy(tileMap.tileSize * 3, 0 - tileMap.tileSize, radius, "black")
+    );
   }
 }
 
@@ -74,7 +77,7 @@ function animate(currentDelta) {
     return;
   }
   //
-  
+
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   tileMap.draw(ctx);
   tileMap.players.forEach((player, index) => {
@@ -129,7 +132,7 @@ function animate(currentDelta) {
   });
 
   particles.forEach((particle, index) => {
-    particle.update();
+    particle.update(ctx);
     if (particle.radius < 0) {
       particles.splice(index, 1);
     }
@@ -137,7 +140,7 @@ function animate(currentDelta) {
 
   // Game over
   enemies.forEach((enemy, index) => {
-    enemy.update();
+    enemy.update(ctx);
     const distance = Math.hypot(xCenter - enemy.x, yCenter - enemy.y);
     if (distance - enemy.radius - 15 < 1) {
       cancelAnimationFrame(animationId);
@@ -153,23 +156,17 @@ function animate(currentDelta) {
 
 window.addEventListener("click", (event) => {
   if (onGame) {
-    const clickPositionInGrid = tileMap.detectTileClick(event.x, event.y);
+    const clickPositionInGrid = tileMap.getPosition(event.x, event.y);
+    console.log(clickPositionInGrid);
     if (tileMap.map[clickPositionInGrid.x][clickPositionInGrid.y] === 0) {
-      tileMap.map[clickPositionInGrid.x][clickPositionInGrid.y] = 2;
-    } else {
-      tileMap.map[clickPositionInGrid.x][clickPositionInGrid.y] = 0;
+      tileMap.map[clickPositionInGrid.y][clickPositionInGrid.x] = 2;
     }
-    // tileMap.players = [];
-
-    // tileMap.draw(ctx);
   }
 });
 
 function init() {
-  spawEnemiesInterval = setInterval(spawnEnemies, 250);
+  spawEnemiesInterval = setInterval(spawnEnemies, 1000);
   tileMap.init();
-  // tileMap.draw(ctx);
-
   scoreValue = 0;
   enemies = [];
   particles = [];

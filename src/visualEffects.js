@@ -1,7 +1,3 @@
-
-const canvas = document.getElementById("canvas");
-const ctx = canvas.getContext("2d");
-
 class Particle {
     constructor(x, y, radius, color, velocity) {
       this.x = x;
@@ -12,15 +8,15 @@ class Particle {
       this.speed = 5;
     }
   
-    draw() {
+    draw(ctx) {
       ctx.beginPath();
       ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
       ctx.fillStyle = this.color;
       ctx.fill();
     }
   
-    update() {
-      this.draw();
+    update(ctx) {
+      this.draw(ctx);
       this.x += this.velocity.x * this.speed;
       this.y += this.velocity.y * this.speed;
       this.radius -= 0.1;

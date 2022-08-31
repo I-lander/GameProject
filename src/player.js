@@ -10,6 +10,7 @@ class Player {
 
     this.img = new Image();
     this.img.src = image;
+    this.range = 150;
   }
 
   draw(ctx) {
@@ -29,6 +30,11 @@ class Player {
       ctx.fillStyle = this.color;
       ctx.fill();
     }
+
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.range, 0, Math.PI * 2, false);
+    ctx.strokeStyle = "white"
+    ctx.stroke();
   }
 
   autoFire(enemies) {
@@ -42,11 +48,15 @@ class Player {
       });
       const angle = Math.atan2(enemies[0].y - this.y, enemies[0].x - this.x);
       const velocity = {
-        x: Math.cos(angle) * 2,
-        y: Math.sin(angle) * 2,
+        x: Math.cos(angle) * 5,
+        y: Math.sin(angle) * 5,
       };
-      const color = "hsl(0, 100%, 100%)";
-      this.projectiles.push(new Projectile(this.x, this.y, 5, color, velocity));
+      const color = "black";
+      if (enemies[0].distance < this.range) {
+        this.projectiles.push(
+          new Projectile(this.x, this.y, 5, color, velocity)
+        );
+      }
     }
   }
 }
