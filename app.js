@@ -157,8 +157,7 @@ function animate(currentDelta) {
 window.addEventListener("click", (event) => {
   if (onGame) {
     const clickPositionInGrid = tileMap.getPosition(event.x, event.y);
-    console.log(clickPositionInGrid);
-    if (tileMap.map[clickPositionInGrid.x][clickPositionInGrid.y] === 0) {
+    if (tileMap.map[clickPositionInGrid.y][clickPositionInGrid.x] === 0) {
       tileMap.map[clickPositionInGrid.y][clickPositionInGrid.x] = 2;
     }
   }

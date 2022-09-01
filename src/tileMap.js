@@ -6,8 +6,8 @@ export class TileMap {
     this.tileSize = 0;
     this.players = [];
 
-    this.godImage = new Image();
-    this.godImage.src = "./god.png";
+    this.road = new Image();
+    this.road.src = "./src/images/road.png";
 
     this.map = map;
     this.activeTiles = [];
@@ -28,7 +28,7 @@ export class TileMap {
             this.tileSize
           );
           ctx.fill();
-          this.drawRoad(row, column)
+          this.drawRoad(ctx, row, column);
         }
 
         if (tile === 1) {
@@ -39,10 +39,10 @@ export class TileMap {
             )
           ) {
             let player = new Player(
-              this.tileSize * row + this.tileSize / 2,
               this.tileSize * column + this.tileSize / 2,
+              this.tileSize * row + this.tileSize / 2,
               this.tileSize,
-              "./god.png",
+              "./src/images/god.png",
               null
             );
             this.players.push(player);
@@ -58,8 +58,8 @@ export class TileMap {
             )
           ) {
             let player = new Player(
-              this.tileSize * row + this.tileSize / 2,
               this.tileSize * column + this.tileSize / 2,
+              this.tileSize * row + this.tileSize / 2,
               this.tileSize,
               "./mouth.png",
               null
@@ -72,8 +72,37 @@ export class TileMap {
     }
   }
 
-  drawRoad(row, column){
-    // TODO
+  drawRoad(ctx, row, column) {
+    ctx.imageSmoothingEnabled = false;
+
+    let position = { x: column, y: row };
+    let neighbors = this.getNeighbors(position);
+    if ((neighbors.up.value === 9 || neighbors.up.value === 99) && neighbors.down.value === 9) {
+      ctx.drawImage(
+        this.road,
+        0,
+        32,
+        32,
+        32,
+        column * this.tileSize,
+        row * this.tileSize,
+        this.tileSize,
+        this.tileSize
+      );
+    }
+    if (neighbors.up.value === 9 && neighbors.down.value === 0 && neighbors.right.value === 9 ) {
+      ctx.drawImage(
+        this.road,
+        0,
+        32*2,
+        32,
+        32,
+        column * this.tileSize,
+        row * this.tileSize,
+        this.tileSize,
+        this.tileSize
+      );
+    }
   }
 
   init() {
@@ -149,5 +178,4 @@ export class TileMap {
     };
     return neighbors;
   }
-
 }
