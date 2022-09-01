@@ -2,7 +2,7 @@ import { map } from "./constants.js";
 import { tileMap } from "../app.js";
 
 export class Enemy {
-  constructor(x, y, radius, color, velocity) {
+  constructor(x, y, radius, image = null, color, velocity) {
     this.x = x - tileMap.tileSize / 2;
     this.y = y + tileMap.tileSize / 2;
     this.radius = radius;
@@ -12,27 +12,61 @@ export class Enemy {
     this.position = tileMap.getPosition(this.x, this.y);
     this.path = [];
     this.path = this.pathFinding(this.position);
+    this.isImage = image ? true : false;
+
+    this.img = new Image();
+    this.img.src = image;
+    this.frame = 0;
   }
 
   draw(ctx) {
-    ctx.beginPath();
-    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
-    ctx.fillStyle = this.color;
-    ctx.fill();
+    if (this.frame < 30) {
+      ctx.drawImage(
+        this.img,
+        0 * 32,
+        0 * 32,
+        32,
+        32,
+        this.x - this.radius / 2,
+        this.y - this.radius / 2,
+        this.radius,
+        this.radius
+      );
+      this.frame++;
+    }
+
+    if (this.frame >= 30) {
+      ctx.drawImage(
+        this.img,
+        1 * 32,
+        0 * 32,
+        32,
+        32,
+        this.x - this.radius / 2,
+        this.y - this.radius / 2,
+        this.radius,
+        this.radius
+      );
+      this.frame++;
+    }
+    if (this.frame >= 90) {
+      this.frame = 0;
+    }
   }
 
   update(ctx) {
     this.draw(ctx);
-    let direction = this.moveInPath(this.path);
-    if (direction === "DOWN" || this.direction === "END") {
-      this.velocity = { x: 0, y: 1 };
+    let path = this.moveInPath(this.path);
+    if (path.direction === "DOWN" && this.x >= (path.position.x*tileMap.tileSize)+tileMap.tileSize/2) {
+        this.velocity = { x: 0, y: 1 };
     }
-    if (direction === "RIGHT") {
+    if (path.direction === "RIGHT" && this.y > (path.position.y*tileMap.tileSize)+tileMap.tileSize/2) {
       this.velocity = { x: 1, y: 0 };
     }
 
     this.x += this.velocity.x;
     this.y += this.velocity.y;
+
   }
 
   pathFinding(position) {
@@ -105,7 +139,7 @@ export class Enemy {
         currentTile.x === item.position.x &&
         currentTile.y === item.position.y
       ) {
-        return path[i + 1].direction;
+        return path[i + 1];
       }
     }
   }

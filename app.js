@@ -30,6 +30,8 @@ function startGame() {
   init();
   setTimeout(() => {
     onGame = true;
+  spawnEnemies()
+
   }, 300);
   mainMenu.classList.add("disable");
   scoreElement.classList.remove("disable");
@@ -56,9 +58,10 @@ function spawnEnemies() {
   //   x: Math.cos(angle),
   //   y: Math.sin(angle),
   // };
-  if (onGame) {
+  
+  if (onGame) {console.log("x");
     enemies.push(
-      new Enemy(tileMap.tileSize * 3, 0 - tileMap.tileSize, radius, "black")
+      new Enemy(tileMap.tileSize * 3, 0 - tileMap.tileSize, tileMap.tileSize , "./src/images/spider.png", "black")
     );
   }
 }
@@ -164,7 +167,8 @@ window.addEventListener("click", (event) => {
 });
 
 function init() {
-  spawEnemiesInterval = setInterval(spawnEnemies, 1000);
+  // spawEnemiesInterval = setInterval(spawnEnemies, 1000);
+  spawnEnemies()
   tileMap.init();
   scoreValue = 0;
   enemies = [];

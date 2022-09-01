@@ -30,11 +30,6 @@ class Player {
       ctx.fillStyle = this.color;
       ctx.fill();
     }
-
-    ctx.beginPath();
-    ctx.arc(this.x, this.y, this.range, 0, Math.PI * 2, false);
-    ctx.strokeStyle = "white"
-    ctx.stroke();
   }
 
   autoFire(enemies) {
