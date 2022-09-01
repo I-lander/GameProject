@@ -20,7 +20,7 @@ export class Enemy {
   }
 
   draw(ctx) {
-    if (this.frame < 30) {
+    if (this.frame < 15) {
       ctx.drawImage(
         this.img,
         0 * 32,
@@ -35,7 +35,7 @@ export class Enemy {
       this.frame++;
     }
 
-    if (this.frame >= 30) {
+    if (this.frame >= 15) {
       ctx.drawImage(
         this.img,
         1 * 32,
@@ -49,7 +49,7 @@ export class Enemy {
       );
       this.frame++;
     }
-    if (this.frame >= 90) {
+    if (this.frame >= 30) {
       this.frame = 0;
     }
   }

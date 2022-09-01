@@ -13,6 +13,8 @@ canvas.width = innerWidth;
 canvas.height = innerHeight;
 tileMap.setCanvasSize(canvas);
 
+let pause = false;
+
 const xCenter = canvas.width / 2;
 const yCenter = canvas.height / 2;
 let scoreValue = 0;
@@ -58,7 +60,13 @@ function spawnEnemies() {
   // };
   if (onGame) {
     enemies.push(
-      new Enemy(tileMap.tileSize * 3, 0 - tileMap.tileSize, tileMap.tileSize , "./src/images/spider.png", "black")
+      new Enemy(
+        tileMap.tileSize * 3,
+        0 - tileMap.tileSize,
+        tileMap.tileSize,
+        "./src/images/spider.png",
+        "black"
+      )
     );
   }
 }
@@ -161,6 +169,28 @@ window.addEventListener("click", (event) => {
       tileMap.map[clickPositionInGrid.y][clickPositionInGrid.x] = 2;
     }
   }
+});
+
+window.addEventListener("focus", function (event) {
+  if (pause) {
+    onGame = true;
+    requestAnimationFrame(animate);
+    pause = false;
+  }
+});
+
+window.addEventListener("blur", function (event) {
+  onGame = false;
+  pause = true;
+  cancelAnimationFrame(animationId);
+});
+
+window.addEventListener("focus", function (event) {
+  console.log("has focus");
+});
+
+window.addEventListener("blur", function (event) {
+  onGame = false;
 });
 
 function init() {

@@ -20,7 +20,7 @@ export class TileMap {
         if (tile === 0) {
         }
         if (tile === 9) {
-          ctx.fillStyle = "yellow";
+          ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
           ctx.fillRect(
             this.tileSize * column,
             this.tileSize * row,
