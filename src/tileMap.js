@@ -62,8 +62,8 @@ export class TileMap {
     let position = { x: column, y: row };
     let neighbors = this.getNeighbors(position);
     if (
-      (neighbors.up.value === "9" || neighbors.up.value === "99") &&
-      neighbors.down.value === "9"
+      (neighbors.up.tileValue === "9" || neighbors.up.tileValue === "99") &&
+      neighbors.down.tileValue === "9"
     ) {
       ctx.drawImage(
         this.road,
@@ -78,9 +78,9 @@ export class TileMap {
       );
     }
     if (
-      neighbors.up.value === "9" &&
-      neighbors.down.value === "0" &&
-      neighbors.right.value === "9"
+      neighbors.up.tileValue === "9" &&
+      neighbors.down.tileValue === "0" &&
+      neighbors.right.tileValue === "9"
     ) {
       ctx.drawImage(
         this.road,
@@ -95,10 +95,10 @@ export class TileMap {
       );
     }
     if (
-      neighbors.up.value === "0" &&
-      neighbors.down.value === "0" &&
-      neighbors.right.value === "9" &&
-      neighbors.left.value === "9"
+      neighbors.up.tileValue === "0" &&
+      neighbors.down.tileValue === "0" &&
+      neighbors.right.tileValue === "9" &&
+      neighbors.left.tileValue === "9"
     ) {
       ctx.drawImage(
         this.road,
@@ -113,10 +113,10 @@ export class TileMap {
       );
     }
     if (
-      neighbors.up.value === "0" &&
-      neighbors.down.value === "9" &&
-      neighbors.right.value === "0" &&
-      neighbors.left.value === "9"
+      neighbors.up.tileValue === "0" &&
+      neighbors.down.tileValue === "9" &&
+      neighbors.right.tileValue === "0" &&
+      neighbors.left.tileValue === "9"
     ) {
       ctx.drawImage(
         this.road,
@@ -178,7 +178,7 @@ export class TileMap {
 
   getNeighbors(position) {
     let neighbors = {
-      up: { position: { x: 0, y: 0 }, value: 0 },
+      up: { position: { x: 0, y: 0 }, tileValue: 0 },
       down: 0,
       left: 0,
       right: 0,
@@ -186,22 +186,22 @@ export class TileMap {
 
     neighbors.up = {
       position: { x: position.x, y: position.y - 1 },
-      value: position.y - 1 >= 0 ? map[position.y - 1][position.x] : "99",
+      tileValue: position.y - 1 >= 0 ? map[position.y - 1][position.x] : "99",
     };
 
     neighbors.down = {
       position: { x: position.x, y: position.y + 1 },
-      value: map[position.y + 1][position.x],
+      tileValue: map[position.y + 1][position.x],
     };
     if (position.x > 0) {
       neighbors.left = {
         position: { x: position.x - 1, y: position.y },
-        value: map[position.y][position.x - 1],
+        tileValue: map[position.y][position.x - 1],
       };
     }
     neighbors.right = {
       position: { x: position.x + 1, y: position.y },
-      value: map[position.y][position.x + 1],
+      tileValue: map[position.y][position.x + 1],
     };
     return neighbors;
   }

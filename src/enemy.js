@@ -89,7 +89,7 @@ export class Enemy {
     }
 
     if (
-      neighbors.up.value === "9" &&
+      neighbors.up.tileValue === "9" &&
       !this.path.some(
         (path) =>
           path.position.x === neighbors.up.position.x &&
@@ -101,7 +101,7 @@ export class Enemy {
     }
 
     if (
-      neighbors.down.value === "9" &&
+      neighbors.down.tileValue === "9" &&
       !this.path.some(
         (path) =>
           path.position.x === neighbors.down.position.x &&
@@ -112,7 +112,7 @@ export class Enemy {
       this.pathFinding(neighbors.down.position);
     }
     if (
-      neighbors.right.value === "9" &&
+      neighbors.right.tileValue === "9" &&
       !this.path.some(
         (path) =>
           path.position.x === neighbors.right.position.x &&
@@ -126,7 +126,7 @@ export class Enemy {
       this.pathFinding(neighbors.right.position);
     }
     if (
-      neighbors.left.value === "9" &&
+      neighbors.left.tileValue === "9" &&
       !this.path.some(
         (path) =>
           path.position.x === neighbors.left.position.x &&
