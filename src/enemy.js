@@ -14,6 +14,8 @@ export class Enemy {
     this.path = this.pathFinding(this.position);
     this.isImage = image ? true : false;
 
+    this.hitBox = tileMap.tileSize / 2;
+
     this.img = new Image();
     this.img.src = image;
     this.frame = 0;
@@ -54,19 +56,23 @@ export class Enemy {
     }
   }
 
-  update(ctx) {
+  update(ctx, delta) {
     this.draw(ctx);
     let path = this.moveInPath(this.path);
-    if (path.direction === "DOWN" && this.x >= (path.position.x*tileMap.tileSize)+tileMap.tileSize/2) {
-        this.velocity = { x: 0, y: 1 };
+    if (
+      path.direction === "DOWN" &&
+      this.x >= path.position.x * tileMap.tileSize + tileMap.tileSize / 2
+    ) {
+      this.velocity = { x: 0, y: 1 };
     }
-    if (path.direction === "RIGHT" && this.y > (path.position.y*tileMap.tileSize)+tileMap.tileSize/2) {
+    if (
+      path.direction === "RIGHT" &&
+      this.y > path.position.y * tileMap.tileSize + tileMap.tileSize / 2
+    ) {
       this.velocity = { x: 1, y: 0 };
     }
-
-    this.x += this.velocity.x;
-    this.y += this.velocity.y;
-
+    this.x += this.velocity.x * (delta);
+    this.y += this.velocity.y * (delta);
   }
 
   pathFinding(position) {

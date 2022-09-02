@@ -44,20 +44,6 @@ let particles;
 
 function spawnEnemies() {
   const radius = 15;
-  // let x, y;
-  // if (Math.random() < 0.5) {
-  //   x = Math.random() < 0.5 ? 0 - radius : canvas.width + radius;
-  //   y = Math.random() * canvas.height;
-  // } else {
-  //   x = Math.random() * canvas.width;
-  //   y = Math.random() < 0.5 ? 0 - radius : canvas.height + radius;
-  // }
-  // const color = `hsl(${Math.random() * 360}, 100%, 70%)`;
-  // const angle = Math.atan2(yCenter - y, xCenter - x);
-  // const velocity = {
-  //   x: Math.cos(angle),
-  //   y: Math.sin(angle),
-  // };
   if (onGame) {
     enemies.push(
       new Enemy(
@@ -72,20 +58,18 @@ function spawnEnemies() {
 }
 
 let animationId;
-let previousDelta = 0;
-let fpsLimit = 90;
+let lastFrameTimeMs = 0; // The last time the loop was run
+let maxFPS = 90; // The maximum FPS we want to allow
+let delta = 0
+let speedFactor = 10
 
-function animate(currentDelta) {
-  animationId = requestAnimationFrame(animate);
-
-  // Handle frame rate
-  const delta = currentDelta - previousDelta;
-
-  if (delta < 1000 / fpsLimit) {
-    return;
+function animate(timestamp) {
+  if (timestamp < lastFrameTimeMs + 1000 / maxFPS) {
+    animationId = requestAnimationFrame(animate);
+    return
   }
-  //
-
+  delta = (timestamp - lastFrameTimeMs) / speedFactor; // get the delta time since last frame
+  lastFrameTimeMs = timestamp;
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   tileMap.draw(ctx);
   tileMap.players.forEach((player, index) => {
@@ -100,9 +84,9 @@ function animate(currentDelta) {
           projectile.y - enemy.y
         );
         if (distance - enemy.radius - projectile.radius < 1) {
-          for (let i = 0; i < enemy.radius * 2; i++) {
+          for (let i = 0; i < 20; i++) {
             particles.push(
-              new Particle(enemy.x, enemy.y, Math.random() * 3, enemy.color, {
+              new Particle(enemy.x, enemy.y, Math.random() * 3, {
                 x: Math.random() - 0.5,
                 y: Math.random() - 0.5,
               })
@@ -124,7 +108,7 @@ function animate(currentDelta) {
 
     // Detect projectile out of screen
     player.projectiles.forEach((projectile, index) => {
-      projectile.update(ctx);
+      projectile.update(ctx, delta);
       if (
         projectile.x + projectile.radius < 1 ||
         projectile.y + projectile.radius < 1 ||
@@ -140,7 +124,7 @@ function animate(currentDelta) {
   });
 
   particles.forEach((particle, index) => {
-    particle.update(ctx);
+    particle.update(ctx, delta);
     if (particle.radius < 0) {
       particles.splice(index, 1);
     }
@@ -148,9 +132,9 @@ function animate(currentDelta) {
 
   // Game over
   enemies.forEach((enemy, index) => {
-    enemy.update(ctx);
+    enemy.update(ctx, delta);
     const distance = Math.hypot(xCenter - enemy.x, yCenter - enemy.y);
-    if (distance - enemy.radius - 15 < 1) {
+    if (distance - enemy.hitBox < 1) {
       cancelAnimationFrame(animationId);
       mainMenu.classList.remove("disable");
       finalScore.innerText = scoreValue;
@@ -158,8 +142,8 @@ function animate(currentDelta) {
       clearInterval(spawEnemiesInterval);
     }
   });
+  animationId = requestAnimationFrame(animate);
 
-  previousDelta = currentDelta;
 }
 
 window.addEventListener("click", (event) => {
@@ -183,14 +167,6 @@ window.addEventListener("blur", function (event) {
   onGame = false;
   pause = true;
   cancelAnimationFrame(animationId);
-});
-
-window.addEventListener("focus", function (event) {
-  console.log("has focus");
-});
-
-window.addEventListener("blur", function (event) {
-  onGame = false;
 });
 
 function init() {
