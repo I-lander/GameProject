@@ -1,4 +1,4 @@
-import { tileMap } from "../app.js";
+import { tileSize, pixelUnit } from "../app.js";
 
 class Player {
   constructor(x, y, radius, image = null, color = null) {
@@ -7,7 +7,7 @@ class Player {
     this.radius = radius;
     this.color = color;
     this.projectiles = [];
-    this.range = tileMap.tileSize * 1.5;
+    this.range = tileSize * 1.5;
 
     this.isImage = image ? true : false;
 
@@ -65,7 +65,7 @@ class Projectile {
     this.radius = radius;
     this.color = color;
     this.velocity = velocity;
-    this.speed = 1;
+    this.speed = 0.3;
   }
 
   draw(ctx) {
@@ -77,8 +77,8 @@ class Projectile {
 
   update(ctx, delta) {
     this.draw(ctx);
-    this.x += this.velocity.x * delta;
-    this.y += this.velocity.y * delta;
+    this.x += this.velocity.x * pixelUnit * delta * this.speed;
+    this.y += this.velocity.y * pixelUnit * delta * this.speed;
   }
 }
 

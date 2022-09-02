@@ -7,13 +7,15 @@ const ctx = canvas.getContext("2d");
 ctx.imageSmoothingEnabled = false;
 
 const tileMap = new TileMap();
-export { tileMap };
 
 canvas.width = innerWidth;
 canvas.height = innerHeight;
-tileMap.setCanvasSize(canvas);
 
-let pause = false;
+tileMap.setCanvasSize(canvas);
+const tileSize = tileMap.tileSize;
+const pixelUnit = tileSize / 32;
+
+export { tileMap, tileSize, pixelUnit };
 
 const xCenter = canvas.width / 2;
 const yCenter = canvas.height / 2;
@@ -47,9 +49,9 @@ function spawnEnemies() {
   if (onGame) {
     enemies.push(
       new Enemy(
-        tileMap.tileSize * 3,
-        0 - tileMap.tileSize,
-        tileMap.tileSize,
+        tileSize * 3,
+        0 - tileSize,
+        tileSize,
         "./src/images/spider.png",
         "black"
       )
@@ -60,17 +62,19 @@ function spawnEnemies() {
 let animationId;
 let lastFrameTimeMs = 0; // The last time the loop was run
 let maxFPS = 90; // The maximum FPS we want to allow
-let delta = 0
-let speedFactor = 10
+let delta = 0;
+let speedFactor = 10;
 
 function animate(timestamp) {
   if (timestamp < lastFrameTimeMs + 1000 / maxFPS) {
     animationId = requestAnimationFrame(animate);
-    return
+    return;
   }
   delta = (timestamp - lastFrameTimeMs) / speedFactor; // get the delta time since last frame
   lastFrameTimeMs = timestamp;
+
   ctx.clearRect(0, 0, canvas.width, canvas.height);
+
   tileMap.draw(ctx);
   tileMap.players.forEach((player, index) => {
     player.draw(ctx);
@@ -83,7 +87,7 @@ function animate(timestamp) {
           projectile.x - enemy.x,
           projectile.y - enemy.y
         );
-        if (distance - enemy.radius - projectile.radius < 1) {
+        if (distance - enemy.hitBox - projectile.radius < 1) {
           for (let i = 0; i < 20; i++) {
             particles.push(
               new Particle(enemy.x, enemy.y, Math.random() * 3, {
@@ -133,6 +137,7 @@ function animate(timestamp) {
   // Game over
   enemies.forEach((enemy, index) => {
     enemy.update(ctx, delta);
+
     const distance = Math.hypot(xCenter - enemy.x, yCenter - enemy.y);
     if (distance - enemy.hitBox < 1) {
       cancelAnimationFrame(animationId);
@@ -143,30 +148,15 @@ function animate(timestamp) {
     }
   });
   animationId = requestAnimationFrame(animate);
-
 }
 
 window.addEventListener("click", (event) => {
-  if (onGame) {
+  if (onGame && event.x < canvas.width && event.y < canvas.height) {
     const clickPositionInGrid = tileMap.getPosition(event.x, event.y);
-    if (tileMap.map[clickPositionInGrid.y][clickPositionInGrid.x] === 0) {
-      tileMap.map[clickPositionInGrid.y][clickPositionInGrid.x] = 2;
+    if (tileMap.map[clickPositionInGrid.y][clickPositionInGrid.x] === "0") {
+      tileMap.map[clickPositionInGrid.y][clickPositionInGrid.x] = "2";
     }
   }
-});
-
-window.addEventListener("focus", function (event) {
-  if (pause) {
-    onGame = true;
-    requestAnimationFrame(animate);
-    pause = false;
-  }
-});
-
-window.addEventListener("blur", function (event) {
-  onGame = false;
-  pause = true;
-  cancelAnimationFrame(animationId);
 });
 
 function init() {

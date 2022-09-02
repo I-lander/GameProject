@@ -1,20 +1,20 @@
-import { map } from "./constants.js";
-import { tileMap } from "../app.js";
+import { pixelUnit, tileMap, tileSize } from "../app.js";
 
 export class Enemy {
-  constructor(x, y, radius, image = null, color, velocity) {
-    this.x = x - tileMap.tileSize / 2;
-    this.y = y + tileMap.tileSize / 2;
+  constructor(x, y, radius, image = null, color, velocity, speed) {
+    this.x = x - tileSize / 2;
+    this.y = y + tileSize / 2;
     this.radius = radius;
     this.color = color;
     this.velocity = { x: 0, y: 0 };
+    this.speed = speed ?? 0.2;
     this.distance = 0;
     this.position = tileMap.getPosition(this.x, this.y);
     this.path = [];
     this.path = this.pathFinding(this.position);
     this.isImage = image ? true : false;
 
-    this.hitBox = tileMap.tileSize / 2;
+    this.hitBox = tileSize / 3;
 
     this.img = new Image();
     this.img.src = image;
@@ -58,21 +58,23 @@ export class Enemy {
 
   update(ctx, delta) {
     this.draw(ctx);
+
     let path = this.moveInPath(this.path);
     if (
       path.direction === "DOWN" &&
-      this.x >= path.position.x * tileMap.tileSize + tileMap.tileSize / 2
+      Math.floor(this.x) >=
+        Math.floor(path.position.x * tileSize + tileSize / 2)
     ) {
       this.velocity = { x: 0, y: 1 };
     }
     if (
       path.direction === "RIGHT" &&
-      this.y > path.position.y * tileMap.tileSize + tileMap.tileSize / 2
+      this.y > path.position.y * tileSize + tileSize / 2
     ) {
       this.velocity = { x: 1, y: 0 };
     }
-    this.x += this.velocity.x * (delta);
-    this.y += this.velocity.y * (delta);
+    this.x += this.velocity.x * pixelUnit * delta * this.speed;
+    this.y += this.velocity.y * pixelUnit * delta * this.speed;
   }
 
   pathFinding(position) {
@@ -87,7 +89,7 @@ export class Enemy {
     }
 
     if (
-      neighbors.up.value === 9 &&
+      neighbors.up.value === "9" &&
       !this.path.some(
         (path) =>
           path.position.x === neighbors.up.position.x &&
@@ -99,7 +101,7 @@ export class Enemy {
     }
 
     if (
-      neighbors.down.value === 9 &&
+      neighbors.down.value === "9" &&
       !this.path.some(
         (path) =>
           path.position.x === neighbors.down.position.x &&
@@ -110,7 +112,7 @@ export class Enemy {
       this.pathFinding(neighbors.down.position);
     }
     if (
-      neighbors.right.value === 9 &&
+      neighbors.right.value === "9" &&
       !this.path.some(
         (path) =>
           path.position.x === neighbors.right.position.x &&
@@ -124,7 +126,7 @@ export class Enemy {
       this.pathFinding(neighbors.right.position);
     }
     if (
-      neighbors.left.value === 9 &&
+      neighbors.left.value === "9" &&
       !this.path.some(
         (path) =>
           path.position.x === neighbors.left.position.x &&

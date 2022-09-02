@@ -10,17 +10,16 @@ export class TileMap {
     this.road.src = "./src/images/road.png";
 
     this.map = map;
-    this.activeTiles = [];
   }
 
   draw(ctx) {
     for (let row = 0; row < this.map.length; row++) {
       for (let column = 0; column < this.map[row].length; column++) {
         let tile = this.map[row][column];
-        if (tile === 0) {
+        if (tile === "0") {
         }
-        if (tile === 9) {
-          ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
+        if (tile === "9") {
+          ctx.fillStyle = "rgba(255, 255, 255, 0.1)";
           ctx.fillRect(
             this.tileSize * column,
             this.tileSize * row,
@@ -31,42 +30,27 @@ export class TileMap {
           this.drawRoad(ctx, row, column);
         }
 
-        if (tile === 1) {
-          let currentTile = { row: row, column: column };
-          if (
-            !this.activeTiles.some(
-              (tile) => tile.row === row && tile.column === column
-            )
-          ) {
-            let player = new Player(
-              this.tileSize * column + this.tileSize / 2,
-              this.tileSize * row + this.tileSize / 2,
-              this.tileSize,
-              "./src/images/god.png",
-              null
-            );
-            this.players.push(player);
-            this.activeTiles.push(currentTile);
-            map[row][column] = 9;
-          }
+        if (tile === "1") {
+          let player = new Player(
+            this.tileSize * column + this.tileSize / 2,
+            this.tileSize * row + this.tileSize / 2,
+            this.tileSize,
+            "./src/images/god.png",
+            null
+          );
+          this.players.push(player);
+          map[row][column] = "9";
         }
-        if (tile === 2) {
-          let currentTile = { row: row, column: column };
-          if (
-            !this.activeTiles.some(
-              (tile) => tile.row === row && tile.column === column
-            )
-          ) {
-            let player = new Player(
-              this.tileSize * column + this.tileSize / 2,
-              this.tileSize * row + this.tileSize / 2,
-              this.tileSize,
-              "./mouth.png",
-              null
-            );
-            this.players.push(player);
-            this.activeTiles.push(currentTile);
-          }
+        if (tile === "2") {
+          let player = new Player(
+            this.tileSize * column + this.tileSize / 2,
+            this.tileSize * row + this.tileSize / 2,
+            this.tileSize,
+            "./mouth.png",
+            null
+          );
+          this.players.push(player);
+          map[row][column] = "0";
         }
       }
     }
@@ -77,10 +61,13 @@ export class TileMap {
 
     let position = { x: column, y: row };
     let neighbors = this.getNeighbors(position);
-    if ((neighbors.up.value === 9 || neighbors.up.value === 99) && neighbors.down.value === 9) {
+    if (
+      (neighbors.up.value === "9" || neighbors.up.value === "99") &&
+      neighbors.down.value === "9"
+    ) {
       ctx.drawImage(
         this.road,
-        0,
+        32 * 0,
         32,
         32,
         32,
@@ -90,11 +77,51 @@ export class TileMap {
         this.tileSize
       );
     }
-    if (neighbors.up.value === 9 && neighbors.down.value === 0 && neighbors.right.value === 9 ) {
+    if (
+      neighbors.up.value === "9" &&
+      neighbors.down.value === "0" &&
+      neighbors.right.value === "9"
+    ) {
       ctx.drawImage(
         this.road,
-        0,
-        32*2,
+        32 * 0,
+        32 * 2,
+        32,
+        32,
+        column * this.tileSize,
+        row * this.tileSize,
+        this.tileSize,
+        this.tileSize
+      );
+    }
+    if (
+      neighbors.up.value === "0" &&
+      neighbors.down.value === "0" &&
+      neighbors.right.value === "9" &&
+      neighbors.left.value === "9"
+    ) {
+      ctx.drawImage(
+        this.road,
+        32 * 1,
+        32 * 2,
+        32,
+        32,
+        column * this.tileSize,
+        row * this.tileSize,
+        this.tileSize,
+        this.tileSize
+      );
+    }
+    if (
+      neighbors.up.value === "0" &&
+      neighbors.down.value === "9" &&
+      neighbors.right.value === "0" &&
+      neighbors.left.value === "9"
+    ) {
+      ctx.drawImage(
+        this.road,
+        32 * 2,
+        32 * 0,
         32,
         32,
         column * this.tileSize,
@@ -159,7 +186,7 @@ export class TileMap {
 
     neighbors.up = {
       position: { x: position.x, y: position.y - 1 },
-      value: position.y - 1 >= 0 ? map[position.y - 1][position.x] : 99,
+      value: position.y - 1 >= 0 ? map[position.y - 1][position.x] : "99",
     };
 
     neighbors.down = {
