@@ -10,8 +10,8 @@ export class Enemy {
     this.speed = speed ?? 0.2;
     this.distance = 0;
     this.position = tileMap.getPosition(this.x, this.y);
-    this.path = [];
-    this.path = this.pathFinding(this.position);
+
+    this.moveToTarget = {};
     this.isImage = image ? true : false;
 
     this.hitBox = tileSize / 3;
@@ -56,98 +56,59 @@ export class Enemy {
     }
   }
 
+  moveAlong(ctx, path) {
+    if (!path || path.length <= 0) {
+      return;
+    }
+
+    this.movePath = path;
+    this.moveTo(this.movePath.shift());
+  }
+
+  moveTo(target) {
+    this.moveToTarget = target;
+  }
+
   update(ctx, delta) {
     this.draw(ctx);
+    if (this.x < 0) {
+      this.velocity.x = 1;
+      this.x += this.velocity.x * pixelUnit * delta * this.speed;
+    }
+    if (this.y < 0) {
+      this.velocity.y = 1;
+      this.y += this.velocity.y * pixelUnit * delta * this.speed;
+    }
+    let dx = 0;
+    let dy = 0;
+    if (this.moveToTarget) {
+      dx = this.moveToTarget.x - this.x;
+      dy = this.moveToTarget.y - this.y;
 
-    let path = this.moveInPath(this.path);
-    if (
-      path.direction === "DOWN" &&
-      Math.floor(this.x) >=
-        Math.floor(path.position.x * tileSize + tileSize / 2)
-    ) {
-      this.velocity = { x: 0, y: 1 };
-    }
-    if (
-      path.direction === "RIGHT" &&
-      this.y > path.position.y * tileSize + tileSize / 2
-    ) {
-      this.velocity = { x: 1, y: 0 };
-    }
-    this.x += this.velocity.x * pixelUnit * delta * this.speed;
-    this.y += this.velocity.y * pixelUnit * delta * this.speed;
-  }
+      if (Math.abs(dx) < 5) {
+        dx = 0;
+      }
+      if (Math.abs(dy) < 5) {
+        dy = 0;
+      }
 
-  pathFinding(position) {
-    let neighbors = tileMap.getNeighbors(position);
-    if (
-      !this.path.some(
-        (path) =>
-          path.position.x === position.x && path.position.y === position.y
-      )
-    ) {
-      this.path.push({ position: position, direction: "START" });
-    }
+      const angle = Math.atan2(dy, dx);
+      this.velocity = {
+        x: Math.cos(angle),
+        y: Math.sin(angle),
+      };
 
-    if (
-      neighbors.up.tileValue === "9" &&
-      !this.path.some(
-        (path) =>
-          path.position.x === neighbors.up.position.x &&
-          path.position.y === neighbors.up.position.y
-      )
-    ) {
-      this.path.push({ position: neighbors.up.position, direction: "UP" });
-      this.pathFinding(neighbors.up.position);
-    }
+      if (!this.velocity.x == 0 && !this.velocity.y == 0) {
+        this.x += this.velocity.x;
+        this.y += this.velocity.y;
+      }
 
-    if (
-      neighbors.down.tileValue === "9" &&
-      !this.path.some(
-        (path) =>
-          path.position.x === neighbors.down.position.x &&
-          path.position.y === neighbors.down.position.y
-      )
-    ) {
-      this.path.push({ position: neighbors.down.position, direction: "DOWN" });
-      this.pathFinding(neighbors.down.position);
-    }
-    if (
-      neighbors.right.tileValue === "9" &&
-      !this.path.some(
-        (path) =>
-          path.position.x === neighbors.right.position.x &&
-          path.position.y === neighbors.right.position.y
-      )
-    ) {
-      this.path.push({
-        position: neighbors.right.position,
-        direction: "RIGHT",
-      });
-      this.pathFinding(neighbors.right.position);
-    }
-    if (
-      neighbors.left.tileValue === "9" &&
-      !this.path.some(
-        (path) =>
-          path.position.x === neighbors.left.position.x &&
-          path.position.y === neighbors.left.position.y
-      )
-    ) {
-      this.path.push({ position: neighbors.left.position, direction: "LEFT" });
-      this.pathFinding(neighbors.left.position);
-    }
-    this.path[this.path.length - 1].direction = "END";
-    return this.path;
-  }
-
-  moveInPath(path) {
-    let currentTile = tileMap.getPosition(this.x, this.y);
-    for (let [i, item] of path.entries()) {
-      if (
-        currentTile.x === item.position.x &&
-        currentTile.y === item.position.y
-      ) {
-        return path[i + 1];
+      if (dx === 0 && dy === 0) {
+        if (this.movePath.length > 0) {
+          this.moveTo(this.movePath.shift());
+          return;
+        }
+        this.moveToTarget = undefined;
       }
     }
   }

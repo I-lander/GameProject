@@ -1,5 +1,5 @@
 import { Player } from "./player.js";
-import { map } from "./constants.js";
+import { map16x16 as map } from "./map.js";
 
 export class TileMap {
   constructor() {
@@ -8,6 +8,9 @@ export class TileMap {
 
     this.road = new Image();
     this.road.src = "./src/images/road.png";
+
+    this.mountain = new Image();
+    this.mountain.src = "./src/images/mountain.png";
 
     this.map = map;
   }
@@ -39,7 +42,7 @@ export class TileMap {
             null
           );
           this.players.push(player);
-          map[row][column] = "9";
+          map[row][column] = "0";
         }
         if (tile === "2") {
           let player = new Player(
@@ -52,6 +55,17 @@ export class TileMap {
           this.players.push(player);
           map[row][column] = "0";
         }
+
+        if (tile === "4") {
+          ctx.drawImage(
+            this.mountain,
+            column * this.tileSize,
+            row * this.tileSize,
+            this.tileSize,
+            this.tileSize
+          );
+        }
+        
       }
     }
   }
