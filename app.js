@@ -35,12 +35,10 @@ function startGame() {
   init();
   setTimeout(() => {
     onGame = true;
-    spawnEnemies();
   }, 300);
   mainMenu.classList.add("disable");
   scoreElement.classList.remove("disable");
   scoreElement.innerText = scoreValue;
-  spawnEnemies();
 
   animate();
 }
@@ -49,15 +47,15 @@ let enemies;
 let particles;
 
 function spawnEnemies() {
-  let x, y;
-  if (Math.random() < 0.5) {
-    x = Math.random() < 0.5 ? 0 - tileSize : canvas.width + tileSize;
-    y = Math.random() * canvas.height;
-  } else {
-    x = Math.random() * canvas.width;
-    y = Math.random() < 0.5 ? 0 - tileSize : canvas.height + tileSize;
-  }
   if (onGame) {
+    let x, y;
+    if (Math.random() < 0.5) {
+      x = Math.random() < 0.5 ? 0 : canvas.width + tileSize;
+      y = Math.random() * canvas.height;
+    } else {
+      x = Math.random() * canvas.width;
+      y = Math.random() < 0.5 ? 0 : canvas.height + tileSize;
+    }
     enemies.push(new Enemy(x, y, tileSize, "./src/images/spider.png", "black"));
   }
 }
@@ -139,15 +137,13 @@ function animate(timestamp) {
 
   // Game over
   enemies.forEach((enemy, index) => {
-    if (enemy.x >= 0 && enemy.y >= 0) {
       const startVec = {
         x: Math.floor(enemy.x / tileSize),
         y: Math.floor(enemy.y / tileSize),
       };
       const targetVec = tileMap.getPosition(xCenter, yCenter);
-      const path = findPath(startVec, targetVec);
-      enemy.moveAlong(ctx, path);
-    }
+      enemy.path = findPath(startVec, targetVec);
+      enemy.moveAlong(ctx, enemy.path);
     enemy.update(ctx, delta);
 
     const distance = Math.hypot(xCenter - enemy.x, yCenter - enemy.y);
@@ -176,5 +172,7 @@ window.addEventListener("click", (event) => {
     if (tileMap.map[clickPositionInGrid.y][clickPositionInGrid.x] === "0") {
       tileMap.map[clickPositionInGrid.y][clickPositionInGrid.x] = "4";
     }
+    // spawnEnemies()
+    // console.log(clickPositionInGrid.x*tileSize);
   }
 });

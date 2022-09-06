@@ -71,15 +71,14 @@ const findPath = (start, target) => {
       queue.push(neighbor);
     }
   }
-
+  const lastPos = { x: target.x * tileSize, y: target.y * tileSize };
   const path = [];
+  path.push(lastPos)
 
   let currentKey = targetKey;
   let currentPos = parentForKey[targetKey].position;
 
   while (currentKey !== startKey) {
-    const lastPos = { x: target.x * tileSize, y: target.y * tileSize };
-    path.push(lastPos);
     const pos = { x: currentPos.x * tileSize, y: currentPos.y * tileSize };
 
     pos.x += tileSize * 0.5;
@@ -92,7 +91,6 @@ const findPath = (start, target) => {
     currentKey = key;
     currentPos = position;
   }
-
 
   return path.reverse();
 };

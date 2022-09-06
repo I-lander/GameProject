@@ -7,9 +7,11 @@ export class Enemy {
     this.radius = radius;
     this.color = color;
     this.velocity = { x: 0, y: 0 };
-    this.speed = speed ?? 0.2;
+    this.speed = speed ?? 0.4;
+
     this.distance = 0;
     this.position = tileMap.getPosition(this.x, this.y);
+    this.path = [];
 
     this.moveToTarget = {};
     this.isImage = image ? true : false;
@@ -56,13 +58,12 @@ export class Enemy {
     }
   }
 
-  moveAlong(ctx, path) {
-    if (!path || path.length <= 0) {
+  moveAlong() {
+    if (!this.path || this.path.length <= 0) {
       return;
     }
 
-    this.movePath = path;
-    this.moveTo(this.movePath.shift());
+    this.moveTo(this.path.shift());
   }
 
   moveTo(target) {
@@ -84,11 +85,10 @@ export class Enemy {
     if (this.moveToTarget) {
       dx = this.moveToTarget.x - this.x;
       dy = this.moveToTarget.y - this.y;
-
-      if (Math.abs(dx) < 5) {
+      if (Math.abs(dx) < 1) {
         dx = 0;
       }
-      if (Math.abs(dy) < 5) {
+      if (Math.abs(dy) < 1) {
         dy = 0;
       }
 
@@ -98,14 +98,12 @@ export class Enemy {
         y: Math.sin(angle),
       };
 
-      if (!this.velocity.x == 0 && !this.velocity.y == 0) {
-        this.x += this.velocity.x;
-        this.y += this.velocity.y;
-      }
+      this.x += this.velocity.x * pixelUnit * delta * this.speed;
+      this.y += this.velocity.y * pixelUnit * delta * this.speed;
 
       if (dx === 0 && dy === 0) {
-        if (this.movePath.length > 0) {
-          this.moveTo(this.movePath.shift());
+        if (this.path.length > 0) {
+          this.moveTo(this.path.shift());
           return;
         }
         this.moveToTarget = undefined;

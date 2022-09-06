@@ -26,34 +26,33 @@ class Player {
       );
     }
 
-    if (this.color) {
       ctx.beginPath();
       ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
-      ctx.fillStyle = this.color;
-      ctx.fill();
-    }
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
+      ctx.stroke();
   }
 
   autoFire(enemies) {
     if (enemies.length > 0 && this.projectiles.length < 1) {
       enemies.forEach((enemy, index) => {
         enemy.distance = Math.hypot(this.x - enemy.x, this.y - enemy.y);
+        if (enemy.distance < this.range - enemies[0].hitBox) {
+          const angle = Math.atan2(enemies[0].y - this.y, enemies[0].x - this.x);
+          const velocity = {
+            x: Math.cos(angle) * 5,
+            y: Math.sin(angle) * 5,
+          };
+          this.projectiles.push(
+            new Projectile(this.x, this.y, 5, "black", velocity)
+          );
+        }
       });
 
       enemies.sort((a, b) => {
         return a.distance - b.distance;
       });
-      const angle = Math.atan2(enemies[0].y - this.y, enemies[0].x - this.x);
-      const velocity = {
-        x: Math.cos(angle) * 5,
-        y: Math.sin(angle) * 5,
-      };
-      const color = "black";
-      if (enemies[0].distance < this.range) {
-        this.projectiles.push(
-          new Projectile(this.x, this.y, 5, color, velocity)
-        );
-      }
+
+
     }
   }
 }
