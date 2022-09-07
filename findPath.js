@@ -1,9 +1,11 @@
 import { map16x16 as map } from "./src/map.js";
-import { pixelUnit, tileMap, tileSize } from "./app.js";
+import { tileSize } from "./app.js";
 
 const toKey = (x, y) => `${x}x${y}`;
 
-const findPath = (start, target) => {
+const riverExit = ["5","1x"]
+
+const findPath = (start, target, enemyType) => {
   const queue = [];
   const parentForKey = {};
 
@@ -53,7 +55,10 @@ const findPath = (start, target) => {
         continue;
       }
 
-      if (map[neighbor.y][neighbor.x] === "4") {
+      if (enemyType === "ground" && (tile === "4" || tile === "5")) {
+        continue;
+      }
+      if (enemyType === "river" && (tile === "0" || tile === "4")) {
         continue;
       }
 
@@ -73,7 +78,7 @@ const findPath = (start, target) => {
   }
   const lastPos = { x: target.x * tileSize, y: target.y * tileSize };
   const path = [];
-  path.push(lastPos)
+  path.push(lastPos);
 
   let currentKey = targetKey;
   let currentPos = parentForKey[targetKey].position;

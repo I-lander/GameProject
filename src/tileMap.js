@@ -42,7 +42,7 @@ export class TileMap {
             null
           );
           this.players.push(player);
-          map[row][column] = "0";
+          map[row][column] = "1x";
         }
         if (tile === "2") {
           let player = new Player(
@@ -53,9 +53,8 @@ export class TileMap {
             null
           );
           this.players.push(player);
-          map[row][column] = "0";
+          map[row][column] = "2x";
         }
-
         if (tile === "4") {
           ctx.drawImage(
             this.mountain,
@@ -65,84 +64,18 @@ export class TileMap {
             this.tileSize
           );
         }
-        
+        if (tile === "5") {
+          ctx.save();
+          ctx.fillStyle = "rgba(100, 100, 255, 0.9)";
+          ctx.fillRect(
+            this.tileSize * column,
+            this.tileSize * row,
+            this.tileSize,
+            this.tileSize
+          );
+          ctx.restore();
+        }
       }
-    }
-  }
-
-  drawRoad(ctx, row, column) {
-    ctx.imageSmoothingEnabled = false;
-
-    let position = { x: column, y: row };
-    let neighbors = this.getNeighbors(position);
-    if (
-      (neighbors.up.tileValue === "9" || neighbors.up.tileValue === "99") &&
-      neighbors.down.tileValue === "9"
-    ) {
-      ctx.drawImage(
-        this.road,
-        32 * 0,
-        32,
-        32,
-        32,
-        column * this.tileSize,
-        row * this.tileSize,
-        this.tileSize,
-        this.tileSize
-      );
-    }
-    if (
-      neighbors.up.tileValue === "9" &&
-      neighbors.down.tileValue === "0" &&
-      neighbors.right.tileValue === "9"
-    ) {
-      ctx.drawImage(
-        this.road,
-        32 * 0,
-        32 * 2,
-        32,
-        32,
-        column * this.tileSize,
-        row * this.tileSize,
-        this.tileSize,
-        this.tileSize
-      );
-    }
-    if (
-      neighbors.up.tileValue === "0" &&
-      neighbors.down.tileValue === "0" &&
-      neighbors.right.tileValue === "9" &&
-      neighbors.left.tileValue === "9"
-    ) {
-      ctx.drawImage(
-        this.road,
-        32 * 1,
-        32 * 2,
-        32,
-        32,
-        column * this.tileSize,
-        row * this.tileSize,
-        this.tileSize,
-        this.tileSize
-      );
-    }
-    if (
-      neighbors.up.tileValue === "0" &&
-      neighbors.down.tileValue === "9" &&
-      neighbors.right.tileValue === "0" &&
-      neighbors.left.tileValue === "9"
-    ) {
-      ctx.drawImage(
-        this.road,
-        32 * 2,
-        32 * 0,
-        32,
-        32,
-        column * this.tileSize,
-        row * this.tileSize,
-        this.tileSize,
-        this.tileSize
-      );
     }
   }
 

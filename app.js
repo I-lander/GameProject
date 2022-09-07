@@ -1,7 +1,7 @@
 import { TileMap } from "./src/tileMap.js";
-import { Enemy } from "./src/enemy.js";
 import { Particle } from "./src/visualEffects.js";
 import findPath from "./findPath.js";
+import { spawnEnemies } from "./spawn.js";
 
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
@@ -14,6 +14,7 @@ canvas.height = innerHeight;
 
 tileMap.setCanvasSize(canvas);
 const tileSize = tileMap.tileSize;
+console.log(tileSize);
 const pixelUnit = tileSize / 32;
 
 export { tileMap, tileSize, pixelUnit };
@@ -24,7 +25,11 @@ let scoreValue = 0;
 const scoreElement = document.getElementById("score");
 const finalScore = document.getElementById("finalScore");
 const mainMenu = document.getElementById("mainMenu");
+
 let onGame = false;
+
+export { onGame };
+
 let spawEnemiesInterval;
 let autoFireInterval;
 document.getElementById("startBtn").addEventListener("click", () => {
@@ -44,21 +49,9 @@ function startGame() {
 }
 
 let enemies;
-let particles;
+export { enemies };
 
-function spawnEnemies() {
-  if (onGame) {
-    let x, y;
-    if (Math.random() < 0.5) {
-      x = Math.random() < 0.5 ? 0 : canvas.width + tileSize;
-      y = Math.random() * canvas.height;
-    } else {
-      x = Math.random() * canvas.width;
-      y = Math.random() < 0.5 ? 0 : canvas.height + tileSize;
-    }
-    enemies.push(new Enemy(x, y, tileSize, "./src/images/spider.png", "black"));
-  }
-}
+let particles;
 
 let animationId;
 let lastFrameTimeMs = 0; // The last time the loop was run
@@ -91,7 +84,7 @@ function animate(timestamp) {
         if (distance - enemy.hitBox - projectile.radius < 1) {
           for (let i = 0; i < 20; i++) {
             particles.push(
-              new Particle(enemy.x, enemy.y, Math.random() * 3, {
+              new Particle(enemy.x, enemy.y, Math.random() * 2 * pixelUnit, {
                 x: Math.random() - 0.5,
                 y: Math.random() - 0.5,
               })
@@ -137,13 +130,13 @@ function animate(timestamp) {
 
   // Game over
   enemies.forEach((enemy, index) => {
-      const startVec = {
-        x: Math.floor(enemy.x / tileSize),
-        y: Math.floor(enemy.y / tileSize),
-      };
-      const targetVec = tileMap.getPosition(xCenter, yCenter);
-      enemy.path = findPath(startVec, targetVec);
-      enemy.moveAlong(ctx, enemy.path);
+    const startVec = {
+      x: Math.floor(enemy.x / tileSize),
+      y: Math.floor(enemy.y / tileSize),
+    };
+    const targetVec = tileMap.getPosition(xCenter, yCenter);
+    enemy.path = findPath(startVec, targetVec, enemy.type);
+    enemy.moveAlong(ctx, enemy.path);
     enemy.update(ctx, delta);
 
     const distance = Math.hypot(xCenter - enemy.x, yCenter - enemy.y);
@@ -173,6 +166,5 @@ window.addEventListener("click", (event) => {
       tileMap.map[clickPositionInGrid.y][clickPositionInGrid.x] = "4";
     }
     // spawnEnemies()
-    // console.log(clickPositionInGrid.x*tileSize);
   }
 });

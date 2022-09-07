@@ -1,11 +1,12 @@
 import { pixelUnit, tileMap, tileSize } from "../app.js";
 
 export class Enemy {
-  constructor(x, y, radius, image = null, color, velocity, speed) {
-    this.x = x - tileSize / 2;
+  constructor(x, y, type,radius, image = null, velocity, speed) {
+    this.x = x + tileSize / 2;
     this.y = y + tileSize / 2;
     this.radius = radius;
-    this.color = color;
+    this.type = type
+    this.color = "black";
     this.velocity = { x: 0, y: 0 };
     this.speed = speed ?? 0.4;
 
