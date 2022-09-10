@@ -9,32 +9,47 @@ const playerPos = {
 
 let path = [];
 
-const spawnEnemies = () => {
+function spawnEnemies() {
   if (onGame) {
     const groundSpawnPosition = getGroundSpawnPosition();
-    enemies.push(new Enemy(groundSpawnPosition.x, groundSpawnPosition.y, "ground",tileSize, "./src/images/spider.png"));
+    enemies.push(
+      new Enemy(
+        groundSpawnPosition.x,
+        groundSpawnPosition.y,
+        "ground",
+        tileSize,
+        "./src/images/spider.png"
+      )
+    );
 
     const riverPath = getRiverPath(playerPos);
-    const riverSpawnPosition = getRiverSpawnPosition(riverPath)
-    enemies.push(new Enemy(riverSpawnPosition.x, riverSpawnPosition.y,"river", tileSize, "./src/images/spider.png"));
-
+    const riverSpawnPosition = getRiverSpawnPosition(riverPath);
+    enemies.push(
+      new Enemy(
+        riverSpawnPosition.x,
+        riverSpawnPosition.y,
+        "river",
+        tileSize,
+        "./src/images/spider.png"
+      )
+    );
   }
-};
+}
 
-const getGroundSpawnPosition = () => {
+function getGroundSpawnPosition() {
   let x, y;
   if (Math.random() < 0.5) {
-    x = Math.random() < 0.5 ? 0 - tileSize : canvas.width + tileSize;
-    y = Math.random() * canvas.height;
+    x = Math.random() < 0.5 ? 0 - tileSize : canvasScreen.width + tileSize;
+    y = Math.random() * canvasScreen.height;
   } else {
-    x = Math.random() * canvas.width;
-    y = Math.random() < 0.5 ? 0 - tileSize : canvas.height + tileSize;
+    x = Math.random() * canvasScreen.width;
+    y = Math.random() < 0.5 ? 0 - tileSize : canvasScreen.height + tileSize;
   }
   const position = { x: x, y: y };
   return position;
-};
+}
 
-const getRiverPath = (position) => {
+function getRiverPath(position) {
   const neighbors = tileMap.getNeighbors(position);
   if (
     !path.some(
@@ -94,14 +109,17 @@ const getRiverPath = (position) => {
   }
 
   return path;
-};
+}
 
-const getRiverSpawnPosition = (riverPath) => {
+function getRiverSpawnPosition(riverPath) {
   if (riverPath) {
-    const position = riverPath[riverPath.length - 1].position
-    const spawnPosition = {x: position.x * tileSize, y: position.y * tileSize}
+    const position = riverPath[riverPath.length - 1].position;
+    const spawnPosition = {
+      x: position.x * tileSize,
+      y: position.y * tileSize,
+    };
     return spawnPosition;
   }
-};
+}
 
 export { spawnEnemies };

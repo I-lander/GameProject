@@ -43,7 +43,7 @@ class Player {
             y: Math.sin(angle) * 5,
           };
           this.projectiles.push(
-            new Projectile(this.x, this.y, 5, "black", velocity)
+            new Projectile(this.x, this.y, 5*pixelUnit, "black", velocity)
           );
         }
       });

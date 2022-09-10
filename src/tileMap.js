@@ -4,6 +4,7 @@ import { map16x16 as map } from "./map.js";
 export class TileMap {
   constructor() {
     this.tileSize = 0;
+    this.mapOrigin = {x: 0, y: 0}
     this.players = [];
 
     this.road = new Image();
@@ -90,9 +91,11 @@ export class TileMap {
       canvas.width = this.map[0].length * this.tileSize;
       canvas.height = this.map.length * this.tileSize;
     } else {
+      canvas.height = canvas.height / 2;
       this.tileSize = canvas.height / this.map.length;
-      canvas.height = this.map.length * this.tileSize;
       canvas.width = this.map[0].length * this.tileSize;
+      canvas.style.left = `${(innerWidth/2)-(canvas.width/2)}px`
+      this.mapOrigin.x = (innerWidth/2)-(canvas.width/2)
     }
   }
 

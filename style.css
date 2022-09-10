@@ -1,6 +1,14 @@
+@font-face {
+    font-family: "dogicapixel";
+    src: url("./src/font/pixelFont/dogicapixel-webfont.woff");
+    }
+
+
 *{
     margin: 0;
     padding: 0;
+    font-family: "dogicapixel";
+    image-rendering: pixelated;
 }
 
 html, body{
@@ -10,9 +18,17 @@ html, body{
 
 canvas{
     display: block;
+    position: fixed;
+}
+
+.canvasScreen{
     background-image: url('./src/images/background.jpg');
     background-repeat:no-repeat;
     background-size: contain;
+}
+
+.canvasMenu{
+    background-color: rgb(61, 63, 65);
 }
 
 .score{
@@ -24,9 +40,10 @@ canvas{
 
 .mainMenu{
     position: fixed;
-    display: flex;
+    /* display: flex; */
     justify-content: center;
-    top: 0px;
+    width: 100px;
+    top: 00px;
     right: 0px;
     bottom: 0px;
     left: 0px;
