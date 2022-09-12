@@ -160,14 +160,15 @@ function init() {
 }
 
 let selectedBtn;
-const mountainButton = document.getElementById("mountainButton")
-mountainButton.onclick = function (){
-  selectedBtn = "4"
-}
-const riverButton = document.getElementById("riverButton")
-riverButton.onclick = function (){
-  selectedBtn = "5"
-}
+const mountainButton = document.getElementById("mountainButton");
+mountainButton.onclick = function () {
+  selectedBtn = "4";
+};
+const riverButton = document.getElementById("riverButton");
+riverButton.onclick = function () {
+  selectedBtn = "5";
+  tileMap.possibilityForClick(ctxScreen, selectedBtn);
+};
 
 canvasScreen.addEventListener("click", (event) => {
   const xZero = innerWidth / 2 - canvasScreen.width / 2;
@@ -175,7 +176,16 @@ canvasScreen.addEventListener("click", (event) => {
   const x = event.x - xZero;
   const y = yZero;
   const clickPositionInGrid = tileMap.getPosition(x, y);
-  if (tileMap.map[clickPositionInGrid.y][clickPositionInGrid.x] === "0") {
+  if (
+    tileMap.map[clickPositionInGrid.y][clickPositionInGrid.x] === "green" &&
+    selectedBtn
+  ) {
     tileMap.map[clickPositionInGrid.y][clickPositionInGrid.x] = selectedBtn;
+    for (let row = 0; row < tileMap.map.length; row++) {
+      for (let column = 0; column < tileMap.map[row].length; column++) {
+        let tile = tileMap.map[row][column];
+        if(tile === "green"){tileMap.map[row][column] = "0"}
+      }
+    }
   }
 });

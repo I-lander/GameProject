@@ -1,6 +1,6 @@
 import { onGame, enemies, tileSize, tileMap } from "./app.js";
 import { Enemy } from "./src/enemy.js";
-import { map16x16 as map } from "./src/map.js";
+import { map } from "./src/map.js";
 
 const playerPos = {
   x: Math.floor(map.length / 2),
@@ -8,6 +8,13 @@ const playerPos = {
 };
 
 let path = [];
+
+function riverLastTile() {
+  const riverPath = getRiverPath(playerPos);
+  return riverPath[riverPath.length - 1].position;
+}
+
+export { riverLastTile };
 
 function spawnEnemies() {
   if (onGame) {
@@ -23,16 +30,20 @@ function spawnEnemies() {
     );
 
     const riverPath = getRiverPath(playerPos);
-    const riverSpawnPosition = getRiverSpawnPosition(riverPath);
-    enemies.push(
-      new Enemy(
-        riverSpawnPosition.x,
-        riverSpawnPosition.y,
-        "river",
-        tileSize,
-        "./src/images/spider.png"
-      )
-    );
+    if (riverPath.length > 5) {
+      const riverSpawnPosition = getRiverSpawnPosition(riverPath);
+      enemies.push(
+        new Enemy(
+          riverSpawnPosition.x,
+          riverSpawnPosition.y,
+          "river",
+          tileSize,
+          "./src/images/spider.png"
+        )
+      );
+    }
+    path = [];
+    return;
   }
 }
 

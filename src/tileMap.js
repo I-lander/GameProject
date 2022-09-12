@@ -1,10 +1,11 @@
 import { Player } from "./player.js";
-import { map16x16 as map } from "./map.js";
+import { map } from "./map.js";
+import { riverLastTile } from "../spawn.js";
 
 export class TileMap {
   constructor() {
     this.tileSize = 0;
-    this.mapOrigin = {x: 0, y: 0}
+    this.mapOrigin = { x: 0, y: 0 };
     this.players = [];
 
     this.road = new Image();
@@ -76,6 +77,17 @@ export class TileMap {
           );
           ctx.restore();
         }
+        if (tile === "green") {
+          ctx.save();
+          ctx.fillStyle = "rgba(100, 255, 100, 0.3)";
+          ctx.fillRect(
+            this.tileSize * column,
+            this.tileSize * row,
+            this.tileSize,
+            this.tileSize
+          );
+          ctx.restore();
+        }
       }
     }
   }
@@ -94,8 +106,8 @@ export class TileMap {
       canvas.height = canvas.height / 2;
       this.tileSize = canvas.height / this.map.length;
       canvas.width = this.map[0].length * this.tileSize;
-      canvas.style.left = `${(innerWidth/2)-(canvas.width/2)}px`
-      this.mapOrigin.x = (innerWidth/2)-(canvas.width/2)
+      canvas.style.left = `${innerWidth / 2 - canvas.width / 2}px`;
+      this.mapOrigin.x = innerWidth / 2 - canvas.width / 2;
     }
   }
 
@@ -154,5 +166,41 @@ export class TileMap {
       tileValue: map[position.y][position.x + 1],
     };
     return neighbors;
+  }
+
+  possibilityForClick(ctx, selectedBtn) {
+    if (selectedBtn === "5") {
+      const riv = riverLastTile()
+      console.log(riv);
+      const playerPos = riv
+      let neighbors = this.getNeighbors(playerPos);
+
+      if (
+        neighbors.up.tileValue === "0" &&
+        this.getNeighbors(neighbors.up.position).up.tileValue === "0"
+      ) {
+        this.map[neighbors.up.position.y][neighbors.up.position.x] = "green"
+      }
+      if (
+        neighbors.down.tileValue === "0" &&
+        this.getNeighbors(neighbors.down.position).down.tileValue === "0"
+      ) {
+        this.map[neighbors.down.position.y][neighbors.down.position.x] = "green"
+      }
+      if (
+        neighbors.left.tileValue === "0" &&
+        this.getNeighbors(neighbors.left.position).left.tileValue === "0"
+      ) {
+        this.map[neighbors.left.position.y][neighbors.left.position.x] = "green"
+      }
+      if (
+        neighbors.right.tileValue === "0" &&
+        this.getNeighbors(neighbors.right.position).right.tileValue === "0"
+      ) {
+        this.map[neighbors.right.position.y][neighbors.right.position.x] = "green"
+      }
+
+
+    }
   }
 }

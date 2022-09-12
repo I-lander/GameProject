@@ -1,4 +1,4 @@
-import { map16x16 as map } from "./src/map.js";
+import { map } from "./src/map.js";
 import { tileSize } from "./app.js";
 
 const toKey = (x, y) => `${x}x${y}`;

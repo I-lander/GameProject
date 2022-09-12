@@ -17,7 +17,7 @@ function drawMenu(ctx, width) {
 function createButton(width) {
   let mountainButton = document.createElement("button");
   document.body.appendChild(mountainButton);
-  mountainButton.id = "mountainButton"
+  mountainButton.id = "mountainButton";
   mountainButton.style.backgroundImage = "url('./src/images/mountain.png')";
   mountainButton.style.backgroundSize = "cover";
   mountainButton.style.backgroundRepeat = "no-repeat";
@@ -31,7 +31,7 @@ function createButton(width) {
 
   let riverButton = document.createElement("button");
   document.body.appendChild(riverButton);
-  riverButton.id = "riverButton"
+  riverButton.id = "riverButton";
   riverButton.style.backgroundColor = "rgba(100, 100, 255, 0.9)";
   riverButton.style.backgroundSize = "cover";
   riverButton.style.backgroundRepeat = "no-repeat";
@@ -42,5 +42,7 @@ function createButton(width) {
   riverButton.style.width = `${width / 5}px`;
   riverButton.style.height = `${width / 5}px`;
 }
+
+
 
 export { drawMenu };
