@@ -162,12 +162,16 @@ function init() {
 let selectedBtn;
 const mountainButton = document.getElementById("mountainButton");
 mountainButton.onclick = function () {
+  cleanMap()
   selectedBtn = "4";
+  tileMap.possibilityForClick(selectedBtn);
+
 };
 const riverButton = document.getElementById("riverButton");
 riverButton.onclick = function () {
+  cleanMap()
   selectedBtn = "5";
-  tileMap.possibilityForClick(ctxScreen, selectedBtn);
+  tileMap.possibilityForClick(selectedBtn);
 };
 
 canvasScreen.addEventListener("click", (event) => {
@@ -181,11 +185,15 @@ canvasScreen.addEventListener("click", (event) => {
     selectedBtn
   ) {
     tileMap.map[clickPositionInGrid.y][clickPositionInGrid.x] = selectedBtn;
-    for (let row = 0; row < tileMap.map.length; row++) {
-      for (let column = 0; column < tileMap.map[row].length; column++) {
-        let tile = tileMap.map[row][column];
-        if(tile === "green"){tileMap.map[row][column] = "0"}
-      }
-    }
+    cleanMap()
   }
 });
+
+function cleanMap(){
+  for (let row = 0; row < tileMap.map.length; row++) {
+    for (let column = 0; column < tileMap.map[row].length; column++) {
+      let tile = tileMap.map[row][column];
+      if(tile === "green"){tileMap.map[row][column] = "0"}
+    }
+  }
+}

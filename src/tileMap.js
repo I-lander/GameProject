@@ -1,6 +1,6 @@
 import { Player } from "./player.js";
 import { map } from "./map.js";
-import { riverLastTile } from "../spawn.js";
+import { getRiverLastTile } from "../spawn.js";
 
 export class TileMap {
   constructor() {
@@ -168,39 +168,53 @@ export class TileMap {
     return neighbors;
   }
 
-  possibilityForClick(ctx, selectedBtn) {
+  possibilityForClick(selectedBtn) {
+    console.log(selectedBtn);
+
+    if (selectedBtn === "4") {
+      for (let row = 0; row < this.map.length; row++) {
+        for (let column = 0; column < this.map[row].length; column++) {
+          let tile = this.map[row][column];
+          if(tile === "0"){this.map[row][column] = "green"}
+        }
+      }
+    }
     if (selectedBtn === "5") {
-      const riv = riverLastTile()
-      console.log(riv);
-      const playerPos = riv
-      let neighbors = this.getNeighbors(playerPos);
+      const riverLastTile = getRiverLastTile()
+      let neighbors = this.getNeighbors(riverLastTile);
 
       if (
         neighbors.up.tileValue === "0" &&
-        this.getNeighbors(neighbors.up.position).up.tileValue === "0"
+        this.getNeighbors(neighbors.up.position).up.tileValue !== "5" &&
+        this.getNeighbors(neighbors.up.position).left.tileValue !== "5"  &&
+        this.getNeighbors(neighbors.up.position).right.tileValue !== "5"  
       ) {
         this.map[neighbors.up.position.y][neighbors.up.position.x] = "green"
       }
       if (
         neighbors.down.tileValue === "0" &&
-        this.getNeighbors(neighbors.down.position).down.tileValue === "0"
+        this.getNeighbors(neighbors.down.position).down.tileValue !== "5"  &&
+        this.getNeighbors(neighbors.down.position).left.tileValue !== "5"  &&
+        this.getNeighbors(neighbors.down.position).right.tileValue !== "5"  
       ) {
         this.map[neighbors.down.position.y][neighbors.down.position.x] = "green"
       }
       if (
         neighbors.left.tileValue === "0" &&
-        this.getNeighbors(neighbors.left.position).left.tileValue === "0"
+        this.getNeighbors(neighbors.left.position).up.tileValue !== "5"  &&
+        this.getNeighbors(neighbors.left.position).down.tileValue !== "5"  &&
+        this.getNeighbors(neighbors.left.position).left.tileValue !== "5"  
       ) {
         this.map[neighbors.left.position.y][neighbors.left.position.x] = "green"
       }
       if (
         neighbors.right.tileValue === "0" &&
-        this.getNeighbors(neighbors.right.position).right.tileValue === "0"
+        this.getNeighbors(neighbors.right.position).up.tileValue !== "5"  &&
+        this.getNeighbors(neighbors.right.position).down.tileValue !== "5"  &&
+        this.getNeighbors(neighbors.right.position).right.tileValue !== "5"  
       ) {
         this.map[neighbors.right.position.y][neighbors.right.position.x] = "green"
       }
-
-
     }
   }
 }

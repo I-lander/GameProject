@@ -9,12 +9,12 @@ const playerPos = {
 
 let path = [];
 
-function riverLastTile() {
+function getRiverLastTile() {
   const riverPath = getRiverPath(playerPos);
   return riverPath[riverPath.length - 1].position;
 }
 
-export { riverLastTile };
+export { getRiverLastTile };
 
 function spawnEnemies() {
   if (onGame) {
