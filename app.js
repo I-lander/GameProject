@@ -137,6 +137,13 @@ function animate(timestamp) {
     let targetVec = tileMap.getPosition(xCenter, yCenter);
 
     enemy.path = findPath(startVec, targetVec, enemy.type);
+    if (enemy.path.length === 1 && tileMap.mountains.length > 1) {
+      tileMap.mountains.forEach((mountain) => {
+        if (enemy.collideWith(mountain)) {
+          enemy.collide = true
+        }
+      });
+    }
 
     enemy.moveAlong();
     enemy.update(ctxScreen, delta);

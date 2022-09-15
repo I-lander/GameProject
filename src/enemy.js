@@ -9,6 +9,7 @@ export class Enemy {
     this.color = "black";
     this.velocity = { x: 0, y: 0 };
     this.speed = speed ?? 0.4;
+    this.collide = false
 
     this.distance = 0;
     this.position = tileMap.getPosition(this.x, this.y);
@@ -60,7 +61,7 @@ export class Enemy {
   }
 
   collideWith(element) {
-    const self = { x: this.x, y: this.y, width: tileSize, height: tileSize };
+    const self = { x: this.x, y: this.y, width: this.hitBox, height: this.hitBox };
     const obstacle = {
       x: element.x * tileSize,
       y: element.y * tileSize,
@@ -94,7 +95,7 @@ export class Enemy {
 
     let dx = 0;
     let dy = 0;
-    if (this.moveToTarget) {
+    if (this.moveToTarget && !this.collide) {
       dx = this.moveToTarget.x - this.x;
       dy = this.moveToTarget.y - this.y;
       if (Math.abs(dx) < 1) {
