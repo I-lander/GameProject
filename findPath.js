@@ -3,9 +3,7 @@ import { tileSize } from "./app.js";
 
 const toKey = (x, y) => `${x}x${y}`;
 
-const riverExit = ["5","1x"]
-
-const findPath = (start, target, enemyType) => {
+const findPath = (start, target, type) => {
   const queue = [];
   const parentForKey = {};
 
@@ -22,18 +20,15 @@ const findPath = (start, target, enemyType) => {
   while (queue.length > 0) {
     const { x, y } = queue.shift();
     const currentKey = toKey(x, y);
-
     if (currentKey === targetKey) {
       break;
     }
-
     const neighbors = [
       { x, y: y - 1 }, // top
       { x: x + 1, y }, // right
       { x, y: y + 1 }, // bottom
       { x: x - 1, y }, // left
     ];
-
     for (let i = 0; i < neighbors.length; ++i) {
       const neighbor = neighbors[i];
 
@@ -55,10 +50,10 @@ const findPath = (start, target, enemyType) => {
         continue;
       }
 
-      if (enemyType === "ground" && (tile === "4" || tile === "5")) {
+      if (type === "ground" && (tile === "4" || tile === "5")) {
         continue;
       }
-      if (enemyType === "river" && (tile === "0" || tile === "4")) {
+      if (type === "river" && (tile === "0" || tile === "4")) {
         continue;
       }
 
@@ -81,6 +76,9 @@ const findPath = (start, target, enemyType) => {
   path.push(lastPos);
 
   let currentKey = targetKey;
+  if(!parentForKey[targetKey]){
+    return path
+  }
   let currentPos = parentForKey[targetKey].position;
 
   while (currentKey !== startKey) {

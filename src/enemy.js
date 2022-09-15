@@ -1,11 +1,11 @@
 import { pixelUnit, tileMap, tileSize } from "../app.js";
 
 export class Enemy {
-  constructor(x, y, type,radius, image = null, velocity, speed) {
+  constructor(x, y, type, radius, image = null, velocity, speed) {
     this.x = x + tileSize / 2;
     this.y = y + tileSize / 2;
     this.radius = radius;
-    this.type = type
+    this.type = type;
     this.color = "black";
     this.velocity = { x: 0, y: 0 };
     this.speed = speed ?? 0.4;
@@ -59,6 +59,24 @@ export class Enemy {
     }
   }
 
+  collideWith(element) {
+    const self = { x: this.x, y: this.y, width: tileSize, height: tileSize };
+    const obstacle = {
+      x: element.x * tileSize,
+      y: element.y * tileSize,
+      width: tileSize,
+      height: tileSize,
+    };
+    if (
+      self.x < obstacle.x + obstacle.width &&
+      self.x + self.width > obstacle.x &&
+      self.y < obstacle.y + obstacle.height &&
+      self.y + self.height > obstacle.y
+    ) {
+      return true;
+    }
+  }
+
   moveAlong() {
     if (!this.path || this.path.length <= 0) {
       return;
@@ -73,14 +91,7 @@ export class Enemy {
 
   update(ctx, delta) {
     this.draw(ctx);
-    if (this.x < 0) {
-      this.velocity.x = 1;
-      this.x += this.velocity.x * pixelUnit * delta * this.speed;
-    }
-    if (this.y < 0) {
-      this.velocity.y = 1;
-      this.y += this.velocity.y * pixelUnit * delta * this.speed;
-    }
+
     let dx = 0;
     let dy = 0;
     if (this.moveToTarget) {
@@ -103,7 +114,7 @@ export class Enemy {
       this.y += this.velocity.y * pixelUnit * delta * this.speed;
 
       if (dx === 0 && dy === 0) {
-        if (this.path.length > 0) {
+        if (this.path && this.path.length > 0) {
           this.moveTo(this.path.shift());
           return;
         }

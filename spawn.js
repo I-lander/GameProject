@@ -71,52 +71,52 @@ function getRiverPath(position) {
   }
 
   if (
-    neighbors.up.tileValue === "5" &&
+    neighbors[0].tileValue === "5" &&
     !path.some(
       (path) =>
-        path.position.x === neighbors.up.position.x &&
-        path.position.y === neighbors.up.position.y
+        path.position.x === neighbors[0].position.x &&
+        path.position.y === neighbors[0].position.y
     )
   ) {
-    path.push({ position: neighbors.up.position, direction: "UP" });
-    getRiverPath(neighbors.up.position);
+    path.push({ position: neighbors[0].position, direction: "UP" });
+    getRiverPath(neighbors[0].position);
   }
 
   if (
-    neighbors.down.tileValue === "5" &&
+    neighbors[1].tileValue === "5" &&
     !path.some(
       (path) =>
-        path.position.x === neighbors.down.position.x &&
-        path.position.y === neighbors.down.position.y
+        path.position.x === neighbors[1].position.x &&
+        path.position.y === neighbors[1].position.y
     )
   ) {
-    path.push({ position: neighbors.down.position, direction: "DOWN" });
-    getRiverPath(neighbors.down.position);
+    path.push({ position: neighbors[1].position, direction: "DOWN" });
+    getRiverPath(neighbors[1].position);
   }
   if (
-    neighbors.right.tileValue === "5" &&
+    neighbors[3].tileValue === "5" &&
     !path.some(
       (path) =>
-        path.position.x === neighbors.right.position.x &&
-        path.position.y === neighbors.right.position.y
+        path.position.x === neighbors[3].position.x &&
+        path.position.y === neighbors[3].position.y
     )
   ) {
     path.push({
-      position: neighbors.right.position,
+      position: neighbors[3].position,
       direction: "RIGHT",
     });
-    getRiverPath(neighbors.right.position);
+    getRiverPath(neighbors[3].position);
   }
   if (
-    neighbors.left.tileValue === "5" &&
+    neighbors[2].tileValue === "5" &&
     !path.some(
       (path) =>
-        path.position.x === neighbors.left.position.x &&
-        path.position.y === neighbors.left.position.y
+        path.position.x === neighbors[2].position.x &&
+        path.position.y === neighbors[2].position.y
     )
   ) {
-    path.push({ position: neighbors.left.position, direction: "LEFT" });
-    getRiverPath(neighbors.left.position);
+    path.push({ position: neighbors[2].position, direction: "LEFT" });
+    getRiverPath(neighbors[2].position);
   }
 
   return path;
