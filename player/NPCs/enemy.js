@@ -1,4 +1,4 @@
-import { pixelUnit, tileMap, tileSize } from "../app.js";
+import { pixelUnit, tileMap, tileSize } from "../../app.js";
 
 export class Enemy {
   constructor(x, y, type, radius, image = null, velocity, speed) {

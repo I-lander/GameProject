@@ -1,12 +1,13 @@
-import { Player } from "./player.js";
+import { Player } from "../player/player.js";
 import { map } from "./map.js";
-import { getRiverLastTile } from "../spawn.js";
+import { getRiverLastTile } from "../player/NPCs/spawn.js";
 
 export class TileMap {
   constructor() {
     this.tileSize = 0;
     this.mapOrigin = { x: 0, y: 0 };
     this.players = [];
+    this.playersInGrid = [];
 
     this.road = new Image();
     this.road.src = "./src/images/road.png";
@@ -23,29 +24,33 @@ export class TileMap {
       for (let column = 0; column < this.map[row].length; column++) {
         let tile = this.map[row][column];
         if (tile === "0") {
-        }
-        if (tile === "9") {
-          ctx.fillStyle = "rgba(255, 255, 255, 0.1)";
-          ctx.fillRect(
+          ctx.save();
+          ctx.strokeStyle = "rgba(255, 255, 255, 0.2)";
+          ctx.lineWidth = 0.1;
+          ctx.strokeRect(
             this.tileSize * column,
             this.tileSize * row,
             this.tileSize,
             this.tileSize
           );
-          ctx.fill();
-          this.drawRoad(ctx, row, column);
+          ctx.restore();
         }
-
         if (tile === "1") {
-          let player = new Player(
-            this.tileSize * column + this.tileSize / 2,
-            this.tileSize * row + this.tileSize / 2,
-            this.tileSize,
-            "./src/images/god.png",
-            null
-          );
-          this.players.push(player);
-          map[row][column] = "1x";
+          if (
+            !this.playersInGrid.some(
+              (player) => player.x === column && player.y === row
+            )
+          ) {
+            let player = new Player(
+              this.tileSize * column + this.tileSize / 2,
+              this.tileSize * row + this.tileSize / 2,
+              this.tileSize,
+              "./src/images/god.png",
+              null
+            );
+            this.players.push(player);
+            this.playersInGrid.push({ x: column, y: row });
+          }
         }
         if (tile === "2") {
           let player = new Player(
@@ -88,7 +93,15 @@ export class TileMap {
         if (tile === "green") {
           ctx.save();
           ctx.fillStyle = "rgba(100, 255, 100, 0.3)";
+          ctx.strokeStyle = "rgba(0, 0, 0, 0.3)";
+          ctx.lineWidth = 0.5
           ctx.fillRect(
+            this.tileSize * column,
+            this.tileSize * row,
+            this.tileSize,
+            this.tileSize
+          );
+          ctx.strokeRect(
             this.tileSize * column,
             this.tileSize * row,
             this.tileSize,

@@ -1,9 +1,9 @@
-import { TileMap } from "./src/tileMap.js";
-import { Particle } from "./src/visualEffects.js";
-import findPath from "./findPath.js";
-import { spawnEnemies } from "./spawn.js";
-import { drawMenu } from "./menu.js";
-import { Enemy } from "./src/enemy.js";
+import { TileMap } from "./level/tileMap.js";
+import { Particle } from "./player/visualEffects.js";
+import findPath from "./player/NPCs/findPath.js";
+import { spawnEnemies } from "./player/NPCs/spawn.js";
+import { drawMenu } from "./UI/menu.js";
+import { Enemy } from "./player/NPCs/enemy.js";
 
 const canvasScreen = document.getElementById("canvasScreen");
 const ctxScreen = canvasScreen.getContext("2d");
@@ -209,17 +209,17 @@ canvasScreen.addEventListener("click", (event) => {
     cleanMap();
   }
 
-  if ((selectedBtn === "spawn")) {
+  if (selectedBtn === "spawn") {
     enemies.push(
       new Enemy(
-        event.x - xZero,
-        event.y,
+        event.x - xZero - tileSize / 2,
+        event.y - tileSize / 2,
         "ground",
         tileSize,
         "./src/images/spider.png"
       )
     );
-    selectedBtn = ""
+    selectedBtn = "";
   }
 });
 

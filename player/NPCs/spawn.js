@@ -1,6 +1,6 @@
-import { onGame, enemies, tileSize, tileMap } from "./app.js";
-import { Enemy } from "./src/enemy.js";
-import { map } from "./src/map.js";
+import { onGame, enemies, tileSize, tileMap } from "../../app.js";
+import { Enemy } from "./enemy.js";
+import { map } from "../../level/map.js";
 
 const playerPos = {
   x: Math.floor(map.length / 2),

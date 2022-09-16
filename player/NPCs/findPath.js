@@ -1,5 +1,5 @@
-import { map } from "./src/map.js";
-import { tileSize } from "./app.js";
+import { map } from "../../level/map.js";
+import { tileSize } from "../../app.js";
 
 const toKey = (x, y) => `${x}x${y}`;
 
