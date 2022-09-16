@@ -9,7 +9,7 @@ export class Enemy {
     this.color = "black";
     this.velocity = { x: 0, y: 0 };
     this.speed = speed ?? 0.4;
-    this.collide = false
+    this.collide = false;
 
     this.distance = 0;
     this.position = tileMap.getPosition(this.x, this.y);
@@ -61,18 +61,24 @@ export class Enemy {
   }
 
   collideWith(element) {
-    const self = { x: this.x, y: this.y, width: this.hitBox, height: this.hitBox };
+    const self = {
+      x: this.x - this.radius / 2,
+      y: this.y - this.radius / 2,
+      width: tileSize,
+      height: tileSize,
+    };
     const obstacle = {
       x: element.x * tileSize,
       y: element.y * tileSize,
       width: tileSize,
       height: tileSize,
     };
+
     if (
-      self.x < obstacle.x + obstacle.width &&
-      self.x + self.width > obstacle.x &&
-      self.y < obstacle.y + obstacle.height &&
-      self.y + self.height > obstacle.y
+      self.x <= obstacle.x + obstacle.width &&
+      self.x + self.height >= obstacle.x &&
+      self.y <= obstacle.y + obstacle.height &&
+      self.y + self.width >= obstacle.y
     ) {
       return true;
     }

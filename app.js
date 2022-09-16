@@ -3,6 +3,7 @@ import { Particle } from "./src/visualEffects.js";
 import findPath from "./findPath.js";
 import { spawnEnemies } from "./spawn.js";
 import { drawMenu } from "./menu.js";
+import { Enemy } from "./src/enemy.js";
 
 const canvasScreen = document.getElementById("canvasScreen");
 const ctxScreen = canvasScreen.getContext("2d");
@@ -137,10 +138,11 @@ function animate(timestamp) {
     let targetVec = tileMap.getPosition(xCenter, yCenter);
 
     enemy.path = findPath(startVec, targetVec, enemy.type);
-    if (enemy.path.length === 1 && tileMap.mountains.length > 1) {
+
+    if (enemy.path.length === 1) {
       tileMap.mountains.forEach((mountain) => {
         if (enemy.collideWith(mountain)) {
-          enemy.collide = true
+          enemy.collide = true;
         }
       });
     }
@@ -186,6 +188,13 @@ riverButton.onclick = function () {
   }
 };
 
+const spawnButton = document.getElementById("spawnButton");
+spawnButton.onclick = function () {
+  if (onGame) {
+    selectedBtn = "spawn";
+  }
+};
+
 canvasScreen.addEventListener("click", (event) => {
   const xZero = innerWidth / 2 - canvasScreen.width / 2;
   const yZero = event.y;
@@ -198,6 +207,19 @@ canvasScreen.addEventListener("click", (event) => {
   ) {
     tileMap.map[clickPositionInGrid.y][clickPositionInGrid.x] = selectedBtn;
     cleanMap();
+  }
+
+  if ((selectedBtn === "spawn")) {
+    enemies.push(
+      new Enemy(
+        event.x - xZero,
+        event.y,
+        "ground",
+        tileSize,
+        "./src/images/spider.png"
+      )
+    );
+    selectedBtn = ""
   }
 });
 

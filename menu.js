@@ -15,6 +15,7 @@ function drawMenu(ctx, width) {
 }
 
 function createButton(width) {
+  const buttonSize = width/5
   let mountainButton = document.createElement("button");
   document.body.appendChild(mountainButton);
   mountainButton.id = "mountainButton";
@@ -26,8 +27,8 @@ function createButton(width) {
   mountainButton.style.left = `${innerWidth / 2 - width / 2}px`;
   mountainButton.style.top = `${width}px`;
   mountainButton.style.margin = "10px";
-  mountainButton.style.width = `${width / 5}px`;
-  mountainButton.style.height = `${width / 5}px`;
+  mountainButton.style.width = `${buttonSize}px`;
+  mountainButton.style.height = `${buttonSize}px`;
 
   let riverButton = document.createElement("button");
   document.body.appendChild(riverButton);
@@ -36,11 +37,25 @@ function createButton(width) {
   riverButton.style.backgroundSize = "cover";
   riverButton.style.backgroundRepeat = "no-repeat";
   riverButton.style.position = "fixed";
-  riverButton.style.left = `${innerWidth / 2 - width / 2 + width / 5}px`;
+  riverButton.style.left = `${innerWidth / 2 - width / 2 + buttonSize}px`;
   riverButton.style.top = `${width}px`;
   riverButton.style.margin = "10px";
-  riverButton.style.width = `${width / 5}px`;
-  riverButton.style.height = `${width / 5}px`;
+  riverButton.style.width = `${buttonSize}px`;
+  riverButton.style.height = `${buttonSize}px`;
+
+  let spawnButton = document.createElement("button");
+  document.body.appendChild(spawnButton);
+  spawnButton.id = "spawnButton";
+  spawnButton.style.backgroundImage = "url('./src/images/spider.png')";
+  spawnButton.style.backgroundColor = "transparent";
+  spawnButton.style.backgroundSize = "cover";
+  spawnButton.style.backgroundRepeat = "no-repeat";
+  spawnButton.style.position = "fixed";
+  spawnButton.style.left = `${innerWidth / 2 - width / 2}px`;
+  spawnButton.style.top = `${width + buttonSize}px`;
+  spawnButton.style.margin = "10px";
+  spawnButton.style.width = `${buttonSize}px`;
+  spawnButton.style.height = `${buttonSize}px`;
 }
 
 
