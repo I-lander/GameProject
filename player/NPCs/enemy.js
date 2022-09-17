@@ -1,5 +1,4 @@
 import { pixelUnit, tileMap, tileSize } from "../../app.js";
-
 export class Enemy {
   constructor(x, y, type, radius, image = null, velocity, speed) {
     this.x = x + tileSize / 2;
@@ -10,6 +9,9 @@ export class Enemy {
     this.velocity = { x: 0, y: 0 };
     this.speed = speed ?? 0.4;
     this.collide = false;
+    this.collideWith = "";
+    this.attackRate = 1;
+    this.lastAttack = 0;
 
     this.distance = 0;
     this.position = tileMap.getPosition(this.x, this.y);
@@ -60,7 +62,7 @@ export class Enemy {
     }
   }
 
-  collideWith(element) {
+  isCollideWith(element) {
     const self = {
       x: this.x - this.radius / 2,
       y: this.y - this.radius / 2,
@@ -97,6 +99,8 @@ export class Enemy {
   }
 
   update(ctx, delta) {
+    let timestamp = Date.now();
+
     this.draw(ctx);
 
     let dx = 0;
@@ -127,6 +131,28 @@ export class Enemy {
         }
         this.moveToTarget = undefined;
       }
+    }
+    if (timestamp < this.lastAttack + 1000 / this.attackRate) {
+      return;
+    }
+
+    if (this.collide) {
+      this.attack(this.collideWith);
+    }
+    this.lastAttack = timestamp;
+  }
+
+  attack(collideWith) {
+    const target = tileMap.mountains.find(
+      (mountain) =>
+        mountain.position.x === collideWith.x &&
+        mountain.position.y === collideWith.y
+    );
+    target.hp -= 1;
+    if(target.hp <= 0){
+      tileMap.mountains.splice(target)
+      tileMap.map[target.position.y][target.position.x] = "0"
+      this.collide = false
     }
   }
 }

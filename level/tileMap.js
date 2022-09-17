@@ -1,6 +1,7 @@
 import { Player } from "../player/player.js";
 import { map } from "./map.js";
 import { getRiverLastTile } from "../player/NPCs/spawn.js";
+import { Mountain } from "./element/mountain.js";
 
 export class TileMap {
   constructor() {
@@ -52,17 +53,6 @@ export class TileMap {
             this.playersInGrid.push({ x: column, y: row });
           }
         }
-        if (tile === "2") {
-          let player = new Player(
-            this.tileSize * column + this.tileSize / 2,
-            this.tileSize * row + this.tileSize / 2,
-            this.tileSize,
-            "./mouth.png",
-            null
-          );
-          this.players.push(player);
-          map[row][column] = "2x";
-        }
         if (tile === "4") {
           ctx.drawImage(
             this.mountain,
@@ -73,10 +63,11 @@ export class TileMap {
           );
           if (
             !this.mountains.some(
-              (mountain) => mountain.x === column && mountain.y === row
+              (mountain) => mountain.position.x === column && mountain.position.y === row
             )
           ) {
-            this.mountains.push({ x: column, y: row });
+            let mountain = new Mountain(column, row);
+            this.mountains.push(mountain);
           }
         }
         if (tile === "5") {
@@ -94,7 +85,7 @@ export class TileMap {
           ctx.save();
           ctx.fillStyle = "rgba(100, 255, 100, 0.3)";
           ctx.strokeStyle = "rgba(0, 0, 0, 0.3)";
-          ctx.lineWidth = 0.5
+          ctx.lineWidth = 0.5;
           ctx.fillRect(
             this.tileSize * column,
             this.tileSize * row,

@@ -45,7 +45,6 @@ const findPath = (start, target, type) => {
         neighbor.y = 15;
       }
       const tile = map[neighbor.y][neighbor.x];
-
       if (!tile) {
         continue;
       }
@@ -76,6 +75,7 @@ const findPath = (start, target, type) => {
   path.push(lastPos);
 
   let currentKey = targetKey;
+
   if(!parentForKey[targetKey]){
     return path
   }

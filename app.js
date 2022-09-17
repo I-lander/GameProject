@@ -25,11 +25,12 @@ tileMap.setCanvasSize(canvasScreen);
 const tileSize = tileMap.tileSize;
 const pixelUnit = tileSize / 32;
 
-export { tileMap, tileSize, pixelUnit };
 drawMenu(ctxMenu, canvasScreen.width);
 
 const xCenter = canvasScreen.width / 2;
 const yCenter = canvasScreen.height / 2;
+export { tileMap, tileSize, pixelUnit, xCenter, yCenter };
+
 let scoreValue = 0;
 const finalScore = document.getElementById("finalScore");
 const mainMenu = document.getElementById("mainMenu");
@@ -129,7 +130,6 @@ function animate(timestamp) {
     }
   });
 
-  // Game over
   enemies.forEach((enemy, index) => {
     const startVec = {
       x: Math.floor(enemy.x / tileSize),
@@ -141,15 +141,17 @@ function animate(timestamp) {
 
     if (enemy.path.length === 1) {
       tileMap.mountains.forEach((mountain) => {
-        if (enemy.collideWith(mountain)) {
+        if (enemy.isCollideWith(mountain.position)) {
           enemy.collide = true;
+          enemy.collideWith = mountain;
         }
       });
-    }
+    }else{enemy.collide = false}
 
     enemy.moveAlong();
     enemy.update(ctxScreen, delta);
 
+    // Game over
     const distance = Math.hypot(xCenter - enemy.x, yCenter - enemy.y);
     if (distance - enemy.hitBox < 1) {
       cancelAnimationFrame(animationId);
