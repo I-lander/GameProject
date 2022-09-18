@@ -78,7 +78,6 @@ function animate(timestamp) {
   tileMap.draw(ctxScreen);
   tileMap.players.forEach((player, index) => {
     player.draw(ctxScreen);
-    player.autoFire(enemies);
 
     // Kill enemy
     player.projectiles.forEach((projectile, projectileIndex) => {
@@ -138,6 +137,8 @@ function animate(timestamp) {
     let targetVec = tileMap.getPosition(xCenter, yCenter);
 
     enemy.path = findPath(startVec, targetVec, enemy.type);
+    enemy.collideWith = null;
+    enemy.collide = false;
 
     if (enemy.path.length === 1) {
       tileMap.mountains.forEach((mountain) => {
@@ -146,9 +147,9 @@ function animate(timestamp) {
           enemy.collideWith = mountain;
         }
       });
-    }else{enemy.collide = false}
+    } else {
+    }
 
-    enemy.moveAlong();
     enemy.update(ctxScreen, delta);
 
     // Game over
@@ -162,12 +163,12 @@ function animate(timestamp) {
     }
   });
 
-  for(let i = 0; i < tileMap.mountains.length; i ++){
-const mountain = tileMap.mountains[i]
-
-mountain.drawLifeBar(ctxScreen)
-    if(mountain.hp <= 0){
-      tileMap.mountains.splice(i, 1)
+  for (let i = 0; i < tileMap.mountains.length; i++) {
+    const mountain = tileMap.mountains[i];
+    mountain.drawLifeBar(ctxScreen);
+    if (mountain.hp <= 0) {
+      tileMap.map[mountain.position.y][mountain.position.x] = "0"
+      tileMap.mountains.splice(i, 1);
     }
   }
 

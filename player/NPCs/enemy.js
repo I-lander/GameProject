@@ -9,7 +9,7 @@ export class Enemy {
     this.velocity = { x: 0, y: 0 };
     this.speed = speed ?? 0.4;
     this.collide = false;
-    this.collideWith = "";
+    this.collideWith = null;
     this.attackRate = 1;
     this.lastAttack = 0;
 
@@ -99,6 +99,7 @@ export class Enemy {
   }
 
   update(ctx, delta) {
+    this.moveAlong()
     let timestamp = Date.now();
 
     this.draw(ctx);
@@ -151,9 +152,8 @@ export class Enemy {
     target.isAttack = true
     target.hp -= 1;
     if(target.hp <= 0){
-      // tileMap.mountains.splice(target, 1)
-      tileMap.map[target.position.y][target.position.x] = "0"
       this.collide = false
+      this.collideWith = null
     }
   }
 }
