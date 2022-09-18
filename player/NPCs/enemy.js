@@ -137,20 +137,21 @@ export class Enemy {
     }
 
     if (this.collide) {
-      this.attack(this.collideWith);
+      this.attack(this.collideWith, ctx);
     }
     this.lastAttack = timestamp;
   }
 
-  attack(collideWith) {
+  attack(collideWith, ctx) {
     const target = tileMap.mountains.find(
       (mountain) =>
         mountain.position.x === collideWith.x &&
         mountain.position.y === collideWith.y
     );
+    target.isAttack = true
     target.hp -= 1;
     if(target.hp <= 0){
-      tileMap.mountains.splice(target)
+      // tileMap.mountains.splice(target, 1)
       tileMap.map[target.position.y][target.position.x] = "0"
       this.collide = false
     }

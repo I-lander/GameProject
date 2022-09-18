@@ -161,6 +161,16 @@ function animate(timestamp) {
       clearInterval(spawEnemiesInterval);
     }
   });
+
+  for(let i = 0; i < tileMap.mountains.length; i ++){
+const mountain = tileMap.mountains[i]
+
+mountain.drawLifeBar(ctxScreen)
+    if(mountain.hp <= 0){
+      tileMap.mountains.splice(i, 1)
+    }
+  }
+
   animationId = requestAnimationFrame(animate);
 }
 
