@@ -63,7 +63,8 @@ export class TileMap {
           );
           if (
             !this.mountains.some(
-              (mountain) => mountain.position.x === column && mountain.position.y === row
+              (mountain) =>
+                mountain.position.x === column && mountain.position.y === row
             )
           ) {
             let mountain = new Mountain(column, row);
@@ -191,38 +192,82 @@ export class TileMap {
       }
     }
     if (selectedBtn === "5") {
+      const excludeValue = ["5", "1"];
       const riverLastTile = getRiverLastTile();
       let neighbors = this.getNeighbors(riverLastTile);
 
+      // UP
       if (
         neighbors[0].tileValue === "0" &&
-        this.getNeighbors(neighbors[0].position)[0].tileValue !== "5" &&
-        this.getNeighbors(neighbors[0].position)[2].tileValue !== "5" &&
-        this.getNeighbors(neighbors[0].position)[3].tileValue !== "5"
+        !excludeValue.some(
+          (value) =>
+            this.getNeighbors(neighbors[0].position)[0].tileValue === value
+        ) &&
+        !excludeValue.some(
+          (value) =>
+            this.getNeighbors(neighbors[0].position)[2].tileValue === value
+        ) &&
+        !excludeValue.some(
+          (value) =>
+            this.getNeighbors(neighbors[0].position)[3].tileValue === value
+        )
       ) {
         this.map[neighbors[0].position.y][neighbors[0].position.x] = "green";
       }
+
+    // DOWN
       if (
         neighbors[1].tileValue === "0" &&
-        this.getNeighbors(neighbors[1].position)[1].tileValue !== "5" &&
-        this.getNeighbors(neighbors[1].position)[2].tileValue !== "5" &&
-        this.getNeighbors(neighbors[1].position)[3].tileValue !== "5"
+        !excludeValue.some(
+          (value) =>
+            this.getNeighbors(neighbors[1].position)[1].tileValue === value
+        ) &&
+        !excludeValue.some(
+          (value) =>
+            this.getNeighbors(neighbors[1].position)[2].tileValue === value
+        ) &&
+        !excludeValue.some(
+          (value) =>
+            this.getNeighbors(neighbors[1].position)[3].tileValue === value
+        )
       ) {
         this.map[neighbors[1].position.y][neighbors[1].position.x] = "green";
       }
+
+    // LEFT
       if (
         neighbors[2].tileValue === "0" &&
-        this.getNeighbors(neighbors[2].position)[0].tileValue !== "5" &&
-        this.getNeighbors(neighbors[2].position)[1].tileValue !== "5" &&
-        this.getNeighbors(neighbors[2].position)[2].tileValue !== "5"
+        !excludeValue.some(
+          (value) =>
+            this.getNeighbors(neighbors[2].position)[0].tileValue === value
+        ) &&
+        !excludeValue.some(
+          (value) =>
+            this.getNeighbors(neighbors[2].position)[1].tileValue === value
+        ) &&
+        !excludeValue.some(
+          (value) =>
+            this.getNeighbors(neighbors[2].position)[2].tileValue === value
+        )
       ) {
         this.map[neighbors[2].position.y][neighbors[2].position.x] = "green";
       }
+      
+      // RIGHT
       if (
         neighbors[3].tileValue === "0" &&
-        this.getNeighbors(neighbors[3].position)[0].tileValue !== "5" &&
-        this.getNeighbors(neighbors[3].position)[1].tileValue !== "5" &&
-        this.getNeighbors(neighbors[3].position)[3].tileValue !== "5"
+        !excludeValue.some(
+          (value) =>
+            this.getNeighbors(neighbors[3].position)[0].tileValue === value
+        ) &&
+        !excludeValue.some(
+          (value) =>
+            this.getNeighbors(neighbors[3].position)[1].tileValue === value
+        ) &&
+        !excludeValue.some(
+          (value) =>
+            this.getNeighbors(neighbors[3].position)[3].tileValue === value
+        )
       ) {
         this.map[neighbors[3].position.y][neighbors[3].position.x] = "green";
       }

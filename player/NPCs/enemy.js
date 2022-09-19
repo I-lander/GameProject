@@ -1,11 +1,11 @@
 import { pixelUnit, tileMap, tileSize } from "../../app.js";
 export class Enemy {
-  constructor(x, y, type, radius, image = null, velocity, speed) {
+  constructor(x, y, type, radius, image = null, speed) {
     this.x = x + tileSize / 2;
     this.y = y + tileSize / 2;
+    this.positionInGrid = tileMap.getPosition(this.x, this.y)
     this.radius = radius;
     this.type = type;
-    this.color = "black";
     this.velocity = { x: 0, y: 0 };
     this.speed = speed ?? 0.4;
     this.collide = false;
@@ -140,6 +140,8 @@ export class Enemy {
     if (this.collide) {
       this.attack(this.collideWith, ctx);
     }
+
+    console.log(this.positionInGrid);
     this.lastAttack = timestamp;
   }
 

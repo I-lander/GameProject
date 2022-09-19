@@ -52,7 +52,7 @@ const findPath = (start, target, type) => {
       if (type === "ground" && (tile === "4" || tile === "5")) {
         continue;
       }
-      if (type === "river" && (tile === "0" || tile === "4")) {
+      if (type === "river" && (tile === "0" || tile === "4" || tile === "green")) {
         continue;
       }
 

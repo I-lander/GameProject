@@ -15,33 +15,4 @@ export class Mountain {
       return false;
     }
   }
-
-  drawLifeBar(ctx) {
-    if (this.isAttack) {
-      const barRatio = this.hp / this.maxHp;
-      ctx.save();
-      ctx.fillStyle = "rgba(0, 0, 0, 0.9)";
-      ctx.fillRect(
-        this.x * tileSize + (tileSize * 0.4) / 2,
-        this.y * tileSize - tileSize * 0.1,
-        tileSize * 0.6,
-        tileSize * 0.1
-      );
-      ctx.fillStyle = "rgba(0, 255, 0, 0.9)";
-      ctx.fillRect(
-        this.x * tileSize + (tileSize * 0.4) / 2,
-        this.y * tileSize - tileSize * 0.1,
-        tileSize * barRatio * 0.6,
-        tileSize * 0.1
-      );
-      ctx.strokeStyle = "white";
-      ctx.strokeRect(
-        this.x * tileSize + (tileSize * 0.4) / 2,
-        this.y * tileSize - tileSize * 0.1,
-        tileSize * 0.6,
-        tileSize * 0.1
-      );
-      ctx.restore();
-    }
-  }
 }

@@ -4,6 +4,7 @@ import findPath from "./player/NPCs/findPath.js";
 import { spawnEnemies } from "./player/NPCs/spawn.js";
 import { drawMenu } from "./UI/menu.js";
 import { Enemy } from "./player/NPCs/enemy.js";
+import { drawLifeBar } from "./player/utils.js";
 
 const canvasScreen = document.getElementById("canvasScreen");
 const ctxScreen = canvasScreen.getContext("2d");
@@ -165,7 +166,7 @@ function animate(timestamp) {
 
   for (let i = 0; i < tileMap.mountains.length; i++) {
     const mountain = tileMap.mountains[i];
-    mountain.drawLifeBar(ctxScreen);
+    drawLifeBar(ctxScreen, mountain);
     if (mountain.hp <= 0) {
       tileMap.map[mountain.position.y][mountain.position.x] = "0"
       tileMap.mountains.splice(i, 1);
@@ -176,7 +177,7 @@ function animate(timestamp) {
 }
 
 function init() {
-  spawEnemiesInterval = setInterval(spawnEnemies, 1000);
+  // spawEnemiesInterval = setInterval(spawnEnemies, 1000);
   tileMap.init();
   scoreValue = 0;
   enemies = [];
