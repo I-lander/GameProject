@@ -133,15 +133,13 @@ export class Enemy {
         this.moveToTarget = undefined;
       }
     }
+
     if (timestamp < this.lastAttack + 1000 / this.attackRate) {
       return;
     }
-
     if (this.collide) {
       this.attack(this.collideWith, ctx);
     }
-
-    console.log(this.positionInGrid);
     this.lastAttack = timestamp;
   }
 

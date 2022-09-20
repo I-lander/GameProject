@@ -177,7 +177,7 @@ function animate(timestamp) {
 }
 
 function init() {
-  // spawEnemiesInterval = setInterval(spawnEnemies, 1000);
+  spawEnemiesInterval = setInterval(spawnEnemies, 1000);
   tileMap.init();
   scoreValue = 0;
   enemies = [];
