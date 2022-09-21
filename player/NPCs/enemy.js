@@ -3,7 +3,6 @@ export class Enemy {
   constructor(x, y, type, radius, image = null, speed) {
     this.x = x + tileSize / 2;
     this.y = y + tileSize / 2;
-    this.positionInGrid = tileMap.getPosition(this.x, this.y)
     this.radius = radius;
     this.type = type;
     this.velocity = { x: 0, y: 0 };
@@ -149,11 +148,17 @@ export class Enemy {
         mountain.position.x === collideWith.x &&
         mountain.position.y === collideWith.y
     );
+    ctx.font = "6px dogicapixel";
+    ctx.fillStyle = "white";
+    ctx.textAlign = "center";
+    ctx.fillText("1", target.x*tileSize, target.y*tileSize);
+ 
     target.isAttack = true
     target.hp -= 1;
     if(target.hp <= 0){
       this.collide = false
       this.collideWith = null
     }
+
   }
 }

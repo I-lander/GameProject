@@ -168,7 +168,7 @@ function animate(timestamp) {
     const mountain = tileMap.mountains[i];
     drawLifeBar(ctxScreen, mountain);
     if (mountain.hp <= 0) {
-      tileMap.map[mountain.position.y][mountain.position.x] = "0"
+      tileMap.map[mountain.position.y][mountain.position.x] = "0";
       tileMap.mountains.splice(i, 1);
     }
   }
@@ -184,13 +184,14 @@ function init() {
   particles = [];
 }
 
-let selectedBtn;
+let selectedBtn = "";
+export { selectedBtn };
+
 const mountainButton = document.getElementById("mountainButton");
 mountainButton.onclick = function () {
   if (onGame) {
     cleanMap();
     selectedBtn = "4";
-    tileMap.possibilityForClick(selectedBtn);
   }
 };
 const riverButton = document.getElementById("riverButton");
@@ -198,7 +199,6 @@ riverButton.onclick = function () {
   if (onGame) {
     cleanMap();
     selectedBtn = "5";
-    tileMap.possibilityForClick(selectedBtn);
   }
 };
 
@@ -221,6 +221,7 @@ canvasScreen.addEventListener("click", (event) => {
   ) {
     tileMap.map[clickPositionInGrid.y][clickPositionInGrid.x] = selectedBtn;
     cleanMap();
+    selectedBtn = ""
   }
 
   if (selectedBtn === "spawn") {

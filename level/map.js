@@ -40,3 +40,5 @@ const mapTEST = [
 ];
 
 export {map}
+
+// export {mapTEST as map}

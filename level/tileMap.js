@@ -2,6 +2,7 @@ import { Player } from "../player/player.js";
 import { map } from "./map.js";
 import { getRiverLastTile } from "../player/NPCs/spawn.js";
 import { Mountain } from "./element/mountain.js";
+import { enemies, selectedBtn } from "../app.js";
 
 export class TileMap {
   constructor() {
@@ -103,6 +104,7 @@ export class TileMap {
         }
       }
     }
+    selectedBtn != "" ? this.possibilityForClick(selectedBtn) : null;
   }
 
   init() {
@@ -181,12 +183,33 @@ export class TileMap {
   }
 
   possibilityForClick(selectedBtn) {
+    let enemyTiles = [];
+
+    for (let i = 0; i < enemies.length; i++) {
+      enemyTiles.push(this.getPosition(enemies[i].x, enemies[i].y));
+    }
     if (selectedBtn === "4") {
       for (let row = 0; row < this.map.length; row++) {
         for (let column = 0; column < this.map[row].length; column++) {
+          let tileCoordinate = { x: column, y: row };
+
+          if (
+            enemyTiles.some(
+              (e) => e.x === tileCoordinate.x && e.y === tileCoordinate.y
+            )
+          ) {
+            this.map[row][column] = "enemy";
+          }
           let tile = this.map[row][column];
           if (tile === "0") {
             this.map[row][column] = "green";
+          }
+          if (
+            enemyTiles.some(
+              (e) => e.x === tileCoordinate.x && e.y === tileCoordinate.y
+            )
+          ) {
+            this.map[row][column] = "0";
           }
         }
       }
@@ -215,7 +238,7 @@ export class TileMap {
         this.map[neighbors[0].position.y][neighbors[0].position.x] = "green";
       }
 
-    // DOWN
+      // DOWN
       if (
         neighbors[1].tileValue === "0" &&
         !excludeValue.some(
@@ -234,7 +257,7 @@ export class TileMap {
         this.map[neighbors[1].position.y][neighbors[1].position.x] = "green";
       }
 
-    // LEFT
+      // LEFT
       if (
         neighbors[2].tileValue === "0" &&
         !excludeValue.some(
@@ -252,7 +275,7 @@ export class TileMap {
       ) {
         this.map[neighbors[2].position.y][neighbors[2].position.x] = "green";
       }
-      
+
       // RIGHT
       if (
         neighbors[3].tileValue === "0" &&
