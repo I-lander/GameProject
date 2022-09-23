@@ -1,27 +1,33 @@
-import {tileSize} from "../app.js"
+import { tileSize, pixelUnit, delta } from "../app.js";
 
 function drawLifeBar(ctx, entity) {
+  let x = entity.x;
+  let y = entity.y;
+  if(entity.type){
+    x -= entity.radius / 2
+    y -= entity.radius / 2
+  }
   if (entity.isAttack) {
-    const barRatio = entity.hp / entity.maxHp;
+    const barRatio = entity.stats.hp / entity.maxHp;
     ctx.save();
     ctx.fillStyle = "rgba(0, 0, 0, 0.9)";
     ctx.fillRect(
-      entity.x * tileSize + (tileSize * 0.4) / 2,
-      entity.y * tileSize - tileSize * 0.1,
+      x + (tileSize * 0.4) / 2,
+      y - tileSize * 0.1,
       tileSize * 0.6,
       tileSize * 0.1
     );
     ctx.fillStyle = "rgba(0, 255, 0, 0.9)";
     ctx.fillRect(
-      entity.x * tileSize + (tileSize * 0.4) / 2,
-      entity.y * tileSize - tileSize * 0.1,
+      x + (tileSize * 0.4) / 2,
+      y - tileSize * 0.1,
       tileSize * barRatio * 0.6,
       tileSize * 0.1
     );
     ctx.strokeStyle = "white";
     ctx.strokeRect(
-      entity.x * tileSize + (tileSize * 0.4) / 2,
-      entity.y * tileSize - tileSize * 0.1,
+      x + (tileSize * 0.4) / 2,
+      y - tileSize * 0.1,
       tileSize * 0.6,
       tileSize * 0.1
     );
@@ -29,4 +35,30 @@ function drawLifeBar(ctx, entity) {
   }
 }
 
-export {drawLifeBar}
+class DrawDamage {
+  constructor(entity) {
+    this.entity = entity;
+    this.y = entity.y;
+  }
+
+  draw(ctx) {
+    let x = this.entity.x
+
+    if(this.entity.type){
+      x -= this.entity.radius / 2 
+      this.y -= this.entity.radius / 2 
+    }
+      ctx.font = "6px dogicapixel";
+      ctx.fillStyle = "white";
+      ctx.textAlign = "center";
+      ctx.fillText(
+        this.entity.damage,
+        x  + tileSize / 2,
+        this.y 
+      );
+
+      this.y -= 0.5 * pixelUnit * delta;
+  }
+}
+
+export { drawLifeBar, DrawDamage };

@@ -4,7 +4,7 @@ import findPath from "./player/NPCs/findPath.js";
 import { spawnEnemies } from "./player/NPCs/spawn.js";
 import { drawMenu } from "./UI/menu.js";
 import { Enemy } from "./player/NPCs/enemy.js";
-import { drawLifeBar } from "./player/utils.js";
+import { drawLifeBar, DrawDamage } from "./player/utils.js";
 
 const canvasScreen = document.getElementById("canvasScreen");
 const ctxScreen = canvasScreen.getContext("2d");
@@ -56,7 +56,9 @@ function startGame() {
 }
 
 let enemies;
-export { enemies };
+let damageTexts;
+
+export { enemies, damageTexts };
 
 let particles;
 
@@ -64,6 +66,8 @@ let animationId;
 let lastFrameTimeMs = 0; // The last time the loop was run
 let maxFPS = 90; // The maximum FPS we want to allow
 let delta = 0;
+export { delta };
+
 let speedFactor = 10;
 
 function animate(timestamp) {
@@ -88,19 +92,28 @@ function animate(timestamp) {
           projectile.y - enemy.y
         );
         if (distance - enemy.hitBox - projectile.radius < 1) {
-          for (let i = 0; i < 20; i++) {
-            particles.push(
-              new Particle(enemy.x, enemy.y, Math.random() * 2 * pixelUnit, {
-                x: Math.random() - 0.5,
-                y: Math.random() - 0.5,
-              })
-            );
-          }
           setTimeout(() => {
-            enemies.splice(index, 1);
             player.projectiles.splice(projectileIndex, 1);
           });
-          scoreValue += 1;
+          enemy.isAttack = true;
+          enemy.damage = projectile.force;
+          enemy.stats.hp -= projectile.force;
+          const damageText = new DrawDamage(enemy);
+          damageTexts.push(damageText);
+          if (enemy.stats.hp <= 0) {
+            for (let i = 0; i < 20; i++) {
+              particles.push(
+                new Particle(enemy.x, enemy.y, Math.random() * 2 * pixelUnit, {
+                  x: Math.random() - 0.5,
+                  y: Math.random() - 0.5,
+                })
+              );
+            }
+            setTimeout(() => {
+              enemies.splice(index, 1);
+            });
+            scoreValue += 1;
+          }
         }
       });
     });
@@ -108,7 +121,7 @@ function animate(timestamp) {
 
     // Detect projectile out of screen
     player.projectiles.forEach((projectile, index) => {
-      projectile.update(ctxScreen, delta);
+      projectile.update(ctxScreen);
       if (
         projectile.x + projectile.radius < 1 ||
         projectile.y + projectile.radius < 1 ||
@@ -124,13 +137,16 @@ function animate(timestamp) {
   });
 
   particles.forEach((particle, index) => {
-    particle.update(ctxScreen, delta);
+    particle.update(ctxScreen);
     if (particle.radius < 0) {
       particles.splice(index, 1);
     }
   });
 
   enemies.forEach((enemy, index) => {
+    
+    drawLifeBar(ctxScreen, enemy);
+
     const startVec = {
       x: Math.floor(enemy.x / tileSize),
       y: Math.floor(enemy.y / tileSize),
@@ -143,7 +159,7 @@ function animate(timestamp) {
 
     if (enemy.path.length === 1) {
       tileMap.mountains.forEach((mountain) => {
-        if (enemy.isCollideWith(mountain.position)) {
+        if (enemy.isCollideWith(mountain)) {
           enemy.collide = true;
           enemy.collideWith = mountain;
         }
@@ -151,7 +167,7 @@ function animate(timestamp) {
     } else {
     }
 
-    enemy.update(ctxScreen, delta);
+    enemy.update(ctxScreen);
 
     // Game over
     const distance = Math.hypot(xCenter - enemy.x, yCenter - enemy.y);
@@ -164,10 +180,17 @@ function animate(timestamp) {
     }
   });
 
+  damageTexts.forEach((text, textIndex) => {
+    text.draw(ctxScreen);
+    if (text.entity.y - text.y > tileSize / 2) {
+      damageTexts.splice(textIndex, 1);
+    }
+  });
+
   for (let i = 0; i < tileMap.mountains.length; i++) {
     const mountain = tileMap.mountains[i];
     drawLifeBar(ctxScreen, mountain);
-    if (mountain.hp <= 0) {
+    if (mountain.stats.hp <= 0) {
       tileMap.map[mountain.position.y][mountain.position.x] = "0";
       tileMap.mountains.splice(i, 1);
     }
@@ -177,10 +200,11 @@ function animate(timestamp) {
 }
 
 function init() {
-  spawEnemiesInterval = setInterval(spawnEnemies, 1000);
+  // spawEnemiesInterval = setInterval(spawnEnemies, 1000);
   tileMap.init();
   scoreValue = 0;
   enemies = [];
+  damageTexts = [];
   particles = [];
 }
 
@@ -221,7 +245,7 @@ canvasScreen.addEventListener("click", (event) => {
   ) {
     tileMap.map[clickPositionInGrid.y][clickPositionInGrid.x] = selectedBtn;
     cleanMap();
-    selectedBtn = ""
+    selectedBtn = "";
   }
 
   if (selectedBtn === "spawn") {

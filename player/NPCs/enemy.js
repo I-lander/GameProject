@@ -1,4 +1,5 @@
-import { pixelUnit, tileMap, tileSize } from "../../app.js";
+import { pixelUnit, delta, tileMap, tileSize, damageTexts } from "../../app.js";
+import { DrawDamage } from "../utils.js";
 export class Enemy {
   constructor(x, y, type, radius, image = null, speed) {
     this.x = x + tileSize / 2;
@@ -9,7 +10,16 @@ export class Enemy {
     this.speed = speed ?? 0.4;
     this.collide = false;
     this.collideWith = null;
-    this.attackRate = 1;
+    this.damage;
+    this.isAttack = false;
+
+    this.maxHp = 3;
+    this.stats = {
+      hp: this.maxHp,
+      force: 1,
+      attackRate: 1,
+    };
+
     this.lastAttack = 0;
 
     this.distance = 0;
@@ -69,8 +79,8 @@ export class Enemy {
       height: tileSize,
     };
     const obstacle = {
-      x: element.x * tileSize,
-      y: element.y * tileSize,
+      x: element.x,
+      y: element.y,
       width: tileSize,
       height: tileSize,
     };
@@ -97,8 +107,8 @@ export class Enemy {
     this.moveToTarget = target;
   }
 
-  update(ctx, delta) {
-    this.moveAlong()
+  update(ctx) {
+    this.moveAlong();
     let timestamp = Date.now();
 
     this.draw(ctx);
@@ -133,7 +143,7 @@ export class Enemy {
       }
     }
 
-    if (timestamp < this.lastAttack + 1000 / this.attackRate) {
+    if (timestamp <= this.lastAttack + 1000 / this.stats.attackRate) {
       return;
     }
     if (this.collide) {
@@ -144,21 +154,19 @@ export class Enemy {
 
   attack(collideWith, ctx) {
     const target = tileMap.mountains.find(
-      (mountain) =>
-        mountain.position.x === collideWith.x &&
-        mountain.position.y === collideWith.y
+      (mountain) => mountain.x === collideWith.x && mountain.y === collideWith.y
     );
-    ctx.font = "6px dogicapixel";
-    ctx.fillStyle = "white";
-    ctx.textAlign = "center";
-    ctx.fillText("1", target.x*tileSize, target.y*tileSize);
- 
-    target.isAttack = true
-    target.hp -= 1;
-    if(target.hp <= 0){
-      this.collide = false
-      this.collideWith = null
-    }
+    target.damage = this.stats.force;
 
+    target.isAttack = true;
+    target.stats.hp -= this.stats.force;
+
+    const damageText = new DrawDamage(target);
+    damageTexts.push(damageText);
+
+    if (target.stats.hp <= 0) {
+      this.collide = false;
+      this.collideWith = null;
+    }
   }
 }

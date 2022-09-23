@@ -10,6 +10,7 @@ const playerPos = {
 let path = [];
 
 function getRiverLastTile() {
+  path = []
   const riverPath = getRiverPath(playerPos);
   return riverPath[riverPath.length - 1].position;
 }

@@ -1,4 +1,4 @@
-import { pixelUnit } from "../app.js";
+import { pixelUnit, delta } from "../app.js";
 
 class Particle {
   constructor(x, y, radius, velocity) {
@@ -18,7 +18,7 @@ class Particle {
     ctx.fill();
   }
 
-  update(ctx, delta) {
+  update(ctx) {
     this.draw(ctx);
     this.x += this.velocity.x * pixelUnit * this.speed * delta;
     this.y += this.velocity.y * pixelUnit * this.speed * delta;
