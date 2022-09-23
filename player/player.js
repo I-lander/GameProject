@@ -9,9 +9,9 @@ class Player {
     this.range = tileSize * 1.5;
 
     this.stats = {
-      hp : 3,
-      force : 1,
-      attackRate : 1,
+      hp: 3,
+      force: 3,
+      attackRate: 1,
     };
     this.lastAttack = 0;
 
@@ -33,38 +33,41 @@ class Player {
     ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
     ctx.strokeStyle = "rgba(255, 255, 255, 0.1)";
     ctx.stroke();
-    
+
     if (timestamp < this.lastAttack + 1000 / this.stats.attackRate) {
-      console.log("x");
       return;
     }
-
     this.autoFire(enemies);
-
     this.lastAttack = timestamp;
   }
 
   autoFire(enemies) {
-      enemies.forEach((enemy, index) => {
-        enemy.distance = Math.hypot(this.x - enemy.x, this.y - enemy.y);
-        if (enemy.distance < this.range - enemies[0].hitBox) {
-          const angle = Math.atan2(
-            enemies[0].y - this.y,
-            enemies[0].x - this.x
-          );
-          const velocity = {
-            x: Math.cos(angle) * 5,
-            y: Math.sin(angle) * 5,
-          };
+    enemies.forEach((enemy, index) => {
+      enemy.distance = Math.hypot(this.x - enemy.x, this.y - enemy.y);
+      if (enemy.distance < this.range - enemies[0].hitBox) {
+        const angle = Math.atan2(enemies[0].y - this.y, enemies[0].x - this.x);
+        const velocity = {
+          x: Math.cos(angle) * 5,
+          y: Math.sin(angle) * 5,
+        };
+        if (this.projectiles.length < 1) {
           this.projectiles.push(
-            new Projectile(this.x, this.y, 5 * pixelUnit, "black", velocity, this.stats.force)
+            new Projectile(
+              this.x,
+              this.y,
+              5 * pixelUnit,
+              "black",
+              velocity,
+              this.stats.force
+            )
           );
         }
-      });
+      }
+    });
 
-      enemies.sort((a, b) => {
-        return a.distance - b.distance;
-      });
+    enemies.sort((a, b) => {
+      return a.distance - b.distance;
+    });
   }
 }
 
@@ -76,7 +79,7 @@ class Projectile {
     this.color = color;
     this.velocity = velocity;
     this.speed = 0.3;
-    this.force = force
+    this.force = force;
   }
 
   draw(ctx) {
