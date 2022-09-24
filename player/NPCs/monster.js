@@ -1,6 +1,6 @@
 import { pixelUnit, delta, tileMap, tileSize, damageTexts } from "../../app.js";
 import { DrawDamage } from "../utils.js";
-export class Enemy {
+export class Monster {
   constructor(x, y, type, radius, image = null, speed) {
     this.x = x + tileSize / 2;
     this.y = y + tileSize / 2;

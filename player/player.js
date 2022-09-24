@@ -1,4 +1,4 @@
-import { tileSize, pixelUnit, delta, enemies } from "../app.js";
+import { tileSize, pixelUnit, delta, monsters } from "../app.js";
 
 class Player {
   constructor(x, y, radius, image) {
@@ -6,12 +6,12 @@ class Player {
     this.y = y;
     this.radius = radius;
     this.projectiles = [];
-    this.range = tileSize * 1.5;
 
     this.stats = {
       hp: 3,
       force: 3,
-      attackRate: 1,
+      attackRate: 2,
+      range : tileSize * 3
     };
     this.lastAttack = 0;
 
@@ -30,21 +30,21 @@ class Player {
       this.radius
     );
     ctx.beginPath();
-    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
+    ctx.arc(this.x, this.y, this.stats.range, 0, Math.PI * 2, false);
     ctx.strokeStyle = "rgba(255, 255, 255, 0.1)";
     ctx.stroke();
 
     if (timestamp >= this.lastAttack + 1000 / this.stats.attackRate) {
-      this.autoFire(enemies);
+      this.autoFire(monsters);
       this.lastAttack = timestamp;
     }
   }
 
-  autoFire(enemies) {
-    enemies.forEach((enemy, index) => {
-      enemy.distance = Math.hypot(this.x - enemy.x, this.y - enemy.y);
-      if (enemy.distance < this.range - enemy.hitBox) {
-        const angle = Math.atan2(enemy.y - this.y, enemy.x - this.x);
+  autoFire(monsters) {
+    monsters.forEach((monster, index) => {
+      monster.distance = Math.hypot(this.x - monster.x, this.y - monster.y);
+      if (monster.distance < this.stats.range - monster.hitBox) {
+        const angle = Math.atan2(monster.y - this.y, monster.x - this.x);
         const velocity = {
           x: Math.cos(angle) * 5,
           y: Math.sin(angle) * 5,
@@ -55,7 +55,7 @@ class Player {
               this.x,
               this.y,
               5 * pixelUnit,
-              "black",
+              "white",
               velocity,
               this.stats.force
             )

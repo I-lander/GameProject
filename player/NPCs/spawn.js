@@ -1,5 +1,5 @@
-import { onGame, enemies, tileSize, tileMap } from "../../app.js";
-import { Enemy } from "./enemy.js";
+import { onGame, monsters, tileSize, tileMap } from "../../app.js";
+import { Monster } from "./monster.js";
 import { map } from "../../level/map.js";
 
 const playerPos = {
@@ -10,7 +10,7 @@ const playerPos = {
 let path = [];
 
 function getRiverLastTile() {
-  path = []
+  path = [];
   const riverPath = getRiverPath(playerPos);
   return riverPath[riverPath.length - 1].position;
 }
@@ -20,8 +20,8 @@ export { getRiverLastTile };
 function spawnEnemies() {
   if (onGame) {
     const groundSpawnPosition = getGroundSpawnPosition();
-    enemies.push(
-      new Enemy(
+    monsters.push(
+      new Monster(
         groundSpawnPosition.x,
         groundSpawnPosition.y,
         "ground",
@@ -33,8 +33,8 @@ function spawnEnemies() {
     const riverPath = getRiverPath(playerPos);
     if (riverPath.length > 5) {
       const riverSpawnPosition = getRiverSpawnPosition(riverPath);
-      enemies.push(
-        new Enemy(
+      monsters.push(
+        new Monster(
           riverSpawnPosition.x,
           riverSpawnPosition.y,
           "river",

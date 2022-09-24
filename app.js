@@ -3,7 +3,7 @@ import { Particle } from "./player/visualEffects.js";
 import findPath from "./player/NPCs/findPath.js";
 import { spawnEnemies } from "./player/NPCs/spawn.js";
 import { drawMenu } from "./UI/menu.js";
-import { Enemy } from "./player/NPCs/enemy.js";
+import { Monster } from "./player/NPCs/monster.js";
 import { drawLifeBar, DrawDamage } from "./player/utils.js";
 
 const canvasScreen = document.getElementById("canvasScreen");
@@ -55,10 +55,10 @@ function startGame() {
   animate();
 }
 
-let enemies;
+let monsters;
 let damageTexts;
 
-export { enemies, damageTexts };
+export { monsters, damageTexts };
 
 let particles;
 
@@ -80,38 +80,38 @@ function animate(timestamp) {
 
   ctxScreen.clearRect(0, 0, canvasScreen.width, canvasScreen.height);
 
-  tileMap.draw(ctxScreen);
   tileMap.players.forEach((player, index) => {
     player.draw(ctxScreen);
 
-    // Kill enemy
+    // Kill monster
     player.projectiles.forEach((projectile, projectileIndex) => {
-      enemies.forEach((enemy, index) => {
+      monsters.forEach((monster, index) => {
         const distance = Math.hypot(
-          projectile.x - enemy.x,
-          projectile.y - enemy.y
+          projectile.x - monster.x,
+          projectile.y - monster.y
         );
-        if (distance - enemy.hitBox - projectile.radius < 1) {
-          setTimeout(() => {
-            player.projectiles.splice(projectileIndex, 1);
-          });
-          enemy.isAttack = true;
-          enemy.damage = projectile.force;
-          enemy.stats.hp -= projectile.force;
-          const damageText = new DrawDamage(enemy);
+        if (distance - monster.hitBox - projectile.radius < 1) {
+          player.projectiles.splice(projectileIndex, 1);
+          monster.isAttack = true;
+          monster.damage = projectile.force;
+          monster.stats.hp -= projectile.force;
+          const damageText = new DrawDamage(monster);
           damageTexts.push(damageText);
-          if (enemy.stats.hp <= 0) {
+          if (monster.stats.hp <= 0) {
             for (let i = 0; i < 20; i++) {
               particles.push(
-                new Particle(enemy.x, enemy.y, Math.random() * 2 * pixelUnit, {
-                  x: Math.random() - 0.5,
-                  y: Math.random() - 0.5,
-                })
+                new Particle(
+                  monster.x,
+                  monster.y,
+                  Math.random() * 2 * pixelUnit,
+                  {
+                    x: Math.random() - 0.5,
+                    y: Math.random() - 0.5,
+                  }
+                )
               );
             }
-            setTimeout(() => {
-              enemies.splice(index, 1);
-            });
+            monsters.splice(index, 1);
             scoreValue += 1;
           }
         }
@@ -143,33 +143,33 @@ function animate(timestamp) {
     }
   });
 
-  enemies.forEach((enemy, index) => { 
-    drawLifeBar(ctxScreen, enemy);
+  monsters.forEach((monster, index) => {
+    drawLifeBar(ctxScreen, monster);
     const startVec = {
-      x: Math.floor(enemy.x / tileSize),
-      y: Math.floor(enemy.y / tileSize),
+      x: Math.floor(monster.x / tileSize),
+      y: Math.floor(monster.y / tileSize),
     };
     let targetVec = tileMap.getPosition(xCenter, yCenter);
 
-    enemy.path = findPath(startVec, targetVec, enemy.type);
-    enemy.collideWith = null;
-    enemy.collide = false;
+    monster.path = findPath(startVec, targetVec, monster.type);
+    monster.collideWith = null;
+    monster.collide = false;
 
-    if (enemy.path.length === 1) {
+    if (monster.path.length === 1) {
       tileMap.mountains.forEach((mountain) => {
-        if (enemy.isCollideWith(mountain)) {
-          enemy.collide = true;
-          enemy.collideWith = mountain;
+        if (monster.isCollideWith(mountain)) {
+          monster.collide = true;
+          monster.collideWith = mountain;
         }
       });
     } else {
     }
 
-    enemy.update(ctxScreen);
+    monster.update(ctxScreen);
 
     // Game over
-    const distance = Math.hypot(xCenter - enemy.x, yCenter - enemy.y);
-    if (distance - enemy.hitBox < 1) {
+    const distance = Math.hypot(xCenter - monster.x, yCenter - monster.y);
+    if (distance - monster.hitBox < 1) {
       cancelAnimationFrame(animationId);
       mainMenu.classList.remove("disable");
       finalScore.innerText = scoreValue;
@@ -193,7 +193,8 @@ function animate(timestamp) {
       tileMap.mountains.splice(i, 1);
     }
   }
-
+  
+  tileMap.draw(ctxScreen);
   animationId = requestAnimationFrame(animate);
 }
 
@@ -201,7 +202,7 @@ function init() {
   spawEnemiesInterval = setInterval(spawnEnemies, 1000);
   tileMap.init();
   scoreValue = 0;
-  enemies = [];
+  monsters = [];
   damageTexts = [];
   particles = [];
 }
@@ -247,8 +248,8 @@ canvasScreen.addEventListener("click", (event) => {
   }
 
   if (selectedBtn === "spawn") {
-    enemies.push(
-      new Enemy(
+    monsters.push(
+      new Monster(
         event.x - xZero - tileSize / 2,
         event.y - tileSize / 2,
         "ground",

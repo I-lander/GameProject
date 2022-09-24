@@ -2,8 +2,11 @@ import { Player } from "../player/player.js";
 import { map } from "./map.js";
 import { getRiverLastTile } from "../player/NPCs/spawn.js";
 import { Mountain } from "./element/mountain.js";
-import { enemies, selectedBtn } from "../app.js";
+import { monsters, selectedBtn } from "../app.js";
 
+const canvasScreen = document.getElementById("canvasScreen");
+const ctxScreen = canvasScreen.getContext("2d");
+ctxScreen.imageSmoothingEnabled = false;
 export class TileMap {
   constructor() {
     this.tileSize = 0;
@@ -11,8 +14,8 @@ export class TileMap {
     this.players = [];
     this.playersInGrid = [];
 
-    this.road = new Image();
-    this.road.src = "./src/images/road.png";
+    this.cloud = new Image();
+    this.cloud.src = "./src/images/cloud.png";
 
     this.mountain = new Image();
     this.mountain.src = "./src/images/mountain.png";
@@ -36,6 +39,9 @@ export class TileMap {
             this.tileSize
           );
           ctx.restore();
+        }
+        if (tile === "c") {
+          this.drawCloud(column, row);
         }
         if (tile === "1") {
           if (
@@ -183,10 +189,10 @@ export class TileMap {
   }
 
   possibilityForClick(selectedBtn) {
-    let enemyTiles = [];
+    let monsterTiles = [];
 
-    for (let i = 0; i < enemies.length; i++) {
-      enemyTiles.push(this.getPosition(enemies[i].x, enemies[i].y));
+    for (let i = 0; i < monsters.length; i++) {
+      monsterTiles.push(this.getPosition(monsters[i].x, monsters[i].y));
     }
     if (selectedBtn === "4") {
       for (let row = 0; row < this.map.length; row++) {
@@ -194,18 +200,18 @@ export class TileMap {
           let tileCoordinate = { x: column, y: row };
 
           if (
-            enemyTiles.some(
+            monsterTiles.some(
               (e) => e.x === tileCoordinate.x && e.y === tileCoordinate.y
             )
           ) {
-            this.map[row][column] = "enemy";
+            this.map[row][column] = "monster";
           }
           let tile = this.map[row][column];
           if (tile === "0") {
             this.map[row][column] = "green";
           }
           if (
-            enemyTiles.some(
+            monsterTiles.some(
               (e) => e.x === tileCoordinate.x && e.y === tileCoordinate.y
             )
           ) {
@@ -294,6 +300,119 @@ export class TileMap {
       ) {
         this.map[neighbors[3].position.y][neighbors[3].position.x] = "green";
       }
+    }
+  }
+
+  drawCloud(x, y) {
+    if (x === 0 && y === 0) {
+      ctxScreen.drawImage(
+        this.cloud,
+        0 * 32,
+        0 * 32,
+        32,
+        32,
+        x * this.tileSize,
+        y * this.tileSize,
+        this.tileSize,
+        this.tileSize
+      );
+    }
+    if (x === 0 && y === this.map.length-1) {
+      ctxScreen.drawImage(
+        this.cloud,
+        0 * 32,
+        2 * 32,
+        32,
+        32,
+        x * this.tileSize,
+        y * this.tileSize,
+        this.tileSize,
+        this.tileSize
+      );
+    }
+
+    if (x === this.map.length-1 && y === 0) {
+      ctxScreen.drawImage(
+        this.cloud,
+        2 * 32,
+        0 * 32,
+        32,
+        32,
+        x * this.tileSize,
+        y * this.tileSize,
+        this.tileSize,
+        this.tileSize
+      );
+    }
+    
+    if (x === this.map.length-1 && y === this.map.length-1) {
+      ctxScreen.drawImage(
+        this.cloud,
+        2 * 32,
+        2 * 32,
+        32,
+        32,
+        x * this.tileSize,
+        y * this.tileSize,
+        this.tileSize,
+        this.tileSize
+      );
+    }
+
+    if (x === 0 && (y !== this.map.length-1 || y !== 0)) {
+      ctxScreen.drawImage(
+        this.cloud,
+        0 * 32,
+        1 * 32,
+        32,
+        32,
+        x * this.tileSize,
+        y * this.tileSize,
+        this.tileSize,
+        this.tileSize
+      );
+    }
+
+    if ((x !== this.map.length-1 || x !==0) && y === 0) {
+      ctxScreen.drawImage(
+        this.cloud,
+        1 * 32,
+        0 * 32,
+        32,
+        32,
+        x * this.tileSize,
+        y * this.tileSize,
+        this.tileSize,
+        this.tileSize
+      );
+    }
+
+    if (x === this.map.length-1 && (y !== 0 || y !== this.map.length -1)) {
+      ctxScreen.drawImage(
+        this.cloud,
+        2 * 32,
+        1 * 32,
+        32,
+        32,
+        x * this.tileSize,
+        y * this.tileSize,
+        this.tileSize,
+        this.tileSize
+      );
+    }
+
+    if ((x !== 0 || x !== this.map.length-1) && y === this.map.length-1 ) {
+      ctxScreen.drawImage(
+        this.cloud,
+        1 * 32,
+        2 * 32,
+        32,
+        32,
+        x * this.tileSize,
+        y * this.tileSize,
+        this.tileSize,
+        this.tileSize
+      );
     }
   }
 }
