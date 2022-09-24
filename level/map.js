@@ -8,11 +8,6 @@ function createMap() {
   for (let row = 0; row < mapSize; row++) {
     for (let column = 0; column < mapSize; column++) {
       map[row].push("0");
-    }
-  }
-  map[mapCenter][mapCenter] = "1";
-  for (let row = 0; row < mapSize; row++) {
-    for (let column = 0; column < mapSize; column++) {
       if (
         row === 0 ||
         row === mapSize - 1 ||
@@ -23,6 +18,7 @@ function createMap() {
       }
     }
   }
+  map[mapCenter][mapCenter] = "1";
 }
 createMap();
 
