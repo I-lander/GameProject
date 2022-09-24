@@ -78,6 +78,7 @@ export class TileMap {
             this.mountains.push(mountain);
           }
         }
+
         if (tile === "5") {
           ctx.save();
           ctx.fillStyle = "rgba(100, 100, 255, 0.9)";
