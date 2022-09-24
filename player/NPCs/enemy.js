@@ -143,13 +143,13 @@ export class Enemy {
       }
     }
 
-    if (timestamp <= this.lastAttack + 1000 / this.stats.attackRate) {
-      return;
-    }
-    if (this.collide) {
+    if (
+      timestamp >= this.lastAttack + 1000 / this.stats.attackRate &&
+      this.collide
+    ) {
       this.attack(this.collideWith, ctx);
+      this.lastAttack = timestamp;
     }
-    this.lastAttack = timestamp;
   }
 
   attack(collideWith, ctx) {

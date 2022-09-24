@@ -143,10 +143,8 @@ function animate(timestamp) {
     }
   });
 
-  enemies.forEach((enemy, index) => {
-    
+  enemies.forEach((enemy, index) => { 
     drawLifeBar(ctxScreen, enemy);
-
     const startVec = {
       x: Math.floor(enemy.x / tileSize),
       y: Math.floor(enemy.y / tileSize),
@@ -180,10 +178,10 @@ function animate(timestamp) {
     }
   });
 
-  damageTexts.forEach((text, textIndex) => {
-    text.draw(ctxScreen);
-    if (text.entity.y - text.y > tileSize / 2) {
-      damageTexts.splice(textIndex, 1);
+  damageTexts.forEach((damageText, damageTextIndex) => {
+    damageText.draw(ctxScreen);
+    if (damageText.entity.y - damageText.y > tileSize / 2) {
+      damageTexts.splice(damageTextIndex, 1);
     }
   });
 

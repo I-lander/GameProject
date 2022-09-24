@@ -7,7 +7,7 @@ function drawLifeBar(ctx, entity) {
     x -= entity.radius / 2
     y -= entity.radius / 2
   }
-  if (entity.isAttack) {
+  if (entity.isAttack && entity.stats.hp > 0) {
     const barRatio = entity.stats.hp / entity.maxHp;
     ctx.save();
     ctx.fillStyle = "rgba(0, 0, 0, 0.9)";
@@ -43,10 +43,8 @@ class DrawDamage {
 
   draw(ctx) {
     let x = this.entity.x
-
     if(this.entity.type){
-      x -= this.entity.radius / 2 
-      this.y -= this.entity.radius / 2 
+      x -= this.entity.radius / 2
     }
       ctx.font = "6px dogicapixel";
       ctx.fillStyle = "white";

@@ -34,18 +34,17 @@ class Player {
     ctx.strokeStyle = "rgba(255, 255, 255, 0.1)";
     ctx.stroke();
 
-    if (timestamp < this.lastAttack + 1000 / this.stats.attackRate) {
-      return;
+    if (timestamp >= this.lastAttack + 1000 / this.stats.attackRate) {
+      this.autoFire(enemies);
+      this.lastAttack = timestamp;
     }
-    this.autoFire(enemies);
-    this.lastAttack = timestamp;
   }
 
   autoFire(enemies) {
     enemies.forEach((enemy, index) => {
       enemy.distance = Math.hypot(this.x - enemy.x, this.y - enemy.y);
-      if (enemy.distance < this.range - enemies[0].hitBox) {
-        const angle = Math.atan2(enemies[0].y - this.y, enemies[0].x - this.x);
+      if (enemy.distance < this.range - enemy.hitBox) {
+        const angle = Math.atan2(enemy.y - this.y, enemy.x - this.x);
         const velocity = {
           x: Math.cos(angle) * 5,
           y: Math.sin(angle) * 5,
@@ -63,10 +62,6 @@ class Player {
           );
         }
       }
-    });
-
-    enemies.sort((a, b) => {
-      return a.distance - b.distance;
     });
   }
 }
