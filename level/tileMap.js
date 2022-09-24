@@ -198,8 +198,7 @@ export class TileMap {
       for (let row = 0; row < this.map.length; row++) {
         for (let column = 0; column < this.map[row].length; column++) {
           let tileCoordinate = { x: column, y: row };
-
-          if (
+          if(this.map[row][column] !== "c"){if (
             monsterTiles.some(
               (e) => e.x === tileCoordinate.x && e.y === tileCoordinate.y
             )
@@ -217,7 +216,7 @@ export class TileMap {
           ) {
             this.map[row][column] = "0";
           }
-        }
+        }}
       }
     }
     if (selectedBtn === "5") {
