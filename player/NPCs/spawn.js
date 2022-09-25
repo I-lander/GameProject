@@ -51,11 +51,11 @@ function spawnEnemies() {
 function getGroundSpawnPosition() {
   let x, y;
   if (Math.random() < 0.5) {
-    x = Math.random() < 0.5 ? 0  : tileMap.map.length*tileSize;
-    y = Math.random() * tileMap.map.length*tileSize;
+    x = Math.random() < 0.5 ? 0 - tileSize : tileMap.map.length * tileSize + tileSize;
+    y = Math.random() * tileMap.map.length * tileSize + tileSize;
   } else {
-    x = Math.random() * tileMap.map.length*tileSize;
-    y = Math.random() < 0.5 ? 0 : tileMap.map.length*tileSize;
+    x = Math.random() * tileMap.map.length * tileSize + tileSize;
+    y = Math.random() < 0.5 ? 0 - tileSize : tileMap.map.length * tileSize + tileSize;
   }
   const position = { x: x, y: y };
   return position;

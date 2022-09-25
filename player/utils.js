@@ -46,7 +46,7 @@ class DrawDamage {
     if(this.entity.type){
       x -= this.entity.radius / 2
     }
-      ctx.font = "6px dogicapixel";
+      ctx.font = "10px dogicapixel";
       ctx.fillStyle = "white";
       ctx.textAlign = "center";
       ctx.fillText(

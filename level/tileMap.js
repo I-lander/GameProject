@@ -14,9 +14,6 @@ export class TileMap {
     this.players = [];
     this.playersInGrid = [];
 
-    this.cloud = new Image();
-    this.cloud.src = "./src/images/cloud.png";
-
     this.mountain = new Image();
     this.mountain.src = "./src/images/mountain.png";
     this.mountains = [];
@@ -39,9 +36,6 @@ export class TileMap {
             this.tileSize
           );
           ctx.restore();
-        }
-        if (tile === "c") {
-          this.drawCloud(column, row);
         }
         if (tile === "1") {
           if (
@@ -300,119 +294,6 @@ export class TileMap {
       ) {
         this.map[neighbors[3].position.y][neighbors[3].position.x] = "green";
       }
-    }
-  }
-
-  drawCloud(x, y) {
-    if (x === 0 && y === 0) {
-      ctxScreen.drawImage(
-        this.cloud,
-        0 * 32,
-        0 * 32,
-        32,
-        32,
-        x * this.tileSize,
-        y * this.tileSize,
-        this.tileSize,
-        this.tileSize
-      );
-    }
-    if (x === 0 && y === this.map.length-1) {
-      ctxScreen.drawImage(
-        this.cloud,
-        0 * 32,
-        2 * 32,
-        32,
-        32,
-        x * this.tileSize,
-        y * this.tileSize,
-        this.tileSize,
-        this.tileSize
-      );
-    }
-
-    if (x === this.map.length-1 && y === 0) {
-      ctxScreen.drawImage(
-        this.cloud,
-        2 * 32,
-        0 * 32,
-        32,
-        32,
-        x * this.tileSize,
-        y * this.tileSize,
-        this.tileSize,
-        this.tileSize
-      );
-    }
-    
-    if (x === this.map.length-1 && y === this.map.length-1) {
-      ctxScreen.drawImage(
-        this.cloud,
-        2 * 32,
-        2 * 32,
-        32,
-        32,
-        x * this.tileSize,
-        y * this.tileSize,
-        this.tileSize,
-        this.tileSize
-      );
-    }
-
-    if (x === 0 && (y !== this.map.length-1 || y !== 0)) {
-      ctxScreen.drawImage(
-        this.cloud,
-        0 * 32,
-        1 * 32,
-        32,
-        32,
-        x * this.tileSize,
-        y * this.tileSize,
-        this.tileSize,
-        this.tileSize
-      );
-    }
-
-    if ((x !== this.map.length-1 || x !==0) && y === 0) {
-      ctxScreen.drawImage(
-        this.cloud,
-        1 * 32,
-        0 * 32,
-        32,
-        32,
-        x * this.tileSize,
-        y * this.tileSize,
-        this.tileSize,
-        this.tileSize
-      );
-    }
-
-    if (x === this.map.length-1 && (y !== 0 || y !== this.map.length -1)) {
-      ctxScreen.drawImage(
-        this.cloud,
-        2 * 32,
-        1 * 32,
-        32,
-        32,
-        x * this.tileSize,
-        y * this.tileSize,
-        this.tileSize,
-        this.tileSize
-      );
-    }
-
-    if ((x !== 0 || x !== this.map.length-1) && y === this.map.length-1 ) {
-      ctxScreen.drawImage(
-        this.cloud,
-        1 * 32,
-        2 * 32,
-        32,
-        32,
-        x * this.tileSize,
-        y * this.tileSize,
-        this.tileSize,
-        this.tileSize
-      );
     }
   }
 }
