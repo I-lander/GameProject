@@ -19,7 +19,7 @@ export { getRiverLastTile };
 
 let lastGroundSpawn = 0;
 let lastRiverSpawn = 0;
-let spawnGroundRate = 10;
+let spawnGroundRate = 1;
 let spawnRiverRate = 0.5;
 
 function spawnEnemies() {
