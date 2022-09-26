@@ -51,10 +51,10 @@ function spawnEnemies() {
         riverSpawnPosition.y,
         "river",
         tileSize,
-        "./src/images/spider.png"
+        "./src/images/riverMonster.png"
       )
     );
-    lastGroundSpawn = timestamp;
+    lastRiverSpawn = timestamp;
   }
   path = [];
   return;

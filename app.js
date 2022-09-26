@@ -77,6 +77,7 @@ function animate(timestamp) {
   lastFrameTimeMs = timestamp;
 
   ctxScreen.clearRect(0, 0, canvasScreen.width, canvasScreen.height);
+  
   tileMap.draw(ctxScreen);
 
   spawnEnemies();
