@@ -77,7 +77,10 @@ function animate(timestamp) {
   lastFrameTimeMs = timestamp;
 
   ctxScreen.clearRect(0, 0, canvasScreen.width, canvasScreen.height);
-  tileMap.draw(ctxScreen)
+  tileMap.draw(ctxScreen);
+
+  spawnEnemies();
+
   tileMap.players.forEach((player, index) => {
     player.draw(ctxScreen);
 
@@ -193,12 +196,11 @@ function animate(timestamp) {
       tileMap.mountains.splice(i, 1);
     }
   }
-  
+
   animationId = requestAnimationFrame(animate);
 }
 
 function init() {
-  spawEnemiesInterval = setInterval(spawnEnemies, 1000);
   tileMap.init();
   scoreValue = 0;
   monsters = [];

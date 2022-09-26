@@ -8,6 +8,10 @@ const playerPos = {
 };
 
 let path = [];
+let lastGroundSpawn = 0;
+let lastRiverSpawn = 0;
+let spawnGroundRate = 1;
+let spawnRiverRate = 0.5;
 
 function getRiverLastTile() {
   path = [];
@@ -18,7 +22,9 @@ function getRiverLastTile() {
 export { getRiverLastTile };
 
 function spawnEnemies() {
-  if (onGame) {
+  let timestamp = Date.now();
+
+  if (onGame && timestamp >= lastGroundSpawn + 1000 / spawnGroundRate) {
     const groundSpawnPosition = getGroundSpawnPosition();
     monsters.push(
       new Monster(
@@ -29,33 +35,45 @@ function spawnEnemies() {
         "./src/images/spider.png"
       )
     );
-
-    const riverPath = getRiverPath(playerPos);
-    if (riverPath.length > 5) {
-      const riverSpawnPosition = getRiverSpawnPosition(riverPath);
-      monsters.push(
-        new Monster(
-          riverSpawnPosition.x,
-          riverSpawnPosition.y,
-          "river",
-          tileSize,
-          "./src/images/spider.png"
-        )
-      );
-    }
-    path = [];
-    return;
+    lastGroundSpawn = timestamp;
   }
+
+  const riverPath = getRiverPath(playerPos);
+  if (
+    onGame &&
+    timestamp >= lastRiverSpawn + 1000 / spawnRiverRate &&
+    riverPath.length > 5
+  ) {
+    const riverSpawnPosition = getRiverSpawnPosition(riverPath);
+    monsters.push(
+      new Monster(
+        riverSpawnPosition.x,
+        riverSpawnPosition.y,
+        "river",
+        tileSize,
+        "./src/images/spider.png"
+      )
+    );
+    lastGroundSpawn = timestamp;
+  }
+  path = [];
+  return;
 }
 
 function getGroundSpawnPosition() {
   let x, y;
   if (Math.random() < 0.5) {
-    x = Math.random() < 0.5 ? 0 - tileSize : tileMap.map.length * tileSize + tileSize;
+    x =
+      Math.random() < 0.5
+        ? 0 - tileSize
+        : tileMap.map.length * tileSize + tileSize;
     y = Math.random() * tileMap.map.length * tileSize + tileSize;
   } else {
     x = Math.random() * tileMap.map.length * tileSize + tileSize;
-    y = Math.random() < 0.5 ? 0 - tileSize : tileMap.map.length * tileSize + tileSize;
+    y =
+      Math.random() < 0.5
+        ? 0 - tileSize
+        : tileMap.map.length * tileSize + tileSize;
   }
   const position = { x: x, y: y };
   return position;
