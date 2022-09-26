@@ -28,7 +28,9 @@ const pixelUnit = tileSize / 32;
 
 drawMenu(ctxMenu, canvasScreen.width);
 
-export { tileMap, tileSize, pixelUnit };
+const xCenter = canvasScreen.width / 2;
+const yCenter = canvasScreen.height / 2;
+export { tileMap, tileSize, pixelUnit, xCenter, yCenter };
 
 let scoreValue = 0;
 const finalScore = document.getElementById("finalScore");
@@ -68,6 +70,10 @@ let speedFactor = 10;
 
 function animate(timestamp) {
   if (timestamp < lastFrameTimeMs + 1000 / maxFPS) {
+<<<<<<< HEAD
+=======
+    animationId = requestAnimationFrame(animate);
+>>>>>>> parent of 9f93c40... fix path finding and more
     return;
   }
   delta = (timestamp - lastFrameTimeMs) / speedFactor; // get the delta time since last frame
@@ -75,10 +81,13 @@ function animate(timestamp) {
 
   ctxScreen.clearRect(0, 0, canvasScreen.width, canvasScreen.height);
 
+<<<<<<< HEAD
   tileMap.draw(ctxScreen);
 
   spawnEnemies();
 
+=======
+>>>>>>> parent of 9f93c40... fix path finding and more
   tileMap.players.forEach((player, index) => {
     player.draw(ctxScreen);
 
@@ -148,10 +157,15 @@ function animate(timestamp) {
       x: Math.floor(monster.x / tileSize),
       y: Math.floor(monster.y / tileSize),
     };
+<<<<<<< HEAD
     let targetVec = tileMap.getPosition(
       tileMap.players[0].x,
       tileMap.players[0].y
     );
+=======
+    let targetVec = tileMap.getPosition(xCenter, yCenter);
+
+>>>>>>> parent of 9f93c40... fix path finding and more
     monster.path = findPath(startVec, targetVec, monster.type);
     monster.collideWith = null;
     monster.collide = false;
@@ -169,6 +183,7 @@ function animate(timestamp) {
     monster.update(ctxScreen);
 
     // Game over
+<<<<<<< HEAD
     const distance = Math.hypot(
       tileMap.players[0].x - monster.x,
       tileMap.players[0].y - monster.y
@@ -183,6 +198,18 @@ function animate(timestamp) {
     finalScore.innerText = scoreValue;
     onGame = false;
   }
+=======
+    const distance = Math.hypot(xCenter - monster.x, yCenter - monster.y);
+    if (distance - monster.hitBox < 1) {
+      cancelAnimationFrame(animationId);
+      mainMenu.classList.remove("disable");
+      finalScore.innerText = scoreValue;
+      onGame = false;
+      clearInterval(spawEnemiesInterval);
+    }
+  });
+
+>>>>>>> parent of 9f93c40... fix path finding and more
   damageTexts.forEach((damageText, damageTextIndex) => {
     damageText.draw(ctxScreen);
     if (damageText.entity.y - damageText.y > tileSize / 2) {
@@ -198,10 +225,17 @@ function animate(timestamp) {
       tileMap.mountains.splice(i, 1);
     }
   }
+<<<<<<< HEAD
 
+=======
+  
+  tileMap.draw(ctxScreen);
+>>>>>>> parent of 9f93c40... fix path finding and more
   animationId = requestAnimationFrame(animate);
 }
+
 function init() {
+  spawEnemiesInterval = setInterval(spawnEnemies, 1000);
   tileMap.init();
   scoreValue = 0;
   monsters = [];
@@ -273,6 +307,7 @@ function cleanMap() {
     }
   }
 }
+<<<<<<< HEAD
 
 // window.addEventListener("resize", () => {
 //   canvasScreen.width = innerWidth;
@@ -289,3 +324,5 @@ function cleanMap() {
 //   tileMap.players[0].y =
 //     Math.floor(tileMap.map.length / 2) * tileSize + +tileSize / 2;
 // });
+=======
+>>>>>>> parent of 9f93c40... fix path finding and more

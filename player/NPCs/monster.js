@@ -112,7 +112,7 @@ export class Monster {
     let timestamp = Date.now();
 
     this.draw(ctx);
-    
+
     let dx = 0;
     let dy = 0;
     if (this.moveToTarget && !this.collide) {

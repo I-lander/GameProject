@@ -8,13 +8,12 @@ class Player {
     this.projectiles = [];
 
     this.stats = {
-      hp: 30,
+      hp: 3,
       force: 3,
       attackRate: 2,
-      range : tileSize * 2
+      range : tileSize * 3
     };
     this.lastAttack = 0;
-    this.damage = 0;
 
     this.img = new Image();
     this.img.src = image;
