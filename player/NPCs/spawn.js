@@ -24,8 +24,11 @@ let spawnRiverRate = 0.5;
 
 function spawnEnemies() {
   let timestamp = Date.now();
-
+  if (lastGroundSpawn === 0) {
+    lastGroundSpawn = timestamp;
+  }
   if (onGame && timestamp >= lastGroundSpawn + 1000 / spawnGroundRate) {
+    console.log(timestamp, lastGroundSpawn);
     const groundSpawnPosition = getGroundSpawnPosition();
     monsters.push(
       new Monster(

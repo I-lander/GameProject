@@ -278,18 +278,18 @@ function cleanMap() {
   }
 }
 
-window.addEventListener("resize", () => {
-  canvasScreen.width = innerWidth;
-  canvasScreen.height = innerHeight;
+// window.addEventListener("resize", () => {
+//   canvasScreen.width = innerWidth;
+//   canvasScreen.height = innerHeight;
 
-  canvasMenu.width = innerWidth;
-  canvasMenu.height = innerHeight;
+//   canvasMenu.width = innerWidth;
+//   canvasMenu.height = innerHeight;
 
-  tileMap.setCanvasSize(canvasScreen);
-  const tileSize = tileMap.tileSize;
-  const pixelUnit = tileSize / 32;
-  tileMap.players[0].x =
-    Math.floor(tileMap.map.length / 2) * tileSize + +tileSize / 2;
-  tileMap.players[0].y =
-    Math.floor(tileMap.map.length / 2) * tileSize + +tileSize / 2;
-});
+//   tileMap.setCanvasSize(canvasScreen);
+//   const tileSize = tileMap.tileSize;
+//   const pixelUnit = tileSize / 32;
+//   tileMap.players[0].x =
+//     Math.floor(tileMap.map.length / 2) * tileSize + +tileSize / 2;
+//   tileMap.players[0].y =
+//     Math.floor(tileMap.map.length / 2) * tileSize + +tileSize / 2;
+// });
