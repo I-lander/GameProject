@@ -38,7 +38,6 @@ let onGame = false;
 
 export { onGame };
 
-let autoFireInterval;
 document.getElementById("startBtn").addEventListener("click", () => {
   startGame();
 });
@@ -47,7 +46,7 @@ function startGame() {
   init();
   setTimeout(() => {
     onGame = true;
-  }, 100);
+  }, 300);
   mainMenu.classList.add("disable");
   animate();
 }

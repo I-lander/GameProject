@@ -28,7 +28,6 @@ function spawnEnemies() {
     lastGroundSpawn = timestamp;
   }
   if (onGame && timestamp >= lastGroundSpawn + 1000 / spawnGroundRate) {
-    console.log(timestamp, lastGroundSpawn);
     const groundSpawnPosition = getGroundSpawnPosition();
     monsters.push(
       new Monster(
