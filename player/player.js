@@ -9,7 +9,7 @@ class Player {
     this.projectiles = [];
 
     this.stats = {
-      hp: 3,
+      hp: 30,
       force: 3,
       attackRate: 2,
       range : tileSize * 3
@@ -36,7 +36,7 @@ class Player {
     ctx.stroke();
 
     if (timestamp >= this.lastAttack + 1000 / this.stats.attackRate) {
-      // this.autoFire(monsters);
+      this.autoFire(monsters);
       this.lastAttack = timestamp;
     }
   }

@@ -1,4 +1,4 @@
-import { onGame, monsters, tileSize, tileMap } from "../../app.js";
+import { isPause, monsters, tileSize, tileMap } from "../../app.js";
 import { Monster } from "./monster.js";
 import { map } from "../../level/map.js";
 
@@ -24,7 +24,7 @@ export { getRiverLastTile };
 function spawnEnemies() {
   let timestamp = Date.now();
 
-  if (onGame && timestamp >= lastGroundSpawn + 1000 / spawnGroundRate) {
+  if (!isPause && timestamp >= lastGroundSpawn + 1000 / spawnGroundRate) {
     const groundSpawnPosition = getGroundSpawnPosition();
     monsters.push(
       new Monster(
@@ -40,7 +40,7 @@ function spawnEnemies() {
 
   const riverPath = getRiverPath(playerPos);
   if (
-    onGame &&
+    !isPause &&
     timestamp >= lastRiverSpawn + 1000 / spawnRiverRate &&
     riverPath.length > 5
   ) {

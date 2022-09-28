@@ -35,9 +35,9 @@ export { tileMap, tileSize, pixelUnit, xCenter, yCenter };
 let scoreValue = 0;
 const mainMenu = document.getElementById("mainMenu");
 
-let onGame = false;
+let isPause = true;
 
-export { onGame };
+export { isPause };
 
 document.getElementById("startBtn").addEventListener("click", () => {
   startGame();
@@ -46,7 +46,7 @@ document.getElementById("startBtn").addEventListener("click", () => {
 function startGame() {
   init();
   setTimeout(() => {
-    onGame = true;
+    isPause = false;
   }, 300);
   mainMenu.classList.add("disable");
   animate();
@@ -61,14 +61,14 @@ let particles;
 
 let animationId;
 let lastFrameTimeMs = 0; // The last time the loop was run
-let maxFPS = 60; // The maximum FPS we want to allow
+let maxFPS = 90; // The maximum FPS we want to allow
 let delta = 0;
 export { delta };
 
 let speedFactor = 10;
 
 function animate(timestamp) {
-  if (!onGame) {
+  if (isPause) {
     lastFrameTimeMs = timestamp;
     requestAnimationFrame(animate);
     return;
@@ -91,7 +91,7 @@ function animate(timestamp) {
     player.draw(ctxScreen);
     if (mainPlayer.stats.hp <= 0) {
       mainMenu.classList.remove("disable");
-      onGame = false;
+      isPause = true;
       init();
     }
 
@@ -175,11 +175,14 @@ function animate(timestamp) {
           })
         );
       }
-      monsters.splice(index, 1);
+      setTimeout(() => {
+        monsters.splice(index, 1);
+      }, 10);
+      
       scoreValue += 1;
     }
   });
-
+console.log(mainPlayer.stats.hp);
   damageTexts.forEach((damageText, damageTextIndex) => {
     damageText.draw(ctxScreen);
     if (damageText.entity.y - damageText.y > tileSize / 2) {
@@ -212,14 +215,14 @@ export { selectedBtn };
 
 const mountainButton = document.getElementById("mountainButton");
 mountainButton.onclick = function () {
-  if (onGame) {
+  if (!isPause) {
     cleanMap();
     selectedBtn = "4";
   }
 };
 const riverButton = document.getElementById("riverButton");
 riverButton.onclick = function () {
-  if (onGame) {
+  if (!isPause) {
     cleanMap();
     selectedBtn = "5";
   }
@@ -227,13 +230,12 @@ riverButton.onclick = function () {
 
 const spawnButton = document.getElementById("spawnButton");
 spawnButton.onclick = function () {
-  if (onGame) {
+  if (!isPause) {
     selectedBtn = "spawn";
   }
 };
 
 canvasScreen.addEventListener("click", (event) => {
-  onGame = !onGame;
   const xZero = innerWidth / 2 - canvasScreen.width / 2;
   const yZero = event.y;
   const x = event.x - xZero;
@@ -261,6 +263,13 @@ canvasScreen.addEventListener("click", (event) => {
     selectedBtn = "";
   }
 });
+
+window.addEventListener("keydown", (event) => {
+  if (event.code === 'Space') {
+    isPause = !isPause
+  }
+})
+
 
 function cleanMap() {
   for (let row = 0; row < tileMap.map.length; row++) {
