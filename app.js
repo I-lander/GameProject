@@ -175,10 +175,11 @@ function animate(timestamp) {
           })
         );
       }
-      setTimeout(() => {
-        monsters.splice(index, 1);
-      }, 10);
-      
+      // monsters.splice(index, 1);
+      monsters = monsters.filter( (item) => {
+        return item !== monster;
+      });
+
       scoreValue += 1;
     }
   });
@@ -264,11 +265,10 @@ canvasScreen.addEventListener("click", (event) => {
 });
 
 window.addEventListener("keydown", (event) => {
-  if (event.code === 'Space') {
-    isPause = !isPause
+  if (event.code === "Space") {
+    isPause = !isPause;
   }
-})
-
+});
 
 function cleanMap() {
   for (let row = 0; row < tileMap.map.length; row++) {
