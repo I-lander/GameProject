@@ -10,7 +10,6 @@ export class Monster {
     this.speed = speed ?? 0.4;
     this.collide = false;
     this.collideWith = null;
-    this.damage;
     this.isAttack = false;
 
     this.maxHp = 3;
@@ -156,12 +155,11 @@ export class Monster {
     const target = tileMap.mountains.find(
       (mountain) => mountain.x === collideWith.x && mountain.y === collideWith.y
     );
-    target.damage = this.stats.force;
 
     target.isAttack = true;
     target.stats.hp -= this.stats.force;
 
-    const damageText = new DrawDamage(target);
+    const damageText = new DrawDamage(target, this.stats.force);
     damageTexts.push(damageText);
 
     if (target.stats.hp <= 0) {

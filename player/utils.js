@@ -36,9 +36,10 @@ function drawLifeBar(ctx, entity) {
 }
 
 class DrawDamage {
-  constructor(entity) {
+  constructor(entity, damage) {
     this.entity = entity;
     this.y = entity.y;
+    this.damage = damage
   }
 
   draw(ctx) {
@@ -50,7 +51,7 @@ class DrawDamage {
       ctx.fillStyle = "white";
       ctx.textAlign = "center";
       ctx.fillText(
-        this.entity.damage,
+        this.damage,
         x  + tileSize / 2,
         this.y 
       );

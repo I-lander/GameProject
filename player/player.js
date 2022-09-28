@@ -36,7 +36,7 @@ class Player {
     ctx.stroke();
 
     if (timestamp >= this.lastAttack + 1000 / this.stats.attackRate) {
-      this.autoFire(monsters);
+      // this.autoFire(monsters);
       this.lastAttack = timestamp;
     }
   }

@@ -11,6 +11,5 @@ export class Mountain {
       hp : this.maxHp
     }
     this.isAttack = false;
-    this.damage = 0;
   }
 }

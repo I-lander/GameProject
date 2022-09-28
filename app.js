@@ -107,7 +107,7 @@ function animate(timestamp) {
           monster.isAttack = true;
           monster.damage = projectile.force;
           monster.stats.hp -= projectile.force;
-          const damageText = new DrawDamage(monster);
+          const damageText = new DrawDamage(monster, monster.stats.force);
           damageTexts.push(damageText);
         }
       });
@@ -164,6 +164,8 @@ function animate(timestamp) {
     const distance = Math.hypot(xCenter - monster.x, yCenter - monster.y);
     if (distance - monster.hitBox < 1) {
       mainPlayer.stats.hp -= monster.stats.force;
+      const damageText = new DrawDamage(mainPlayer, monster.stats.force);
+      damageTexts.push(damageText);
       monster.stats.hp = 0;
     }
     if (monster.stats.hp <= 0) {
@@ -175,7 +177,7 @@ function animate(timestamp) {
           })
         );
       }
-      // monsters.splice(index, 1);
+      // remove the monster from the array
       monsters = monsters.filter( (item) => {
         return item !== monster;
       });
@@ -183,6 +185,7 @@ function animate(timestamp) {
       scoreValue += 1;
     }
   });
+
   damageTexts.forEach((damageText, damageTextIndex) => {
     damageText.draw(ctxScreen);
     if (damageText.entity.y - damageText.y > tileSize / 2) {
