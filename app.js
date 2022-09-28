@@ -61,24 +61,26 @@ let particles;
 
 let animationId;
 let lastFrameTimeMs = 0; // The last time the loop was run
-let maxFPS = 90; // The maximum FPS we want to allow
+let maxFPS = 60; // The maximum FPS we want to allow
 let delta = 0;
 export { delta };
 
 let speedFactor = 10;
 
 function animate(timestamp) {
-  if(!onGame){
-    requestAnimationFrame(animate)
-    return
+  if (!onGame) {
+    lastFrameTimeMs = timestamp;
+    requestAnimationFrame(animate);
+    return;
   }
   if (timestamp < lastFrameTimeMs + 1000 / maxFPS) {
     animationId = requestAnimationFrame(animate);
     return;
   }
-  delta = (timestamp - lastFrameTimeMs) / speedFactor; // get the delta time since last frame
-  lastFrameTimeMs = timestamp;
 
+  delta = (timestamp - lastFrameTimeMs) / speedFactor; // get the delta time since last frame
+
+  lastFrameTimeMs = timestamp;
   ctxScreen.clearRect(0, 0, canvasScreen.width, canvasScreen.height);
 
   tileMap.draw(ctxScreen);
@@ -90,7 +92,7 @@ function animate(timestamp) {
     if (mainPlayer.stats.hp <= 0) {
       mainMenu.classList.remove("disable");
       onGame = false;
-      init()
+      init();
     }
 
     // Kill monster
@@ -231,6 +233,7 @@ spawnButton.onclick = function () {
 };
 
 canvasScreen.addEventListener("click", (event) => {
+  onGame = !onGame;
   const xZero = innerWidth / 2 - canvasScreen.width / 2;
   const yZero = event.y;
   const x = event.x - xZero;
