@@ -182,7 +182,6 @@ function animate(timestamp) {
       scoreValue += 1;
     }
   });
-console.log(mainPlayer.stats.hp);
   damageTexts.forEach((damageText, damageTextIndex) => {
     damageText.draw(ctxScreen);
     if (damageText.entity.y - damageText.y > tileSize / 2) {
