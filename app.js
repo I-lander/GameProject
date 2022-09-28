@@ -28,9 +28,7 @@ const pixelUnit = tileSize / 32;
 
 drawMenu(ctxMenu, canvasScreen.width);
 
-const xCenter = canvasScreen.width / 2;
-const yCenter = canvasScreen.height / 2;
-export { tileMap, tileSize, pixelUnit, xCenter, yCenter };
+export { tileMap, tileSize, pixelUnit };
 
 let scoreValue = 0;
 const mainMenu = document.getElementById("mainMenu");
@@ -161,7 +159,7 @@ function animate(timestamp) {
 
     monster.update(ctxScreen);
     // Touch player
-    const distance = Math.hypot(xCenter - monster.x, yCenter - monster.y);
+    const distance = Math.hypot(mainPlayer.x - monster.x, mainPlayer.y - monster.y);
     if (distance - monster.hitBox < 1) {
       mainPlayer.stats.hp -= monster.stats.force;
       const damageText = new DrawDamage(mainPlayer, monster.stats.force);

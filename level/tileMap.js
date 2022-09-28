@@ -39,13 +39,14 @@ export class TileMap {
         if (tile === "1") {
           if (
             !this.players.some(
-              (player) => player.position.x === column && player.position.y === row
+              (player) =>
+                player.position.x === column && player.position.y === row
             )
           ) {
             let player = new Player(
               this.tileSize * column + this.tileSize / 2,
               this.tileSize * row + this.tileSize / 2,
-              {x: column, y:row},
+              { x: column, y: row },
               this.tileSize,
               "./src/images/god.png",
               null
@@ -109,7 +110,7 @@ export class TileMap {
 
   init() {
     this.players = [];
-    this.mountains = []
+    this.mountains = [];
     this.map = map;
   }
 
@@ -193,25 +194,27 @@ export class TileMap {
       for (let row = 0; row < this.map.length; row++) {
         for (let column = 0; column < this.map[row].length; column++) {
           let tileCoordinate = { x: column, y: row };
-          if(this.map[row][column] !== "c"){if (
-            monsterTiles.some(
-              (e) => e.x === tileCoordinate.x && e.y === tileCoordinate.y
-            )
-          ) {
-            this.map[row][column] = "monster";
+          if (this.map[row][column] !== "c") {
+            if (
+              monsterTiles.some(
+                (e) => e.x === tileCoordinate.x && e.y === tileCoordinate.y
+              )
+            ) {
+              this.map[row][column] = "monster";
+            }
+            let tile = this.map[row][column];
+            if (tile === "0") {
+              this.map[row][column] = "green";
+            }
+            if (
+              monsterTiles.some(
+                (e) => e.x === tileCoordinate.x && e.y === tileCoordinate.y
+              )
+            ) {
+              this.map[row][column] = "0";
+            }
           }
-          let tile = this.map[row][column];
-          if (tile === "0") {
-            this.map[row][column] = "green";
-          }
-          if (
-            monsterTiles.some(
-              (e) => e.x === tileCoordinate.x && e.y === tileCoordinate.y
-            )
-          ) {
-            this.map[row][column] = "0";
-          }
-        }}
+        }
       }
     }
     if (selectedBtn === "5") {
