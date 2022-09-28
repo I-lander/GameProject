@@ -171,7 +171,7 @@ function animate(timestamp) {
 
     monster.update(ctxScreen);
 
-    // Game over
+    // Touch player
     const distance = Math.hypot(xCenter - monster.x, yCenter - monster.y);
     if (distance - monster.hitBox < 1) {
       cancelAnimationFrame(animationId);

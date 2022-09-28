@@ -1,5 +1,5 @@
 import { map } from "../../level/map.js";
-import { tileSize } from "../../app.js";
+import { tileMap, tileSize } from "../../app.js";
 
 const toKey = (x, y) => `${x}x${y}`;
 
@@ -39,10 +39,10 @@ const findPath = (start, target, type) => {
         neighbor.y = 0;
       }
       if (neighbor.x > map.length - 1) {
-        neighbor.x = map.length-2;
+        neighbor.x = map.length - 2;
       }
       if (neighbor.y > map.length - 1) {
-        neighbor.y = map.length-2;
+        neighbor.y = map.length - 2;
       }
       const tile = map[neighbor.y][neighbor.x];
       if (!tile) {
@@ -52,7 +52,10 @@ const findPath = (start, target, type) => {
       if (type === "ground" && (tile === "4" || tile === "5")) {
         continue;
       }
-      if (type === "river" && (tile === "0" || tile === "4" || tile === "green")) {
+      if (
+        type === "river" &&
+        (tile === "0" || tile === "4" || tile === "green")
+      ) {
         continue;
       }
 
@@ -70,15 +73,19 @@ const findPath = (start, target, type) => {
       queue.push(neighbor);
     }
   }
-  const lastPos = { x: target.x * tileSize, y: target.y * tileSize };
-  const path = [];
-  path.push(lastPos);
+  const lastPos = { x: target.x * tileSize + tileSize/2, y: target.y * tileSize + tileSize/2 };
+  const path = [lastPos];
 
   let currentKey = targetKey;
 
-  if(!parentForKey[targetKey]){
-    return path
+  if (!parentForKey[targetKey]) {
+    return path;
   }
+
+  parentForKey[targetKey].position = {
+    x: Math.floor(tileMap.map.length / 2),
+    y: Math.floor(tileMap.map.length / 2),
+  };
   let currentPos = parentForKey[targetKey].position;
 
   while (currentKey !== startKey) {
