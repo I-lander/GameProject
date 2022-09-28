@@ -12,7 +12,6 @@ export class TileMap {
     this.tileSize = 0;
     this.mapOrigin = { x: 0, y: 0 };
     this.players = [];
-    this.playersInGrid = [];
 
     this.mountain = new Image();
     this.mountain.src = "./src/images/mountain.png";
@@ -39,19 +38,19 @@ export class TileMap {
         }
         if (tile === "1") {
           if (
-            !this.playersInGrid.some(
-              (player) => player.x === column && player.y === row
+            !this.players.some(
+              (player) => player.position.x === column && player.position.y === row
             )
           ) {
             let player = new Player(
               this.tileSize * column + this.tileSize / 2,
               this.tileSize * row + this.tileSize / 2,
+              {x: column, y:row},
               this.tileSize,
               "./src/images/god.png",
               null
             );
             this.players.push(player);
-            this.playersInGrid.push({ x: column, y: row });
           }
         }
         if (tile === "4") {
@@ -110,6 +109,7 @@ export class TileMap {
 
   init() {
     this.players = [];
+    this.mountains = []
     this.map = map;
   }
 

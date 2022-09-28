@@ -1,9 +1,10 @@
 import { tileSize, pixelUnit, delta, monsters } from "../app.js";
 
 class Player {
-  constructor(x, y, radius, image) {
+  constructor(x, y, position, radius, image) {
     this.x = x;
     this.y = y;
+    this.position = position
     this.radius = radius;
     this.projectiles = [];
 

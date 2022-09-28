@@ -33,7 +33,6 @@ const yCenter = canvasScreen.height / 2;
 export { tileMap, tileSize, pixelUnit, xCenter, yCenter };
 
 let scoreValue = 0;
-const finalScore = document.getElementById("finalScore");
 const mainMenu = document.getElementById("mainMenu");
 
 let onGame = false;
@@ -69,6 +68,10 @@ export { delta };
 let speedFactor = 10;
 
 function animate(timestamp) {
+  if(!onGame){
+    requestAnimationFrame(animate)
+    return
+  }
   if (timestamp < lastFrameTimeMs + 1000 / maxFPS) {
     animationId = requestAnimationFrame(animate);
     return;
@@ -77,13 +80,18 @@ function animate(timestamp) {
   lastFrameTimeMs = timestamp;
 
   ctxScreen.clearRect(0, 0, canvasScreen.width, canvasScreen.height);
-  
-  tileMap.draw(ctxScreen);
 
+  tileMap.draw(ctxScreen);
+  const mainPlayer = tileMap.players[0];
   spawnEnemies();
 
   tileMap.players.forEach((player, index) => {
     player.draw(ctxScreen);
+    if (mainPlayer.stats.hp <= 0) {
+      mainMenu.classList.remove("disable");
+      onGame = false;
+      init()
+    }
 
     // Kill monster
     player.projectiles.forEach((projectile, projectileIndex) => {
@@ -99,23 +107,6 @@ function animate(timestamp) {
           monster.stats.hp -= projectile.force;
           const damageText = new DrawDamage(monster);
           damageTexts.push(damageText);
-          if (monster.stats.hp <= 0) {
-            for (let i = 0; i < 20; i++) {
-              particles.push(
-                new Particle(
-                  monster.x,
-                  monster.y,
-                  Math.random() * 2 * pixelUnit,
-                  {
-                    x: Math.random() - 0.5,
-                    y: Math.random() - 0.5,
-                  }
-                )
-              );
-            }
-            monsters.splice(index, 1);
-            scoreValue += 1;
-          }
         }
       });
     });
@@ -151,10 +142,7 @@ function animate(timestamp) {
       x: Math.floor(monster.x / tileSize),
       y: Math.floor(monster.y / tileSize),
     };
-    let targetVec = tileMap.getPosition(
-      tileMap.players[0].x,
-      tileMap.players[0].y
-    );
+    let targetVec = tileMap.getPosition(mainPlayer.x, mainPlayer.y);
     monster.path = findPath(startVec, targetVec, monster.type);
     monster.collideWith = null;
     monster.collide = false;
@@ -170,15 +158,23 @@ function animate(timestamp) {
     }
 
     monster.update(ctxScreen);
-
     // Touch player
     const distance = Math.hypot(xCenter - monster.x, yCenter - monster.y);
     if (distance - monster.hitBox < 1) {
-      cancelAnimationFrame(animationId);
-      mainMenu.classList.remove("disable");
-      finalScore.innerText = scoreValue;
-      onGame = false;
-      clearInterval(spawEnemiesInterval);
+      mainPlayer.stats.hp -= monster.stats.force;
+      monster.stats.hp = 0;
+    }
+    if (monster.stats.hp <= 0) {
+      for (let i = 0; i < 20; i++) {
+        particles.push(
+          new Particle(monster.x, monster.y, Math.random() * 2 * pixelUnit, {
+            x: Math.random() - 0.5,
+            y: Math.random() - 0.5,
+          })
+        );
+      }
+      monsters.splice(index, 1);
+      scoreValue += 1;
     }
   });
 
