@@ -3,12 +3,12 @@
     "name": "Bereshit",
     "icons": [
       {
-        "src": "./src/images/god.png",
-        "sizes": "192x192",
+        "src": "../src/images/god.png",
+        "sizes": "32x32",
         "type": "image/png"
       }
     ],
-    "start_url": "https://i-lander.github.io/GameProject/",
-    "display": "browser",
+    "start_url": "./index.html",
+    "display": "fullscreen",
     "orientation": "landscape"
   }
