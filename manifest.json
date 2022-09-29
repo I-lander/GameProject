@@ -3,8 +3,8 @@
     "name": "Bereshit",
     "icons": [
       {
-        "src": "../src/images/god.png",
-        "sizes": "32x32",
+        "src": "godIcon.png",
+        "sizes": "192x192",
         "type": "image/png"
       }
     ],
