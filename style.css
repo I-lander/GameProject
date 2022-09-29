@@ -44,12 +44,12 @@ canvas{
 .mainMenu p{
     margin: 32px;
     line-height: 2.5rem;
-    font-size: 32px;
+    font-size: 16;
 }
 
 .mainMenu img{
     margin: 32px;
-    width: 5%;
+    height: 15%;
     border-radius: 33%;
 }
 
@@ -59,9 +59,10 @@ canvas{
     padding: 6px;
     color: white;
     width: 50%;
-    height: 56px;
+    height: auto;
     border: none;
     font-size: 42px;
+    bottom: 10px;
 }
 
 .disable{
