@@ -8,7 +8,7 @@
         "type": "image/png"
       }
     ],
-    "start_url": "index.html",
-    "display": "fullscreen",
+    "start_url": "https://i-lander.github.io/GameProject/",
+    "display": "browser",
     "orientation": "landscape"
   }
