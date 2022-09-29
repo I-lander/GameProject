@@ -42,19 +42,18 @@ canvas{
 }
 
 .mainMenu p{
-    margin: 32px;
     line-height: 2.5rem;
     font-size: 16;
 }
 
 .mainMenu img{
-    margin: 32px;
-    height: 15%;
+    margin: 16px;
+    height: 20%;
     border-radius: 33%;
 }
 
 .mainMenu button{
-    margin-top: 24px;
+    margin-top: 1.5rem;
     background-color: rgb(105, 102, 96);
     padding: 6px;
     color: white;

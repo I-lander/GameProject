@@ -213,6 +213,7 @@ export { selectedBtn };
 
 const mountainButton = document.getElementById("mountainButton");
 mountainButton.onclick = function () {
+  console.log('d');
   if (!isPause) {
     cleanMap();
     selectedBtn = "4";
@@ -266,6 +267,13 @@ window.addEventListener("keydown", (event) => {
   if (event.code === "Space") {
     isPause = !isPause;
   }
+});
+
+window.addEventListener("resize", () => {
+  tileMap.setCanvasSize(canvasScreen)
+  const tileSize = tileMap.tileSize;
+const pixelUnit = tileSize / 32;
+drawMenu(ctxMenu, canvasScreen.width);
 });
 
 function cleanMap() {

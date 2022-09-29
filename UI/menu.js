@@ -1,4 +1,16 @@
 function drawMenu(ctx, width) {
+  const mountainButton = document.getElementById("mountainButton")
+  if(mountainButton){
+    mountainButton.remove()
+  }
+  const riverButton = document.getElementById("riverButton")
+  if(riverButton){
+    riverButton.remove()
+  }
+  const spawnButton = document.getElementById("spawnButton")
+  if(spawnButton){
+    spawnButton.remove()
+  }
   createButton(width);
 }
 

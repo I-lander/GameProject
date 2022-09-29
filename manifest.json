@@ -3,7 +3,7 @@
     "name": "Bereshit",
     "icons": [
       {
-        "src": "./src/images/gameIcon.png",
+        "src": "./src/images/godIcon.png",
         "sizes": "192x192",
         "type": "image/png"
       }
