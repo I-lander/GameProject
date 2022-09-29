@@ -1,5 +1,5 @@
 import { Player } from "../player/player.js";
-import { map } from "./map.js";
+import { map, mapSizeX } from "./map.js";
 import { getRiverLastTile } from "../player/NPCs/spawn.js";
 import { Mountain } from "./element/mountain.js";
 import { monsters, selectedBtn } from "../app.js";
@@ -115,11 +115,9 @@ export class TileMap {
   }
 
   setCanvasSize(canvas) {
-    // if (canvas.width < canvas.height) {
       canvas.height = innerHeight;
       this.tileSize = canvas.height / this.map.length;
-      canvas.width = this.map[0].length * this.tileSize;
-
+      canvas.width = mapSizeX * this.tileSize;
   }
 
   getPosition(x, y) {

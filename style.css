@@ -24,7 +24,7 @@ canvas{
 .canvasScreen{
     background-image: url('./src/images/background.jpg');
     background-repeat:no-repeat;
-    background-size: contain;
+    background-size:cover;
 }
 
 .canvasMenu{

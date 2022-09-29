@@ -213,7 +213,6 @@ export { selectedBtn };
 
 const mountainButton = document.getElementById("mountainButton");
 mountainButton.onclick = function () {
-  console.log('d');
   if (!isPause) {
     cleanMap();
     selectedBtn = "4";
