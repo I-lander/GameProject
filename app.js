@@ -30,7 +30,6 @@ drawMenu(ctxMenu, canvasScreen.width);
 
 export { tileMap, tileSize, pixelUnit };
 
-let scoreValue = 0;
 const mainMenu = document.getElementById("mainMenu");
 
 let isPause = true;
@@ -80,6 +79,7 @@ function animate(timestamp) {
 
   lastFrameTimeMs = timestamp;
   ctxScreen.clearRect(0, 0, canvasScreen.width, canvasScreen.height);
+
 
   tileMap.draw(ctxScreen);
   const mainPlayer = tileMap.players[0];
@@ -179,8 +179,6 @@ function animate(timestamp) {
       monsters = monsters.filter( (item) => {
         return item !== monster;
       });
-
-      scoreValue += 1;
     }
   });
 
@@ -205,7 +203,6 @@ function animate(timestamp) {
 
 function init() {
   tileMap.init();
-  scoreValue = 0;
   monsters = [];
   damageTexts = [];
   particles = [];
@@ -237,10 +234,10 @@ spawnButton.onclick = function () {
 };
 
 canvasScreen.addEventListener("click", (event) => {
-  const xZero = innerWidth / 2 - canvasScreen.width / 2;
-  const yZero = event.y;
-  const x = event.x - xZero;
-  const y = yZero;
+  const xZero = 0;
+  const yZero = 0;
+  const x = event.x;
+  const y = event.y;
   const clickPositionInGrid = tileMap.getPosition(x, y);
   if (
     tileMap.map[clickPositionInGrid.y][clickPositionInGrid.x] === "green" &&

@@ -12,15 +12,19 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div class="mainMenu" id="mainMenu">
+        <img src="./src/images/godIcon.png">
+        <p>
+            This app is best suited for a full-screen experience<br>
+            If you access it on a mobile device,<br>
+            please add it to your home screen to enjoy it to the fullest.
+        </p>
+        <button id="startBtn">Start Game</button>
+    </div>
+
     <canvas id="canvasMenu" class="canvasMenu"></canvas>
     <canvas id="canvasScreen" class="canvasScreen"></canvas>
-
-    <div class="mainMenu" id="mainMenu">
-        <div class="scroreScreen">
-            <h1 id="finalScore"></h1>
-            <button id="startBtn">Start Game</button>
-        </div>
-    </div>
+    
     <script src="./app.js" type="module"></script>
 </body>
 </html>

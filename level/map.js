@@ -1,16 +1,18 @@
 let map = [];
 function createMap() {
-  const mapSize = 17;
-  const mapCenter = Math.floor(mapSize / 2);
-  for (let i = 0; i < mapSize; i++) {
+  const mapSizeX = 17;
+  const mapSizeY = 17;
+  const mapCenterX = Math.floor(mapSizeX / 2);
+  const mapCenterY = Math.floor(mapSizeY/2);
+  for (let i = 0; i < mapSizeX; i++) {
     map.push([]);
   }
-  for (let row = 0; row < mapSize; row++) {
-    for (let column = 0; column < mapSize; column++) {
+  for (let row = 0; row < mapSizeX; row++) {
+    for (let column = 0; column < mapSizeY; column++) {
       map[row].push("0");
     }
   }
-  map[mapCenter][mapCenter] = "1";
+  map[mapCenterX][mapCenterY] = "1";
 }
 createMap();
 

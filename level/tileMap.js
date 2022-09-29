@@ -115,17 +115,11 @@ export class TileMap {
   }
 
   setCanvasSize(canvas) {
-    if (canvas.width < canvas.height) {
-      this.tileSize = canvas.width / this.map.length;
-      canvas.width = this.map[0].length * this.tileSize;
-      canvas.height = this.map.length * this.tileSize;
-    } else {
-      canvas.height = canvas.height / 2;
+    // if (canvas.width < canvas.height) {
+      canvas.height = innerHeight;
       this.tileSize = canvas.height / this.map.length;
       canvas.width = this.map[0].length * this.tileSize;
-      canvas.style.left = `${innerWidth / 2 - canvas.width / 2}px`;
-      this.mapOrigin.x = innerWidth / 2 - canvas.width / 2;
-    }
+
   }
 
   getPosition(x, y) {
