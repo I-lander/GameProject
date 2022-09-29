@@ -43,13 +43,14 @@ canvas{
 
 .mainMenu p{
     margin: 32px;
-    line-height: 1.5rem;
+    line-height: 2.5rem;
+    font-size: 32px;
 }
 
 .mainMenu img{
     margin: 32px;
-    width: 200px;
-    border-radius: 99px;
+    width: 5%;
+    border-radius: 33%;
 }
 
 .mainMenu button{
