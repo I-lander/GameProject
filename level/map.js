@@ -1,6 +1,6 @@
 let map = [];
-const mapSizeX = 17;
-const mapSizeY = 17;
+const mapSizeX = 21;
+const mapSizeY = 15;
 
 function createMap() {
 

@@ -1,6 +1,7 @@
 import { isPause, monsters, tileSize, tileMap } from "../../app.js";
 import { Monster } from "./monster.js";
-import { map } from "../../level/map.js";
+import { map, mapSizeX, mapSizeY } from "../../level/map.js";
+
 
 const playerPos = {
   x: Math.floor(map.length / 2),
@@ -66,14 +67,14 @@ function getGroundSpawnPosition() {
     x =
       Math.random() < 0.5
         ? 0 - tileSize
-        : tileMap.map.length * tileSize + tileSize;
-    y = Math.random() * tileMap.map.length * tileSize + tileSize;
+        : mapSizeX * tileSize + tileSize;
+    y = Math.random() * mapSizeY * tileSize + tileSize;
   } else {
-    x = Math.random() * tileMap.map.length * tileSize + tileSize;
+    x = Math.random() * mapSizeX * tileSize + tileSize;
     y =
       Math.random() < 0.5
         ? 0 - tileSize
-        : tileMap.map.length * tileSize + tileSize;
+        : mapSizeY * tileSize + tileSize;
   }
   const position = { x: x, y: y };
   return position;

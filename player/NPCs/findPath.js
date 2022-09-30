@@ -1,5 +1,5 @@
-import { map } from "../../level/map.js";
-import { tileMap, tileSize } from "../../app.js";
+import { map, mapSizeX, mapSizeY } from "../../level/map.js";
+import { tileSize } from "../../app.js";
 
 const toKey = (x, y) => `${x}x${y}`;
 
@@ -83,8 +83,8 @@ const findPath = (start, target, type) => {
   }
 
   parentForKey[targetKey].position = {
-    x: Math.floor(tileMap.map.length / 2),
-    y: Math.floor(tileMap.map.length / 2),
+    x: Math.floor(mapSizeX / 2),
+    y: Math.floor(mapSizeY / 2),
   };
   let currentPos = parentForKey[targetKey].position;
 
