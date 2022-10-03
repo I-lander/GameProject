@@ -80,10 +80,9 @@ function animate(timestamp) {
   lastFrameTimeMs = timestamp;
   ctxScreen.clearRect(0, 0, canvasScreen.width, canvasScreen.height);
 
-
   tileMap.draw(ctxScreen);
   const mainPlayer = tileMap.players[0];
-  // spawnEnemies();
+  spawnEnemies();
 
   tileMap.players.forEach((player, index) => {
     player.draw(ctxScreen);
@@ -159,7 +158,10 @@ function animate(timestamp) {
 
     monster.update(ctxScreen);
     // Touch player
-    const distance = Math.hypot(mainPlayer.x - monster.x, mainPlayer.y - monster.y);
+    const distance = Math.hypot(
+      mainPlayer.x - monster.x,
+      mainPlayer.y - monster.y
+    );
     if (distance - monster.hitBox < 1) {
       mainPlayer.stats.hp -= monster.stats.force;
       const damageText = new DrawDamage(mainPlayer, monster.stats.force);
@@ -176,7 +178,7 @@ function animate(timestamp) {
         );
       }
       // remove the monster from the array
-      monsters = monsters.filter( (item) => {
+      monsters = monsters.filter((item) => {
         return item !== monster;
       });
     }
@@ -226,12 +228,12 @@ riverButton.onclick = function () {
   }
 };
 
-const spawnButton = document.getElementById("spawnButton");
-spawnButton.onclick = function () {
-  if (!isPause) {
-    selectedBtn = "spawn";
-  }
-};
+// const spawnButton = document.getElementById("spawnButton");
+// spawnButton.onclick = function () {
+//   if (!isPause) {
+//     selectedBtn = "spawn";
+//   }
+// };
 
 canvasScreen.addEventListener("click", (event) => {
   const xZero = 0;
@@ -266,13 +268,6 @@ window.addEventListener("keydown", (event) => {
   if (event.code === "Space") {
     isPause = !isPause;
   }
-});
-
-window.addEventListener("resize", () => {
-  tileMap.setCanvasSize(canvasScreen)
-  const tileSize = tileMap.tileSize;
-const pixelUnit = tileSize / 32;
-drawMenu(ctxMenu, canvasScreen.width);
 });
 
 function cleanMap() {

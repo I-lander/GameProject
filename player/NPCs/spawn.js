@@ -4,8 +4,8 @@ import { map, mapSizeX, mapSizeY } from "../../level/map.js";
 
 
 const playerPos = {
-  x: Math.floor(map.length / 2),
-  y: Math.floor(map.length / 2),
+  x: Math.floor(mapSizeX / 2),
+  y: Math.floor(mapSizeY / 2),
 };
 
 let path = [];

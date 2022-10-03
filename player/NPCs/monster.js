@@ -32,41 +32,34 @@ export class Monster {
 
     this.img = new Image();
     this.img.src = image;
-    this.frame = 0;
+    this.spriteSize = 32;
+    this.frameX = 0;
+    this.frameY = 0;
+    this.minFrame = 0;
+    this.maxFrame = this.horizontalFrame * this.verticalFrame;
+    this.frameRate = 10;
+    this.lastFrame = 0;
   }
 
-  draw(ctx) {
-    if (this.frame < 15) {
-      ctx.drawImage(
-        this.img,
-        0 * 32,
-        0 * 32,
-        32,
-        32,
-        this.x - this.radius / 2,
-        this.y - this.radius / 2,
-        this.radius,
-        this.radius
-      );
-      this.frame++;
-    }
+  draw(ctx, timestamp) {
+    const horizontalFrame = this.img.naturalWidth / 32;
+    const verticalFrame = this.img.naturalHeight / 32;
 
-    if (this.frame >= 15) {
-      ctx.drawImage(
-        this.img,
-        1 * 32,
-        0 * 32,
-        32,
-        32,
-        this.x - this.radius / 2,
-        this.y - this.radius / 2,
-        this.radius,
-        this.radius
-      );
-      this.frame++;
-    }
-    if (this.frame >= 30) {
-      this.frame = 0;
+    ctx.drawImage(
+      this.img,
+      this.frameX * this.spriteSize,
+      this.frameY * this.spriteSize,
+      this.spriteSize,
+      this.spriteSize,
+      this.x - this.radius / 2,
+      this.y - this.radius / 2,
+      this.radius,
+      this.radius
+    );
+
+    if (timestamp >= this.lastFrame + 1000 / this.frameRate) {
+      this.frameX = this.frameX < horizontalFrame - 1 ? this.frameX + 1 : 0;
+      this.lastFrame = timestamp;
     }
   }
 
@@ -110,7 +103,7 @@ export class Monster {
     this.moveAlong();
     let timestamp = Date.now();
 
-    this.draw(ctx);
+    this.draw(ctx, timestamp);
 
     let dx = 0;
     let dy = 0;

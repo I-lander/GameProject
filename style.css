@@ -68,3 +68,10 @@ canvas{
     display: none;
 }
 
+.buttonsTile {
+    background-size : cover;
+    background-repeat : no-repeat;
+    background-color : transparent;
+    position : fixed;
+}
+
