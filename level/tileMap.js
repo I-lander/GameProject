@@ -1,5 +1,5 @@
 import { Player } from "../player/player.js";
-import { map, mapSizeX } from "./map.js";
+import { map, mapSizeX, mapSizeY } from "./map.js";
 import { getRiverLastTile } from "../player/NPCs/spawn.js";
 import { Mountain } from "./element/mountain.js";
 import { monsters, selectedBtn } from "../app.js";
@@ -21,13 +21,13 @@ export class TileMap {
   }
 
   draw(ctx) {
-    for (let row = 0; row < this.map.length; row++) {
-      for (let column = 0; column < this.map[row].length; column++) {
+    for (let row = 0; row < mapSizeY; row++) {
+      for (let column = 0; column < mapSizeX; column++) {
         let tile = this.map[row][column];
         if (tile === "0") {
           ctx.save();
-          ctx.strokeStyle = "rgba(255, 255, 255, 0.2)";
-          ctx.lineWidth = 0.1;
+          ctx.strokeStyle = "rgba(255, 255, 255, 0.05)";
+          ctx.lineWidth = 1;
           ctx.strokeRect(
             this.tileSize * column,
             this.tileSize * row,
@@ -116,7 +116,7 @@ export class TileMap {
 
   setCanvasSize(canvas) {
       canvas.height = innerHeight;
-      this.tileSize = canvas.height / this.map.length;
+      this.tileSize = canvas.height / mapSizeY;
       canvas.width = mapSizeX * this.tileSize;
   }
 
@@ -128,8 +128,8 @@ export class TileMap {
       y = 0;
     }
     let position = {};
-    for (let row = 0; row < this.map.length; row++) {
-      for (let column = 0; column < this.map[row].length; column++) {
+    for (let row = 0; row < mapSizeX; row++) {
+      for (let column = 0; column < mapSizeY; column++) {
         if (
           x >= row * this.tileSize &&
           x < row * this.tileSize + this.tileSize
@@ -138,6 +138,7 @@ export class TileMap {
             y >= column * this.tileSize &&
             y < column * this.tileSize + this.tileSize
           ) {
+
             position.x = row;
             position.y = column;
           }

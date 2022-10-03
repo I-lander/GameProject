@@ -83,7 +83,7 @@ function animate(timestamp) {
 
   tileMap.draw(ctxScreen);
   const mainPlayer = tileMap.players[0];
-  spawnEnemies();
+  // spawnEnemies();
 
   tileMap.players.forEach((player, index) => {
     player.draw(ctxScreen);
@@ -241,7 +241,7 @@ canvasScreen.addEventListener("click", (event) => {
   const clickPositionInGrid = tileMap.getPosition(x, y);
   if (
     tileMap.map[clickPositionInGrid.y][clickPositionInGrid.x] === "green" &&
-    selectedBtn
+    (selectedBtn === "4" || selectedBtn === "5")
   ) {
     tileMap.map[clickPositionInGrid.y][clickPositionInGrid.x] = selectedBtn;
     cleanMap();

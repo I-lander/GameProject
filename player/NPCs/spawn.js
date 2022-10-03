@@ -33,7 +33,7 @@ function spawnEnemies() {
         groundSpawnPosition.y,
         "ground",
         tileSize,
-        "./src/images/spider.png"
+        "./src/images/worm.png"
       )
     );
     lastGroundSpawn = timestamp;
