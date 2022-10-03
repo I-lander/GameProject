@@ -3,6 +3,7 @@ import { Particle } from "./player/visualEffects.js";
 import findPath from "./player/NPCs/findPath.js";
 import { spawnEnemies } from "./player/NPCs/spawn.js";
 import { drawMenu } from "./UI/menu.js";
+import { screenInit } from "./UI/ScreenInit.js";
 import { Monster } from "./player/NPCs/monster.js";
 import { drawLifeBar, DrawDamage } from "./player/utils.js";
 
@@ -22,7 +23,7 @@ canvasScreen.height = innerHeight;
 canvasMenu.width = innerWidth;
 canvasMenu.height = innerHeight;
 
-tileMap.setCanvasSize(canvasScreen);
+screenInit(canvasScreen, canvasMenu);
 const tileSize = tileMap.tileSize;
 const pixelUnit = tileSize / 32;
 

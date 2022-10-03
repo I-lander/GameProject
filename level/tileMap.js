@@ -114,12 +114,6 @@ export class TileMap {
     this.map = map;
   }
 
-  setCanvasSize(canvas) {
-      canvas.height = innerHeight;
-      this.tileSize = canvas.height / mapSizeY;
-      canvas.width = mapSizeX * this.tileSize;
-  }
-
   getPosition(x, y) {
     if (x < 0) {
       x = 0;
@@ -138,7 +132,6 @@ export class TileMap {
             y >= column * this.tileSize &&
             y < column * this.tileSize + this.tileSize
           ) {
-
             position.x = row;
             position.y = column;
           }
