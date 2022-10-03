@@ -3,6 +3,7 @@ import { Particle } from "./player/visualEffects.js";
 import findPath from "./player/NPCs/findPath.js";
 import { spawnEnemies } from "./player/NPCs/spawn.js";
 import { drawMenu } from "./UI/menu.js";
+import { marginTop } from "./UI/ScreenInit.js";
 import { screenInit } from "./UI/ScreenInit.js";
 import { Monster } from "./player/NPCs/monster.js";
 import { drawLifeBar, DrawDamage } from "./player/utils.js";
@@ -14,6 +15,8 @@ ctxScreen.imageSmoothingEnabled = false;
 const canvasMenu = document.getElementById("canvasMenu");
 const ctxMenu = canvasMenu.getContext("2d");
 ctxMenu.imageSmoothingEnabled = false;
+
+export { canvasMenu, ctxMenu };
 
 const tileMap = new TileMap();
 
@@ -229,18 +232,18 @@ riverButton.onclick = function () {
   }
 };
 
-// const spawnButton = document.getElementById("spawnButton");
-// spawnButton.onclick = function () {
-//   if (!isPause) {
-//     selectedBtn = "spawn";
-//   }
-// };
+const spawnButton = document.getElementById("spawnButton");
+spawnButton.onclick = function () {
+  if (!isPause) {
+    selectedBtn = "spawn";
+  }
+};
 
 canvasScreen.addEventListener("click", (event) => {
   const xZero = 0;
-  const yZero = 0;
+  const yZero = marginTop;
   const x = event.x;
-  const y = event.y;
+  const y = event.y - yZero;
   const clickPositionInGrid = tileMap.getPosition(x, y);
   if (
     tileMap.map[clickPositionInGrid.y][clickPositionInGrid.x] === "green" &&
@@ -255,7 +258,7 @@ canvasScreen.addEventListener("click", (event) => {
     monsters.push(
       new Monster(
         event.x - xZero - tileSize / 2,
-        event.y - tileSize / 2,
+        y - tileSize / 2,
         "ground",
         tileSize,
         "./src/images/spider.png"

@@ -17,7 +17,7 @@ function drawLifeBar(ctx, entity) {
       tileSize * 0.6,
       tileSize * 0.1
     );
-    ctx.fillStyle = "rgba(0, 255, 0, 0.9)";
+    ctx.fillStyle = "rgba(0, 175, 0, 0.9)";
     ctx.fillRect(
       x + (tileSize * 0.4) / 2,
       y - tileSize * 0.1,

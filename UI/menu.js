@@ -1,4 +1,5 @@
 import { tileSize } from "../app.js"
+import {marginTop} from "./ScreenInit.js"
 
 const buttons = []
 
@@ -17,6 +18,7 @@ function drawMenu(ctx, width) {
   }
   createButton(width, "mountainButton", './src/images/mountain.png');
   createButton(width, "riverButton");
+  createButton(width, "spawnButton", './src/images/spider.png');
 }
 
 function createButton(width, type, icon) {
@@ -27,39 +29,12 @@ function createButton(width, type, icon) {
   newButton.classList.add("buttonsTile");
   newButton.style.backgroundImage = `url(${icon})`
   newButton.style.left = `${width + buttons.length * buttonSize}px`;
-  newButton.style.top = `0px`;
+  newButton.style.top = `${marginTop + tileSize}px`;
   newButton.style.margin = "10px";
   newButton.style.width = `${buttonSize}px`;
   newButton.style.height = `${buttonSize}px`;
 
   buttons.push(newButton)
-
-  // let riverButton = document.createElement("button");
-  // document.body.appendChild(riverButton);
-  // riverButton.id = "riverButton";
-  // riverButton.style.backgroundColor = "rgba(100, 100, 255, 0.9)";
-  // riverButton.style.backgroundSize = "cover";
-  // riverButton.style.backgroundRepeat = "no-repeat";
-  // riverButton.style.position = "fixed";
-  // riverButton.style.left = `${width + buttonSize}px`;
-  // riverButton.style.top = `0px`;
-  // riverButton.style.margin = "10px";
-  // riverButton.style.width = `${buttonSize}px`;
-  // riverButton.style.height = `${buttonSize}px`;
-
-  // let spawnButton = document.createElement("button");
-  // document.body.appendChild(spawnButton);
-  // spawnButton.id = "spawnButton";
-  // spawnButton.style.backgroundImage = "url('./src/images/spider.png')";
-  // spawnButton.style.backgroundColor = "transparent";
-  // spawnButton.style.backgroundSize = "cover";
-  // spawnButton.style.backgroundRepeat = "no-repeat";
-  // spawnButton.style.position = "fixed";
-  // spawnButton.style.left = `${width}px`;
-  // spawnButton.style.top = `${buttonSize}px`;
-  // spawnButton.style.margin = "10px";
-  // spawnButton.style.width = `${buttonSize}px`;
-  // spawnButton.style.height = `${buttonSize}px`;
 }
 
 

@@ -1,18 +1,26 @@
-import { tileSize, pixelUnit, delta, monsters } from "../app.js";
+import {
+  canvasMenu,
+  ctxMenu,
+  tileSize,
+  pixelUnit,
+  delta,
+  monsters,
+} from "../app.js";
 
 class Player {
   constructor(x, y, position, radius, image) {
     this.x = x;
     this.y = y;
-    this.position = position
+    this.position = position;
     this.radius = radius;
     this.projectiles = [];
 
+    this.maxHp = 30;
     this.stats = {
-      hp: 30,
+      hp: this.maxHp,
       force: 3,
       attackRate: 2,
-      range : tileSize * 3
+      range: tileSize * 3,
     };
     this.lastAttack = 0;
 
@@ -39,6 +47,8 @@ class Player {
       this.autoFire(monsters);
       this.lastAttack = timestamp;
     }
+
+    this.drawPlayerLife(ctxMenu);
   }
 
   autoFire(monsters) {
@@ -64,6 +74,25 @@ class Player {
         }
       }
     });
+  }
+
+  drawPlayerLife(ctx) {
+    const barRatio = this.stats.hp / this.maxHp;
+
+    const barWidth = tileSize * 9;
+    const barHeight = tileSize / 3
+    let barX = (canvasMenu.width - barWidth) / 2;
+    let barY = barX/2;
+
+
+    ctx.save();
+    ctx.fillStyle = "rgba(0, 0, 0, 0.9)";
+    ctx.fillRect(barX, barY, barWidth, barHeight);
+    ctx.fillStyle = "rgba(0, 175, 0, 0.9)";
+    ctx.fillRect(barX, barY, barWidth * barRatio, barHeight);
+    ctx.strokeStyle = "white";
+    ctx.strokeRect(barX, barY, barWidth, barHeight);
+    ctx.restore();
   }
 }
 
