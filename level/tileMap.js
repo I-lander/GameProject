@@ -27,7 +27,7 @@ export class TileMap {
         if (tile === "0") {
           ctx.save();
           ctx.strokeStyle = "rgba(255, 255, 255, 0.05)";
-          ctx.lineWidth = 1;
+          ctx.lineWidth = 2;
           ctx.strokeRect(
             this.tileSize * column,
             this.tileSize * row,

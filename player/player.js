@@ -82,7 +82,7 @@ class Player {
     const barWidth = tileSize * 9;
     const barHeight = tileSize / 3
     let barX = (canvasMenu.width - barWidth) / 2;
-    let barY = barX/2;
+    let barY = tileSize/2;
 
 
     ctx.save();
