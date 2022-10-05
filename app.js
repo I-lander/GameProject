@@ -23,7 +23,7 @@ const tileMap = new TileMap();
 screenInit(canvasScreen, canvasMenu);
 
 const tileSize = tileMap.tileSize;
-document.documentElement.style.setProperty('--tileSize', tileSize + "px");
+document.documentElement.style.setProperty("--tileSize", tileSize + "px");
 const pixelUnit = tileSize / 32;
 
 drawMenu(ctxMenu, canvasScreen.width);
@@ -106,7 +106,7 @@ function animate(timestamp) {
           monster.stats.hp -= projectile.force;
           const damageText = new DrawDamage(monster, monster.stats.force);
           damageTexts.push(damageText);
-          mainPlayer.stats.exp ++
+          mainPlayer.stats.exp++;
         }
       });
     });
@@ -211,31 +211,6 @@ function init() {
   particles = [];
 }
 
-let selectedBtn = "";
-export { selectedBtn };
-
-const mountainButton = document.getElementById("mountainButton");
-mountainButton.onclick = function () {
-  if (!isPause) {
-    cleanMap();
-    selectedBtn = "4";
-  }
-};
-const riverButton = document.getElementById("riverButton");
-riverButton.onclick = function () {
-  if (!isPause) {
-    cleanMap();
-    selectedBtn = "5";
-  }
-};
-
-const spawnButton = document.getElementById("spawnButton");
-spawnButton.onclick = function () {
-  if (!isPause) {
-    selectedBtn = "spawn";
-  }
-};
-
 canvasScreen.addEventListener("click", (event) => {
   const xZero = marginLeft;
   const yZero = marginTop;
@@ -244,14 +219,15 @@ canvasScreen.addEventListener("click", (event) => {
   const clickPositionInGrid = tileMap.getPosition(x, y);
   if (
     tileMap.map[clickPositionInGrid.y][clickPositionInGrid.x] === "green" &&
-    (selectedBtn === "4" || selectedBtn === "5")
+    (tileMap.selectedBtn === "4" || tileMap.selectedBtn === "5")
   ) {
-    tileMap.map[clickPositionInGrid.y][clickPositionInGrid.x] = selectedBtn;
+    tileMap.map[clickPositionInGrid.y][clickPositionInGrid.x] =
+      tileMap.selectedBtn;
     cleanMap();
-    selectedBtn = "";
+    tileMap.selectedBtn = "";
   }
 
-  if (selectedBtn === "spawn") {
+  if (tileMap.selectedBtn === "spawn") {
     monsters.push(
       new Monster(
         event.x - xZero - tileSize / 2,
@@ -261,7 +237,7 @@ canvasScreen.addEventListener("click", (event) => {
         "./src/images/spider.png"
       )
     );
-    selectedBtn = "";
+    tileMap.selectedBtn = "";
   }
 });
 
@@ -281,3 +257,9 @@ function cleanMap() {
     }
   }
 }
+
+function inversePause() {
+  isPause = !isPause;
+}
+
+export { cleanMap, inversePause };

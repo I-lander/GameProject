@@ -53,7 +53,7 @@ class Player {
 
     if (this.stats.exp >= this.nextLvl) {
       this.stats.exp = 0;
-      createButton("mountainButton", "./src/images/mountain.png");
+      createButton("4", "./src/images/mountain.png");
     }
     this.drawPlayerLife(ctxMenu);
     this.drawPlayerExp(ctxMenu);

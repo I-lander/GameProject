@@ -1,4 +1,4 @@
-import { pixelUnit, tileSize } from "../app.js";
+import { inversePause, tileMap, tileSize, isPause, cleanMap } from "../app.js";
 import { marginTop, marginLeft } from "./ScreenInit.js";
 
 const buttons = [];
@@ -16,11 +16,11 @@ function drawMenu(ctx, width) {
   if (spawnButton) {
     spawnButton.remove();
   }
-  // createButton("mountainButton", "./src/images/mountain.png");
-  // createButton("riverButton");
-  // for (let i = 0; i < 15; i++) {
-  //   createButton("spawnButton", "./src/images/spider.png");
-  // }
+  createButton("4", "./src/images/mountain.png");
+  createButton("5");
+  for (let i = 0; i < 1; i++) {
+    createButton("spawn", "./src/images/spider.png");
+  }
 }
 
 function createButton(type, icon) {
@@ -28,7 +28,7 @@ function createButton(type, icon) {
   const buttonContainer = document.getElementById("buttonContainer");
   let newButton = document.createElement("button");
   buttonContainer.appendChild(newButton);
-  newButton.id = type;
+  newButton.id = `${type + buttons.length}`;
   newButton.classList.add("buttonsTile");
   newButton.style.backgroundImage = `url(${icon})`;
   newButton.style.left = `${
@@ -39,6 +39,13 @@ function createButton(type, icon) {
   newButton.style.height = `${buttonSize}px`;
 
   buttons.push(newButton);
+
+  newButton.onclick = function () {
+    if (!isPause) {
+      cleanMap();
+      tileMap.selectedBtn = type;
+    }
+  };
 }
 
 export { drawMenu, createButton };

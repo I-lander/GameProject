@@ -2,7 +2,7 @@ import { Player } from "../player/player.js";
 import { map, mapSizeX, mapSizeY } from "./map.js";
 import { getRiverLastTile } from "../player/NPCs/spawn.js";
 import { Mountain } from "./element/mountain.js";
-import { monsters, pixelUnit, selectedBtn } from "../app.js";
+import { inversePause, isPause, monsters, pixelUnit } from "../app.js";
 
 const canvasScreen = document.getElementById("canvasScreen");
 const ctxScreen = canvasScreen.getContext("2d");
@@ -11,6 +11,7 @@ export class TileMap {
   constructor() {
     this.tileSize = 0;
     this.mapOrigin = { x: 0, y: 0 };
+    this.selectedBtn = "";
     this.players = [];
 
     this.greenTile = new Image();
@@ -30,7 +31,7 @@ export class TileMap {
         if (tile === "0") {
           ctx.save();
           ctx.strokeStyle = "rgba(255, 255, 255, 0.05)";
-          ctx.lineWidth = 1*pixelUnit;
+          ctx.lineWidth = 1 * pixelUnit;
           ctx.strokeRect(
             this.tileSize * column,
             this.tileSize * row,
@@ -98,7 +99,8 @@ export class TileMap {
         }
       }
     }
-    selectedBtn != "" ? this.possibilityForClick(selectedBtn) : null;
+
+    this.selectedBtn != "" ? this.possibilityForClick() : null;
   }
 
   init() {
@@ -163,40 +165,38 @@ export class TileMap {
     return neighbors;
   }
 
-  possibilityForClick(selectedBtn) {
+  possibilityForClick() {
     let monsterTiles = [];
 
     for (let i = 0; i < monsters.length; i++) {
       monsterTiles.push(this.getPosition(monsters[i].x, monsters[i].y));
     }
-    if (selectedBtn === "4") {
+    if (this.selectedBtn === "4") {
       for (let row = 0; row < this.map.length; row++) {
         for (let column = 0; column < this.map[row].length; column++) {
           let tileCoordinate = { x: column, y: row };
-          if (this.map[row][column] !== "c") {
-            if (
-              monsterTiles.some(
-                (e) => e.x === tileCoordinate.x && e.y === tileCoordinate.y
-              )
-            ) {
-              this.map[row][column] = "monster";
-            }
-            let tile = this.map[row][column];
-            if (tile === "0") {
-              this.map[row][column] = "green";
-            }
-            if (
-              monsterTiles.some(
-                (e) => e.x === tileCoordinate.x && e.y === tileCoordinate.y
-              )
-            ) {
-              this.map[row][column] = "0";
-            }
+          if (
+            monsterTiles.some(
+              (e) => e.x === tileCoordinate.x && e.y === tileCoordinate.y
+            )
+          ) {
+            this.map[row][column] = "monster";
+          }
+          let tile = this.map[row][column];
+          if (tile === "0") {
+            this.map[row][column] = "green";
+          }
+          if (
+            monsterTiles.some(
+              (e) => e.x === tileCoordinate.x && e.y === tileCoordinate.y
+            )
+          ) {
+            this.map[row][column] = "0";
           }
         }
       }
     }
-    if (selectedBtn === "5") {
+    if (this.selectedBtn === "5") {
       const excludeValue = ["5", "1"];
       const riverLastTile = getRiverLastTile();
       let neighbors = this.getNeighbors(riverLastTile);

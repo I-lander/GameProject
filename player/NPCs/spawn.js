@@ -1,6 +1,7 @@
 import { isPause, monsters, tileSize, tileMap } from "../../app.js";
 import { Monster } from "./monster.js";
 import { map, mapSizeX, mapSizeY } from "../../level/map.js";
+import { marginTop, marginLeft } from "../../UI/ScreenInit.js";
 
 
 const playerPos = {
@@ -11,7 +12,7 @@ const playerPos = {
 let path = [];
 let lastGroundSpawn = 0;
 let lastRiverSpawn = 0;
-let spawnGroundRate = 1;
+let spawnGroundRate = 0;
 let spawnRiverRate = 0.5;
 
 function getRiverLastTile() {
@@ -62,7 +63,8 @@ function spawnEnemies() {
 }
 
 function getGroundSpawnPosition() {
-  let x, y;
+  let x = marginLeft
+  let y = marginTop;
   if (Math.random() < 0.5) {
     x =
       Math.random() < 0.5
