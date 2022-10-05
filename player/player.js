@@ -19,7 +19,7 @@ class Player {
     this.stats = {
       hp: this.maxHp,
       force: 3,
-      attackRate: 2,
+      attackRate: 1,
       range: tileSize * 3,
     };
     this.lastAttack = 0;

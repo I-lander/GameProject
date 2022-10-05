@@ -37,32 +37,20 @@ canvas{
     z-index: 10001;
     width: 100%;
     height: 100%;
-    background-color: rgba(33, 34, 36, 0.50);    
+    background-color: rgba(33, 34, 36, 1);    
     color: white;
     text-align: center;
 }
 
-.mainMenu p{
-    line-height: 2.5rem;
-    font-size: 16;
-}
-
 .mainMenu img{
-    margin: 16px;
-    height: 20%;
     border-radius: 33%;
 }
 
 .mainMenu button{
-    margin-top: 1.5rem;
     background-color: rgb(105, 102, 96);
     padding: 6px;
     color: white;
     width: 50%;
-    height: auto;
-    border: none;
-    font-size: 42px;
-    bottom: 10px;
 }
 
 .disable{
