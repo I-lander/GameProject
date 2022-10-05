@@ -79,7 +79,7 @@ class Player {
   drawPlayerLife(ctx) {
     const barRatio = this.stats.hp / this.maxHp;
 
-    const barWidth = tileSize * 9;
+    const barWidth = tileSize * 9.5;
     const barHeight = tileSize / 3
     let barX = (canvasMenu.width - barWidth) / 2;
     let barY = tileSize/2;
@@ -91,6 +91,7 @@ class Player {
     ctx.fillStyle = "rgba(0, 175, 0, 0.9)";
     ctx.fillRect(barX, barY, barWidth * barRatio, barHeight);
     ctx.strokeStyle = "white";
+    ctx.lineWidth = 1 * pixelUnit
     ctx.strokeRect(barX, barY, barWidth, barHeight);
     ctx.restore();
   }

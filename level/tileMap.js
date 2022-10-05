@@ -13,6 +13,9 @@ export class TileMap {
     this.mapOrigin = { x: 0, y: 0 };
     this.players = [];
 
+    this.greenTile = new Image();
+    this.greenTile.src = "./src/images/greenTile.png";
+
     this.mountain = new Image();
     this.mountain.src = "./src/images/mountain.png";
     this.mountains = [];
@@ -27,7 +30,7 @@ export class TileMap {
         if (tile === "0") {
           ctx.save();
           ctx.strokeStyle = "rgba(255, 255, 255, 0.05)";
-          ctx.lineWidth = 2;
+          ctx.lineWidth = 3;
           ctx.strokeRect(
             this.tileSize * column,
             this.tileSize * row,
@@ -85,23 +88,13 @@ export class TileMap {
           ctx.restore();
         }
         if (tile === "green") {
-          ctx.save();
-          ctx.fillStyle = "rgba(100, 255, 100, 0.3)";
-          ctx.strokeStyle = "rgba(0, 0, 0, 0.3)";
-          ctx.lineWidth = 0.5;
-          ctx.fillRect(
+          ctx.drawImage(
+            this.greenTile,
             this.tileSize * column,
             this.tileSize * row,
             this.tileSize,
             this.tileSize
           );
-          ctx.strokeRect(
-            this.tileSize * column,
-            this.tileSize * row,
-            this.tileSize,
-            this.tileSize
-          );
-          ctx.restore();
         }
       }
     }

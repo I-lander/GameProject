@@ -3,7 +3,7 @@ import { Particle } from "./player/visualEffects.js";
 import findPath from "./player/NPCs/findPath.js";
 import { spawnEnemies } from "./player/NPCs/spawn.js";
 import { drawMenu } from "./UI/menu.js";
-import { marginTop } from "./UI/ScreenInit.js";
+import { marginLeft, marginTop } from "./UI/ScreenInit.js";
 import { screenInit } from "./UI/ScreenInit.js";
 import { Monster } from "./player/NPCs/monster.js";
 import { drawLifeBar, DrawDamage } from "./player/utils.js";
@@ -20,14 +20,10 @@ export { canvasMenu, ctxMenu };
 
 const tileMap = new TileMap();
 
-canvasScreen.width = innerWidth;
-canvasScreen.height = innerHeight;
-
-canvasMenu.width = innerWidth;
-canvasMenu.height = innerHeight;
-
 screenInit(canvasScreen, canvasMenu);
+
 const tileSize = tileMap.tileSize;
+document.documentElement.style.setProperty('--tileSize', tileSize + "px");
 const pixelUnit = tileSize / 32;
 
 drawMenu(ctxMenu, canvasScreen.width);
@@ -240,9 +236,9 @@ spawnButton.onclick = function () {
 };
 
 canvasScreen.addEventListener("click", (event) => {
-  const xZero = 0;
+  const xZero = marginLeft;
   const yZero = marginTop;
-  const x = event.x;
+  const x = event.x - xZero;
   const y = event.y - yZero;
   const clickPositionInGrid = tileMap.getPosition(x, y);
   if (

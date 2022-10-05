@@ -1,8 +1,11 @@
-@font-face {
+@font-face{
     font-family: "dogicapixel";
     src: url("./src/font/pixelFont/dogicapixel-webfont.woff");
     }
 
+:root{
+    --tileSize:0px
+}
 
 *{
     margin: 0;
@@ -37,7 +40,7 @@ canvas{
     z-index: 10001;
     width: 100%;
     height: 100%;
-    background-color: rgba(33, 34, 36, 1);    
+    background-color: rgba(33, 34, 36, 0.1);    
     color: white;
     text-align: center;
 }
@@ -57,10 +60,14 @@ canvas{
     display: none;
 }
 
-.buttonsTile {
+.buttonsTile{
     background-size : cover;
     background-repeat : no-repeat;
-    background-color : transparent;
-    position : fixed;
+    background-color : rgba(155, 162, 177, 1);
 }
 
+.buttonContainer{
+    position: fixed;
+    overflow: auto;
+    background-color: #c5c5c53b;
+}
