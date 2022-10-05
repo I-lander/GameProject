@@ -38,10 +38,10 @@ const findPath = (start, target, type) => {
       if (neighbor.y <= 0) {
         neighbor.y = 0;
       }
-      if (neighbor.x > map.length - 1) {
-        neighbor.x = map.length - 2;
+      if (neighbor.x > mapSizeX - 1) {
+        neighbor.x = mapSizeX - 2;
       }
-      if (neighbor.y > map.length - 1) {
+      if (neighbor.y > mapSizeY - 1) {
         neighbor.y = map.length - 2;
       }
       const tile = map[neighbor.y][neighbor.x];
