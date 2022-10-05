@@ -2,7 +2,7 @@ import { Player } from "../player/player.js";
 import { map, mapSizeX, mapSizeY } from "./map.js";
 import { getRiverLastTile } from "../player/NPCs/spawn.js";
 import { Mountain } from "./element/mountain.js";
-import { monsters, selectedBtn } from "../app.js";
+import { monsters, pixelUnit, selectedBtn } from "../app.js";
 
 const canvasScreen = document.getElementById("canvasScreen");
 const ctxScreen = canvasScreen.getContext("2d");
@@ -30,7 +30,7 @@ export class TileMap {
         if (tile === "0") {
           ctx.save();
           ctx.strokeStyle = "rgba(255, 255, 255, 0.05)";
-          ctx.lineWidth = 3;
+          ctx.lineWidth = 1*pixelUnit;
           ctx.strokeRect(
             this.tileSize * column,
             this.tileSize * row,

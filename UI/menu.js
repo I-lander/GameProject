@@ -16,15 +16,15 @@ function drawMenu(ctx, width) {
   if (spawnButton) {
     spawnButton.remove();
   }
-  createButton(width, "mountainButton", "./src/images/mountain.png");
-  createButton(width, "riverButton");
-  for (let i = 0; i < 15; i++) {
-    createButton(width, "spawnButton", "./src/images/spider.png");
-  }
+  // createButton("mountainButton", "./src/images/mountain.png");
+  // createButton("riverButton");
+  // for (let i = 0; i < 15; i++) {
+  //   createButton("spawnButton", "./src/images/spider.png");
+  // }
 }
 
-function createButton(width, type, icon) {
-  const buttonSize = ((canvasMenu.width) / 6);
+function createButton(type, icon) {
+  const buttonSize = (canvasMenu.width - (tileSize / 5) * 6) / 6;
   const buttonContainer = document.getElementById("buttonContainer");
   let newButton = document.createElement("button");
   buttonContainer.appendChild(newButton);
@@ -32,7 +32,7 @@ function createButton(width, type, icon) {
   newButton.classList.add("buttonsTile");
   newButton.style.backgroundImage = `url(${icon})`;
   newButton.style.left = `${
-    marginLeft + width + buttons.length * buttonSize
+    marginLeft + canvasScreen.width + buttons.length * buttonSize
   }px`;
   newButton.style.top = `${marginTop + tileSize}px`;
   newButton.style.width = `${buttonSize}px`;
@@ -41,4 +41,4 @@ function createButton(width, type, icon) {
   buttons.push(newButton);
 }
 
-export { drawMenu };
+export { drawMenu, createButton };

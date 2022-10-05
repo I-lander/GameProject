@@ -6,6 +6,7 @@ import {
   delta,
   monsters,
 } from "../app.js";
+import { createButton } from "../UI/menu.js";
 
 class Player {
   constructor(x, y, position, radius, image) {
@@ -16,8 +17,10 @@ class Player {
     this.projectiles = [];
 
     this.maxHp = 30;
+    this.nextLvl = 1;
     this.stats = {
       hp: this.maxHp,
+      exp: 0,
       force: 3,
       attackRate: 1,
       range: tileSize * 3,
@@ -48,7 +51,12 @@ class Player {
       this.lastAttack = timestamp;
     }
 
+    if (this.stats.exp >= this.nextLvl) {
+      this.stats.exp = 0;
+      createButton("mountainButton", "./src/images/mountain.png");
+    }
     this.drawPlayerLife(ctxMenu);
+    this.drawPlayerExp(ctxMenu);
   }
 
   autoFire(monsters) {
@@ -80,10 +88,9 @@ class Player {
     const barRatio = this.stats.hp / this.maxHp;
 
     const barWidth = tileSize * 9.5;
-    const barHeight = tileSize / 3
+    const barHeight = tileSize / 3;
     let barX = (canvasMenu.width - barWidth) / 2;
-    let barY = tileSize/2;
-
+    let barY = tileSize / 2;
 
     ctx.save();
     ctx.fillStyle = "rgba(0, 0, 0, 0.9)";
@@ -91,7 +98,26 @@ class Player {
     ctx.fillStyle = "rgba(0, 175, 0, 0.9)";
     ctx.fillRect(barX, barY, barWidth * barRatio, barHeight);
     ctx.strokeStyle = "white";
-    ctx.lineWidth = 1 * pixelUnit
+    ctx.lineWidth = 1 * pixelUnit;
+    ctx.strokeRect(barX, barY, barWidth, barHeight);
+    ctx.restore();
+  }
+
+  drawPlayerExp(ctx) {
+    const barRatio = this.stats.exp / this.nextLvl;
+
+    const barWidth = tileSize * 9.5;
+    const barHeight = tileSize / 3;
+    let barX = (canvasMenu.width - barWidth) / 2;
+    let barY = tileSize / 2 + tileSize / 3;
+
+    ctx.save();
+    ctx.fillStyle = "rgba(0, 0, 0, 0.9)";
+    ctx.fillRect(barX, barY, barWidth, barHeight);
+    ctx.fillStyle = "rgba(39, 161, 245, 0.9)";
+    ctx.fillRect(barX, barY, barWidth * barRatio, barHeight);
+    ctx.strokeStyle = "white";
+    ctx.lineWidth = 1 * pixelUnit;
     ctx.strokeRect(barX, barY, barWidth, barHeight);
     ctx.restore();
   }

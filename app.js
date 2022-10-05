@@ -106,6 +106,7 @@ function animate(timestamp) {
           monster.stats.hp -= projectile.force;
           const damageText = new DrawDamage(monster, monster.stats.force);
           damageTexts.push(damageText);
+          mainPlayer.stats.exp ++
         }
       });
     });

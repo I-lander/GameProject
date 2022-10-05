@@ -63,11 +63,12 @@ canvas{
 .buttonsTile{
     background-size : cover;
     background-repeat : no-repeat;
-    background-color : rgba(155, 162, 177, 1);
+    background-color : rgba(155, 162, 177, 0.1);
 }
 
 .buttonContainer{
     position: fixed;
     overflow: auto;
     background-color: #c5c5c53b;
+    border-color: aliceblue !important;
 }
