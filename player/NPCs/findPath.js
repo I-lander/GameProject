@@ -42,7 +42,7 @@ const findPath = (start, target, type) => {
         neighbor.x = mapSizeX - 2;
       }
       if (neighbor.y > mapSizeY - 1) {
-        neighbor.y = map.length - 2;
+        neighbor.y = mapSizeY - 2;
       }
       const tile = map[neighbor.y][neighbor.x];
       if (!tile) {

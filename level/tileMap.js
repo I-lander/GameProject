@@ -167,8 +167,8 @@ export class TileMap {
       }
     }
     if (this.selectedBtn === "4") {
-      for (let row = 0; row < this.map.length; row++) {
-        for (let column = 0; column < this.map[row].length; column++) {
+      for (let row = 0; row < mapSizeY; row++) {
+        for (let column = 0; column < mapSizeX; column++) {
           let tileCoordinate = { x: column, y: row };
           if (
             monsterTiles.some(

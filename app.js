@@ -7,6 +7,7 @@ import { marginLeft, marginTop } from "./UI/ScreenInit.js";
 import { screenInit } from "./UI/ScreenInit.js";
 import { Monster } from "./player/NPCs/monster.js";
 import { drawLifeBar, DrawDamage } from "./player/utils.js";
+import { mapSizeX, mapSizeY } from "./level/map.js";
 
 const canvasScreen = document.getElementById("canvasScreen");
 const ctxScreen = canvasScreen.getContext("2d");
@@ -248,8 +249,8 @@ window.addEventListener("keydown", (event) => {
 });
 
 function cleanMap() {
-  for (let row = 0; row < tileMap.map.length; row++) {
-    for (let column = 0; column < tileMap.map[row].length; column++) {
+  for (let row = 0; row < mapSizeY; row++) {
+    for (let column = 0; column < mapSizeX; column++) {
       let tile = tileMap.map[row][column];
       if (tile === "green") {
         tileMap.map[row][column] = "0";
