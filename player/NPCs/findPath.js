@@ -104,7 +104,8 @@ const findPath = (start, target, type) => {
     currentKey = key;
     currentPos = position;
   }
-  return path.reverse();
+  path.reverse()
+  return path;
 };
 
 export default findPath;

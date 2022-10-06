@@ -23,20 +23,29 @@ function drawRiver(x, y) {
   if (left === "5" || right === "5") {
     drawRiverImage(x, y, 1, 0);
   }
-  if (up === "5" && left === "5") {
+  if ((up === "5" || up === "1") && (left === "5" || left === "1")) {
     drawRiverImage(x, y, 2, 2);
   }
-  if (up === "5" && right === "5") {
+  if ((up === "5" || up === "1") && (right === "5" || right === "5")) {
     drawRiverImage(x, y, 0, 2);
   }
-  if (down === "5" && left === "5") {
+  if ((down === "5" || down === "1") && (left === "5" || left === "1")) {
     drawRiverImage(x, y, 2, 0);
   }
-  if (down === "5" && right === "5") {
+  if ((down === "5" || down === "1") && (right === "5" || right === "5")) {
     drawRiverImage(x, y, 0, 0);
   }
-  if(up === "1"){
-    drawRiverImage(x, y-1, 1, 1);
+  if (up === "1") {
+    drawRiverImage(x, y - 1, 1, 1);
+  }
+  if (down === "1") {
+    drawRiverImage(x, y + 1, 1, 1);
+  }
+  if (left === "1") {
+    drawRiverImage(x-1, y, 1, 1);
+  }
+  if (right === "1") {
+    drawRiverImage(x+1, y, 1, 1);
   }
 }
 

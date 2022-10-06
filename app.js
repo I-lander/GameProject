@@ -212,6 +212,13 @@ function init() {
   particles = [];
 }
 
+let pressedBtn;
+function updatepressedBtn(btn) {
+  pressedBtn = btn;
+}
+
+export { pressedBtn, updatepressedBtn };
+
 canvasScreen.addEventListener("click", (event) => {
   const xZero = marginLeft;
   const yZero = marginTop;
@@ -226,6 +233,8 @@ canvasScreen.addEventListener("click", (event) => {
       tileMap.selectedBtn;
     cleanMap();
     tileMap.selectedBtn = "";
+    pressedBtn.remove();
+    pressedBtn = null;
   }
 
   if (tileMap.selectedBtn === "spawn") {

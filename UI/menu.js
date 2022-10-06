@@ -1,4 +1,12 @@
-import { inversePause, tileMap, tileSize, isPause, cleanMap } from "../app.js";
+import {
+  inversePause,
+  tileMap,
+  tileSize,
+  isPause,
+  cleanMap,
+  ctxScreen,
+  updatepressedBtn,
+} from "../app.js";
 import { marginTop, marginLeft } from "./ScreenInit.js";
 
 const buttons = [];
@@ -44,6 +52,7 @@ function createButton(type, icon) {
     if (!isPause) {
       cleanMap();
       tileMap.selectedBtn = type;
+      updatepressedBtn(newButton);
     }
   };
 }
