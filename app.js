@@ -249,6 +249,7 @@ canvasScreen.addEventListener("click", (event) => {
     );
     tileMap.selectedBtn = "";
   }
+  inversePause()
 });
 
 window.addEventListener("keydown", (event) => {

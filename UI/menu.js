@@ -53,6 +53,9 @@ function createButton(type, icon) {
       cleanMap();
       tileMap.selectedBtn = type;
       updatepressedBtn(newButton);
+      setTimeout(() => {
+        inversePause()
+      }, 100);
     }
   };
 }
