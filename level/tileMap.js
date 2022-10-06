@@ -2,7 +2,8 @@ import { Player } from "../player/player.js";
 import { map, mapSizeX, mapSizeY } from "./map.js";
 import { getRiverLastTile } from "../player/NPCs/spawn.js";
 import { Mountain } from "./element/mountain.js";
-import { inversePause, isPause, monsters, pixelUnit } from "../app.js";
+import { drawRiver } from "./element/river.js";
+import { monsters, pixelUnit } from "../app.js";
 
 const canvasScreen = document.getElementById("canvasScreen");
 const ctxScreen = canvasScreen.getContext("2d");
@@ -78,15 +79,7 @@ export class TileMap {
         }
 
         if (tile === "5") {
-          ctx.save();
-          ctx.fillStyle = "rgba(100, 100, 255, 0.9)";
-          ctx.fillRect(
-            this.tileSize * column,
-            this.tileSize * row,
-            this.tileSize,
-            this.tileSize
-          );
-          ctx.restore();
+          drawRiver(column, row);
         }
         if (tile === "green") {
           ctx.drawImage(
@@ -169,7 +162,9 @@ export class TileMap {
     let monsterTiles = [];
 
     for (let i = 0; i < monsters.length; i++) {
-      monsterTiles.push(this.getPosition(monsters[i].x, monsters[i].y));
+      if (monsters[i].type === "ground") {
+        monsterTiles.push(this.getPosition(monsters[i].x, monsters[i].y));
+      }
     }
     if (this.selectedBtn === "4") {
       for (let row = 0; row < this.map.length; row++) {

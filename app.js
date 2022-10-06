@@ -16,7 +16,7 @@ const canvasMenu = document.getElementById("canvasMenu");
 const ctxMenu = canvasMenu.getContext("2d");
 ctxMenu.imageSmoothingEnabled = false;
 
-export { canvasMenu, ctxMenu };
+export { ctxScreen, canvasScreen, ctxMenu, canvasMenu };
 
 const tileMap = new TileMap();
 
