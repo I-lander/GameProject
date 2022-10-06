@@ -10,7 +10,6 @@ export class Monster {
     this.speed = speed ?? 0.4;
     this.collide = false;
     this.collideWith = null;
-    this.isAttack = false;
 
     this.maxHp = 3;
     this.stats = {

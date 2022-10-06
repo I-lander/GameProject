@@ -3,7 +3,6 @@ import { Monster } from "./monster.js";
 import { map, mapSizeX, mapSizeY } from "../../level/map.js";
 import { marginTop, marginLeft } from "../../UI/ScreenInit.js";
 
-
 const playerPos = {
   x: Math.floor(mapSizeX / 2),
   y: Math.floor(mapSizeY / 2),
@@ -23,7 +22,7 @@ function getRiverLastTile() {
 
 export { getRiverLastTile };
 
-function spawnEnemies() {
+function spawnMonsters() {
   let timestamp = Date.now();
 
   if (!isPause && timestamp >= lastGroundSpawn + 1000 / spawnGroundRate) {
@@ -63,20 +62,14 @@ function spawnEnemies() {
 }
 
 function getGroundSpawnPosition() {
-  let x = marginLeft
+  let x = marginLeft;
   let y = marginTop;
   if (Math.random() < 0.5) {
-    x =
-      Math.random() < 0.5
-        ? 0 - tileSize
-        : mapSizeX * tileSize + tileSize;
+    x = Math.random() < 0.5 ? 0 - tileSize : mapSizeX * tileSize + tileSize;
     y = Math.random() * mapSizeY * tileSize + tileSize;
   } else {
     x = Math.random() * mapSizeX * tileSize + tileSize;
-    y =
-      Math.random() < 0.5
-        ? 0 - tileSize
-        : mapSizeY * tileSize + tileSize;
+    y = Math.random() < 0.5 ? 0 - tileSize : mapSizeY * tileSize + tileSize;
   }
   const position = { x: x, y: y };
   return position;
@@ -155,4 +148,4 @@ function getRiverSpawnPosition(riverPath) {
   }
 }
 
-export { spawnEnemies };
+export { spawnMonsters };

@@ -42,6 +42,7 @@ class Player {
       this.radius
     );
     ctx.beginPath();
+    ctx.lineWidth = 1 * pixelUnit
     ctx.arc(this.x, this.y, this.stats.range, 0, Math.PI * 2, false);
     ctx.strokeStyle = "rgba(255, 255, 255, 0.1)";
     ctx.stroke();
