@@ -5,7 +5,7 @@ import {
   isPause,
   cleanMap,
   ctxScreen,
-  updatepressedBtn,
+  updatePressedBtn,
 } from "../app.js";
 import { marginTop, marginLeft } from "./ScreenInit.js";
 
@@ -25,7 +25,7 @@ function drawMenu(ctx, width) {
     spawnButton.remove();
   }
   createButton("4", "./src/images/mountain.png");
-  createButton("5");
+  createButton("5", "./src/images/river.png");
   for (let i = 0; i < 1; i++) {
     createButton("spawn", "./src/images/spider.png");
   }
@@ -52,9 +52,9 @@ function createButton(type, icon) {
     if (!isPause) {
       cleanMap();
       tileMap.selectedBtn = type;
-      updatepressedBtn(newButton);
+      updatePressedBtn(newButton);
       setTimeout(() => {
-        inversePause()
+        inversePause();
       }, 100);
     }
   };

@@ -171,20 +171,21 @@ function animate(timestamp) {
     });
   });
 
-  // Loop on all monsters to update / draw it 
+  // Loop on all monsters to update / draw it
 
   monsters.forEach((monster, index) => {
     drawLifeBar(ctxScreen, monster);
-    const startVec = { // Declare the start point for pathfinding
+    const startVec = {
+      // Declare the start point for pathfinding
       x: Math.floor(monster.x / tileSize),
       y: Math.floor(monster.y / tileSize),
     };
     let targetVec = tileMap.getPosition(mainPlayer.x, mainPlayer.y); // Declare the target point for pathfinding
     monster.path = findPath(startVec, targetVec, monster.type); // Create the path
-    
+
     // Initialize collision
-    
-    monster.collideWith = null; 
+
+    monster.collideWith = null;
     monster.collide = false;
 
     // When a monster has no possibility to move, it go straight to the center
@@ -226,7 +227,7 @@ function animate(timestamp) {
           })
         );
       }
-      
+
       // Remove the monster from the array
       monsters = monsters.filter((item) => {
         return item !== monster;
@@ -234,7 +235,7 @@ function animate(timestamp) {
     }
   });
 
-  // Loop on the damage text array to delete when needed 
+  // Loop on the damage text array to delete when needed
 
   damageTexts.forEach((damageText, damageTextIndex) => {
     damageText.draw(ctxScreen);
@@ -262,11 +263,11 @@ function animate(timestamp) {
 
 let pressedBtn;
 
-function updatepressedBtn(btn) {
+function updatePressedBtn(btn) {
   pressedBtn = btn;
 }
 
-export { pressedBtn, updatepressedBtn };
+export { pressedBtn, updatePressedBtn };
 
 canvasScreen.addEventListener("click", (event) => {
   const xZero = marginLeft;
@@ -282,7 +283,7 @@ canvasScreen.addEventListener("click", (event) => {
       tileMap.selectedBtn;
     cleanMap();
     tileMap.selectedBtn = "";
-    pressedBtn.remove();
+    // pressedBtn.remove();
     pressedBtn = null;
     inversePause();
   }
