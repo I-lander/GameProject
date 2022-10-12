@@ -1,5 +1,5 @@
 import { Player } from "../player/player.js";
-import { map, mapSizeX, mapSizeY } from "./map.js";
+import { createMap, map, mapSizeX, mapSizeY } from "./map.js";
 import { getRiverLastTile } from "../player/NPCs/spawn.js";
 import { Mountain } from "./element/mountain.js";
 import { drawRiver } from "./element/river.js";
@@ -99,6 +99,7 @@ export class TileMap {
   init() {
     this.players = [];
     this.mountains = [];
+    createMap()
     this.map = map;
   }
 

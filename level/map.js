@@ -3,6 +3,7 @@ const mapSizeX = 21;
 const mapSizeY = 15;
 
 function createMap() {
+  map = []
   const mapCenterX = Math.floor(mapSizeX / 2);
   const mapCenterY = Math.floor(mapSizeY / 2);
   for (let i = 0; i < mapSizeY; i++) {
@@ -15,8 +16,7 @@ function createMap() {
   }
   map[mapCenterY][mapCenterX] = "1";
 }
-createMap();
 
-export { map, mapSizeX, mapSizeY };
+export { createMap, map, mapSizeX, mapSizeY };
 
 // export {mapTEST as map}
