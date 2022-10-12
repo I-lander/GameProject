@@ -52,7 +52,6 @@ class Player {
       this.autoFire(monsters);
       this.lastAttack = timestamp;
     }
-    console.log(this.stats.nextLvl);
     if (this.stats.exp >= this.stats.nextLvl) {
       this.stats.exp = 0;
       this.stats.nextLvl = Math.round(this.stats.nextLvl * 150) / 100;
