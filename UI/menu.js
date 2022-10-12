@@ -12,33 +12,21 @@ import { marginTop, marginLeft } from "./ScreenInit.js";
 const buttons = [];
 
 function drawMenu(ctx, width) {
-  const mountainButton = document.getElementById("mountainButton");
-  if (mountainButton) {
-    mountainButton.remove();
-  }
-  const riverButton = document.getElementById("riverButton");
-  if (riverButton) {
-    riverButton.remove();
-  }
-  const spawnButton = document.getElementById("spawnButton");
-  if (spawnButton) {
-    spawnButton.remove();
-  }
-  createButton("4", "./src/images/mountain.png");
-  createButton("5", "./src/images/river.png");
+  createButton("mountain");
+  createButton("river");
   for (let i = 0; i < 1; i++) {
-    createButton("spawn", "./src/images/spider.png");
+    createButton("spider");
   }
 }
 
-function createButton(type, icon) {
+function createButton(type, ) {
   const buttonSize = (canvasMenu.width - (tileSize / 5) * 6) / 6;
   const buttonContainer = document.getElementById("buttonContainer");
   let newButton = document.createElement("button");
   buttonContainer.appendChild(newButton);
   newButton.id = `${type + buttons.length}`;
   newButton.classList.add("buttonsTile");
-  newButton.style.backgroundImage = `url(${icon})`;
+  newButton.style.backgroundImage = `url(./src/images/${type}.png)`;
   newButton.style.left = `${
     marginLeft + canvasScreen.width + buttons.length * buttonSize
   }px`;

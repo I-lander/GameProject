@@ -277,7 +277,7 @@ canvasScreen.addEventListener("click", (event) => {
   const clickPositionInGrid = tileMap.getPosition(x, y);
   if (
     tileMap.map[clickPositionInGrid.y][clickPositionInGrid.x] === "green" &&
-    (tileMap.selectedBtn === "4" || tileMap.selectedBtn === "5")
+    (tileMap.selectedBtn === "mountain" || tileMap.selectedBtn === "river")
   ) {
     tileMap.map[clickPositionInGrid.y][clickPositionInGrid.x] =
       tileMap.selectedBtn;
@@ -288,7 +288,7 @@ canvasScreen.addEventListener("click", (event) => {
     inversePause();
   }
 
-  if (tileMap.selectedBtn === "spawn") {
+  if (tileMap.selectedBtn === "spider") {
     monsters.push(
       new Monster(
         event.x - xZero - tileSize / 2,

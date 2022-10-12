@@ -86,7 +86,7 @@ function getRiverPath(position) {
   }
 
   if (
-    neighbors[0].tileValue === "5" &&
+    neighbors[0].tileValue === "river" &&
     !path.some(
       (path) =>
         path.position.x === neighbors[0].position.x &&
@@ -98,7 +98,7 @@ function getRiverPath(position) {
   }
 
   if (
-    neighbors[1].tileValue === "5" &&
+    neighbors[1].tileValue === "river" &&
     !path.some(
       (path) =>
         path.position.x === neighbors[1].position.x &&
@@ -109,7 +109,7 @@ function getRiverPath(position) {
     getRiverPath(neighbors[1].position);
   }
   if (
-    neighbors[3].tileValue === "5" &&
+    neighbors[3].tileValue === "river" &&
     !path.some(
       (path) =>
         path.position.x === neighbors[3].position.x &&
@@ -123,7 +123,7 @@ function getRiverPath(position) {
     getRiverPath(neighbors[3].position);
   }
   if (
-    neighbors[2].tileValue === "5" &&
+    neighbors[2].tileValue === "river" &&
     !path.some(
       (path) =>
         path.position.x === neighbors[2].position.x &&

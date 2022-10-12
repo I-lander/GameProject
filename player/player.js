@@ -7,6 +7,7 @@ import {
   monsters,
 } from "../app.js";
 import { createButton } from "../UI/menu.js";
+import { tileType } from "../level/element/tileType.js";
 
 class Player {
   constructor(x, y, position, radius, image) {
@@ -17,9 +18,9 @@ class Player {
     this.projectiles = [];
 
     this.maxHp = 30;
-    this.nextLvl = 1;
     this.stats = {
       hp: this.maxHp,
+      nextLvl: 1,
       exp: 0,
       force: 3,
       attackRate: 1,
@@ -42,7 +43,7 @@ class Player {
       this.radius
     );
     ctx.beginPath();
-    ctx.lineWidth = 1 * pixelUnit
+    ctx.lineWidth = 1 * pixelUnit;
     ctx.arc(this.x, this.y, this.stats.range, 0, Math.PI * 2, false);
     ctx.strokeStyle = "rgba(255, 255, 255, 0.1)";
     ctx.stroke();
@@ -51,10 +52,14 @@ class Player {
       this.autoFire(monsters);
       this.lastAttack = timestamp;
     }
-
-    if (this.stats.exp >= this.nextLvl) {
+    console.log(this.stats.nextLvl);
+    if (this.stats.exp >= this.stats.nextLvl) {
       this.stats.exp = 0;
-      createButton("4", "./src/images/mountain.png");
+      this.stats.nextLvl = Math.round(this.stats.nextLvl * 150) / 100;
+
+      // Randomize the tile creation
+      const randomTile = Math.floor(Math.random() * tileType.length);
+      createButton(tileType[randomTile]);
     }
     this.drawPlayerLife(ctxMenu);
     this.drawPlayerExp(ctxMenu);
@@ -105,7 +110,7 @@ class Player {
   }
 
   drawPlayerExp(ctx) {
-    const barRatio = this.stats.exp / this.nextLvl;
+    const barRatio = this.stats.exp / this.stats.nextLvl;
 
     const barWidth = tileSize * 9.5;
     const barHeight = tileSize / 3;

@@ -49,12 +49,12 @@ const findPath = (start, target, type) => {
         continue;
       }
 
-      if (type === "ground" && (tile === "4" || tile === "5")) {
+      if (type === "ground" && (tile === "mountain" || tile === "river")) {
         continue;
       }
       if (
         type === "river" &&
-        (tile === "0" || tile === "4" || tile === "green")
+        (tile === "0" || tile === "mountain" || tile === "green")
       ) {
         continue;
       }
@@ -104,7 +104,7 @@ const findPath = (start, target, type) => {
     currentKey = key;
     currentPos = position;
   }
-  path.reverse()
+  path.reverse();
   return path;
 };
 

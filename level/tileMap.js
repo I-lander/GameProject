@@ -59,7 +59,7 @@ export class TileMap {
             this.players.push(player);
           }
         }
-        if (tile === "4") {
+        if (tile === "mountain") {
           ctx.drawImage(
             this.mountain,
             column * this.tileSize,
@@ -78,7 +78,7 @@ export class TileMap {
           }
         }
 
-        if (tile === "5") {
+        if (tile === "river") {
           drawRiver(column, row);
         }
         if (tile === "green") {
@@ -166,7 +166,7 @@ export class TileMap {
         monsterTiles.push(this.getPosition(monsters[i].x, monsters[i].y));
       }
     }
-    if (this.selectedBtn === "4") {
+    if (this.selectedBtn === "mountain") {
       for (let row = 0; row < mapSizeY; row++) {
         for (let column = 0; column < mapSizeX; column++) {
           let tileCoordinate = { x: column, y: row };
@@ -191,8 +191,8 @@ export class TileMap {
         }
       }
     }
-    if (this.selectedBtn === "5") {
-      const excludeValue = ["5", "1"];
+    if (this.selectedBtn === "river") {
+      const excludeValue = ["river", "1"];
       const riverLastTile = getRiverLastTile();
       let neighbors = this.getNeighbors(riverLastTile);
 
