@@ -4,7 +4,6 @@ import {
   tileSize,
   isPause,
   cleanMap,
-  ctxScreen,
   updatePressedBtn,
 } from "../app.js";
 import { marginTop, marginLeft } from "./ScreenInit.js";

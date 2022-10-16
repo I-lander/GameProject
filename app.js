@@ -175,13 +175,6 @@ function animate(timestamp) {
 
   monsters.forEach((monster, index) => {
     drawLifeBar(ctxScreen, monster);
-    const startVec = {
-      // Declare the start point for pathfinding
-      x: Math.floor(monster.x / tileSize),
-      y: Math.floor(monster.y / tileSize),
-    };
-    let targetVec = tileMap.getPosition(mainPlayer.x, mainPlayer.y); // Declare the target point for pathfinding
-    monster.path = findPath(startVec, targetVec, monster.type); // Create the path
 
     // Initialize collision
 
@@ -191,7 +184,7 @@ function animate(timestamp) {
     // When a monster has no possibility to move, it go straight to the center
     // It must detect collision in order to smash and kill element to make the path creation possible again
 
-    if (monster.path.length === 1) {
+    if (monster.path.length === 0) {
       tileMap.mountains.forEach((mountain) => {
         if (monster.isCollideWith(mountain)) {
           monster.collide = true;
@@ -252,6 +245,9 @@ function animate(timestamp) {
     if (mountain.stats.hp <= 0) {
       tileMap.map[mountain.position.y][mountain.position.x] = "0";
       tileMap.mountains.splice(i, 1);
+      monsters.forEach(monster => {
+        monster.findingPath()
+      })
     }
   }
 
@@ -285,6 +281,9 @@ canvasScreen.addEventListener("click", (event) => {
     tileMap.selectedBtn = "";
     // pressedBtn.remove();
     pressedBtn = null;
+    monsters.forEach(monster => {
+      monster.findingPath()
+    })
     inversePause();
   }
 
@@ -301,6 +300,8 @@ canvasScreen.addEventListener("click", (event) => {
     tileMap.selectedBtn = "";
     inversePause();
   }
+
+
 });
 
 window.addEventListener("keydown", (event) => {

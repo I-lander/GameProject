@@ -1,5 +1,7 @@
 import { pixelUnit, delta, tileMap, tileSize, damageTexts } from "../../app.js";
 import { DrawDamage } from "../utils.js";
+import findPath from "./findPath.js";
+
 export class Monster {
   constructor(x, y, type, radius, image = null, speed) {
     this.x = x + tileSize / 2;
@@ -10,6 +12,17 @@ export class Monster {
     this.speed = speed ?? 0.4;
     this.collide = false;
     this.collideWith = null;
+
+    this.startVec = {
+      // Declare the start point for pathfinding
+      x: Math.floor(this.x / tileSize),
+      y: Math.floor(this.y / tileSize),
+    };
+    this.targetVec = tileMap.getPosition(
+      tileMap.players[0].x,
+      tileMap.players[0].y
+    ); // Declare the target point for pathfinding
+    this.path = findPath(this.startVec, this.targetVec, this.type); // Create the path
 
     this.maxHp = 3;
     this.stats = {
@@ -22,9 +35,8 @@ export class Monster {
 
     this.distance = 0;
     this.position = tileMap.getPosition(this.x, this.y);
-    this.path = [];
 
-    this.moveToTarget = {};
+    this.moveToTarget = this.path.shift();
     this.isImage = image ? true : false;
 
     this.hitBox = tileSize / 3;
@@ -38,6 +50,20 @@ export class Monster {
     this.maxFrame = this.horizontalFrame * this.verticalFrame;
     this.frameRate = 10;
     this.lastFrame = 0;
+  }
+
+  findingPath() {
+    this.startVec = {
+      // Declare the start point for pathfinding
+      x: Math.floor(this.x / tileSize),
+      y: Math.floor(this.y / tileSize),
+    };
+    this.targetVec = tileMap.getPosition(
+      tileMap.players[0].x,
+      tileMap.players[0].y
+    );
+    this.path = findPath(this.startVec, this.targetVec, this.type); // Create the path
+    this.moveToTarget = this.path.shift();
   }
 
   draw(ctx, timestamp) {
@@ -99,7 +125,6 @@ export class Monster {
   }
 
   update(ctx) {
-    this.moveAlong();
     let timestamp = Date.now();
 
     this.draw(ctx, timestamp);
@@ -109,10 +134,10 @@ export class Monster {
     if (this.moveToTarget && !this.collide) {
       dx = this.moveToTarget.x - this.x;
       dy = this.moveToTarget.y - this.y;
-      if (Math.abs(dx) < 1) {
+      if (Math.abs(dx) < 1 * pixelUnit) {
         dx = 0;
       }
-      if (Math.abs(dy) < 1) {
+      if (Math.abs(dy) < 1 * pixelUnit) {
         dy = 0;
       }
 
