@@ -111,6 +111,7 @@ function animate(timestamp) {
 
   lastFrameTimeMs = timestamp;
   ctxScreen.clearRect(0, 0, canvasScreen.width, canvasScreen.height);
+  ctxMenu.clearRect(0, 0, canvasMenu.width, canvasMenu.height);
 
   tileMap.draw(ctxScreen); // draw the map
   const mainPlayer = tileMap.players[0]; // create a variable to make the player easiest to use
@@ -245,10 +246,15 @@ function animate(timestamp) {
     if (mountain.stats.hp <= 0) {
       tileMap.map[mountain.position.y][mountain.position.x] = "0";
       tileMap.mountains.splice(i, 1);
-      monsters.forEach(monster => {
-        monster.findingPath()
-      })
+      monsters.forEach((monster) => {
+        monster.findingPath();
+      });
     }
+  }
+
+  for (let i = 0; i < tileMap.villages.length; i++) {
+    const village = tileMap.villages[i];
+    village.update(ctxScreen);
   }
 
   requestAnimationFrame(animate);
@@ -273,7 +279,7 @@ canvasScreen.addEventListener("click", (event) => {
   const clickPositionInGrid = tileMap.getPosition(x, y);
   if (
     tileMap.map[clickPositionInGrid.y][clickPositionInGrid.x] === "green" &&
-    (tileMap.selectedBtn === "mountain" || tileMap.selectedBtn === "river")
+    (tileMap.selectedBtn === "mountain" || "river" || "village")
   ) {
     tileMap.map[clickPositionInGrid.y][clickPositionInGrid.x] =
       tileMap.selectedBtn;
@@ -281,9 +287,9 @@ canvasScreen.addEventListener("click", (event) => {
     tileMap.selectedBtn = "";
     // pressedBtn.remove();
     pressedBtn = null;
-    monsters.forEach(monster => {
-      monster.findingPath()
-    })
+    monsters.forEach((monster) => {
+      monster.findingPath();
+    });
     inversePause();
   }
 
@@ -300,8 +306,6 @@ canvasScreen.addEventListener("click", (event) => {
     tileMap.selectedBtn = "";
     inversePause();
   }
-
-
 });
 
 window.addEventListener("keydown", (event) => {

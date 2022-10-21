@@ -4,6 +4,7 @@ import { getRiverLastTile } from "../player/NPCs/spawn.js";
 import { Mountain } from "./element/mountain.js";
 import { drawRiver } from "./element/river.js";
 import { monsters, pixelUnit } from "../app.js";
+import { Village } from "./element/village.js";
 
 const canvasScreen = document.getElementById("canvasScreen");
 const ctxScreen = canvasScreen.getContext("2d");
@@ -21,6 +22,10 @@ export class TileMap {
     this.mountain = new Image();
     this.mountain.src = "./src/images/mountain.png";
     this.mountains = [];
+
+    this.village = new Image();
+    this.village.src = "./src/images/village.png";
+    this.villages = [];
 
     this.map = map;
   }
@@ -75,6 +80,25 @@ export class TileMap {
           ) {
             let mountain = new Mountain(column, row);
             this.mountains.push(mountain);
+          }
+        }
+
+        if (tile === "village") {
+          ctx.drawImage(
+            this.village,
+            column * this.tileSize,
+            row * this.tileSize,
+            this.tileSize,
+            this.tileSize
+          );
+          if (
+            !this.villages.some(
+              (village) =>
+                village.position.x === column && village.position.y === row
+            )
+          ) {
+            let village = new Village(column, row);
+            this.villages.push(village);
           }
         }
 
@@ -167,7 +191,7 @@ export class TileMap {
         monsterTiles.push(this.getPosition(monsters[i].x, monsters[i].y));
       }
     }
-    if (this.selectedBtn === "mountain") {
+    if (this.selectedBtn === "mountain" || "village") {
       for (let row = 0; row < mapSizeY; row++) {
         for (let column = 0; column < mapSizeX; column++) {
           let tileCoordinate = { x: column, y: row };

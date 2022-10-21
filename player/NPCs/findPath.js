@@ -49,7 +49,7 @@ const findPath = (start, target, type) => {
         continue;
       }
 
-      if (type === "ground" && (tile === "mountain" || tile === "river")) {
+      if (type === "ground" && (tile === "mountain" || tile === "river" || tile === "village")) {
         continue;
       }
       if (

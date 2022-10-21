@@ -25,6 +25,7 @@ class Player {
       force: 3,
       attackRate: 1,
       range: tileSize * 3,
+      soulRessource: 0,
     };
     this.lastAttack = 0;
 
@@ -55,13 +56,10 @@ class Player {
     if (this.stats.exp >= this.stats.nextLvl) {
       this.stats.exp = 0;
       this.stats.nextLvl = Math.round(this.stats.nextLvl * 150) / 100;
-
-      // Randomize the tile creation
-      const randomTile = Math.floor(Math.random() * tileType.length);
-      createButton(tileType[randomTile]);
     }
     this.drawPlayerLife(ctxMenu);
     this.drawPlayerExp(ctxMenu);
+    this.drawSoulRessource(ctxMenu);
   }
 
   autoFire(monsters) {
@@ -125,6 +123,19 @@ class Player {
     ctx.lineWidth = 1 * pixelUnit;
     ctx.strokeRect(barX, barY, barWidth, barHeight);
     ctx.restore();
+  }
+
+  drawSoulRessource(ctx) {
+    const textX = tileSize * 9.75
+    const textY = tileSize * 1.75
+    ctx.font = `${tileSize/2}px dogicapixel`;
+      ctx.fillStyle = "white";
+      ctx.textAlign = "center";
+      ctx.fillText(
+        this.stats.soulRessource,
+        textX,
+        textY
+      );
   }
 }
 

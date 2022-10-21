@@ -10,15 +10,16 @@ import { marginTop, marginLeft } from "./ScreenInit.js";
 
 const buttons = [];
 
-function drawMenu(ctx, width) {
+function drawMenu() {
   createButton("mountain");
+  createButton("village");
   createButton("river");
   for (let i = 0; i < 1; i++) {
     createButton("spider");
   }
 }
 
-function createButton(type, ) {
+function createButton(type) {
   const buttonSize = (canvasMenu.width - (tileSize / 5) * 6) / 6;
   const buttonContainer = document.getElementById("buttonContainer");
   let newButton = document.createElement("button");
