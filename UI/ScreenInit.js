@@ -37,11 +37,11 @@ function screenInit(canvasScreen, canvasMenu) {
 
   const buttonContainer = document.getElementById("buttonContainer");
   buttonContainer.style.left = `${canvasScreen.width + marginLeft}px`;
-  buttonContainer.style.width = `${canvasMenu.width - (tileSize/5)*6}px`;
+  buttonContainer.style.width = `${canvasMenu.width}px`;
   buttonContainer.style.height = `${(canvasMenu.width / 6) * 3}px`;
-  buttonContainer.style.padding = `${tileSize/5}px`;
-  buttonContainer.style.margin = `${tileSize/5}px`;
-  buttonContainer.style.border = `${tileSize/5}px solid`;
+  // buttonContainer.style.padding = `${tileSize/5}px`;
+  // buttonContainer.style.margin = `${tileSize/5}px`;
+  // buttonContainer.style.border = `${tileSize/5}px solid`;
 
   buttonContainer.style.top = `${tileSize * 3 + marginTop}px`;
 
