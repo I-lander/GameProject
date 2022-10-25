@@ -203,10 +203,12 @@ export class TileMap {
 
     for (let i = 0; i < monsters.length; i++) {
       const monsterPosition = this.getPosition(monsters[i].x, monsters[i].y);
+      console.log(this.map[monsterPosition.y][monsterPosition.x]);
       if (
         monsters[i].type === "ground" &&
         this.map[monsterPosition.y][monsterPosition.x] === 0
       ) {
+        console.log("x");
         monsterTiles.push(this.getPosition(monsters[i].x, monsters[i].y));
       }
     }

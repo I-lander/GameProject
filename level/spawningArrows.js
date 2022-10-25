@@ -1,4 +1,4 @@
-import { tileSize, tileMap } from "../../app.js";
+import { tileSize, tileMap } from "../app.js";
 import { mapSizeX, mapSizeY } from "./map.js";
 
 export class Arrow {
