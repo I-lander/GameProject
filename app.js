@@ -147,32 +147,27 @@ function animate(timestamp) {
           mainPlayer.stats.exp++; // earn experience
         }
       });
-    });
-
-    // Delete particles when too small
-
-    particles.forEach((particle, index) => {
-      particle.update(ctxScreen);
-      if (particle.radius < 0) {
-        particles.splice(index, 1);
-      }
-    });
-
-    // Detect et delete projectile out of screen
-
-    player.projectiles.forEach((projectile, index) => {
       projectile.update(ctxScreen);
       if (
         projectile.x + projectile.radius < 1 ||
         projectile.y + projectile.radius < 1 ||
-        projectile.x - projectile.radius > canvasScreen.width ||
-        projectile.y - projectile.radius > canvasScreen.height
+        projectile.x - projectile.radius > gameScreen.width ||
+        projectile.y - projectile.radius > gameScreen.height
       ) {
         setTimeout(() => {
-          player.projectiles.splice(index, 1);
+          player.projectiles.splice(projectileIndex, 1);
         });
       }
     });
+  });
+
+  // Delete particles when too small
+
+  particles.forEach((particle, index) => {
+    particle.update(ctxScreen);
+    if (particle.radius < 0) {
+      particles.splice(index, 1);
+    }
   });
 
   // Loop on all monsters to update / draw it
@@ -260,6 +255,37 @@ function animate(timestamp) {
     village.update(ctxScreen);
   }
 
+  for (let i = 0; i < tileMap.towers.length; i++) {
+    const tower = tileMap.towers[i];
+    tower.update(ctxScreen);
+
+    tower.projectiles.forEach((projectile, projectileIndex) => {
+      monsters.forEach((monster, index) => {
+        const distance = Math.hypot(
+          projectile.x - monster.x,
+          projectile.y - monster.y
+        );
+        if (distance - monster.hitBox - projectile.radius < 1) {
+          tower.projectiles.splice(projectileIndex, 1);
+          monster.stats.hp -= projectile.force; // the monster lose as hp as the projectile force
+          const damageText = new DrawDamage(monster, monster.stats.force);
+          damageTexts.push(damageText);
+        }
+      });
+      projectile.update(ctxScreen);
+      if (
+        projectile.x + projectile.radius < 1 ||
+        projectile.y + projectile.radius < 1 ||
+        projectile.x - projectile.radius > gameScreen.width ||
+        projectile.y - projectile.radius > gameScreen.height
+      ) {
+        setTimeout(() => {
+          tower.projectiles.splice(projectileIndex, 1);
+        });
+      }
+    });
+  }
+
   requestAnimationFrame(animate);
 }
 
@@ -282,7 +308,7 @@ canvasScreen.addEventListener("click", (event) => {
   const clickPositionInGrid = tileMap.getPosition(x, y);
   if (
     tileMap.map[clickPositionInGrid.y][clickPositionInGrid.x] === "green" &&
-    (tileMap.selectedBtn === "mountain" || "river" || "village")
+    (tileMap.selectedBtn === "mountain" || "river" || "village" || "tower")
   ) {
     tileMap.map[clickPositionInGrid.y][clickPositionInGrid.x] =
       tileMap.selectedBtn;

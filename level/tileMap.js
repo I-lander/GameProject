@@ -5,6 +5,7 @@ import { Mountain } from "./element/mountain.js";
 import { drawRiver } from "./element/river.js";
 import { monsters, pixelUnit } from "../app.js";
 import { Village } from "./element/village.js";
+import { Tower } from "./element/tower.js";
 import { drawArrows, Arrow } from "./spawningArrows.js";
 
 const canvasScreen = document.getElementById("canvasScreen");
@@ -27,6 +28,10 @@ export class TileMap {
     this.village = new Image();
     this.village.src = "./src/images/village.png";
     this.villages = [];
+
+    this.tower = new Image();
+    this.tower.src = "./src/images/tower.png";
+    this.towers = [];
 
     this.arrows = [];
 
@@ -102,6 +107,25 @@ export class TileMap {
           ) {
             let village = new Village(column, row);
             this.villages.push(village);
+          }
+        }
+
+        if (tile === "tower") {
+          ctx.drawImage(
+            this.tower,
+            column * this.tileSize,
+            row * this.tileSize,
+            this.tileSize,
+            this.tileSize
+          );
+          if (
+            !this.towers.some(
+              (tower) =>
+                tower.position.x === column && tower.position.y === row
+            )
+          ) {
+            let tower = new Tower(column, row);
+            this.towers.push(tower);
           }
         }
 
@@ -213,7 +237,7 @@ export class TileMap {
         monsterTiles.push(monsterPosition);
       }
     }
-    if (this.selectedBtn === "mountain" || this.selectedBtn === "village") {
+    if (this.selectedBtn === "mountain" || this.selectedBtn === "village" || this.selectedBtn === "tower") {
       for (let row = 0; row < mapSizeY; row++) {
         for (let column = 0; column < mapSizeX; column++) {
           let tileCoordinate = {
