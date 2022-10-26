@@ -212,7 +212,6 @@ export class TileMap {
       ) {
         monsterTiles.push(monsterPosition);
       }
-      console.log(monsterTiles);
     }
     if (this.selectedBtn === "mountain" || this.selectedBtn === "village") {
       for (let row = 0; row < mapSizeY; row++) {
@@ -329,7 +328,7 @@ export class TileMap {
         for (let column = 0; column < mapSizeX; column++) {
           let tile = this.map[row][column];
           if (
-            tile !== "arrows" &&
+            tile !== "arrows" && tile!=="mountain" &&
             (row === 0 ||
               row === mapSizeY - 1 ||
               column === 0 ||

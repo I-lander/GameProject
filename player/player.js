@@ -1,13 +1,12 @@
 import {
-  canvasMenu,
-  ctxMenu,
   tileSize,
   pixelUnit,
   delta,
   monsters,
+  gameScreen,
+  sideScreen,
 } from "../app.js";
-import { createButton } from "../UI/menu.js";
-import { tileType } from "../level/element/tileType.js";
+import { mapSizeX, mapSizeY } from "../level/map.js";
 
 class Player {
   constructor(x, y, position, radius, image) {
@@ -57,9 +56,9 @@ class Player {
       this.stats.exp = 0;
       this.stats.nextLvl = Math.round(this.stats.nextLvl * 150) / 100;
     }
-    this.drawPlayerLife(ctxMenu);
-    this.drawPlayerExp(ctxMenu);
-    this.drawSoulRessource(ctxMenu);
+    this.drawPlayerLife(ctx);
+    this.drawPlayerExp(ctx);
+    this.drawSoulRessource(ctx);
   }
 
   autoFire(monsters) {
@@ -92,7 +91,7 @@ class Player {
 
     const barWidth = tileSize * 9.5;
     const barHeight = tileSize / 3;
-    let barX = (canvasMenu.width - barWidth) / 2;
+    let barX = gameScreen.width + (sideScreen.width - barWidth) / 2;
     let barY = tileSize / 2;
 
     ctx.save();
@@ -111,7 +110,7 @@ class Player {
 
     const barWidth = tileSize * 9.5;
     const barHeight = tileSize / 3;
-    let barX = (canvasMenu.width - barWidth) / 2;
+    let barX = gameScreen.width + (sideScreen.width - barWidth) / 2;
     let barY = tileSize / 2 + tileSize / 3;
 
     ctx.save();
@@ -126,16 +125,12 @@ class Player {
   }
 
   drawSoulRessource(ctx) {
-    const textX = tileSize * 9.75
-    const textY = tileSize * 1.75
-    ctx.font = `${tileSize/2}px dogicapixel`;
-      ctx.fillStyle = "white";
-      ctx.textAlign = "center";
-      ctx.fillText(
-        this.stats.soulRessource,
-        textX,
-        textY
-      );
+    const textX = gameScreen.width + tileSize * 9.75;
+    const textY = tileSize * 1.75;
+    ctx.font = `${tileSize / 2}px dogicapixel`;
+    ctx.fillStyle = "white";
+    ctx.textAlign = "center";
+    ctx.fillText(this.stats.soulRessource, textX, textY);
   }
 }
 

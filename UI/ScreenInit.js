@@ -1,4 +1,4 @@
-import { tileMap, tileSize } from "../app.js";
+import { tileMap, ctxScreen as ctx } from "../app.js";
 import { mapSizeX, mapSizeY } from "../level/map.js";
 
 const screenRatio = 2 / 3;
@@ -8,56 +8,62 @@ let marginLeft = 0;
 function screenInit(canvasScreen, canvasMenu) {
   const screenWidth = innerWidth;
   const screenHeight = innerHeight;
-  canvasScreen.width = screenWidth * screenRatio;
-  tileMap.tileSize = canvasScreen.width / mapSizeX;
+  canvasScreen.width = innerWidth;
+  tileMap.tileSize = (canvasScreen.width * screenRatio) / mapSizeX;
   let tileSize = tileMap.tileSize;
   canvasScreen.height = mapSizeY * tileSize;
-  canvasMenu.width = screenWidth - canvasScreen.width;
 
   if (canvasScreen.height > screenHeight) {
     canvasScreen.height = screenHeight;
     tileMap.tileSize = canvasScreen.height / mapSizeY;
     tileSize = tileMap.tileSize;
-    canvasScreen.width = mapSizeX * tileSize;
-    canvasMenu.width = canvasScreen.width / 2;
-    marginLeft = (screenWidth - (canvasScreen.width + canvasMenu.width)) / 2;
+    canvasScreen.width = mapSizeX * tileSize + (mapSizeX * tileSize) / 2;
+    marginLeft = (screenWidth - canvasScreen.width) / 2;
   }
-
   marginTop = screenHeight / 2 - canvasScreen.height / 2;
 
   canvasScreen.style.marginTop = `${marginTop}px`;
   canvasScreen.style.marginLeft = `${marginLeft}px`;
-  canvasScreen.style.boxShadow = `inset 0 0 ${tileSize}px ${
-    tileSize / 2
-  }px rgba(0,0,0,0.5)`;
 
-  canvasMenu.height = canvasScreen.height;
-  canvasMenu.style.marginTop = `${marginTop}px`;
-  canvasMenu.style.left = `${canvasScreen.width + marginLeft}px`;
+  const gameScreen = {
+    width: mapSizeX * tileSize,
+    height: mapSizeY * tileSize,
+  };
+
+  const sideScreen = {
+    width: canvasScreen.width - gameScreen.width,
+    height: canvasScreen.height,
+  };
+
+  const pixelUnit = tileSize / 32;
 
   const buttonContainer = document.getElementById("buttonContainer");
-  buttonContainer.style.left = `${canvasScreen.width + marginLeft}px`;
-  buttonContainer.style.width = `${canvasMenu.width}px`;
-  buttonContainer.style.height = `${(canvasMenu.width / 6) * 3}px`;
-  // buttonContainer.style.padding = `${tileSize/5}px`;
-  // buttonContainer.style.margin = `${tileSize/5}px`;
-  // buttonContainer.style.border = `${tileSize/5}px solid`;
+  buttonContainer.style.left = `${gameScreen.width + marginLeft}px`;
+  buttonContainer.style.width = `${sideScreen.width}px`;
+  buttonContainer.style.height = `${(sideScreen.width / 5) * 3}px`;
 
   buttonContainer.style.top = `${tileSize * 3 + marginTop}px`;
 
   const mainMenu = document.getElementById("mainMenu");
   const mainMenuP = mainMenu.querySelector("p");
-  mainMenuP.style.fontSize = `${tileSize / 2}px`;
-  mainMenuP.style.lineHeight = `${tileSize / 20}rem`;
+  mainMenuP.style.fontSize = `${12 * pixelUnit}px`;
+  mainMenuP.style.lineHeight = `${24 * pixelUnit}px`;
 
   const mainMenuImg = mainMenu.querySelector("img");
   mainMenuImg.style.margin = `${tileSize}px`;
-  mainMenuImg.style.height = `${tileSize * 3}px`;
+  mainMenuImg.style.height = `${96 * pixelUnit}px`;
 
   const mainMenuBtn = mainMenu.querySelector("button");
   mainMenuBtn.style.height = `${tileSize}px`;
   mainMenuBtn.style.marginTop = "4.5rem";
-  mainMenuBtn.style.fontSize = `${tileSize / 2}px`;
+  mainMenuBtn.style.fontSize = `${16 * pixelUnit}px`;
 }
 
-export { screenInit, marginTop, marginLeft };
+function drawSideScreenBackground(ctx, gameScreen, sideScreen) {
+  ctx.save();
+  ctx.fillStyle = "rgba(50,50,50, 1)";
+  ctx.fillRect(gameScreen.width, 0, sideScreen.width, sideScreen.height);
+  ctx.restore();
+}
+
+export { screenInit, drawSideScreenBackground, marginTop, marginLeft };

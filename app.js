@@ -1,10 +1,9 @@
 import { TileMap } from "./level/tileMap.js";
 import { Particle } from "./player/visualEffects.js";
-import findPath from "./player/NPCs/findPath.js";
 import { spawnMonsters } from "./player/NPCs/spawn.js";
 import { drawMenu } from "./UI/menu.js";
 import { marginLeft, marginTop } from "./UI/ScreenInit.js";
-import { screenInit } from "./UI/ScreenInit.js";
+import { screenInit, drawSideScreenBackground } from "./UI/ScreenInit.js";
 import { Monster } from "./player/NPCs/monster.js";
 import { drawLifeBar, DrawDamage } from "./player/utils.js";
 import { mapSizeX, mapSizeY } from "./level/map.js";
@@ -33,16 +32,12 @@ const canvasScreen = document.getElementById("canvasScreen");
 const ctxScreen = canvasScreen.getContext("2d");
 ctxScreen.imageSmoothingEnabled = false;
 
-const canvasMenu = document.getElementById("canvasMenu");
-const ctxMenu = canvasMenu.getContext("2d");
-ctxMenu.imageSmoothingEnabled = false;
-
-export { ctxScreen, canvasScreen, ctxMenu, canvasMenu };
+export { ctxScreen, canvasScreen };
 
 // Create and initialize the game screen and map
 
 const tileMap = new TileMap();
-screenInit(canvasScreen, canvasMenu);
+screenInit(canvasScreen);
 
 // Declare & export the variable use to uniformization of any sprite
 // The tileSize is use to calibrate screen size and elements size
@@ -50,11 +45,20 @@ screenInit(canvasScreen, canvasMenu);
 const tileSize = tileMap.tileSize;
 document.documentElement.style.setProperty("--tileSize", tileSize + "px");
 const pixelUnit = tileSize / 32;
+const gameScreen = {
+  width: mapSizeX * tileSize,
+  height: mapSizeY * tileSize,
+};
 
-export { tileMap, tileSize, pixelUnit };
+const sideScreen = {
+  width: canvasScreen.width - gameScreen.width,
+  height: canvasScreen.height,
+};
+
+export { tileMap, tileSize, pixelUnit, gameScreen, sideScreen };
 
 // As this method need the tileSize variable it must be execute after its declaration
-drawMenu(ctxMenu, canvasScreen.width);
+drawMenu();
 
 // Declare the variable containing the main menu is order to hide it
 
@@ -79,9 +83,7 @@ function init() {
 
 function startGame() {
   init();
-  setTimeout(() => {
-    isPause = false;
-  }, 300);
+  isPause = false;
   mainMenu.classList.add("disable");
   animate();
 }
@@ -111,7 +113,8 @@ function animate(timestamp) {
 
   lastFrameTimeMs = timestamp;
   ctxScreen.clearRect(0, 0, canvasScreen.width, canvasScreen.height);
-  ctxMenu.clearRect(0, 0, canvasMenu.width, canvasMenu.height);
+
+  drawSideScreenBackground(ctxScreen, gameScreen, sideScreen);
 
   tileMap.draw(ctxScreen); // draw the map
   const mainPlayer = tileMap.players[0]; // create a variable to make the player easiest to use
