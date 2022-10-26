@@ -352,41 +352,6 @@ window.addEventListener("keydown", (event) => {
   }
 });
 
-canvasScreen.addEventListener("mousemove", (event) => {
-  if (selectedBtn) {
-    const previousImage = document.getElementById("drawCardIcon");
-    if (previousImage) {
-      previousImage.remove();
-    }
-    let image = document.createElement("div");
-    const gameScreen = document.getElementById("gameScreen");
-    gameScreen.appendChild(image);
-    image.id = "drawCardIcon";
-    image.style.backgroundImage = `url(./src/images/${selectedBtn.type}.png)`;
-    image.style.backgroundRepeat = "no-repeat";
-    image.style.backgroundSize = "cover";
-    image.style.position = "fixed";
-    image.style.left = `${event.x - tileSize / 2}px`;
-    image.style.top = `${event.y - tileSize / 2}px`;
-    image.style.width = `${tileSize}px`;
-    image.style.height = `${tileSize}px`;
-    image.style.pointerEvents = "none";
-    // const image = new Image();
-    // image.src = `/src/images/${selectedBtn.type}.png`;
-    // ctxScreen.drawImage(
-    //   image,
-    //   0,
-    //   0,
-    //   tileSize,
-    //   tileSize,
-    //   event.x - marginLeft - tileSize / 2,
-    //   event.y - marginTop - tileSize / 2,
-    //   tileSize,
-    //   tileSize
-    // );
-  }
-});
-
 function cleanMap() {
   for (let row = 0; row < mapSizeY; row++) {
     for (let column = 0; column < mapSizeX; column++) {

@@ -8,4 +8,8 @@ const CARD_ELEMENTS = [
   { type: "tower", value: 15 },
 ];
 
-export { CARD_ELEMENTS };
+// Elements that ground monster must dodge
+
+const SOLID_ELEMENTS = ["mountain", "river", "tower", "village"];
+
+export { CARD_ELEMENTS, SOLID_ELEMENTS };

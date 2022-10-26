@@ -1,5 +1,6 @@
 import { map, mapSizeX, mapSizeY } from "../../level/map.js";
 import { tileSize } from "../../app.js";
+import { SOLID_ELEMENTS } from "../../core/constants.js";
 
 const toKey = (x, y) => `${x}x${y}`;
 
@@ -48,8 +49,7 @@ const findPath = (start, target, type) => {
       if (!tile) {
         continue;
       }
-
-      if (type === "ground" && (tile === "mountain" || tile === "river" || tile === "village")) {
+      if (type === "ground" && SOLID_ELEMENTS.includes(tile) ) {
         continue;
       }
       if (
