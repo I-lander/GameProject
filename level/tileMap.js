@@ -1,12 +1,12 @@
 import { Player } from "../player/player.js";
 import { createMap, map, mapSizeX, mapSizeY } from "./map.js";
-import { getRiverLastTile } from "../player/NPCs/spawn.js";
 import { Mountain } from "./element/mountain.js";
 import { drawRiver } from "./element/river.js";
 import { monsters, pixelUnit } from "../app.js";
 import { Village } from "./element/village.js";
 import { Tower } from "./element/tower.js";
 import { drawArrows, Arrow } from "./spawningArrows.js";
+import { selectedBtn } from "../app.js";
 
 const canvasScreen = document.getElementById("canvasScreen");
 const ctxScreen = canvasScreen.getContext("2d");
@@ -15,7 +15,6 @@ export class TileMap {
   constructor() {
     this.tileSize = 0;
     this.mapOrigin = { x: 0, y: 0 };
-    this.selectedBtn = "";
     this.players = [];
 
     this.greenTile = new Image();
@@ -120,8 +119,7 @@ export class TileMap {
           );
           if (
             !this.towers.some(
-              (tower) =>
-                tower.position.x === column && tower.position.y === row
+              (tower) => tower.position.x === column && tower.position.y === row
             )
           ) {
             let tower = new Tower(column, row);
@@ -156,12 +154,15 @@ export class TileMap {
       }
     }
 
-    this.selectedBtn != "" ? this.possibilityForClick() : null;
+    // selectedBtn != "" ? this.possibilityForClick() : null;
   }
 
   init() {
     this.players = [];
     this.mountains = [];
+    this.villages = [];
+    this.towers = [];
+    this.arrows = [];
     createMap();
     this.map = map;
   }
@@ -222,146 +223,151 @@ export class TileMap {
     return neighbors;
   }
 
-  possibilityForClick() {
-    let monsterTiles = [];
+  // possibilityForClick() {
+  //   let monsterTiles = [];
 
-    for (let i = 0; i < monsters.length; i++) {
-      const monsterPosition = this.getPosition(monsters[i].x, monsters[i].y);
-      if(this.map[monsterPosition.y][monsterPosition.x] !== "0"){
-        continue
-      }
-      if (
-        monsters[i].type === "ground" 
-        // this.map[monsterPosition.y][monsterPosition.x] === 0
-      ) {
-        monsterTiles.push(monsterPosition);
-      }
-    }
-    if (this.selectedBtn === "mountain" || this.selectedBtn === "village" || this.selectedBtn === "tower") {
-      for (let row = 0; row < mapSizeY; row++) {
-        for (let column = 0; column < mapSizeX; column++) {
-          let tileCoordinate = {
-            x: column,
-            y: row,
-            value: this.map[row][column],
-          };
-          if (
-            monsterTiles.some(
-              (e) => e.x === tileCoordinate.x && e.y === tileCoordinate.y
-            )
-          ) {
-            this.map[row][column] = "monster";
-          }
-          let tile = this.map[row][column];
-          if (tile === "0") {
-            this.map[row][column] = "green";
-          }
-          if (
-            monsterTiles.some(
-              (e) => e.x === tileCoordinate.x && e.y === tileCoordinate.y
-            )
-          ) {
-            this.map[row][column] = "0";
-          }
-        }
-      }
-    }
-    if (this.selectedBtn === "river") {
-      const excludeValue = ["river", "1"];
-      const riverLastTile = getRiverLastTile();
-      let neighbors = this.getNeighbors(riverLastTile);
+  //   for (let i = 0; i < monsters.length; i++) {
+  //     const monsterPosition = this.getPosition(monsters[i].x, monsters[i].y);
+  //     if (this.map[monsterPosition.y][monsterPosition.x] !== "0") {
+  //       continue;
+  //     }
+  //     if (
+  //       monsters[i].type === "ground"
+  //       // this.map[monsterPosition.y][monsterPosition.x] === 0
+  //     ) {
+  //       monsterTiles.push(monsterPosition);
+  //     }
+  //   }
+  //   if (
+  //     selectedBtn === "mountain" ||
+  //     selectedBtn === "village" ||
+  //     selectedBtn === "tower"
+  //   ) {
+  //     for (let row = 0; row < mapSizeY; row++) {
+  //       for (let column = 0; column < mapSizeX; column++) {
+  //         let tileCoordinate = {
+  //           x: column,
+  //           y: row,
+  //           value: this.map[row][column],
+  //         };
+  //         if (
+  //           monsterTiles.some(
+  //             (e) => e.x === tileCoordinate.x && e.y === tileCoordinate.y
+  //           )
+  //         ) {
+  //           this.map[row][column] = "monster";
+  //         }
+  //         let tile = this.map[row][column];
+  //         if (tile === "0") {
+  //           this.map[row][column] = "green";
+  //         }
+  //         if (
+  //           monsterTiles.some(
+  //             (e) => e.x === tileCoordinate.x && e.y === tileCoordinate.y
+  //           )
+  //         ) {
+  //           this.map[row][column] = "0";
+  //         }
+  //       }
+  //     }
+  //   }
+  //   if (selectedBtn === "river") {
+  //     const excludeValue = ["river", "1"];
+  //     const riverLastTile = getRiverLastTile();
+  //     let neighbors = this.getNeighbors(riverLastTile);
 
-      // UP
-      if (
-        neighbors[0].tileValue === "0" &&
-        !excludeValue.some(
-          (value) =>
-            this.getNeighbors(neighbors[0].position)[0].tileValue === value
-        ) &&
-        !excludeValue.some(
-          (value) =>
-            this.getNeighbors(neighbors[0].position)[2].tileValue === value
-        ) &&
-        !excludeValue.some(
-          (value) =>
-            this.getNeighbors(neighbors[0].position)[3].tileValue === value
-        )
-      ) {
-        this.map[neighbors[0].position.y][neighbors[0].position.x] = "green";
-      }
+  //     // UP
+  //     if (
+  //       neighbors[0].tileValue === "0" &&
+  //       !excludeValue.some(
+  //         (value) =>
+  //           this.getNeighbors(neighbors[0].position)[0].tileValue === value
+  //       ) &&
+  //       !excludeValue.some(
+  //         (value) =>
+  //           this.getNeighbors(neighbors[0].position)[2].tileValue === value
+  //       ) &&
+  //       !excludeValue.some(
+  //         (value) =>
+  //           this.getNeighbors(neighbors[0].position)[3].tileValue === value
+  //       )
+  //     ) {
+  //       this.map[neighbors[0].position.y][neighbors[0].position.x] = "green";
+  //     }
 
-      // DOWN
-      if (
-        neighbors[1].tileValue === "0" &&
-        !excludeValue.some(
-          (value) =>
-            this.getNeighbors(neighbors[1].position)[1].tileValue === value
-        ) &&
-        !excludeValue.some(
-          (value) =>
-            this.getNeighbors(neighbors[1].position)[2].tileValue === value
-        ) &&
-        !excludeValue.some(
-          (value) =>
-            this.getNeighbors(neighbors[1].position)[3].tileValue === value
-        )
-      ) {
-        this.map[neighbors[1].position.y][neighbors[1].position.x] = "green";
-      }
+  //     // DOWN
+  //     if (
+  //       neighbors[1].tileValue === "0" &&
+  //       !excludeValue.some(
+  //         (value) =>
+  //           this.getNeighbors(neighbors[1].position)[1].tileValue === value
+  //       ) &&
+  //       !excludeValue.some(
+  //         (value) =>
+  //           this.getNeighbors(neighbors[1].position)[2].tileValue === value
+  //       ) &&
+  //       !excludeValue.some(
+  //         (value) =>
+  //           this.getNeighbors(neighbors[1].position)[3].tileValue === value
+  //       )
+  //     ) {
+  //       this.map[neighbors[1].position.y][neighbors[1].position.x] = "green";
+  //     }
 
-      // LEFT
-      if (
-        neighbors[2].tileValue === "0" &&
-        !excludeValue.some(
-          (value) =>
-            this.getNeighbors(neighbors[2].position)[0].tileValue === value
-        ) &&
-        !excludeValue.some(
-          (value) =>
-            this.getNeighbors(neighbors[2].position)[1].tileValue === value
-        ) &&
-        !excludeValue.some(
-          (value) =>
-            this.getNeighbors(neighbors[2].position)[2].tileValue === value
-        )
-      ) {
-        this.map[neighbors[2].position.y][neighbors[2].position.x] = "green";
-      }
+  //     // LEFT
+  //     if (
+  //       neighbors[2].tileValue === "0" &&
+  //       !excludeValue.some(
+  //         (value) =>
+  //           this.getNeighbors(neighbors[2].position)[0].tileValue === value
+  //       ) &&
+  //       !excludeValue.some(
+  //         (value) =>
+  //           this.getNeighbors(neighbors[2].position)[1].tileValue === value
+  //       ) &&
+  //       !excludeValue.some(
+  //         (value) =>
+  //           this.getNeighbors(neighbors[2].position)[2].tileValue === value
+  //       )
+  //     ) {
+  //       this.map[neighbors[2].position.y][neighbors[2].position.x] = "green";
+  //     }
 
-      // RIGHT
-      if (
-        neighbors[3].tileValue === "0" &&
-        !excludeValue.some(
-          (value) =>
-            this.getNeighbors(neighbors[3].position)[0].tileValue === value
-        ) &&
-        !excludeValue.some(
-          (value) =>
-            this.getNeighbors(neighbors[3].position)[1].tileValue === value
-        ) &&
-        !excludeValue.some(
-          (value) =>
-            this.getNeighbors(neighbors[3].position)[3].tileValue === value
-        )
-      ) {
-        this.map[neighbors[3].position.y][neighbors[3].position.x] = "green";
-      }
-    }
-    if (this.selectedBtn === "arrows") {
-      for (let row = 0; row < mapSizeY; row++) {
-        for (let column = 0; column < mapSizeX; column++) {
-          let tile = this.map[row][column];
-          if (
-            tile !== "arrows" && tile!=="mountain" &&
-            (row === 0 ||
-              row === mapSizeY - 1 ||
-              column === 0 ||
-              column === mapSizeX - 1)
-          ) {
-            this.map[row][column] = "green";
-          }
-        }
-      }
-    }
-  }
+  //     // RIGHT
+  //     if (
+  //       neighbors[3].tileValue === "0" &&
+  //       !excludeValue.some(
+  //         (value) =>
+  //           this.getNeighbors(neighbors[3].position)[0].tileValue === value
+  //       ) &&
+  //       !excludeValue.some(
+  //         (value) =>
+  //           this.getNeighbors(neighbors[3].position)[1].tileValue === value
+  //       ) &&
+  //       !excludeValue.some(
+  //         (value) =>
+  //           this.getNeighbors(neighbors[3].position)[3].tileValue === value
+  //       )
+  //     ) {
+  //       this.map[neighbors[3].position.y][neighbors[3].position.x] = "green";
+  //     }
+  //   }
+  //   if (selectedBtn === "arrows") {
+  //     for (let row = 0; row < mapSizeY; row++) {
+  //       for (let column = 0; column < mapSizeX; column++) {
+  //         let tile = this.map[row][column];
+  //         if (
+  //           tile !== "arrows" &&
+  //           tile !== "mountain" &&
+  //           (row === 0 ||
+  //             row === mapSizeY - 1 ||
+  //             column === 0 ||
+  //             column === mapSizeX - 1)
+  //         ) {
+  //           this.map[row][column] = "green";
+  //         }
+  //       }
+  //     }
+  //   }
+  // }
 }

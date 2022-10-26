@@ -1,12 +1,15 @@
 import {
   inversePause,
+  ctxScreen,
   tileMap,
   tileSize,
   isPause,
   cleanMap,
-  updatePressedBtn,
+  updateSelectedBtn,
   pixelUnit,
 } from "../app.js";
+import { CARD_ELEMENTS } from "../core/constants.js";
+import { possibilityForClick } from "../core/utils.js";
 import { marginTop, marginLeft } from "./ScreenInit.js";
 
 const buttons = [];
@@ -20,7 +23,7 @@ function drawMenu() {
   for (let i = 0; i < 1; i++) {
     createButton("spider");
   }
-  createButton("arrows")
+  createButton("arrows");
 }
 
 function createButton(type) {
@@ -33,8 +36,8 @@ function createButton(type) {
   newButton.style.backgroundColor = "transparent";
 
   newButton.style.backgroundImage = `url(./src/images/card-${type}.png)`;
-  if(type === "arrows" || type === "spider"){
-  newButton.style.backgroundImage = `url(./src/images/${type}.png)`;
+  if (type === "arrows" || type === "spider") {
+    newButton.style.backgroundImage = `url(./src/images/${type}.png)`;
   }
   newButton.style.border = "none";
   newButton.style.left = `${
@@ -47,10 +50,14 @@ function createButton(type) {
   buttons.push(newButton);
 
   newButton.onclick = function () {
-    if (!isPause) {
+    const cardSelected = CARD_ELEMENTS.find((card) => {
+      return card.type === type;
+    });
+    if (!isPause && cardSelected.value < tileMap.players[0].stats.soulRessource) {
       cleanMap();
-      tileMap.selectedBtn = type;
-      updatePressedBtn(newButton);
+      updateSelectedBtn({ type: cardSelected.type, value: cardSelected.value });
+      possibilityForClick();
+      tileMap.draw(ctxScreen);
       setTimeout(() => {
         inversePause();
       }, 100);

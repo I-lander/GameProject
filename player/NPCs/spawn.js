@@ -9,7 +9,7 @@ const playerPos = {
 };
 
 let path = [];
-let lastGroundSpawn = 0;
+// let lastGroundSpawn = 0;
 let lastRiverSpawn = 0;
 let spawnGroundRate = 0.2;
 let spawnRiverRate = 0.5;
@@ -25,8 +25,11 @@ export { getRiverLastTile };
 function spawnMonsters() {
   let timestamp = Date.now();
 
-  if (!isPause && timestamp >= lastGroundSpawn + 1000 / spawnGroundRate) {
-    for(let i = 0; i < tileMap.arrows.length; i++){
+  for (let i = 0; i < tileMap.arrows.length; i++) {
+    if (
+      !isPause &&
+      timestamp >= tileMap.arrows[i].lastGroundSpawn + 1000 / spawnGroundRate
+    ) {
       const groundSpawnPosition = getGroundSpawnPosition(tileMap.arrows[i]);
       monsters.push(
         new Monster(
@@ -37,9 +40,8 @@ function spawnMonsters() {
           "./src/images/worm.png"
         )
       );
-      lastGroundSpawn = timestamp;
+      tileMap.arrows[i].lastGroundSpawn = timestamp;
     }
-    
   }
 
   const riverPath = getRiverPath(playerPos);

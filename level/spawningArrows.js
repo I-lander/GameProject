@@ -6,6 +6,7 @@ export class Arrow {
     this.x = x * tileSize;
     this.y = y * tileSize;
     this.position = { x: x, y: y };
+    this.lastGroundSpawn = 0
   }
 }
 

@@ -1,5 +1,5 @@
 import { tileSize, monsters, pixelUnit } from "../../app.js";
-import { Projectile } from "../../player/player.js";
+import { Projectile } from "../../player/projectile.js";
 
 export class Tower {
   constructor(x, y, image) {

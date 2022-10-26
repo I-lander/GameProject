@@ -6,8 +6,7 @@ import {
   gameScreen,
   sideScreen,
 } from "../app.js";
-import { mapSizeX, mapSizeY } from "../level/map.js";
-
+import { Projectile } from "./projectile.js";
 class Player {
   constructor(x, y, position, radius, image) {
     this.x = x;
@@ -24,7 +23,7 @@ class Player {
       force: 3,
       attackRate: 1,
       range: tileSize * 3,
-      soulRessource: 0,
+      soulRessource: 8,
     };
     this.lastAttack = 0;
 
@@ -129,34 +128,9 @@ class Player {
     const textY = tileSize * 1.75;
     ctx.font = `${tileSize / 2}px dogicapixel`;
     ctx.fillStyle = "white";
-    ctx.textAlign = "center";
+    ctx.textAlign = "right";
     ctx.fillText(this.stats.soulRessource, textX, textY);
   }
 }
 
-class Projectile {
-  constructor(x, y, radius, color, velocity, force) {
-    this.x = x;
-    this.y = y;
-    this.radius = radius;
-    this.color = color;
-    this.velocity = velocity;
-    this.speed = 0.3;
-    this.force = force;
-  }
-
-  draw(ctx) {
-    ctx.beginPath();
-    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
-    ctx.fillStyle = this.color;
-    ctx.fill();
-  }
-
-  update(ctx) {
-    this.draw(ctx);
-    this.x += this.velocity.x * pixelUnit * delta * this.speed;
-    this.y += this.velocity.y * pixelUnit * delta * this.speed;
-  }
-}
-
-export { Player, Projectile };
+export { Player };

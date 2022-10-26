@@ -1,7 +1,9 @@
 import { TileMap } from "./level/tileMap.js";
 import { Particle } from "./player/visualEffects.js";
 import { spawnMonsters } from "./player/NPCs/spawn.js";
-import { drawMenu } from "./UI/menu.js";
+import { drawMenu } from "./UI/card-creation.js";
+import { CARD_ELEMENTS } from "./core/constants.js";
+import { possibilityForClick } from "./core/utils.js";
 import { marginLeft, marginTop } from "./UI/ScreenInit.js";
 import { screenInit, drawSideScreenBackground } from "./UI/ScreenInit.js";
 import { Monster } from "./player/NPCs/monster.js";
@@ -292,15 +294,18 @@ function animate(timestamp) {
 // Declare & export the button pressed in order to delete it after it was used
 // Declare & export function to update this button
 
-let pressedBtn;
+let selectedBtn;
 
-function updatePressedBtn(btn) {
-  pressedBtn = btn;
+function updateSelectedBtn(btn) {
+  selectedBtn = btn;
 }
 
-export { pressedBtn, updatePressedBtn };
+export { selectedBtn, updateSelectedBtn };
 
 canvasScreen.addEventListener("click", (event) => {
+  if (selectedBtn) {
+    CARD_ELEMENTS.some((card) => card.type === selectedBtn.type);
+  }
   const xZero = marginLeft;
   const yZero = marginTop;
   const x = event.x - xZero;
@@ -308,21 +313,25 @@ canvasScreen.addEventListener("click", (event) => {
   const clickPositionInGrid = tileMap.getPosition(x, y);
   if (
     tileMap.map[clickPositionInGrid.y][clickPositionInGrid.x] === "green" &&
-    (tileMap.selectedBtn === "mountain" || "river" || "village" || "tower")
+    CARD_ELEMENTS.some((card) => card.type === selectedBtn.type)
   ) {
     tileMap.map[clickPositionInGrid.y][clickPositionInGrid.x] =
-      tileMap.selectedBtn;
+      selectedBtn.type;
+    tileMap.players[0].stats.soulRessource -= parseInt(selectedBtn.value);
+
     cleanMap();
-    tileMap.selectedBtn = "";
-    // pressedBtn.remove();
-    pressedBtn = null;
+    selectedBtn = undefined;
+    const drawCardIcon = document.getElementById("drawCardIcon");
+    if (drawCardIcon) {
+      drawCardIcon.remove();
+    }
     monsters.forEach((monster) => {
       monster.findingPath();
     });
     inversePause();
   }
 
-  if (tileMap.selectedBtn === "spider") {
+  if (selectedBtn && selectedBtn.type === "spider") {
     monsters.push(
       new Monster(
         event.x - xZero - tileSize / 2,
@@ -332,7 +341,7 @@ canvasScreen.addEventListener("click", (event) => {
         "./src/images/spider.png"
       )
     );
-    tileMap.selectedBtn = "";
+    selectedBtn = undefined;
     inversePause();
   }
 });
@@ -340,6 +349,41 @@ canvasScreen.addEventListener("click", (event) => {
 window.addEventListener("keydown", (event) => {
   if (event.code === "Space") {
     isPause = !isPause;
+  }
+});
+
+canvasScreen.addEventListener("mousemove", (event) => {
+  if (selectedBtn) {
+    const previousImage = document.getElementById("drawCardIcon");
+    if (previousImage) {
+      previousImage.remove();
+    }
+    let image = document.createElement("div");
+    const gameScreen = document.getElementById("gameScreen");
+    gameScreen.appendChild(image);
+    image.id = "drawCardIcon";
+    image.style.backgroundImage = `url(./src/images/${selectedBtn.type}.png)`;
+    image.style.backgroundRepeat = "no-repeat";
+    image.style.backgroundSize = "cover";
+    image.style.position = "fixed";
+    image.style.left = `${event.x - tileSize / 2}px`;
+    image.style.top = `${event.y - tileSize / 2}px`;
+    image.style.width = `${tileSize}px`;
+    image.style.height = `${tileSize}px`;
+    image.style.pointerEvents = "none";
+    // const image = new Image();
+    // image.src = `/src/images/${selectedBtn.type}.png`;
+    // ctxScreen.drawImage(
+    //   image,
+    //   0,
+    //   0,
+    //   tileSize,
+    //   tileSize,
+    //   event.x - marginLeft - tileSize / 2,
+    //   event.y - marginTop - tileSize / 2,
+    //   tileSize,
+    //   tileSize
+    // );
   }
 });
 
