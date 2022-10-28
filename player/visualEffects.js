@@ -1,4 +1,4 @@
-import { pixelUnit, delta } from "../app.js";
+import { pixelUnit, delta, tileSize } from "../app.js";
 
 class Particle {
   constructor(x, y, radius, velocity) {
@@ -26,4 +26,49 @@ class Particle {
   }
 }
 
-export { Particle };
+class Explosion {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+    this.radius = tileSize * 2;
+    this.numberOfParticles = 20;
+    this.particlesArray = [];
+    this.isParticlesGenerated = false;
+  }
+
+  update(ctx) {
+    if (!this.isParticlesGenerated) {
+      for (let i = 0; i < this.numberOfParticles; i++) {
+        const size = Math.random() * 10 * pixelUnit;
+        const angle = Math.random() * Math.PI * 2;
+        const x = Math.cos(angle) * this.radius + this.x;
+        const y = Math.sin(angle) * this.radius + this.y;
+
+        const angled = Math.atan2(y - this.y, x - this.x);
+        const velocity = {
+          x: Math.cos(angled),
+          y: Math.sin(angled),
+        };
+
+        const color = "white";
+
+        const particle = new Particle(this.x, this.y, size, velocity);
+        this.particlesArray.push(particle);
+        this.isParticlesGenerated = true;
+      }
+    }
+
+    for (let i = 0; i < this.particlesArray.length; i++) {
+      const particle = this.particlesArray[i];
+      particle.update(ctx);
+
+      const distance = Math.hypot(this.x - particle.x, this.y - particle.y);
+
+      if (distance >= this.radius || particle.radius <= 0) {
+        this.particlesArray.splice(i, 1);
+      }
+    }
+  }
+}
+
+export { Particle, Explosion };

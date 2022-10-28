@@ -9,6 +9,7 @@ import { screenInit, drawSideScreenBackground } from "./UI/ScreenInit.js";
 import { Monster } from "./player/NPCs/monster.js";
 import { drawLifeBar, DrawDamage } from "./player/utils.js";
 import { mapSizeX, mapSizeY } from "./level/map.js";
+import { Explosion } from "./player/visualEffects.js";
 
 // Declare & export the variable used to pause the game
 // Declare & export the function that update pause status
@@ -23,6 +24,7 @@ export { isPause, inversePause };
 // Declare & export arrays used to store game elements
 
 let monsters;
+let explosions = [];
 let damageTexts;
 let particles;
 
@@ -257,6 +259,15 @@ function animate(timestamp) {
     village.update(ctxScreen);
   }
 
+  for (let i = 0; i < explosions.length; i++) {
+    const explosion = explosions[i];
+    explosion.update(ctxScreen);
+    if(explosion.particlesArray.length === 0){
+      explosions.splice(i, 1)
+    }
+  }
+
+
   for (let i = 0; i < tileMap.towers.length; i++) {
     const tower = tileMap.towers[i];
     tower.update(ctxScreen);
@@ -328,6 +339,12 @@ canvasScreen.addEventListener("click", (event) => {
     monsters.forEach((monster) => {
       monster.findingPath();
     });
+    inversePause();
+  }
+
+  if (selectedBtn && selectedBtn.type === "thunder") {
+    const explosion = new Explosion(x, y)
+    explosions.push(explosion)
     inversePause();
   }
 
