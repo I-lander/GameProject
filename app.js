@@ -9,7 +9,7 @@ import { screenInit, drawSideScreenBackground } from "./UI/ScreenInit.js";
 import { Monster } from "./player/NPCs/monster.js";
 import { drawLifeBar, DrawDamage } from "./player/utils.js";
 import { mapSizeX, mapSizeY } from "./level/map.js";
-import { Explosion } from "./player/visualEffects.js";
+import {Thunder} from "./player/thunder.js"
 
 // Declare & export the variable used to pause the game
 // Declare & export the function that update pause status
@@ -24,7 +24,7 @@ export { isPause, inversePause };
 // Declare & export arrays used to store game elements
 
 let monsters;
-let explosions = [];
+let thunders = [];
 let damageTexts;
 let particles;
 
@@ -146,7 +146,7 @@ function animate(timestamp) {
         if (distance - monster.hitBox - projectile.radius < 1) {
           player.projectiles.splice(projectileIndex, 1);
           monster.stats.hp -= projectile.force; // the monster lose as hp as the projectile force
-          const damageText = new DrawDamage(monster, monster.stats.force);
+          const damageText = new DrawDamage(monster, projectile.force);
           damageTexts.push(damageText);
           mainPlayer.stats.exp++; // earn experience
         }
@@ -259,11 +259,11 @@ function animate(timestamp) {
     village.update(ctxScreen);
   }
 
-  for (let i = 0; i < explosions.length; i++) {
-    const explosion = explosions[i];
-    explosion.update(ctxScreen);
-    if(explosion.particlesArray.length === 0){
-      explosions.splice(i, 1)
+  for (let i = 0; i < thunders.length; i++) {
+    const thunder = thunders[i];
+    thunder.update(ctxScreen);
+    if(thunder.radius >= thunder.maxRadius){
+      thunders.splice(i, 1)
     }
   }
 
@@ -281,7 +281,7 @@ function animate(timestamp) {
         if (distance - monster.hitBox - projectile.radius < 1) {
           tower.projectiles.splice(projectileIndex, 1);
           monster.stats.hp -= projectile.force; // the monster lose as hp as the projectile force
-          const damageText = new DrawDamage(monster, monster.stats.force);
+          const damageText = new DrawDamage(monster, projectile.force);
           damageTexts.push(damageText);
         }
       });
@@ -343,8 +343,10 @@ canvasScreen.addEventListener("click", (event) => {
   }
 
   if (selectedBtn && selectedBtn.type === "thunder") {
-    const explosion = new Explosion(x, y)
-    explosions.push(explosion)
+    const thunder = new Thunder(x, y)
+    thunders.push(thunder)
+    tileMap.players[0].stats.soulRessource -= parseInt(selectedBtn.value);
+
     inversePause();
   }
 

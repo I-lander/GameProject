@@ -1,4 +1,4 @@
-import { tileSize, pixelUnit, delta } from "../app.js";
+import { tileSize, pixelUnit, delta, damageTexts } from "../app.js";
 
 function drawLifeBar(ctx, entity) {
   let x = entity.x;
@@ -60,4 +60,10 @@ class DrawDamage {
   }
 }
 
-export { drawLifeBar, DrawDamage };
+function hitMonsters(monster, damage){
+  monster.stats.hp -= damage
+  const damageText = new DrawDamage(monster, damage);
+  damageTexts.push(damageText);
+}
+
+export { drawLifeBar, hitMonsters, DrawDamage };
