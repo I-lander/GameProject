@@ -346,7 +346,7 @@ canvasScreen.addEventListener("click", (event) => {
     const thunder = new Thunder(x, y)
     thunders.push(thunder)
     tileMap.players[0].stats.soulRessource -= parseInt(selectedBtn.value);
-
+    selectedBtn = undefined;
     inversePause();
   }
 

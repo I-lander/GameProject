@@ -39,7 +39,7 @@ class Thunder {
       }
     });
 
-    if (this.lightningArray.length < 5) {
+    if (this.lightningArray.length < 10) {
       var lightning = this.createLightning();
       this.lightningArray.push(lightning);
     } else {
