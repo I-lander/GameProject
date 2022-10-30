@@ -53,7 +53,7 @@ function createButton(type) {
     const cardSelected = CARD_ELEMENTS.find((card) => {
       return card.type === type;
     });
-    if (!isPause && cardSelected.value < tileMap.players[0].stats.soulRessource) {
+    if (!isPause && cardSelected.value <= tileMap.players[0].stats.soulRessource && tileMap.players[0].stats.soulRessource >= 0) {
       cleanMap();
       updateSelectedBtn({ type: cardSelected.type, value: cardSelected.value });
       possibilityForClick();
