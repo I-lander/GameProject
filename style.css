@@ -1,74 +1,75 @@
-@font-face{
-    font-family: "dogicapixel";
-    src: url("./src/font/pixelFont/dogicapixel-webfont.woff");
-    }
-
-:root{
-    --tileSize:0px
+@font-face {
+  font-family: "dogicapixel";
+  src: url("./src/font/pixelFont/dogicapixel-webfont.woff");
 }
 
-*{
-    margin: 0;
-    padding: 0;
-    font-family: "dogicapixel";
-    image-rendering: pixelated;
+:root {
+  --tileSize: 0px;
 }
 
-html, body{
-    width: 100%;
-    height: 100%;
-    background-color: black;
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "dogicapixel";
+  image-rendering: pixelated;
 }
 
-canvas{
-    display: block;
-    position: fixed;
+html,
+body {
+  width: 100%;
+  height: 100%;
+  background-color: black;
 }
 
-.canvasScreen{
-    background-image: url('./src/images/background.jpg');
-    background-repeat:no-repeat;
-    background-size:cover;
+canvas {
+  display: block;
+  position: fixed;
 }
 
-.canvasMenu{
-    background-color: rgb(61, 63, 65);
+.canvasScreen {
+  background-image: url("./src/images/background.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
-.mainMenu{
-    position: fixed;
-    z-index: 10001;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(33, 34, 36, 1);    
-    color: white;
-    text-align: center;
+.canvasMenu {
+  background-color: rgb(61, 63, 65);
 }
 
-.mainMenu img{
-    border-radius: 33%;
+.mainMenu {
+  position: fixed;
+  z-index: 10001;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(33, 34, 36, 1);
+  color: white;
+  text-align: center;
 }
 
-.mainMenu button{
-    background-color: rgb(105, 102, 96);
-    padding: 6px;
-    color: white;
-    width: 50%;
+.mainMenu img {
+  border-radius: 33%;
 }
 
-.disable{
-    display: none;
+.mainMenu button {
+  background-color: rgb(105, 102, 96);
+  padding: 6px;
+  color: white;
+  width: 50%;
 }
 
-.buttonsTile{
-    background-size : cover;
-    background-repeat : no-repeat;
-    background-color : rgba(155, 162, 177, 0.1);
+.disable {
+  display: none;
 }
 
-.buttonContainer{
-    position: fixed;
-    overflow: auto;
-    background-color: #c5c5c53b;
-    border-color: aliceblue !important;
+.buttonsTile {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-color: rgba(155, 162, 177, 0.1);
+}
+
+.buttonContainer {
+  position: fixed;
+  overflow: auto;
+  background-color: #c5c5c53b;
+  border-color: aliceblue !important;
 }

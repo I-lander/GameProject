@@ -154,7 +154,7 @@ export class TileMap {
       }
     }
 
-    // selectedBtn != "" ? this.possibilityForClick() : null;
+    // selectedBtn != '' ? this.possibilityForClick() : null;
   }
 
   init() {
@@ -228,20 +228,20 @@ export class TileMap {
 
   //   for (let i = 0; i < monsters.length; i++) {
   //     const monsterPosition = this.getPosition(monsters[i].x, monsters[i].y);
-  //     if (this.map[monsterPosition.y][monsterPosition.x] !== "0") {
+  //     if (this.map[monsterPosition.y][monsterPosition.x] !== '0') {
   //       continue;
   //     }
   //     if (
-  //       monsters[i].type === "ground"
+  //       monsters[i].type === 'ground'
   //       // this.map[monsterPosition.y][monsterPosition.x] === 0
   //     ) {
   //       monsterTiles.push(monsterPosition);
   //     }
   //   }
   //   if (
-  //     selectedBtn === "mountain" ||
-  //     selectedBtn === "village" ||
-  //     selectedBtn === "tower"
+  //     selectedBtn === 'mountain' ||
+  //     selectedBtn === 'village' ||
+  //     selectedBtn === 'tower'
   //   ) {
   //     for (let row = 0; row < mapSizeY; row++) {
   //       for (let column = 0; column < mapSizeX; column++) {
@@ -255,30 +255,30 @@ export class TileMap {
   //             (e) => e.x === tileCoordinate.x && e.y === tileCoordinate.y
   //           )
   //         ) {
-  //           this.map[row][column] = "monster";
+  //           this.map[row][column] = 'monster';
   //         }
   //         let tile = this.map[row][column];
-  //         if (tile === "0") {
-  //           this.map[row][column] = "green";
+  //         if (tile === '0') {
+  //           this.map[row][column] = 'green';
   //         }
   //         if (
   //           monsterTiles.some(
   //             (e) => e.x === tileCoordinate.x && e.y === tileCoordinate.y
   //           )
   //         ) {
-  //           this.map[row][column] = "0";
+  //           this.map[row][column] = '0';
   //         }
   //       }
   //     }
   //   }
-  //   if (selectedBtn === "river") {
-  //     const excludeValue = ["river", "1"];
+  //   if (selectedBtn === 'river') {
+  //     const excludeValue = ['river', '1'];
   //     const riverLastTile = getRiverLastTile();
   //     let neighbors = this.getNeighbors(riverLastTile);
 
   //     // UP
   //     if (
-  //       neighbors[0].tileValue === "0" &&
+  //       neighbors[0].tileValue === '0' &&
   //       !excludeValue.some(
   //         (value) =>
   //           this.getNeighbors(neighbors[0].position)[0].tileValue === value
@@ -292,12 +292,12 @@ export class TileMap {
   //           this.getNeighbors(neighbors[0].position)[3].tileValue === value
   //       )
   //     ) {
-  //       this.map[neighbors[0].position.y][neighbors[0].position.x] = "green";
+  //       this.map[neighbors[0].position.y][neighbors[0].position.x] = 'green';
   //     }
 
   //     // DOWN
   //     if (
-  //       neighbors[1].tileValue === "0" &&
+  //       neighbors[1].tileValue === '0' &&
   //       !excludeValue.some(
   //         (value) =>
   //           this.getNeighbors(neighbors[1].position)[1].tileValue === value
@@ -311,12 +311,12 @@ export class TileMap {
   //           this.getNeighbors(neighbors[1].position)[3].tileValue === value
   //       )
   //     ) {
-  //       this.map[neighbors[1].position.y][neighbors[1].position.x] = "green";
+  //       this.map[neighbors[1].position.y][neighbors[1].position.x] = 'green';
   //     }
 
   //     // LEFT
   //     if (
-  //       neighbors[2].tileValue === "0" &&
+  //       neighbors[2].tileValue === '0' &&
   //       !excludeValue.some(
   //         (value) =>
   //           this.getNeighbors(neighbors[2].position)[0].tileValue === value
@@ -330,12 +330,12 @@ export class TileMap {
   //           this.getNeighbors(neighbors[2].position)[2].tileValue === value
   //       )
   //     ) {
-  //       this.map[neighbors[2].position.y][neighbors[2].position.x] = "green";
+  //       this.map[neighbors[2].position.y][neighbors[2].position.x] = 'green';
   //     }
 
   //     // RIGHT
   //     if (
-  //       neighbors[3].tileValue === "0" &&
+  //       neighbors[3].tileValue === '0' &&
   //       !excludeValue.some(
   //         (value) =>
   //           this.getNeighbors(neighbors[3].position)[0].tileValue === value
@@ -349,22 +349,22 @@ export class TileMap {
   //           this.getNeighbors(neighbors[3].position)[3].tileValue === value
   //       )
   //     ) {
-  //       this.map[neighbors[3].position.y][neighbors[3].position.x] = "green";
+  //       this.map[neighbors[3].position.y][neighbors[3].position.x] = 'green';
   //     }
   //   }
-  //   if (selectedBtn === "arrows") {
+  //   if (selectedBtn === 'arrows') {
   //     for (let row = 0; row < mapSizeY; row++) {
   //       for (let column = 0; column < mapSizeX; column++) {
   //         let tile = this.map[row][column];
   //         if (
-  //           tile !== "arrows" &&
-  //           tile !== "mountain" &&
+  //           tile !== 'arrows' &&
+  //           tile !== 'mountain' &&
   //           (row === 0 ||
   //             row === mapSizeY - 1 ||
   //             column === 0 ||
   //             column === mapSizeX - 1)
   //         ) {
-  //           this.map[row][column] = "green";
+  //           this.map[row][column] = 'green';
   //         }
   //       }
   //     }

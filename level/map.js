@@ -3,7 +3,7 @@ const mapSizeX = 21;
 const mapSizeY = 15;
 
 function createMap() {
-  map = []
+  map = [];
   const mapCenterX = Math.floor(mapSizeX / 2);
   const mapCenterY = Math.floor(mapSizeY / 2);
   for (let i = 0; i < mapSizeY; i++) {

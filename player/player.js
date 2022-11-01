@@ -14,7 +14,7 @@ class Player {
     this.position = position;
     this.radius = radius;
     this.projectiles = [];
-    this.velocity = {}
+    this.velocity = {};
 
     this.maxHp = 30;
     this.stats = {
@@ -83,9 +83,7 @@ class Player {
           x: Math.cos(angle) * 5,
           y: Math.sin(angle) * 5,
         };
-        if (this.projectiles.length < 1) {
           this.isAttacking = true;
-        }
       }
     });
   }
@@ -108,12 +106,12 @@ class Player {
     const verticalFrame = this.img.naturalHeight / 32;
 
     if (timestamp >= this.lastFrame + 1000 / this.frameRate) {
-      if(this.frameX < horizontalFrame - 1){
-        this.frameX += 1
-      }else{
-        this.frameX = 0
-        this.shoot()
-        this.isAttacking = false
+      if (this.frameX < horizontalFrame - 1) {
+        this.frameX += 1;
+      } else {
+        this.frameX = 0;
+        this.shoot();
+        this.isAttacking = false;
       }
       this.lastFrame = timestamp;
     }

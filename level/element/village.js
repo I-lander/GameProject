@@ -11,7 +11,8 @@ export class Village {
       hp: this.maxHp,
       soulLoad: 0,
       maxSoul: 100,
-      loadSpeed: 10,
+      loadSpeed: 20,
+      soulBonus: 3,
     };
     this.isAttack = false;
     this.lastUpdate = 0;
@@ -26,7 +27,7 @@ export class Village {
     }
     if (this.stats.soulLoad > this.stats.maxSoul) {
       this.stats.soulLoad = 0;
-      tileMap.players[0].stats.soulRessource++;
+      tileMap.players[0].stats.soulRessource += this.stats.soulBonus;
     }
   }
 

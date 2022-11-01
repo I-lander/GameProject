@@ -2,6 +2,7 @@ import { isPause, monsters, tileSize, tileMap } from "../../app.js";
 import { Monster } from "./monster.js";
 import { mapSizeX, mapSizeY } from "../../level/map.js";
 import { marginTop, marginLeft } from "../../UI/ScreenInit.js";
+import { MONSTERS_LIST } from "../../core/constants.js";
 
 const playerPos = {
   x: Math.floor(mapSizeX / 2),
@@ -36,7 +37,9 @@ function spawnMonsters() {
           groundSpawnPosition.y,
           "ground",
           tileSize,
-          "./src/images/worm.png"
+          `./src/images/${
+            MONSTERS_LIST[Math.floor(Math.random() * MONSTERS_LIST.length)]
+          }.png`
         )
       );
       tileMap.arrows[i].lastGroundSpawn = timestamp;

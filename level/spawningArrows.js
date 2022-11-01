@@ -6,7 +6,7 @@ export class Arrow {
     this.x = x * tileSize;
     this.y = y * tileSize;
     this.position = { x: x, y: y };
-    this.lastGroundSpawn = 0
+    this.lastGroundSpawn = 0;
   }
 }
 
@@ -36,7 +36,7 @@ export function drawArrows(ctx, x, y) {
     drawArrowsImage(ctx, x, y, 1, 1);
   }
   if (x === mapSizeX - 1) {
-    drawArrowsImage(ctx, x, y,0, 1);
+    drawArrowsImage(ctx, x, y, 0, 1);
   }
   if (y === mapSizeY - 1) {
     drawArrowsImage(ctx, x, y, 0, 0);

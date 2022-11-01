@@ -49,7 +49,7 @@ const findPath = (start, target, type) => {
       if (!tile) {
         continue;
       }
-      if (type === "ground" && SOLID_ELEMENTS.includes(tile) ) {
+      if (type === "ground" && SOLID_ELEMENTS.includes(tile)) {
         continue;
       }
       if (

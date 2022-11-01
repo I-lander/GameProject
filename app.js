@@ -9,7 +9,7 @@ import { screenInit, drawSideScreenBackground } from "./UI/ScreenInit.js";
 import { Monster } from "./player/NPCs/monster.js";
 import { drawLifeBar, DrawDamage } from "./player/utils.js";
 import { mapSizeX, mapSizeY } from "./level/map.js";
-import {Thunder} from "./player/thunder.js"
+import { Thunder } from "./player/thunder.js";
 
 // Declare & export the variable used to pause the game
 // Declare & export the function that update pause status
@@ -262,11 +262,10 @@ function animate(timestamp) {
   for (let i = 0; i < thunders.length; i++) {
     const thunder = thunders[i];
     thunder.update(ctxScreen);
-    if(thunder.radius >= thunder.maxRadius){
-      thunders.splice(i, 1)
+    if (thunder.radius >= thunder.maxRadius) {
+      thunders.splice(i, 1);
     }
   }
-
 
   for (let i = 0; i < tileMap.towers.length; i++) {
     const tower = tileMap.towers[i];
@@ -343,8 +342,8 @@ canvasScreen.addEventListener("click", (event) => {
   }
 
   if (selectedBtn && selectedBtn.type === "thunder") {
-    const thunder = new Thunder(x, y)
-    thunders.push(thunder)
+    const thunder = new Thunder(x, y);
+    thunders.push(thunder);
     tileMap.players[0].stats.soulRessource -= parseInt(selectedBtn.value);
     selectedBtn = undefined;
     inversePause();
