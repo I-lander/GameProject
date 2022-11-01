@@ -17,10 +17,7 @@ class Thunder {
   }
 
   update(ctx) {
-    ctx.globalCompositeOperation = "lighter";
-
     ctx.strokeStyle = this.color;
-    ctx.shadowColor = this.color;
 
     ctx.save();
     ctx.beginPath();
@@ -39,13 +36,9 @@ class Thunder {
       }
     });
 
-    if (this.lightningArray.length < 10) {
-      var lightning = this.createLightning();
-      this.lightningArray.push(lightning);
-    } else {
-      ctx.restore();
-      return;
-    }
+    var lightning = this.createLightning();
+    this.lightningArray.push(lightning);
+
     ctx.beginPath();
     for (var i = 0; i < lightning.length; i++) {
       ctx.lineTo(lightning[i].x, lightning[i].y);

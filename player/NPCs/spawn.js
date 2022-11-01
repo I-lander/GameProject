@@ -9,7 +9,6 @@ const playerPos = {
 };
 
 let path = [];
-// let lastGroundSpawn = 0;
 let lastRiverSpawn = 0;
 let spawnGroundRate = 0.2;
 let spawnRiverRate = 0.5;

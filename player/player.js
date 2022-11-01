@@ -14,6 +14,7 @@ class Player {
     this.position = position;
     this.radius = radius;
     this.projectiles = [];
+    this.velocity = {}
 
     this.maxHp = 30;
     this.stats = {
@@ -23,12 +24,20 @@ class Player {
       force: 3,
       attackRate: 1,
       range: tileSize * 3,
-      soulRessource: 50,
+      soulRessource: 9999,
     };
     this.lastAttack = 0;
+    this.isAttacking = false;
 
     this.img = new Image();
     this.img.src = image;
+    this.spriteSize = 32;
+    this.frameX = 0;
+    this.frameY = 0;
+    this.minFrame = 0;
+    this.maxFrame = this.horizontalFrame * this.verticalFrame;
+    this.frameRate = 40;
+    this.lastFrame = 0;
   }
 
   draw(ctx) {
@@ -36,11 +45,16 @@ class Player {
 
     ctx.drawImage(
       this.img,
+      this.frameX * this.spriteSize,
+      this.frameY * this.spriteSize,
+      this.spriteSize,
+      this.spriteSize,
       this.x - this.radius / 2,
       this.y - this.radius / 2,
       this.radius,
       this.radius
     );
+    this.isAttacking ? this.shootAnimation(timestamp) : null;
     ctx.beginPath();
     ctx.lineWidth = 1 * pixelUnit;
     ctx.arc(this.x, this.y, this.stats.range, 0, Math.PI * 2, false);
@@ -48,7 +62,7 @@ class Player {
     ctx.stroke();
 
     if (timestamp >= this.lastAttack + 1000 / this.stats.attackRate) {
-      this.autoFire(monsters);
+      this.autoFire(timestamp, monsters);
       this.lastAttack = timestamp;
     }
     if (this.stats.exp >= this.stats.nextLvl) {
@@ -60,29 +74,49 @@ class Player {
     this.drawSoulRessource(ctx);
   }
 
-  autoFire(monsters) {
+  autoFire(timestamp, monsters) {
     monsters.forEach((monster, index) => {
       monster.distance = Math.hypot(this.x - monster.x, this.y - monster.y);
       if (monster.distance < this.stats.range - monster.hitBox) {
         const angle = Math.atan2(monster.y - this.y, monster.x - this.x);
-        const velocity = {
+        this.velocity = {
           x: Math.cos(angle) * 5,
           y: Math.sin(angle) * 5,
         };
         if (this.projectiles.length < 1) {
-          this.projectiles.push(
-            new Projectile(
-              this.x,
-              this.y,
-              5 * pixelUnit,
-              "white",
-              velocity,
-              this.stats.force
-            )
-          );
+          this.isAttacking = true;
         }
       }
     });
+  }
+
+  shoot() {
+    this.projectiles.push(
+      new Projectile(
+        this.x,
+        this.y,
+        5 * pixelUnit,
+        "white",
+        this.velocity,
+        this.stats.force
+      )
+    );
+  }
+
+  shootAnimation(timestamp) {
+    const horizontalFrame = this.img.naturalWidth / 32;
+    const verticalFrame = this.img.naturalHeight / 32;
+
+    if (timestamp >= this.lastFrame + 1000 / this.frameRate) {
+      if(this.frameX < horizontalFrame - 1){
+        this.frameX += 1
+      }else{
+        this.frameX = 0
+        this.shoot()
+        this.isAttacking = false
+      }
+      this.lastFrame = timestamp;
+    }
   }
 
   drawPlayerLife(ctx) {

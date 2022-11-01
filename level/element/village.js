@@ -1,4 +1,4 @@
-import { tileSize, tileMap } from "../../app.js";
+import { tileSize, tileMap } from '../../app.js';
 
 export class Village {
   constructor(x, y, image) {
@@ -35,21 +35,21 @@ export class Village {
     let y = this.y;
     const barRatio = this.stats.soulLoad / this.stats.maxSoul;
     ctx.save();
-    ctx.fillStyle = "rgba(0, 0, 0, 0.9)";
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.9)';
     ctx.fillRect(
       x + (tileSize * 0.4) / 2,
       y - tileSize * 0.1,
       tileSize * 0.6,
       tileSize * 0.1
     );
-    ctx.fillStyle = "rgba(39, 161, 245, 0.9)";
+    ctx.fillStyle = 'rgba(39, 161, 245, 0.9)';
     ctx.fillRect(
       x + (tileSize * 0.4) / 2,
       y - tileSize * 0.1,
       tileSize * barRatio * 0.6,
       tileSize * 0.1
     );
-    ctx.strokeStyle = "white";
+    ctx.strokeStyle = 'white';
     ctx.strokeRect(
       x + (tileSize * 0.4) / 2,
       y - tileSize * 0.1,
