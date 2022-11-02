@@ -118,7 +118,7 @@ function animate(timestamp) {
   lastFrameTimeMs = timestamp;
   ctxScreen.clearRect(0, 0, canvasScreen.width, canvasScreen.height);
 
-  drawSideScreenBackground(ctxScreen, gameScreen, sideScreen);
+  // drawSideScreenBackground(ctxScreen, gameScreen, sideScreen);
 
   tileMap.draw(ctxScreen); // draw the map
   const mainPlayer = tileMap.players[0]; // create a variable to make the player easiest to use
@@ -312,7 +312,7 @@ function updateSelectedBtn(btn) {
 
 export { selectedBtn, updateSelectedBtn };
 
-canvasScreen.addEventListener("click", (event) => {
+canvasScreen.addEventListener("click", (event) => {  
   if (selectedBtn) {
     CARD_ELEMENTS.some((card) => card.type === selectedBtn.type);
   }

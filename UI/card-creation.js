@@ -36,9 +36,6 @@ function createButton(type) {
   newButton.style.backgroundColor = 'transparent';
 
   newButton.style.backgroundImage = `url(./src/images/card-${type}.png)`;
-  if (type === 'arrows' || type === 'spider') {
-    newButton.style.backgroundImage = `url(./src/images/${type}.png)`;
-  }
   newButton.style.border = 'none';
   newButton.style.left = `${
     marginLeft + canvasScreen.width + buttons.length * buttonSize
