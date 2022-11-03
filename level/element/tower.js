@@ -15,7 +15,7 @@ export class Tower {
       loadSpeed: 10,
       force: 3,
       attackRate: 1,
-      range: tileSize * 2,
+      range: tileSize * 2.5,
     };
     this.projectiles = [];
     this.lastAttack = 0;
@@ -50,8 +50,8 @@ export class Tower {
         if (this.projectiles.length < 1) {
           this.projectiles.push(
             new Projectile(
-              this.x,
-              this.y,
+              this.x-tileSize/2,
+              this.y-tileSize/2,
               "white",
               velocity,
               this.stats.force

@@ -118,7 +118,7 @@ function animate(timestamp) {
   lastFrameTimeMs = timestamp;
   ctxScreen.clearRect(0, 0, canvasScreen.width, canvasScreen.height);
 
-  // drawSideScreenBackground(ctxScreen, gameScreen, sideScreen);
+  drawSideScreenBackground(ctxScreen, gameScreen, sideScreen);
 
   tileMap.draw(ctxScreen); // draw the map
   const mainPlayer = tileMap.players[0]; // create a variable to make the player easiest to use
@@ -331,9 +331,9 @@ canvasScreen.addEventListener("click", (event) => {
 
     cleanMap();
     selectedBtn = undefined;
-    const drawCardIcon = document.getElementById("drawCardIcon");
-    if (drawCardIcon) {
-      drawCardIcon.remove();
+    const closeButton = document.getElementById("closeButton");
+    if (closeButton) {
+      closeButton.remove();
     }
     monsters.forEach((monster) => {
       monster.findingPath();
@@ -346,6 +346,10 @@ canvasScreen.addEventListener("click", (event) => {
     thunders.push(thunder);
     tileMap.players[0].stats.soulRessource -= parseInt(selectedBtn.value);
     selectedBtn = undefined;
+    const closeButton = document.getElementById("closeButton");
+    if (closeButton) {
+      closeButton.remove();
+    }
     inversePause();
   }
 
@@ -360,6 +364,10 @@ canvasScreen.addEventListener("click", (event) => {
       )
     );
     selectedBtn = undefined;
+    const closeButton = document.getElementById("closeButton");
+    if (closeButton) {
+      closeButton.remove();
+    }
     inversePause();
   }
 });

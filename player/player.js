@@ -23,7 +23,7 @@ class Player {
       exp: 0,
       force: 3,
       attackRate: 1,
-      range: tileSize * 3,
+      range: tileSize * 3.5,
       soulRessource: 9999,
     };
     this.lastAttack = 0;
@@ -157,7 +157,7 @@ class Player {
 
   drawSoulRessource(ctx) {
     const textX = gameScreen.width + tileSize * 9.75;
-    const textY = tileSize * 1.75;
+    const textY = tileSize * 2;
     ctx.font = `${tileSize / 2}px dogicapixel`;
     ctx.fillStyle = "white";
     ctx.textAlign = "right";
