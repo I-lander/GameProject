@@ -14,7 +14,7 @@ class Player {
     this.position = position;
     this.radius = radius;
     this.projectiles = [];
-    this.velocity = {};
+    this.projectileVelocity = {};
 
     this.maxHp = 30;
     this.stats = {
@@ -23,7 +23,7 @@ class Player {
       exp: 0,
       force: 3,
       attackRate: 1,
-      range: tileSize * 3,
+      range: tileSize * 6,
       soulRessource: 9999,
     };
     this.lastAttack = 0;
@@ -79,9 +79,10 @@ class Player {
       monster.distance = Math.hypot(this.x - monster.x, this.y - monster.y);
       if (monster.distance < this.stats.range - monster.hitBox) {
         const angle = Math.atan2(monster.y - this.y, monster.x - this.x);
-        this.velocity = {
+        this.projectileVelocity = {
           x: Math.cos(angle) * 5,
           y: Math.sin(angle) * 5,
+          angle : angle
         };
           this.isAttacking = true;
       }
@@ -91,11 +92,10 @@ class Player {
   shoot() {
     this.projectiles.push(
       new Projectile(
-        this.x,
-        this.y,
-        5 * pixelUnit,
+        this.x - this.radius / 2,
+        this.y - this.radius / 2,
         "white",
-        this.velocity,
+        this.projectileVelocity,
         this.stats.force
       )
     );
