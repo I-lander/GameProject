@@ -44,6 +44,7 @@ export class Tower {
         const velocity = {
           x: Math.cos(angle) * 5,
           y: Math.sin(angle) * 5,
+          angle: angle
         };
 
         if (this.projectiles.length < 1) {
@@ -51,7 +52,6 @@ export class Tower {
             new Projectile(
               this.x,
               this.y,
-              5 * pixelUnit,
               "white",
               velocity,
               this.stats.force

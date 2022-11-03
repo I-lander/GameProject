@@ -23,7 +23,7 @@ class Player {
       exp: 0,
       force: 3,
       attackRate: 1,
-      range: tileSize * 6,
+      range: tileSize * 3,
       soulRessource: 9999,
     };
     this.lastAttack = 0;
