@@ -1,6 +1,7 @@
-import { tileMap, monsters, selectedBtn } from "../app.js";
+import { tileMap, tileSize, monsters, selectedBtn, ctxScreen, inversePause } from "../app.js";
 import { mapSizeX, mapSizeY } from "../level/map.js";
 import { getRiverLastTile } from "../player/NPCs/spawn.js";
+import { SOLID_ELEMENTS } from "./constants.js";
 
 function possibilityForClick() {
   let monsterTiles = [];

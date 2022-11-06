@@ -41,6 +41,9 @@ export class TileMap {
     for (let row = 0; row < mapSizeY; row++) {
       for (let column = 0; column < mapSizeX; column++) {
         let tile = this.map[row][column];
+        if(tile === "bomb"){
+          this.map[row][column] = "0"
+        }
         if (tile === "0") {
           ctx.save();
           ctx.strokeStyle = "rgba(255, 255, 255, 0.05)";

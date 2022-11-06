@@ -6,9 +6,10 @@ const CARD_ELEMENTS = [
   { type: "river", value: 5 },
   { type: "village", value: 10 },
   { type: "tower", value: 15 },
+  { type: "bomb", value: 20 },
 ];
 
-const MONSTERS_LIST = ["worm", "slime", "bat"];
+const MONSTERS_LIST = ["worm", "slime", "bat", "skull", "spider", "fly"];
 
 // Elements that ground monster must dodge
 

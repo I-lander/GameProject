@@ -21,9 +21,8 @@ function drawMenu() {
   createButton("river");
   createButton("tower");
   createButton("thunder");
-  for (let i = 0; i < 1; i++) {
+  createButton("bomb");
     createButton("spider");
-  }
   createButton("arrows");
 }
 
@@ -65,7 +64,7 @@ function createButton(type) {
       cleanMap();
       updateSelectedBtn({ type: cardSelected.type, value: cardSelected.value });
       possibilityForClick();
-      tileMap.draw(ctxScreen);
+      // tileMap.draw(ctxScreen);
       setTimeout(() => {
         inversePause();
       }, 100);

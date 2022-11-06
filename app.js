@@ -2,7 +2,7 @@ import { TileMap } from "./level/tileMap.js";
 import { Particle } from "./player/visualEffects.js";
 import { spawnMonsters } from "./player/NPCs/spawn.js";
 import { drawMenu } from "./UI/card-creation.js";
-import { CARD_ELEMENTS } from "./core/constants.js";
+import { CARD_ELEMENTS, SOLID_ELEMENTS } from "./core/constants.js";
 import { possibilityForClick } from "./core/utils.js";
 import { marginLeft, marginTop } from "./UI/ScreenInit.js";
 import { screenInit, drawSideScreenBackground } from "./UI/ScreenInit.js";
@@ -298,6 +298,15 @@ function animate(timestamp) {
     });
   }
 
+  const greenTile = new Image();
+  greenTile.src = "./src/images/greenTile.png";
+  ctxScreen.drawImage(
+    greenTile,
+    tileSize * 100,
+    tileSize * 100,
+    tileSize,
+    tileSize)
+
   requestAnimationFrame(animate);
 }
 
@@ -312,7 +321,7 @@ function updateSelectedBtn(btn) {
 
 export { selectedBtn, updateSelectedBtn };
 
-canvasScreen.addEventListener("click", (event) => {  
+canvasScreen.addEventListener("click", (event) => {
   if (selectedBtn) {
     CARD_ELEMENTS.some((card) => card.type === selectedBtn.type);
   }
@@ -351,6 +360,26 @@ canvasScreen.addEventListener("click", (event) => {
       closeButton.remove();
     }
     inversePause();
+  }
+
+  if (selectedBtn && selectedBtn.type === "bomb" &&
+  SOLID_ELEMENTS.includes(tileMap.map[clickPositionInGrid.y][clickPositionInGrid.x])) {
+    tileMap.map[clickPositionInGrid.y][clickPositionInGrid.x] =
+      selectedBtn.type;
+    selectedBtn = undefined;
+    const closeButton = document.getElementById("closeButton");
+    if (closeButton) {
+      closeButton.remove();
+    }
+    inversePause();
+    for (let i = 0; i < 40; i++) {
+      particles.push(
+        new Particle(x, y, Math.random() * 2 * pixelUnit, {
+          x: Math.random() - 0.5,
+          y: Math.random() - 0.5,
+        })
+      );
+    }
   }
 
   if (selectedBtn && selectedBtn.type === "spider") {
