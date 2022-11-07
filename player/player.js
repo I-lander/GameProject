@@ -61,10 +61,7 @@ class Player {
     ctx.strokeStyle = "rgba(255, 255, 255, 0.1)";
     ctx.stroke();
 
-    if (timestamp >= this.lastAttack + 1000 / this.stats.attackRate) {
-      this.autoFire(timestamp, monsters);
-      this.lastAttack = timestamp;
-    }
+    this.autoFire(timestamp, monsters);
     if (this.stats.exp >= this.stats.nextLvl) {
       this.stats.exp = 0;
       this.stats.nextLvl = Math.round(this.stats.nextLvl * 150) / 100;
@@ -77,14 +74,18 @@ class Player {
   autoFire(timestamp, monsters) {
     monsters.forEach((monster, index) => {
       monster.distance = Math.hypot(this.x - monster.x, this.y - monster.y);
-      if (monster.distance < this.stats.range - monster.hitBox) {
+      if (
+        monster.distance < this.stats.range - monster.hitBox &&
+        timestamp >= this.lastAttack + 1000 / this.stats.attackRate
+      ) {
         const angle = Math.atan2(monster.y - this.y, monster.x - this.x);
         this.projectileVelocity = {
           x: Math.cos(angle) * 5,
           y: Math.sin(angle) * 5,
-          angle : angle
+          angle: angle,
         };
-          this.isAttacking = true;
+        this.isAttacking = true;
+        this.lastAttack = timestamp;
       }
     });
   }
