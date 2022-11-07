@@ -64,7 +64,7 @@ function createButton(type) {
       cleanMap();
       updateSelectedBtn({ type: cardSelected.type, value: cardSelected.value });
       possibilityForClick();
-      // tileMap.draw(ctxScreen);
+      tileMap.draw(ctxScreen);
       setTimeout(() => {
         inversePause();
       }, 100);

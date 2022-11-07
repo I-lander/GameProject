@@ -10,6 +10,7 @@ import { Monster } from "./player/NPCs/monster.js";
 import { drawLifeBar, DrawDamage } from "./player/utils.js";
 import { mapSizeX, mapSizeY } from "./level/map.js";
 import { Thunder } from "./player/thunder.js";
+import { bombMecanics } from "./level/element/bomb.js";
 
 // Declare & export the variable used to pause the game
 // Declare & export the function that update pause status
@@ -366,6 +367,7 @@ canvasScreen.addEventListener("click", (event) => {
   SOLID_ELEMENTS.includes(tileMap.map[clickPositionInGrid.y][clickPositionInGrid.x])) {
     tileMap.map[clickPositionInGrid.y][clickPositionInGrid.x] =
       selectedBtn.type;
+    bombMecanics(clickPositionInGrid)
     selectedBtn = undefined;
     const closeButton = document.getElementById("closeButton");
     if (closeButton) {
