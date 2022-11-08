@@ -1,4 +1,11 @@
-import { tileSize, tileMap, pixelUnit, pauseDelta, delta, gameScreen } from "../../app.js";
+import {
+  tileSize,
+  tileMap,
+  pixelUnit,
+  pauseDelta,
+  delta,
+  gameScreen,
+} from "../../app.js";
 
 export class Village {
   constructor(x, y, image) {
@@ -9,33 +16,33 @@ export class Village {
     this.maxHp = 5;
     this.stats = {
       hp: this.maxHp,
-      soulLoad: 0,
-      maxSoul: 100,
+      manaLoad: 0,
+      maxMana: 100,
       loadSpeed: 20,
-      soulBonus: 3,
+      manaBonus: 3,
     };
     this.isAttack = false;
     this.lastUpdate = 0;
-    this.isSoulGenerated = false;
-    this.soulsToFeed = [];
+    this.ismanaGenerated = false;
+    this.manasToFeed = [];
   }
 
   update(ctx) {
     let timestamp = Date.now();
     this.drawLoadingCircle(ctx);
-    if (timestamp >= this.lastUpdate + 1000 / this.stats.loadSpeed + pauseDelta) {
-      this.stats.soulLoad++;
+    if (timestamp >= this.lastUpdate + 1000 / this.stats.loadSpeed) {
+      this.stats.manaLoad++;
       this.lastUpdate = timestamp;
     }
-    if (this.stats.soulLoad > this.stats.maxSoul) {
-      this.stats.soulLoad = 0;
+    if (this.stats.manaLoad > this.stats.maxMana) {
+      this.stats.manaLoad = 0;
     }
   }
 
   drawLoadingCircle(ctx) {
     let x = this.x + tileSize / 2;
     let y = this.y;
-    const barRatio = this.stats.soulLoad / this.stats.maxSoul;
+    const barRatio = this.stats.manaLoad / this.stats.maxMana;
     ctx.save();
     ctx.beginPath();
     ctx.moveTo(x, y);
@@ -46,23 +53,23 @@ export class Village {
     ctx.fillStyle = "white";
     ctx.fill();
     ctx.restore();
-    if (barRatio >= 1 && !this.isSoulGenerated) {
-      this.isSoulGenerated = true;
-      const soulToFeed = new SoulToFeed(x, y);
-      this.soulsToFeed.push(soulToFeed);
+    if (barRatio >= 1 && !this.ismanaGenerated) {
+      this.ismanaGenerated = true;
+      const mana = new ManaToFeed(x, y);
+      this.manasToFeed.push(mana);
     }
-    for (let i = 0; i < this.soulsToFeed.length; i++) {
-      this.soulsToFeed[i].update(ctx);
-      if (this.soulsToFeed[i].x >= this.soulsToFeed[i].targetX) {
-        this.soulsToFeed.splice(i, 1);
-        tileMap.players[0].stats.soulRessource += this.stats.soulBonus;
-        this.isSoulGenerated = false;
+    for (let i = 0; i < this.manasToFeed.length; i++) {
+      this.manasToFeed[i].update(ctx);
+      if (this.manasToFeed[i].x >= this.manasToFeed[i].targetX) {
+        this.manasToFeed.splice(i, 1);
+        tileMap.players[0].stats.manaRessource += this.stats.manaBonus;
+        this.ismanaGenerated = false;
       }
     }
   }
 }
 
-class SoulToFeed {
+class ManaToFeed {
   constructor(x, y) {
     this.x = x;
     this.y = y;

@@ -1,7 +1,7 @@
 import { tileMap, tileSize, ctxScreen, canvasScreen } from "../../app.js";
 
 const river = new Image();
-river.src = "./src/images/river.png";
+river.src = "./src/images/river-sheet.png";
 const spriteRes = 32;
 
 function drawRiver(x, y) {

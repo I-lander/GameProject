@@ -5,7 +5,11 @@ import { drawMenu } from "./UI/card-creation.js";
 import { CARD_ELEMENTS, SOLID_ELEMENTS } from "./core/constants.js";
 import { possibilityForClick } from "./core/utils.js";
 import { marginLeft, marginTop } from "./UI/ScreenInit.js";
-import { screenInit, drawSideScreenBackground, drawBackGameBackground } from "./UI/ScreenInit.js";
+import {
+  screenInit,
+  drawSideScreenBackground,
+  drawBackGameBackground,
+} from "./UI/ScreenInit.js";
 import { Monster } from "./player/NPCs/monster.js";
 import { drawLifeBar, DrawDamage } from "./player/utils.js";
 import { mapSizeX, mapSizeY } from "./level/map.js";
@@ -97,7 +101,7 @@ function startGame() {
 // Declare elements used to maintain stable speed for the animation
 
 let lastFrameTimeMs = 0; // The last time the loop was run
-let lastFrameBeforePause = 0
+let lastFrameBeforePause = 0;
 let maxFPS = 90; // The maximum FPS we want to allow
 let speedFactor = 10;
 let delta = 0;
@@ -109,7 +113,7 @@ export { delta, pauseDelta };
 
 function animate(timestamp) {
   if (isPause) {
-    pauseDelta = timestamp - lastFrameBeforePause
+    pauseDelta = timestamp - lastFrameBeforePause;
     lastFrameTimeMs = timestamp;
     requestAnimationFrame(animate);
     return;
@@ -122,13 +126,13 @@ function animate(timestamp) {
   delta = (timestamp - lastFrameTimeMs) / speedFactor; // get the delta time since last frame
 
   lastFrameTimeMs = timestamp;
-  lastFrameBeforePause = timestamp
+  lastFrameBeforePause = timestamp;
   ctxScreen.clearRect(0, 0, canvasScreen.width, canvasScreen.height);
 
   drawSideScreenBackground(ctxScreen, gameScreen, sideScreen);
-  drawBackGameBackground(ctxScreen, gameScreen)
+  drawBackGameBackground(ctxScreen, gameScreen);
 
-  renderCardDescription(selectedBtn)
+  renderCardDescription(selectedBtn);
 
   tileMap.draw(ctxScreen); // draw the map
   const mainPlayer = tileMap.players[0]; // create a variable to make the player easiest to use
@@ -315,7 +319,8 @@ function animate(timestamp) {
     tileSize * 100,
     tileSize * 100,
     tileSize,
-    tileSize)
+    tileSize
+  );
 
   requestAnimationFrame(animate);
 }
@@ -346,7 +351,7 @@ canvasScreen.addEventListener("click", (event) => {
   ) {
     tileMap.map[clickPositionInGrid.y][clickPositionInGrid.x] =
       selectedBtn.type;
-    tileMap.players[0].stats.soulRessource -= parseInt(selectedBtn.value);
+    tileMap.players[0].stats.manaRessource -= parseInt(selectedBtn.value);
 
     cleanMap();
     selectedBtn = undefined;
@@ -363,7 +368,7 @@ canvasScreen.addEventListener("click", (event) => {
   if (selectedBtn && selectedBtn.type === "thunder") {
     const thunder = new Thunder(x, y);
     thunders.push(thunder);
-    tileMap.players[0].stats.soulRessource -= parseInt(selectedBtn.value);
+    tileMap.players[0].stats.manaRessource -= parseInt(selectedBtn.value);
     selectedBtn = undefined;
     const closeButton = document.getElementById("closeButton");
     if (closeButton) {
@@ -372,11 +377,16 @@ canvasScreen.addEventListener("click", (event) => {
     inversePause();
   }
 
-  if (selectedBtn && selectedBtn.type === "bomb" &&
-  SOLID_ELEMENTS.includes(tileMap.map[clickPositionInGrid.y][clickPositionInGrid.x])) {
+  if (
+    selectedBtn &&
+    selectedBtn.type === "bomb" &&
+    SOLID_ELEMENTS.includes(
+      tileMap.map[clickPositionInGrid.y][clickPositionInGrid.x]
+    )
+  ) {
     tileMap.map[clickPositionInGrid.y][clickPositionInGrid.x] =
       selectedBtn.type;
-    bombMecanics(clickPositionInGrid)
+    bombMecanics(clickPositionInGrid);
     selectedBtn = undefined;
     const closeButton = document.getElementById("closeButton");
     if (closeButton) {

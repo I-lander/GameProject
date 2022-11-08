@@ -13,7 +13,7 @@ import { possibilityForClick } from "../core/utils.js";
 import { marginTop, marginLeft } from "./ScreenInit.js";
 
 const buttons = [];
-const maxCardPerLign = 5
+const maxCardPerLign = 5;
 
 function drawMenu() {
   createButton("mountain");
@@ -22,7 +22,7 @@ function drawMenu() {
   createButton("tower");
   createButton("thunder");
   createButton("bomb");
-    createButton("spider");
+  createButton("spider");
   createButton("arrows");
 }
 
@@ -32,7 +32,7 @@ function createButton(type) {
   buttonContainer.style.height = `${buttonSize * 2}px`;
   let Xpos = buttons.length * buttonSize;
   let Ypos = 0;
-  if (Xpos > buttonSize * (maxCardPerLign-1)) {
+  if (Xpos > buttonSize * (maxCardPerLign - 1)) {
     Ypos = buttonSize;
     Xpos = (buttons.length - maxCardPerLign) * buttonSize;
   }
@@ -58,8 +58,8 @@ function createButton(type) {
     });
     if (
       !isPause &&
-      cardSelected.value <= tileMap.players[0].stats.soulRessource &&
-      tileMap.players[0].stats.soulRessource >= 0
+      cardSelected.value <= tileMap.players[0].stats.manaRessource &&
+      tileMap.players[0].stats.manaRessource >= 0
     ) {
       cleanMap();
       updateSelectedBtn({ type: cardSelected.type, value: cardSelected.value });

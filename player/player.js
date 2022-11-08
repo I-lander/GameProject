@@ -24,7 +24,7 @@ class Player {
       force: 3,
       attackRate: 1,
       range: tileSize * 3.5,
-      soulRessource: 9999,
+      manaRessource: 9999,
     };
     this.lastAttack = 0;
     this.isAttacking = false;
@@ -68,7 +68,7 @@ class Player {
     }
     this.drawPlayerLife(ctx);
     this.drawPlayerExp(ctx);
-    this.drawSoulRessource(ctx);
+    this.drawmanaRessource(ctx);
   }
 
   autoFire(timestamp, monsters) {
@@ -156,13 +156,13 @@ class Player {
     ctx.restore();
   }
 
-  drawSoulRessource(ctx) {
+  drawmanaRessource(ctx) {
     const textX = gameScreen.width + tileSize * 9.75;
     const textY = tileSize * 2;
     ctx.font = `${tileSize / 2}px dogicapixel`;
     ctx.fillStyle = "white";
     ctx.textAlign = "right";
-    ctx.fillText(this.stats.soulRessource, textX, textY);
+    ctx.fillText(this.stats.manaRessource, textX, textY);
   }
 }
 

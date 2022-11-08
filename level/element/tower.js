@@ -10,8 +10,6 @@ export class Tower {
     this.maxHp = 5;
     this.stats = {
       hp: this.maxHp,
-      soulLoad: 0,
-      maxSoul: 100,
       loadSpeed: 10,
       force: 3,
       attackRate: 1,
@@ -29,7 +27,7 @@ export class Tower {
     ctx.arc(this.x, this.y, this.stats.range, 0, Math.PI * 2, false);
     ctx.strokeStyle = "rgba(255, 255, 255, 0.1)";
     ctx.stroke();
-    this.autoFire(timestamp,monsters);
+    this.autoFire(timestamp, monsters);
   }
 
   autoFire(timestamp, monsters) {
