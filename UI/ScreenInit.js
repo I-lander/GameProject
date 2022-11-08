@@ -40,13 +40,11 @@ function screenInit(canvasScreen, canvasMenu) {
   const buttonContainer = document.getElementById("buttonContainer");
   buttonContainer.style.left = `${gameScreen.width + marginLeft}px`;
   buttonContainer.style.width = `${sideScreen.width}px`;
-  buttonContainer.style.height = `${(sideScreen.width / 5) * 3}px`;
-
   buttonContainer.style.top = `${tileSize * 3 + marginTop}px`;
 
   const mainMenu = document.getElementById("mainMenu");
   const mainMenuP = mainMenu.querySelector("p");
-  mainMenuP.style.fontSize = `${12 * pixelUnit}px`;
+  mainMenuP.style.fontSize = `${14 * pixelUnit}px`;
   mainMenuP.style.lineHeight = `${24 * pixelUnit}px`;
 
   const mainMenuImg = mainMenu.querySelector("img");

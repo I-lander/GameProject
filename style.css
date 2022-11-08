@@ -60,9 +60,8 @@ canvas {
   background-repeat: no-repeat;
 }
 
-.buttonContainer {
+.buttonContainer, .cardDescription {
   position: fixed;
   overflow: auto;
   background-color: #c5c5c53b;
-  border-color: aliceblue !important;
 }

@@ -11,6 +11,7 @@ import { drawLifeBar, DrawDamage } from "./player/utils.js";
 import { mapSizeX, mapSizeY } from "./level/map.js";
 import { Thunder } from "./player/thunder.js";
 import { bombMecanics } from "./level/element/bomb.js";
+import { renderCardDescription } from "./UI/card-description.js";
 
 // Declare & export the variable used to pause the game
 // Declare & export the function that update pause status
@@ -126,6 +127,8 @@ function animate(timestamp) {
 
   drawSideScreenBackground(ctxScreen, gameScreen, sideScreen);
   drawBackGameBackground(ctxScreen, gameScreen)
+
+  renderCardDescription(selectedBtn)
 
   tileMap.draw(ctxScreen); // draw the map
   const mainPlayer = tileMap.players[0]; // create a variable to make the player easiest to use
