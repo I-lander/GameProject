@@ -1,4 +1,11 @@
-import { pixelUnit, delta, tileMap, tileSize, damageTexts } from "../../app.js";
+import {
+  pixelUnit,
+  delta,
+  tileMap,
+  tileSize,
+  damageTexts,
+  pauseDelta,
+} from "../../app.js";
 import { DrawDamage } from "../utils.js";
 import findPath from "./findPath.js";
 
@@ -82,7 +89,7 @@ export class Monster {
       this.radius
     );
 
-    if (timestamp >= this.lastFrame + 1000 / this.frameRate) {
+    if (timestamp >= this.lastFrame + 1000 / this.frameRate + pauseDelta) {
       this.frameX = this.frameX < horizontalFrame - 1 ? this.frameX + 1 : 0;
       this.lastFrame = timestamp;
     }

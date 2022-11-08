@@ -1,4 +1,4 @@
-import { tileSize, monsters, pixelUnit } from "../../app.js";
+import { tileSize, pauseDelta, monsters, pixelUnit } from "../../app.js";
 import { Projectile } from "../../player/projectile.js";
 
 export class Tower {
@@ -37,7 +37,7 @@ export class Tower {
       monster.distance = Math.hypot(this.x - monster.x, this.y - monster.y);
       if (
         monster.distance < this.stats.range - monster.hitBox &&
-        timestamp >= this.lastAttack + 1000 / this.stats.attackRate
+        timestamp >= this.lastAttack + 1000 / this.stats.attackRate + pauseDelta
       ) {
         const angle = Math.atan2(monster.y - this.y, monster.x - this.x);
         const velocity = {

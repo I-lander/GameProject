@@ -96,15 +96,18 @@ function startGame() {
 // Declare elements used to maintain stable speed for the animation
 
 let lastFrameTimeMs = 0; // The last time the loop was run
+let lastFrameBeforePause = 0
 let maxFPS = 90; // The maximum FPS we want to allow
 let speedFactor = 10;
 let delta = 0;
-export { delta };
+let pauseDelta = 0;
+export { delta, pauseDelta };
 
 // Game Loop method use to create the animation
 
 function animate(timestamp) {
   if (isPause) {
+    pauseDelta = timestamp - lastFrameBeforePause
     lastFrameTimeMs = timestamp;
     requestAnimationFrame(animate);
     return;
@@ -117,13 +120,14 @@ function animate(timestamp) {
   delta = (timestamp - lastFrameTimeMs) / speedFactor; // get the delta time since last frame
 
   lastFrameTimeMs = timestamp;
+  lastFrameBeforePause = timestamp
   ctxScreen.clearRect(0, 0, canvasScreen.width, canvasScreen.height);
 
   drawSideScreenBackground(ctxScreen, gameScreen, sideScreen);
 
   tileMap.draw(ctxScreen); // draw the map
   const mainPlayer = tileMap.players[0]; // create a variable to make the player easiest to use
-  spawnMonsters(); // method that handle any spawning monsters
+  spawnMonsters(timestamp); // method that handle any spawning monsters
 
   tileMap.players.forEach((player, index) => {
     player.draw(ctxScreen);

@@ -1,7 +1,7 @@
 import {
   tileSize,
   pixelUnit,
-  delta,
+  pauseDelta,
   monsters,
   gameScreen,
   sideScreen,
@@ -76,7 +76,7 @@ class Player {
       monster.distance = Math.hypot(this.x - monster.x, this.y - monster.y);
       if (
         monster.distance < this.stats.range - monster.hitBox &&
-        timestamp >= this.lastAttack + 1000 / this.stats.attackRate
+        timestamp >= this.lastAttack + 1000 / this.stats.attackRate + pauseDelta
       ) {
         const angle = Math.atan2(monster.y - this.y, monster.x - this.x);
         this.projectileVelocity = {

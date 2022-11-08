@@ -1,4 +1,4 @@
-import { isPause, monsters, tileSize, tileMap } from "../../app.js";
+import { isPause, pauseDelta, monsters, tileSize, tileMap } from "../../app.js";
 import { Monster } from "./monster.js";
 import { mapSizeX, mapSizeY } from "../../level/map.js";
 import { marginTop, marginLeft } from "../../UI/ScreenInit.js";
@@ -22,13 +22,15 @@ function getRiverLastTile() {
 
 export { getRiverLastTile };
 
-function spawnMonsters() {
-  let timestamp = Date.now();
+function spawnMonsters(timestamp) {
+  if (isPause) {
+    return;
+  }
 
   for (let i = 0; i < tileMap.arrows.length; i++) {
     if (
       !isPause &&
-      timestamp >= tileMap.arrows[i].lastGroundSpawn + 1000 / spawnGroundRate
+      timestamp >= tileMap.arrows[i].lastGroundSpawn + 1000 / spawnGroundRate + pauseDelta
     ) {
       const groundSpawnPosition = getGroundSpawnPosition(tileMap.arrows[i]);
       monsters.push(
