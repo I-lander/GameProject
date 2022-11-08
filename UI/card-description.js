@@ -33,6 +33,8 @@ function renderCardDescription(selectedCard) {
   if (h1Tag) {
     h1Tag.style.color = "rgba(50,50,50, 1)";
     h1Tag.style.lineHeight = `${tileSize * 1.25}px`;
+    h1Tag.style.fontSize = `${24 * pixelUnit}px`;
+
     h1Tag.style.paddingLeft = `${tileSize / 2}px`;
     h1Tag.style.backgroundColor = "white";
     h1Tag.style.height = `${tileSize}px`;
