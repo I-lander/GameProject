@@ -89,7 +89,7 @@ export class Monster {
       this.radius
     );
 
-    if (timestamp >= this.lastFrame + 1000 / this.frameRate + pauseDelta) {
+    if (timestamp >= this.lastFrame + 1000 / this.frameRate) {
       this.frameX = this.frameX < horizontalFrame - 1 ? this.frameX + 1 : 0;
       this.lastFrame = timestamp;
     }

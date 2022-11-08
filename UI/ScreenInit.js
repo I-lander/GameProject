@@ -1,4 +1,4 @@
-import { tileMap, ctxScreen as ctx } from "../app.js";
+import { tileMap, ctxScreen as ctx, pixelUnit, gameScreen } from "../app.js";
 import { mapSizeX, mapSizeY } from "../level/map.js";
 
 const screenRatio = 2 / 3;
@@ -66,4 +66,54 @@ function drawSideScreenBackground(ctx, gameScreen, sideScreen) {
   ctx.restore();
 }
 
-export { screenInit, drawSideScreenBackground, marginTop, marginLeft };
+const stars = [];
+const maxStarts = 100;
+
+function drawBackGameBackground(ctx, gameScreen) {
+  ctx.save();
+  ctx.fillStyle = "rgba(10, 10, 10, 1)";
+  ctx.fillRect(0, 0, gameScreen.width, gameScreen.height);
+  ctx.restore();
+  if (stars.length < maxStarts) {
+    for (let i = 0; i < maxStarts; i++) {
+      generateStars();
+    }
+  }
+  drawStars(ctx);
+}
+
+function generateStars() {
+  const xStar = Math.random() * gameScreen.width;
+  const yStar = Math.random() * gameScreen.height;
+  const starSize = Math.random() * 4 * pixelUnit;
+  const brightness = Math.random() - 0.3;
+
+  stars.push({
+    xStar: xStar,
+    yStar: yStar,
+    starSize: starSize,
+    brightness: brightness,
+  });
+}
+
+function drawStars(ctx) {
+  for (let star = 0; star < stars.length; star++) {
+    ctx.save();
+    ctx.fillStyle = `rgba(250, 250, 250, ${stars[star].brightness})`;
+    ctx.fillRect(
+      stars[star].xStar,
+      stars[star].yStar,
+      stars[star].starSize,
+      stars[star].starSize
+    );
+    ctx.restore();
+  }
+}
+
+export {
+  screenInit,
+  drawSideScreenBackground,
+  drawBackGameBackground,
+  marginTop,
+  marginLeft,
+};

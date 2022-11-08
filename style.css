@@ -26,10 +26,6 @@ canvas {
   position: fixed;
 }
 
-.canvasScreen {
-background-color: #3f3f443b;
-}
-
 .canvasMenu {
   background-color: rgb(61, 63, 65);
 }

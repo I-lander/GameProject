@@ -5,7 +5,7 @@ import { drawMenu } from "./UI/card-creation.js";
 import { CARD_ELEMENTS, SOLID_ELEMENTS } from "./core/constants.js";
 import { possibilityForClick } from "./core/utils.js";
 import { marginLeft, marginTop } from "./UI/ScreenInit.js";
-import { screenInit, drawSideScreenBackground } from "./UI/ScreenInit.js";
+import { screenInit, drawSideScreenBackground, drawBackGameBackground } from "./UI/ScreenInit.js";
 import { Monster } from "./player/NPCs/monster.js";
 import { drawLifeBar, DrawDamage } from "./player/utils.js";
 import { mapSizeX, mapSizeY } from "./level/map.js";
@@ -101,6 +101,7 @@ let maxFPS = 90; // The maximum FPS we want to allow
 let speedFactor = 10;
 let delta = 0;
 let pauseDelta = 0;
+
 export { delta, pauseDelta };
 
 // Game Loop method use to create the animation
@@ -124,6 +125,7 @@ function animate(timestamp) {
   ctxScreen.clearRect(0, 0, canvasScreen.width, canvasScreen.height);
 
   drawSideScreenBackground(ctxScreen, gameScreen, sideScreen);
+  drawBackGameBackground(ctxScreen, gameScreen)
 
   tileMap.draw(ctxScreen); // draw the map
   const mainPlayer = tileMap.players[0]; // create a variable to make the player easiest to use
