@@ -1,7 +1,7 @@
 import { TileMap } from "./level/tileMap.js";
 import { Particle } from "./player/visualEffects.js";
 import { spawnMonsters } from "./player/NPCs/spawn.js";
-import { drawMenu } from "./UI/card-creation.js";
+import { drawCards } from "./UI/card-creation.js";
 import { CARD_ELEMENTS, SOLID_ELEMENTS } from "./core/constants.js";
 import { possibilityForClick } from "./core/utils.js";
 import { marginLeft, marginTop } from "./UI/ScreenInit.js";
@@ -68,7 +68,7 @@ const sideScreen = {
 export { tileMap, tileSize, pixelUnit, gameScreen, sideScreen };
 
 // As this method need the tileSize variable it must be execute after its declaration
-drawMenu();
+drawCards();
 
 // Declare the variable containing the main menu is order to hide it
 

@@ -15,18 +15,26 @@ import { marginTop, marginLeft } from "./ScreenInit.js";
 const buttons = [];
 const maxCardPerLign = 5;
 
-function drawMenu() {
-  createButton("mountain");
-  createButton("village");
-  createButton("river");
-  createButton("tower");
-  createButton("thunder");
-  createButton("bomb");
-  createButton("spider");
-  createButton("arrows");
+const cardDeck = [
+  "mountain",
+  "village",
+  "river",
+  "tower",
+  "thunder",
+  "desert",
+  "lava",
+  "tree",
+  "bomb",
+  "arrows",
+];
+
+function drawCards() {
+  for (let card = 0; card < cardDeck.length; card++) {
+    createCard(cardDeck[card]);
+  }
 }
 
-function createButton(type) {
+function createCard(type) {
   const buttonSize = 64 * pixelUnit;
   const buttonContainer = document.getElementById("buttonContainer");
   buttonContainer.style.height = `${buttonSize * 2}px`;
@@ -96,4 +104,4 @@ function createCloseButton(newButton) {
   };
 }
 
-export { drawMenu, createButton };
+export { drawCards, createCard };
