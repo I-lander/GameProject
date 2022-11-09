@@ -23,7 +23,7 @@ class Player {
       exp: 0,
       force: 3,
       attackRate: 1,
-      range: tileSize * 6.5,
+      range: tileSize * 3.5,
       manaRessource: 9999,
     };
     this.lastAttack = 0;

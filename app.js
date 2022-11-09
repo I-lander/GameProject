@@ -39,6 +39,8 @@ export { monsters, damageTexts };
 
 const canvasScreen = document.getElementById("canvasScreen");
 const ctxScreen = canvasScreen.getContext("2d");
+console.log(ctxScreen);
+
 ctxScreen.imageSmoothingEnabled = false;
 
 export { ctxScreen, canvasScreen };
@@ -321,6 +323,7 @@ function animate(timestamp) {
     tileSize
   );
 
+  pauseDelta = 0
   requestAnimationFrame(animate);
 }
 

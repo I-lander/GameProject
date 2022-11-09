@@ -75,7 +75,20 @@ export class Monster {
 
   draw(ctx, timestamp) {
     const horizontalFrame = this.img.naturalWidth / 32;
-    const verticalFrame = this.img.naturalHeight / 32;
+
+    ctx.save();
+
+    // ctx.globalCompositeOperation = "destination-in";
+    // ctx.fillStyle = "rgb(255,0,0)";
+    // ctx.beginPath()
+    // ctx.rect(
+    //   this.x - this.radius / 2,
+    //   this.y - this.radius / 2,
+    //   this.radius,
+    //   this.radius
+    // );
+    // ctx.closePath()
+    // ctx.fill()
 
     ctx.drawImage(
       this.img,
@@ -93,6 +106,7 @@ export class Monster {
       this.frameX = this.frameX < horizontalFrame - 1 ? this.frameX + 1 : 0;
       this.lastFrame = timestamp;
     }
+    ctx.restore();
   }
 
   isCollideWith(element) {

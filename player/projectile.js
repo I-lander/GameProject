@@ -7,7 +7,7 @@ class Projectile {
     this.radius = 6 * pixelUnit;
     this.color = color;
     this.velocity = velocity;
-    this.speed = 0.03;
+    this.speed = 0.3;
     this.force = force;
     this.sprite = new Image();
     this.spriteSize = tileSize;
