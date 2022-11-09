@@ -23,7 +23,7 @@ class Player {
       exp: 0,
       force: 3,
       attackRate: 1,
-      range: tileSize * 3.5,
+      range: tileSize * 6.5,
       manaRessource: 9999,
     };
     this.lastAttack = 0;
@@ -93,8 +93,8 @@ class Player {
   shoot() {
     this.projectiles.push(
       new Projectile(
-        this.x - this.radius / 2,
-        this.y - this.radius / 2,
+        this.x,
+        this.y,
         "white",
         this.projectileVelocity,
         this.stats.force
