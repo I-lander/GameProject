@@ -39,12 +39,10 @@ export { monsters, damageTexts };
 
 const canvasScreen = document.getElementById("canvasScreen");
 const ctxScreen = canvasScreen.getContext("2d");
-console.log(ctxScreen);
 
 ctxScreen.imageSmoothingEnabled = false;
 
 export { ctxScreen, canvasScreen };
-
 // Create and initialize the game screen and map
 
 const tileMap = new TileMap();
@@ -323,7 +321,7 @@ function animate(timestamp) {
     tileSize
   );
 
-  pauseDelta = 0
+  pauseDelta = 0;
   requestAnimationFrame(animate);
 }
 

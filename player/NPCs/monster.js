@@ -77,19 +77,6 @@ export class Monster {
     const horizontalFrame = this.img.naturalWidth / 32;
 
     ctx.save();
-
-    // ctx.globalCompositeOperation = "destination-in";
-    // ctx.fillStyle = "rgb(255,0,0)";
-    // ctx.beginPath()
-    // ctx.rect(
-    //   this.x - this.radius / 2,
-    //   this.y - this.radius / 2,
-    //   this.radius,
-    //   this.radius
-    // );
-    // ctx.closePath()
-    // ctx.fill()
-
     ctx.drawImage(
       this.img,
       this.frameX * this.spriteSize,
