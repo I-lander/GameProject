@@ -37,7 +37,7 @@ const CARD_ELEMENTS = [
     type: "village",
     value: 10,
     title: "Village",
-    description: "Generate 3 mana every 5 sec.",
+    description: "Generate 3 mana every 5 seconds.",
   },
   {
     type: "tower",
@@ -51,12 +51,38 @@ const CARD_ELEMENTS = [
     title: "Bomb",
     description: "Destroy an element on the grid.",
   },
+  {
+    type: "lava",
+    value: 20,
+    title: "Lava",
+    description: "Any monster that pass through it take damage.",
+  },
+  {
+    type: "desert",
+    value: 15,
+    title: "Desert",
+    description: "Any monster that pass through it are slowed down.",
+  },
+  {
+    type: "tree",
+    value: 20,
+    title: "Tree",
+    description: "Heal 10 HP every 10 seconds.",
+  },
 ];
 
 const MONSTERS_LIST = ["worm", "slime", "bat", "skull", "spider", "fly"];
 
 // Elements that ground monster must dodge
 
-const SOLID_ELEMENTS = ["mountain", "river", "tower", "village"];
+const SOLID_ELEMENTS = [
+  "mountain",
+  "river",
+  "tower",
+  "village",
+  "desert",
+  "tree",
+  "lava",
+];
 
 export { CARD_ELEMENTS, MONSTERS_LIST, SOLID_ELEMENTS };

@@ -32,6 +32,18 @@ export class TileMap {
     this.tower.src = "./src/images/tower.png";
     this.towers = [];
 
+    this.lava = new Image();
+    this.lava.src = "./src/images/lava.png";
+    this.lavas = [];
+
+    this.tree = new Image();
+    this.tree.src = "./src/images/tree.png";
+    this.trees = [];
+
+    this.desert = new Image();
+    this.desert.src = "./src/images/desert.png";
+    this.deserts = [];
+
     this.arrows = [];
 
     this.map = map;
@@ -130,8 +142,43 @@ export class TileMap {
           }
         }
 
+        if (tile === "lava") {
+          ctx.drawImage(
+            this.lava,
+            column * this.tileSize,
+            row * this.tileSize,
+            this.tileSize,
+            this.tileSize
+          );
+          ctx.drawImage(
+            this.lava,
+            column * this.tileSize,
+            row * this.tileSize,
+            this.tileSize,
+            this.tileSize
+          );
+        }
+
+        if (tile === "desert") {
+          ctx.drawImage(
+            this.desert,
+            column * this.tileSize,
+            row * this.tileSize,
+            this.tileSize,
+            this.tileSize
+          );
+          ctx.drawImage(
+            this.desert,
+            column * this.tileSize,
+            row * this.tileSize,
+            this.tileSize,
+            this.tileSize
+          );
+        }
+
         if (tile === "river") {
-          drawRiver(column, row);new Proj
+          drawRiver(column, row);
+          new Proj();
         }
         if (tile === "green") {
           ctx.drawImage(

@@ -1,4 +1,11 @@
-import { tileMap, tileSize, monsters, selectedBtn, ctxScreen, inversePause } from "../app.js";
+import {
+  tileMap,
+  tileSize,
+  monsters,
+  selectedBtn,
+  ctxScreen,
+  inversePause,
+} from "../app.js";
 import { mapSizeX, mapSizeY } from "../level/map.js";
 import { getRiverLastTile } from "../player/NPCs/spawn.js";
 import { SOLID_ELEMENTS } from "./constants.js";
@@ -18,11 +25,7 @@ function possibilityForClick() {
       monsterTiles.push(monsterPosition);
     }
   }
-  if (
-    selectedBtn.type === "mountain" ||
-    selectedBtn.type === "village" ||
-    selectedBtn.type === "tower"
-  ) {
+  if (SOLID_ELEMENTS.includes(selectedBtn.type)) {
     for (let row = 0; row < mapSizeY; row++) {
       for (let column = 0; column < mapSizeX; column++) {
         let tileCoordinate = {

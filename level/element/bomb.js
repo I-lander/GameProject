@@ -3,7 +3,6 @@ import { tileMap } from "../../app.js";
 
 
 function bombMecanics(bombPos) {
-
   for (let i = 0; i < tileMap.deletableElements.length; i++) {
     deleteFromElementArray(tileMap.deletableElements[i], bombPos);
   }
