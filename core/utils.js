@@ -25,7 +25,7 @@ function possibilityForClick() {
       monsterTiles.push(monsterPosition);
     }
   }
-  if (SOLID_ELEMENTS.includes(selectedBtn.type)) {
+  if (SOLID_ELEMENTS.includes(selectedBtn.type) && selectedBtn.type !== "river") {
     for (let row = 0; row < mapSizeY; row++) {
       for (let column = 0; column < mapSizeX; column++) {
         let tileCoordinate = {

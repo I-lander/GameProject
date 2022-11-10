@@ -178,7 +178,6 @@ export class TileMap {
 
         if (tile === "river") {
           drawRiver(column, row);
-          new Proj();
         }
         if (tile === "green") {
           ctx.drawImage(
