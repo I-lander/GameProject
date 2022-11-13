@@ -47,8 +47,8 @@ export class Tower {
         if (this.projectiles.length < 1) {
           this.projectiles.push(
             new Projectile(
-              this.x - tileSize / 2,
-              this.y - tileSize / 2,
+              this.x,
+              this.y,
               "white",
               velocity,
               this.stats.force
