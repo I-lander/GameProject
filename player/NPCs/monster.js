@@ -77,6 +77,7 @@ export class Monster {
     const horizontalFrame = this.img.naturalWidth / 32;
 
     ctx.save();
+    ctx.filter = "grayscale(100%) brightness(1000%)"
     ctx.drawImage(
       this.img,
       this.frameX * this.spriteSize,
@@ -88,6 +89,7 @@ export class Monster {
       this.radius,
       this.radius
     );
+    ctx.filter = "none"
 
     if (timestamp >= this.lastFrame + 1000 / this.frameRate) {
       this.frameX = this.frameX < horizontalFrame - 1 ? this.frameX + 1 : 0;
