@@ -20,6 +20,9 @@ export class Monster {
     this.collide = false;
     this.collideWith = null;
 
+    this.isTakingDamage = false
+    this.damageFrameCount = 0
+
     this.startVec = {
       // Declare the start point for pathfinding
       x: Math.floor(this.x / tileSize),
@@ -31,7 +34,7 @@ export class Monster {
     ); // Declare the target point for pathfinding
     this.path = findPath(this.startVec, this.targetVec, this.type); // Create the path
 
-    this.maxHp = 3;
+    this.maxHp = 6;
     this.stats = {
       hp: this.maxHp,
       force: 1,
@@ -44,7 +47,6 @@ export class Monster {
     this.position = tileMap.getPosition(this.x, this.y);
 
     this.moveToTarget = this.path.shift();
-    this.isImage = image ? true : false;
 
     this.hitBox = tileSize / 3;
 
@@ -75,9 +77,10 @@ export class Monster {
 
   draw(ctx, timestamp) {
     const horizontalFrame = this.img.naturalWidth / 32;
+    this.frameY = this.isTakingDamage ? 1 : 0
 
     ctx.save();
-    ctx.filter = "grayscale(100%) brightness(1000%)"
+    
     ctx.drawImage(
       this.img,
       this.frameX * this.spriteSize,
@@ -89,7 +92,6 @@ export class Monster {
       this.radius,
       this.radius
     );
-    ctx.filter = "none"
 
     if (timestamp >= this.lastFrame + 1000 / this.frameRate) {
       this.frameX = this.frameX < horizontalFrame - 1 ? this.frameX + 1 : 0;
@@ -137,6 +139,11 @@ export class Monster {
   update(ctx) {
     let timestamp = Date.now();
 
+    if(this.isTakingDamage){
+      this.damageFrameCount ++
+    }
+
+    this.damageFrameCount === 10 ? this.isTakingDamage = false : null
     this.draw(ctx, timestamp);
 
     let dx = 0;
@@ -193,5 +200,12 @@ export class Monster {
       this.collide = false;
       this.collideWith = null;
     }
+  }
+
+  takingDamage(damage){
+    this.stats.hp -= damage;
+    this.isTakingDamage = true
+    const damageText = new DrawDamage(this, damage);
+    damageTexts.push(damageText);
   }
 }

@@ -158,9 +158,7 @@ function animate(timestamp) {
         );
         if (distance - monster.hitBox - projectile.radius < 1) {
           player.projectiles.splice(projectileIndex, 1);
-          monster.stats.hp -= projectile.force; // the monster lose as hp as the projectile force
-          const damageText = new DrawDamage(monster, projectile.force);
-          damageTexts.push(damageText);
+          monster.takingDamage(projectile.force);
           mainPlayer.stats.exp++; // earn experience
         }
       });
@@ -292,9 +290,7 @@ function animate(timestamp) {
         );
         if (distance - monster.hitBox - projectile.radius < 1) {
           tower.projectiles.splice(projectileIndex, 1);
-          monster.stats.hp -= projectile.force; // the monster lose as hp as the projectile force
-          const damageText = new DrawDamage(monster, projectile.force);
-          damageTexts.push(damageText);
+          monster.takingDamage(projectile.force);
         }
       });
       projectile.update(ctxScreen);
