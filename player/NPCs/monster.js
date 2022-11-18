@@ -20,8 +20,8 @@ export class Monster {
     this.collide = false;
     this.collideWith = null;
 
-    this.isTakingDamage = false
-    this.damageFrameCount = 0
+    this.isTakingDamage = false;
+    this.damageFrameCount = 0;
 
     this.startVec = {
       // Declare the start point for pathfinding
@@ -42,6 +42,7 @@ export class Monster {
     };
 
     this.lastAttack = 0;
+    this.lastLavaDamage = 0;
 
     this.distance = 0;
     this.position = tileMap.getPosition(this.x, this.y);
@@ -77,10 +78,10 @@ export class Monster {
 
   draw(ctx, timestamp) {
     const horizontalFrame = this.img.naturalWidth / 32;
-    this.frameY = this.isTakingDamage ? 1 : 0
+    this.frameY = this.isTakingDamage ? 1 : 0;
 
     ctx.save();
-    
+
     ctx.drawImage(
       this.img,
       this.frameX * this.spriteSize,
@@ -139,11 +140,24 @@ export class Monster {
   update(ctx) {
     let timestamp = Date.now();
 
-    if(this.isTakingDamage){
-      this.damageFrameCount ++
+    if (this.isTakingDamage) {
+      this.damageFrameCount++;
+    }
+    if (this.damageFrameCount === 10) {
+      this.isTakingDamage = false;
+      this.damageFrameCount = 0;
     }
 
-    this.damageFrameCount === 10 ? this.isTakingDamage = false : null
+    this.position = tileMap.getPosition(this.x, this.y);
+
+    if (
+      timestamp >= this.lastLavaDamage + 1000 &&
+      tileMap.map[this.position.y][this.position.x] === "lava"
+    ) {
+      !this.isTakingDamage ? this.takingDamage(1) : null;
+      this.lastLavaDamage = timestamp;
+    }
+
     this.draw(ctx, timestamp);
 
     let dx = 0;
@@ -202,9 +216,9 @@ export class Monster {
     }
   }
 
-  takingDamage(damage){
+  takingDamage(damage) {
     this.stats.hp -= damage;
-    this.isTakingDamage = true
+    this.isTakingDamage = true;
     const damageText = new DrawDamage(this, damage);
     damageTexts.push(damageText);
   }

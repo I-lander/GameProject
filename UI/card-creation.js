@@ -26,6 +26,7 @@ const cardDeck = [
   "tree",
   "bomb",
   "arrows",
+  // "spider",
 ];
 
 function drawCards() {
