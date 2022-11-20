@@ -30,10 +30,11 @@ export class Monster {
       x: Math.floor(this.x / tileSize),
       y: Math.floor(this.y / tileSize),
     };
-    this.targetVec = tileMap.getPosition(
+    this.defaultTargetVec = tileMap.getPosition(
       tileMap.players[0].x,
       tileMap.players[0].y
-    ); // Declare the target point for pathfinding
+    );
+    this.targetVec = this.defaultTargetVec;
     this.path = findPath(this.startVec, this.targetVec, this.type); // Create the path
 
     this.maxHp = 6;
@@ -245,7 +246,7 @@ export class Monster {
           (visitedStar) => visitedStar.x === star.x && visitedStar.y === star.y
         )
       ) {
-        this.targetVec = tileMap.getPosition(star.x, star.y);
+        this.targetVec = star.position;
         this.findingPath();
         this.visitedStars.push(star);
       }
@@ -256,7 +257,19 @@ export class Monster {
         );
         this.findingPath();
       }
-      
+    }
+    if (
+      !tileMap.stars.some(
+        (star) =>
+          star.position.x === this.targetVec.x &&
+          star.position.y === this.targetVec.y
+      )
+    ) {
+      this.targetVec = tileMap.getPosition(
+        tileMap.players[0].x,
+        tileMap.players[0].y
+      );
+      this.findingPath();
     }
   }
 }
