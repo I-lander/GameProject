@@ -14,6 +14,7 @@ import { marginTop, marginLeft } from "./ScreenInit.js";
 
 const buttons = [];
 const maxCardPerLign = 5;
+let line = 0;
 
 const cardDeck = [
   "mountain",
@@ -35,7 +36,6 @@ function drawCards() {
     createCard(cardDeck[card]);
   }
 }
-let line = 0;
 function createCard(type) {
   const cardSelected = CARD_ELEMENTS.find((card) => {
     return card.type === type;
