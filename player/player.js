@@ -18,7 +18,7 @@ class Player {
 
     this.maxHp = 30;
     this.stats = {
-      hp: this.maxHp / 2,
+      hp: this.maxHp,
       nextLvl: 1,
       exp: 0,
       force: 3,

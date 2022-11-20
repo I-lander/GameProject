@@ -27,7 +27,7 @@ const cardDeck = [
   "bomb",
   "star",
   "arrows",
-  // "spider",
+  "spider",
 ];
 
 function drawCards() {
@@ -35,7 +35,7 @@ function drawCards() {
     createCard(cardDeck[card]);
   }
 }
-
+let line = 0;
 function createCard(type) {
   const cardSelected = CARD_ELEMENTS.find((card) => {
     return card.type === type;
@@ -43,12 +43,10 @@ function createCard(type) {
   const buttonSize = 64 * pixelUnit;
   const buttonContainer = document.getElementById("buttonContainer");
   buttonContainer.style.height = `${buttonSize * 2}px`;
-  let Xpos = buttons.length * buttonSize;
-  let Ypos = 0;
-  if (Xpos > buttonSize * (maxCardPerLign - 1)) {
-    Ypos = buttonSize;
-    Xpos = (buttons.length - maxCardPerLign) * buttonSize;
-  }
+  let Xpos = (buttons.length % maxCardPerLign) * buttonSize;
+  line = (buttons.length % maxCardPerLign) * buttonSize ? line : line + 1;
+  let Ypos = buttonSize * (line-1);
+
   let newButton = document.createElement("button");
   buttonContainer.appendChild(newButton);
   newButton.id = `${type + buttons.length}`;
@@ -69,12 +67,26 @@ function createCard(type) {
   cardValueText.innerText = `${cardSelected.value}`;
   cardValueText.style.position = "absolute";
   cardValueText.style.left = `${Xpos}px`;
-  cardValueText.style.top = `${Ypos + 7*pixelUnit}px`;
+  cardValueText.style.top = `${Ypos + 7 * pixelUnit}px`;
   cardValueText.style.width = `${buttonSize}px`;
   cardValueText.style.textAlign = "center";
-  cardValueText.style.fontSize = `${5*pixelUnit}px`;
+  cardValueText.style.fontSize = `${5 * pixelUnit}px`;
   cardValueText.style.userSelect = "none";
 
+  let cardTitleText = document.createElement("p");
+  buttonContainer.appendChild(cardTitleText);
+
+  cardTitleText.innerText = `${cardSelected.title}`;
+  cardTitleText.style.position = "absolute";
+  cardTitleText.style.left = `${Xpos + 16 * pixelUnit}px`;
+  cardTitleText.style.top = `${Ypos + 54 * pixelUnit}px`;
+  cardTitleText.style.width = `${32 * pixelUnit}px`;
+  cardTitleText.style.height = `${10 * pixelUnit}px`;
+  cardTitleText.style.textAlign = "center";
+  cardTitleText.style.verticalAlign = "middle";
+  cardTitleText.style.fontSize = `${4 * pixelUnit}px`;
+  cardTitleText.style.display = "table-cell";
+  cardTitleText.style.userSelect = "none";
 
   buttons.push(newButton);
 
