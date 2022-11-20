@@ -90,8 +90,8 @@ const findPath = (start, target, type) => {
   }
 
   parentForKey[targetKey].position = {
-    x: Math.floor(mapSizeX / 2),
-    y: Math.floor(mapSizeY / 2),
+    x: target.x,
+    y: target.y,
   };
   let currentPos = parentForKey[targetKey].position;
 

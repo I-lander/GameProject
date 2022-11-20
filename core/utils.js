@@ -142,6 +142,10 @@ function possibilityForClick() {
         if (
           tile !== "arrows" &&
           tile !== "mountain" &&
+          tile !== "tower" &&
+          tile !== "village" &&
+          tile !== "star" &&
+          tile !== "tree" &&
           (row === 0 ||
             row === mapSizeY - 1 ||
             column === 0 ||

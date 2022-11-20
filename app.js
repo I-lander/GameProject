@@ -128,53 +128,12 @@ function animate(timestamp) {
   lastFrameBeforePause = timestamp;
   ctxScreen.clearRect(0, 0, canvasScreen.width, canvasScreen.height);
 
-  drawSideScreenBackground(ctxScreen, gameScreen, sideScreen);
   drawBackGameBackground(ctxScreen, gameScreen);
-
   renderCardDescription(selectedBtn);
 
   tileMap.draw(ctxScreen); // draw the map
   const mainPlayer = tileMap.players[0]; // create a variable to make the player easiest to use
   spawnMonsters(timestamp); // method that handle any spawning monsters
-
-  tileMap.players.forEach((player, index) => {
-    player.draw(ctxScreen);
-
-    // Condition of death GAME OVER
-
-    if (mainPlayer.stats.hp <= 0) {
-      mainMenu.classList.remove("disable");
-      isPause = true;
-      init();
-    }
-
-    // Loop on any player's projectiles & monsters to check if it touch an monster
-
-    player.projectiles.forEach((projectile, projectileIndex) => {
-      monsters.forEach((monster, index) => {
-        const distance = Math.hypot(
-          projectile.x - monster.x,
-          projectile.y - monster.y
-        );
-        if (distance - monster.hitBox - projectile.radius < 1) {
-          player.projectiles.splice(projectileIndex, 1);
-          !monster.isTakingDame ? monster.takingDamage(projectile.force) : null;
-          mainPlayer.stats.exp++; // earn experience
-        }
-      });
-      projectile.update(ctxScreen);
-      if (
-        projectile.x + projectile.radius < 1 ||
-        projectile.y + projectile.radius < 1 ||
-        projectile.x - projectile.radius > gameScreen.width ||
-        projectile.y - projectile.radius > gameScreen.height
-      ) {
-        setTimeout(() => {
-          player.projectiles.splice(projectileIndex, 1);
-        });
-      }
-    });
-  });
 
   // Delete particles when too small
 
@@ -275,6 +234,11 @@ function animate(timestamp) {
     tree.update(ctxScreen);
   }
 
+  for (let i = 0; i < tileMap.stars.length; i++) {
+    const star = tileMap.stars[i];
+    star.update(ctxScreen);
+  }
+
   for (let i = 0; i < thunders.length; i++) {
     const thunder = thunders[i];
     thunder.update(ctxScreen);
@@ -322,6 +286,46 @@ function animate(timestamp) {
     tileSize
   );
 
+  drawSideScreenBackground(ctxScreen, gameScreen, sideScreen);
+  tileMap.players.forEach((player, index) => {
+    player.draw(ctxScreen);
+
+    // Condition of death GAME OVER
+
+    if (mainPlayer.stats.hp <= 0) {
+      mainMenu.classList.remove("disable");
+      isPause = true;
+      init();
+    }
+
+    // Loop on any player's projectiles & monsters to check if it touch an monster
+
+    player.projectiles.forEach((projectile, projectileIndex) => {
+      monsters.forEach((monster, index) => {
+        const distance = Math.hypot(
+          projectile.x - monster.x,
+          projectile.y - monster.y
+        );
+        if (distance - monster.hitBox - projectile.radius < 1) {
+          player.projectiles.splice(projectileIndex, 1);
+          !monster.isTakingDame ? monster.takingDamage(projectile.force) : null;
+          mainPlayer.stats.exp++; // earn experience
+        }
+      });
+      projectile.update(ctxScreen);
+      if (
+        projectile.x + projectile.radius < 1 ||
+        projectile.y + projectile.radius < 1 ||
+        projectile.x - projectile.radius > gameScreen.width ||
+        projectile.y - projectile.radius > gameScreen.height
+      ) {
+        setTimeout(() => {
+          player.projectiles.splice(projectileIndex, 1);
+        });
+      }
+    });
+  });
+
   pauseDelta = 0;
   requestAnimationFrame(animate);
 }
@@ -365,7 +369,6 @@ canvasScreen.addEventListener("click", (event) => {
     });
     inversePause();
   }
-
   if (selectedBtn && selectedBtn.type === "thunder") {
     const thunder = new Thunder(x, y);
     thunders.push(thunder);

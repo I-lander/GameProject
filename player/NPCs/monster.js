@@ -20,6 +20,8 @@ export class Monster {
     this.collide = false;
     this.collideWith = null;
 
+    this.visitedStars = [];
+
     this.isTakingDamage = false;
     this.damageFrameCount = 0;
 
@@ -68,10 +70,7 @@ export class Monster {
       x: Math.floor(this.x / tileSize),
       y: Math.floor(this.y / tileSize),
     };
-    this.targetVec = tileMap.getPosition(
-      tileMap.players[0].x,
-      tileMap.players[0].y
-    );
+
     this.path = findPath(this.startVec, this.targetVec, this.type); // Create the path
     this.moveToTarget = this.path.shift();
   }
@@ -140,6 +139,8 @@ export class Monster {
   update(ctx) {
     let timestamp = Date.now();
 
+    this.starMecanics();
+
     if (this.isTakingDamage) {
       this.damageFrameCount++;
     }
@@ -149,7 +150,7 @@ export class Monster {
     }
 
     this.position = tileMap.getPosition(this.x, this.y);
-    let currentTile = tileMap.map[this.position.y][this.position.x]
+    let currentTile = tileMap.map[this.position.y][this.position.x];
 
     if (
       timestamp >= this.lastLavaDamage + 1000 + pauseDelta &&
@@ -179,10 +180,12 @@ export class Monster {
         y: Math.sin(angle),
       };
 
-      let slowDownFactor = currentTile === "desert" ? 0.5 : 1
+      let slowDownFactor = currentTile === "desert" ? 0.5 : 1;
 
-      this.x += this.velocity.x * pixelUnit * delta * this.speed * slowDownFactor;
-      this.y += this.velocity.y * pixelUnit * delta * this.speed * slowDownFactor;
+      this.x +=
+        this.velocity.x * pixelUnit * delta * this.speed * slowDownFactor;
+      this.y +=
+        this.velocity.y * pixelUnit * delta * this.speed * slowDownFactor;
 
       if (dx === 0 && dy === 0) {
         if (this.path && this.path.length > 0) {
@@ -224,5 +227,36 @@ export class Monster {
     this.isTakingDamage = true;
     const damageText = new DrawDamage(this, damage);
     damageTexts.push(damageText);
+  }
+
+  starMecanics() {
+    const minDistance = 2;
+    for (let i = 0; i < tileMap.stars.length; i++) {
+      let star = tileMap.stars[i];
+      let distance = Math.hypot(
+        star.x - this.x + tileSize / 2,
+        star.y - this.y + tileSize / 2
+      );
+
+      if (
+        distance - star.stats.range <= 0 &&
+        distance > minDistance &&
+        !this.visitedStars.some(
+          (visitedStar) => visitedStar.x === star.x && visitedStar.y === star.y
+        )
+      ) {
+        this.targetVec = tileMap.getPosition(star.x, star.y);
+        this.findingPath();
+        this.visitedStars.push(star);
+      }
+      if (distance <= minDistance) {
+        this.targetVec = tileMap.getPosition(
+          tileMap.players[0].x,
+          tileMap.players[0].y
+        );
+        this.findingPath();
+      }
+      
+    }
   }
 }

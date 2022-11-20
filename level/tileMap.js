@@ -42,10 +42,6 @@ export class TileMap {
     this.lava.src = "./src/images/lava.png";
     this.lavas = [];
 
-    this.tree = new Image();
-    this.tree.src = "./src/images/tree.png";
-    this.trees = [];
-
     this.desert = new Image();
     this.desert.src = "./src/images/desert.png";
     this.deserts = [];
@@ -239,13 +235,13 @@ export class TileMap {
               (star) => star.position.x === column && star.position.y === row
             )
           ) {
-            let star = new Star(column, row);
+            let star = new Star(column, row, this.star);
             this.stars.push(star);
           }
         }
       }
     }
-    this.deletableElements = [this.mountains, this.villages, this.trees, this.towers];
+    this.deletableElements = [this.mountains, this.villages, this.trees, this.towers, this.stars];
   }
 
   init() {
@@ -254,6 +250,7 @@ export class TileMap {
     this.villages = [];
     this.towers = [];
     this.arrows = [];
+    this.stars = [];
     createMap();
     this.map = map;
   }

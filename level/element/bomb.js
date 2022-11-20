@@ -1,4 +1,4 @@
-import { tileMap } from "../../app.js";
+import { monsters, tileMap } from "../../app.js";
 
 
 
@@ -11,8 +11,15 @@ function bombMecanics(bombPos) {
 function deleteFromElementArray(elementArray, bombPos) {
   for (let i = 0; i < elementArray.length; i++) {
     const element = elementArray[i];
+    if(element.type === "star"){
+      for(let i=0; i<monsters.length;i++){
+        let monster = monsters[i]
+        monster.findingPath()
+      }
+    };
     if (element.position.x === bombPos.x && element.position.y === bombPos.y) {
       elementArray.splice(i, 1);
+
     }
   }
 }
