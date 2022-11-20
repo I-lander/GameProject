@@ -270,6 +270,11 @@ function animate(timestamp) {
     village.update(ctxScreen);
   }
 
+  for (let i = 0; i < tileMap.trees.length; i++) {
+    const tree = tileMap.trees[i];
+    tree.update(ctxScreen);
+  }
+
   for (let i = 0; i < thunders.length; i++) {
     const thunder = thunders[i];
     thunder.update(ctxScreen);

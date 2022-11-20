@@ -149,10 +149,11 @@ export class Monster {
     }
 
     this.position = tileMap.getPosition(this.x, this.y);
+    let currentTile = tileMap.map[this.position.y][this.position.x]
 
     if (
-      timestamp >= this.lastLavaDamage + 1000 &&
-      tileMap.map[this.position.y][this.position.x] === "lava"
+      timestamp >= this.lastLavaDamage + 1000 + pauseDelta &&
+      currentTile === "lava"
     ) {
       !this.isTakingDamage ? this.takingDamage(1) : null;
       this.lastLavaDamage = timestamp;
@@ -178,8 +179,10 @@ export class Monster {
         y: Math.sin(angle),
       };
 
-      this.x += this.velocity.x * pixelUnit * delta * this.speed;
-      this.y += this.velocity.y * pixelUnit * delta * this.speed;
+      let slowDownFactor = currentTile === "desert" ? 0.5 : 1
+
+      this.x += this.velocity.x * pixelUnit * delta * this.speed * slowDownFactor;
+      this.y += this.velocity.y * pixelUnit * delta * this.speed * slowDownFactor;
 
       if (dx === 0 && dy === 0) {
         if (this.path && this.path.length > 0) {

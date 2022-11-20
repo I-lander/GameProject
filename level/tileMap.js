@@ -6,7 +6,9 @@ import { monsters, pixelUnit } from "../app.js";
 import { Village } from "./element/village.js";
 import { Tower } from "./element/tower.js";
 import { drawArrows, Arrow } from "./spawningArrows.js";
+import { Star } from "./element/star.js";
 import { selectedBtn } from "../app.js";
+import { Tree } from "./element/tree.js";
 
 const canvasScreen = document.getElementById("canvasScreen");
 const ctxScreen = canvasScreen.getContext("2d");
@@ -28,6 +30,10 @@ export class TileMap {
     this.village.src = "./src/images/village.png";
     this.villages = [];
 
+    this.tree = new Image();
+    this.tree.src = "./src/images/tree.png";
+    this.trees = [];
+
     this.tower = new Image();
     this.tower.src = "./src/images/tower.png";
     this.towers = [];
@@ -44,6 +50,10 @@ export class TileMap {
     this.desert.src = "./src/images/desert.png";
     this.deserts = [];
 
+    this.star = new Image();
+    this.star.src = "./src/images/star.png";
+    this.stars = [];
+
     this.arrows = [];
 
     this.map = map;
@@ -56,6 +66,7 @@ export class TileMap {
         if (tile === "bomb") {
           this.map[row][column] = "0";
         }
+
         if (tile === "0") {
           ctx.save();
           ctx.strokeStyle = "rgba(255, 255, 255, 0.05)";
@@ -68,6 +79,7 @@ export class TileMap {
           );
           ctx.restore();
         }
+
         if (tile === "1") {
           if (
             !this.players.some(
@@ -86,6 +98,7 @@ export class TileMap {
             this.players.push(player);
           }
         }
+
         if (tile === "mountain") {
           ctx.drawImage(
             this.mountain,
@@ -121,6 +134,25 @@ export class TileMap {
           ) {
             let village = new Village(column, row);
             this.villages.push(village);
+          }
+        }
+
+        if (tile === "tree") {
+          ctx.drawImage(
+            this.tree,
+            column * this.tileSize,
+            row * this.tileSize,
+            this.tileSize,
+            this.tileSize
+          );
+          if (
+            !this.trees.some(
+              (tree) =>
+                tree.position.x === column && tree.position.y === row
+            )
+          ) {
+            let tree = new Tree(column, row);
+            this.trees.push(tree);
           }
         }
 
@@ -200,9 +232,20 @@ export class TileMap {
             this.arrows.push(arrow);
           }
         }
+
+        if (tile === "star") {
+          if (
+            !this.stars.some(
+              (star) => star.position.x === column && star.position.y === row
+            )
+          ) {
+            let star = new Star(column, row);
+            this.stars.push(star);
+          }
+        }
       }
     }
-    this.deletableElements = [this.mountains, this.villages, this.towers];
+    this.deletableElements = [this.mountains, this.villages, this.trees, this.towers];
   }
 
   init() {

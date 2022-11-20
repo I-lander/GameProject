@@ -18,7 +18,7 @@ class Player {
 
     this.maxHp = 30;
     this.stats = {
-      hp: this.maxHp,
+      hp: this.maxHp / 2,
       nextLvl: 1,
       exp: 0,
       force: 3,
@@ -42,6 +42,10 @@ class Player {
 
   draw(ctx) {
     let timestamp = Date.now();
+
+    if(this.stats.hp > this.maxHp){
+      this.stats.hp = this.maxHp
+    }
 
     ctx.drawImage(
       this.img,

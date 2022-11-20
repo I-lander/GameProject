@@ -25,6 +25,7 @@ const cardDeck = [
   "lava",
   "tree",
   "bomb",
+  "star",
   "arrows",
   // "spider",
 ];
@@ -36,6 +37,9 @@ function drawCards() {
 }
 
 function createCard(type) {
+  const cardSelected = CARD_ELEMENTS.find((card) => {
+    return card.type === type;
+  });
   const buttonSize = 64 * pixelUnit;
   const buttonContainer = document.getElementById("buttonContainer");
   buttonContainer.style.height = `${buttonSize * 2}px`;
@@ -59,12 +63,22 @@ function createCard(type) {
   newButton.style.width = `${buttonSize}px`;
   newButton.style.height = `${buttonSize}px`;
 
+  let cardValueText = document.createElement("p");
+  buttonContainer.appendChild(cardValueText);
+
+  cardValueText.innerText = `${cardSelected.value}`;
+  cardValueText.style.position = "absolute";
+  cardValueText.style.left = `${Xpos}px`;
+  cardValueText.style.top = `${Ypos + 7*pixelUnit}px`;
+  cardValueText.style.width = `${buttonSize}px`;
+  cardValueText.style.textAlign = "center";
+  cardValueText.style.fontSize = `${5*pixelUnit}px`;
+  cardValueText.style.userSelect = "none";
+
+
   buttons.push(newButton);
 
   newButton.onclick = function () {
-    const cardSelected = CARD_ELEMENTS.find((card) => {
-      return card.type === type;
-    });
     if (
       !isPause &&
       cardSelected.value <= tileMap.players[0].stats.manaRessource &&

@@ -65,9 +65,15 @@ const CARD_ELEMENTS = [
   },
   {
     type: "tree",
-    value: 20,
+    value: 100,
     title: "Tree",
-    description: "Heal 10 HP every 10 seconds.",
+    description: "Heal 1 HP every 5 seconds.",
+  },
+  {
+    type: "star",
+    value: 20,
+    title: "Star",
+    description: "Force monster to follow their path.",
   },
 ];
 
@@ -83,8 +89,9 @@ const SOLID_ELEMENTS = [
   "desert",
   "tree",
   "lava",
+  "star"
 ];
 
-const FRANCHISSABLE_ELEMENTS = ["lava", "desert"];
+const FRANCHISSABLE_ELEMENTS = ["lava", "desert","star"];
 
 export { CARD_ELEMENTS, MONSTERS_LIST, SOLID_ELEMENTS, FRANCHISSABLE_ELEMENTS };
