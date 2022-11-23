@@ -139,8 +139,8 @@ export class Monster {
 
   update(ctx) {
     let timestamp = Date.now();
-
     this.starMecanics();
+
 
     if (this.isTakingDamage) {
       this.damageFrameCount++;
@@ -232,6 +232,8 @@ export class Monster {
 
   starMecanics() {
     const minDistance = 2;
+    let previousTarget
+
     for (let i = 0; i < tileMap.stars.length; i++) {
       let star = tileMap.stars[i];
       let distance = Math.hypot(
@@ -246,16 +248,14 @@ export class Monster {
           (visitedStar) => visitedStar.x === star.x && visitedStar.y === star.y
         )
       ) {
-        this.targetVec = star.position;
-        this.findingPath();
+        previousTarget = star.position;
         this.visitedStars.push(star);
       }
       if (distance <= minDistance) {
-        this.targetVec = tileMap.getPosition(
+        previousTarget = tileMap.getPosition(
           tileMap.players[0].x,
           tileMap.players[0].y
         );
-        this.findingPath();
       }
     }
     if (
@@ -269,7 +269,11 @@ export class Monster {
         tileMap.players[0].x,
         tileMap.players[0].y
       );
-      this.findingPath();
+    }
+
+    if(previousTarget && previousTarget.x !== this.targetVec.x && !previousTarget.y !== this.targetVec.y){
+      this.targetVec = previousTarget
+      this.findingPath()
     }
   }
 }
