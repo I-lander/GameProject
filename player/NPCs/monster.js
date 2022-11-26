@@ -35,6 +35,7 @@ export class Monster {
       tileMap.players[0].y
     );
     this.targetVec = this.defaultTargetVec;
+    this.lastTargetVec = this.targetVec;
     this.path = findPath(this.startVec, this.targetVec, this.type); // Create the path
 
     this.maxHp = 6;
@@ -66,6 +67,12 @@ export class Monster {
   }
 
   findingPath() {
+    if (
+      this.lastTargetVec.x === this.targetVec.x &&
+      this.lastTargetVec.y === this.targetVec.y
+    ) {
+      return;
+    }
     this.startVec = {
       // Declare the start point for pathfinding
       x: Math.floor(this.x / tileSize),
@@ -139,8 +146,8 @@ export class Monster {
 
   update(ctx) {
     let timestamp = Date.now();
-    this.starMecanics();
 
+    this.starMecanics();
 
     if (this.isTakingDamage) {
       this.damageFrameCount++;
@@ -204,6 +211,8 @@ export class Monster {
       this.attack(this.collideWith, ctx);
       this.lastAttack = timestamp;
     }
+
+    this.lastTargetVec = this.targetVec;
   }
 
   attack(collideWith, ctx) {
@@ -232,8 +241,6 @@ export class Monster {
 
   starMecanics() {
     const minDistance = 2;
-    let previousTarget
-
     for (let i = 0; i < tileMap.stars.length; i++) {
       let star = tileMap.stars[i];
       let distance = Math.hypot(
@@ -248,14 +255,16 @@ export class Monster {
           (visitedStar) => visitedStar.x === star.x && visitedStar.y === star.y
         )
       ) {
-        previousTarget = star.position;
+        this.targetVec = star.position;
+        this.findingPath();
         this.visitedStars.push(star);
       }
       if (distance <= minDistance) {
-        previousTarget = tileMap.getPosition(
+        this.targetVec = tileMap.getPosition(
           tileMap.players[0].x,
           tileMap.players[0].y
         );
+        this.findingPath();
       }
     }
     if (
@@ -269,11 +278,7 @@ export class Monster {
         tileMap.players[0].x,
         tileMap.players[0].y
       );
-    }
-
-    if(previousTarget && previousTarget.x !== this.targetVec.x && !previousTarget.y !== this.targetVec.y){
-      this.targetVec = previousTarget
-      this.findingPath()
+      this.findingPath();
     }
   }
 }
