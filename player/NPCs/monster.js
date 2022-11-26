@@ -66,8 +66,9 @@ export class Monster {
     this.lastFrame = 0;
   }
 
-  findingPath() {
+  findingPath(forceUpdate = true) {
     if (
+      !forceUpdate &&
       this.lastTargetVec.x === this.targetVec.x &&
       this.lastTargetVec.y === this.targetVec.y
     ) {
@@ -240,7 +241,7 @@ export class Monster {
   }
 
   starMecanics() {
-    const minDistance = 2;
+    const minDistance = 2 * pixelUnit;
     for (let i = 0; i < tileMap.stars.length; i++) {
       let star = tileMap.stars[i];
       let distance = Math.hypot(
@@ -256,15 +257,13 @@ export class Monster {
         )
       ) {
         this.targetVec = star.position;
-        this.findingPath();
+        this.findingPath(false);
         this.visitedStars.push(star);
       }
+      console.log(minDistance,distance);
       if (distance <= minDistance) {
-        this.targetVec = tileMap.getPosition(
-          tileMap.players[0].x,
-          tileMap.players[0].y
-        );
-        this.findingPath();
+        this.targetVec = this.defaultTargetVec;
+        this.findingPath(false);
       }
     }
     if (
@@ -274,11 +273,8 @@ export class Monster {
           star.position.y === this.targetVec.y
       )
     ) {
-      this.targetVec = tileMap.getPosition(
-        tileMap.players[0].x,
-        tileMap.players[0].y
-      );
-      this.findingPath();
+      this.targetVec = this.defaultTargetVec;
+      this.findingPath(false);
     }
   }
 }
