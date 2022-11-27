@@ -31,7 +31,7 @@ const CARD_ELEMENTS = [
     value: 5,
     title: "River",
     description:
-      "Create a river path. It can block monsters.</br> The river start from the center. </br> A river Tile must be connected to the last one.",
+      "Create a river path. It can block monsters.</br> The river start from the center.</br>A river Tile must be connected to the last one.",
   },
   {
     type: "village",

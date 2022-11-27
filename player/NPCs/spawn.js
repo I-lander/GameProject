@@ -1,4 +1,11 @@
-import { isPause, pauseDelta, monsters, tileSize, tileMap } from "../../app.js";
+import {
+  isPause,
+  pauseDelta,
+  monsters,
+  tileSize,
+  tileMap,
+  inverseLeveUp,
+} from "../../app.js";
 import { Monster } from "./monster.js";
 import { mapSizeX, mapSizeY } from "../../level/map.js";
 import { marginTop, marginLeft } from "../../UI/ScreenInit.js";
@@ -29,6 +36,16 @@ function spawnMonsters(timestamp) {
 
   for (let i = 0; i < tileMap.arrows.length; i++) {
     const arrow = tileMap.arrows[i];
+    if (arrow.monstersCount === arrow.MaxmonstersCount) {
+      if (monsters.length === 0) {
+        tileMap.arrows.forEach((arrow) => {
+          arrow.monstersCount = 0;
+          arrow.MaxmonstersCount ++;
+        });
+        inverseLeveUp();
+      }
+      return;
+    }
     if (
       !isPause &&
       timestamp >= arrow.lastGroundSpawn + 1000 / spawnGroundRate + pauseDelta

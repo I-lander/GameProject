@@ -61,6 +61,7 @@ function createCard(type) {
   newButton.style.width = `${buttonSize}px`;
   newButton.style.height = `${buttonSize}px`;
 
+
   let cardValueText = document.createElement("p");
   buttonContainer.appendChild(cardValueText);
 

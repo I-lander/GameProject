@@ -26,6 +26,7 @@ class Player {
       range: tileSize * 3.5,
       manaRessource: 9999,
     };
+    this.level = 1
     this.lastAttack = 0;
     this.isAttacking = false;
 

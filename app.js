@@ -108,11 +108,17 @@ let delta = 0;
 let pauseDelta = 0;
 let levelUp = true;
 
-function updateLeveUp(levelUp) {
+function inverseLeveUp() {
   levelUp = !levelUp;
 }
 
-export { delta, pauseDelta, updateLeveUp };
+let selectedBtn;
+
+function updateSelectedBtn(btn) {
+  selectedBtn = btn;
+}
+
+export { delta, pauseDelta, inverseLeveUp };
 
 // Game Loop method use to create the animation
 
@@ -127,7 +133,7 @@ function animate(timestamp) {
     requestAnimationFrame(animate);
     return;
   }
-
+  
   delta = (timestamp - lastFrameTimeMs) / speedFactor; // get the delta time since last frame
 
   lastFrameTimeMs = timestamp;
@@ -141,10 +147,10 @@ function animate(timestamp) {
   const mainPlayer = tileMap.players[0]; // create a variable to make the player easiest to use
   spawnMonsters(timestamp); // method that handle any spawning monsters
 
-  // if (levelUp) {
-  //   isPause = true;
-  //   levelUpScreen(levelUp);
-  // }
+  if (levelUp) {
+    isPause = true;
+    levelUpScreen(levelUp);
+  }
 
   // Delete particles when too small
 
@@ -344,11 +350,7 @@ function animate(timestamp) {
 // Declare & export the button pressed in order to delete it after it was used
 // Declare & export function to update this button
 
-let selectedBtn;
 
-function updateSelectedBtn(btn) {
-  selectedBtn = btn;
-}
 
 export { selectedBtn, updateSelectedBtn };
 

@@ -260,7 +260,6 @@ export class Monster {
         this.findingPath(false);
         this.visitedStars.push(star);
       }
-      console.log(minDistance,distance);
       if (distance <= minDistance) {
         this.targetVec = this.defaultTargetVec;
         this.findingPath(false);

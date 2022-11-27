@@ -12,7 +12,6 @@ import { SOLID_ELEMENTS } from "./constants.js";
 
 function possibilityForClick() {
   let monsterTiles = [];
-
   for (let i = 0; i < monsters.length; i++) {
     const monsterPosition = tileMap.getPosition(monsters[i].x, monsters[i].y);
     if (tileMap.map[monsterPosition.y][monsterPosition.x] !== "0") {
