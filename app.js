@@ -15,6 +15,7 @@ import { mapSizeX, mapSizeY } from "./level/map.js";
 import { Thunder } from "./player/thunder.js";
 import { bombMecanics } from "./level/element/bomb.js";
 import { renderCardDescription } from "./UI/card-description.js";
+import { levelUpScreen } from "./core/levelUp/levelUp.js";
 
 // Declare & export the variable used to pause the game
 // Declare & export the function that update pause status
@@ -105,8 +106,13 @@ let maxFPS = 90; // The maximum FPS we want to allow
 let speedFactor = 10;
 let delta = 0;
 let pauseDelta = 0;
+let levelUp = true;
 
-export { delta, pauseDelta };
+function updateLeveUp(levelUp) {
+  levelUp = !levelUp;
+}
+
+export { delta, pauseDelta, updateLeveUp };
 
 // Game Loop method use to create the animation
 
@@ -134,6 +140,11 @@ function animate(timestamp) {
   tileMap.draw(ctxScreen); // draw the map
   const mainPlayer = tileMap.players[0]; // create a variable to make the player easiest to use
   spawnMonsters(timestamp); // method that handle any spawning monsters
+
+  // if (levelUp) {
+  //   isPause = true;
+  //   levelUpScreen(levelUp);
+  // }
 
   // Delete particles when too small
 

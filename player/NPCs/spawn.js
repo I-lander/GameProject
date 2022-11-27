@@ -28,11 +28,12 @@ function spawnMonsters(timestamp) {
   }
 
   for (let i = 0; i < tileMap.arrows.length; i++) {
+    const arrow = tileMap.arrows[i];
     if (
       !isPause &&
-      timestamp >= tileMap.arrows[i].lastGroundSpawn + 1000 / spawnGroundRate + pauseDelta
+      timestamp >= arrow.lastGroundSpawn + 1000 / spawnGroundRate + pauseDelta
     ) {
-      const groundSpawnPosition = getGroundSpawnPosition(tileMap.arrows[i]);
+      const groundSpawnPosition = getGroundSpawnPosition(arrow);
       monsters.push(
         new Monster(
           groundSpawnPosition.x,
@@ -44,7 +45,8 @@ function spawnMonsters(timestamp) {
           }.png`
         )
       );
-      tileMap.arrows[i].lastGroundSpawn = timestamp;
+      arrow.monstersCount++;
+      arrow.lastGroundSpawn = timestamp;
     }
   }
 

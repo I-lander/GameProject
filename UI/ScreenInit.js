@@ -1,4 +1,4 @@
-import { tileMap, ctxScreen as ctx, pixelUnit, gameScreen } from "../app.js";
+import { tileMap, pixelUnit, gameScreen } from "../app.js";
 import { mapSizeX, mapSizeY } from "../level/map.js";
 
 const screenRatio = 2 / 3;
@@ -34,6 +34,12 @@ function screenInit(canvasScreen, canvasMenu) {
     width: canvasScreen.width - gameScreen.width,
     height: canvasScreen.height,
   };
+
+  const levelUpScreen = document.getElementById("levelUpScreen");
+  levelUpScreen.style.height = `${gameScreen.height}px`;
+  levelUpScreen.style.width = `${gameScreen.width + sideScreen.width}px`;
+  levelUpScreen.style.top = `${marginTop}px`;
+  levelUpScreen.style.left = `${marginLeft}px`;
 
   const pixelUnit = tileSize / 32;
 

@@ -71,7 +71,7 @@ class Player {
       this.stats.nextLvl = Math.round(this.stats.nextLvl * 150) / 100;
     }
     this.drawPlayerLife(ctx);
-    this.drawPlayerExp(ctx);
+    // this.drawPlayerExp(ctx);
     this.drawmanaRessource(ctx);
   }
 
@@ -141,31 +141,31 @@ class Player {
     ctx.restore();
   }
 
-  drawPlayerExp(ctx) {
-    const barRatio = this.stats.exp / this.stats.nextLvl;
+  // drawPlayerExp(ctx) {
+  //   const barRatio = this.stats.exp / this.stats.nextLvl;
 
-    const barWidth = tileSize * 9.5;
-    const barHeight = tileSize / 3;
-    let barX = gameScreen.width + (sideScreen.width - barWidth) / 2;
-    let barY = tileSize / 2 + tileSize / 3;
+  //   const barWidth = tileSize * 9.5;
+  //   const barHeight = tileSize / 3;
+  //   let barX = gameScreen.width + (sideScreen.width - barWidth) / 2;
+  //   let barY = tileSize / 2 + tileSize / 3;
 
-    ctx.save();
-    ctx.fillStyle = "rgba(0, 0, 0, 0.9)";
-    ctx.fillRect(barX, barY, barWidth, barHeight);
-    ctx.fillStyle = "rgba(39, 161, 245, 0.9)";
-    ctx.fillRect(barX, barY, barWidth * barRatio, barHeight);
-    ctx.strokeStyle = "white";
-    ctx.lineWidth = 1 * pixelUnit;
-    ctx.strokeRect(barX, barY, barWidth, barHeight);
-    ctx.restore();
-  }
+  //   ctx.save();
+  //   ctx.fillStyle = "rgba(0, 0, 0, 0.9)";
+  //   ctx.fillRect(barX, barY, barWidth, barHeight);
+  //   ctx.fillStyle = "rgba(39, 161, 245, 0.9)";
+  //   ctx.fillRect(barX, barY, barWidth * barRatio, barHeight);
+  //   ctx.strokeStyle = "white";
+  //   ctx.lineWidth = 1 * pixelUnit;
+  //   ctx.strokeRect(barX, barY, barWidth, barHeight);
+  //   ctx.restore();
+  // }
 
   drawmanaRessource(ctx) {
-    const textX = gameScreen.width + tileSize * 9.75;
-    const textY = tileSize * 2;
+    const textX = gameScreen.width + tileSize/2 ;
+    const textY = tileSize * 1.5;
     ctx.font = `${tileSize / 2}px dogicapixel`;
     ctx.fillStyle = "white";
-    ctx.textAlign = "right";
+    ctx.textAlign = "left";
     ctx.fillText(this.stats.manaRessource, textX, textY);
   }
 }

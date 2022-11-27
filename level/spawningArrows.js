@@ -7,6 +7,8 @@ export class Arrow {
     this.y = y * tileSize;
     this.position = { x: x, y: y };
     this.lastGroundSpawn = 0;
+    this.level = 1;
+    this.monstersCount = 0
   }
 }
 
