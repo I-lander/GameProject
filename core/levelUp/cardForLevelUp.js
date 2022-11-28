@@ -6,7 +6,7 @@ const CARD_FOR_LEVEL_UP = [
   class Spawn {
     title = "Spawn";
     description =
-      "Add an arrow in a random position at any screen border.\n\nGain 10 soul ressources";
+      "Add an arrow in a random position at any screen border.</br>Gain 10 soul ressources.";
     function = () => {
       let x, y;
       if (Math.random() < 0.5) {
@@ -23,7 +23,7 @@ const CARD_FOR_LEVEL_UP = [
   class PlaceSpawnPoint {
     title = "Spawn Point";
     description =
-      "Place an spawn point anywhere in the screen border.\n\nGain 10 soul ressources";
+      "Place an spawn point anywhere in the screen border.</br>Gain 10 soul ressources.";
     function = () => {
         cleanMap;
         updateSelectedBtn({ type: "arrows", value: -10 });

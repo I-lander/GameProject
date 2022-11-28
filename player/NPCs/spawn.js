@@ -17,17 +17,7 @@ const playerPos = {
 };
 
 let path = [];
-let lastRiverSpawn = 0;
 let spawnGroundRate = 0.2;
-let spawnRiverRate = 0.5;
-
-function getRiverLastTile() {
-  path = [];
-  const riverPath = getRiverPath(playerPos);
-  return riverPath[riverPath.length - 1].position;
-}
-
-export { getRiverLastTile };
 
 function spawnMonsters(timestamp) {
   if (isPause) {
@@ -40,9 +30,10 @@ function spawnMonsters(timestamp) {
       if (monsters.length === 0) {
         tileMap.arrows.forEach((arrow) => {
           arrow.monstersCount = 0;
-          arrow.MaxmonstersCount ++;
+          arrow.MaxmonstersCount++;
         });
         inverseLeveUp();
+        tileMap.players[0].level++;
       }
       return;
     }
@@ -67,24 +58,6 @@ function spawnMonsters(timestamp) {
     }
   }
 
-  const riverPath = getRiverPath(playerPos);
-  if (
-    !isPause &&
-    timestamp >= lastRiverSpawn + 1000 / spawnRiverRate &&
-    riverPath.length > 5
-  ) {
-    const riverSpawnPosition = getRiverSpawnPosition(riverPath);
-    monsters.push(
-      new Monster(
-        riverSpawnPosition.x,
-        riverSpawnPosition.y,
-        "river",
-        tileSize,
-        "./src/images/riverMonster.png"
-      )
-    );
-    lastRiverSpawn = timestamp;
-  }
   path = [];
   return;
 }
@@ -101,79 +74,6 @@ function getGroundSpawnPosition(arrow) {
   // }
   const position = { x: arrow.x, y: arrow.y };
   return position;
-}
-
-function getRiverPath(position) {
-  const neighbors = tileMap.getNeighbors(position);
-  if (
-    !path.some(
-      (path) => path.position.x === position.x && path.position.y === position.y
-    )
-  ) {
-    path.push({ position: position, direction: "START" });
-  }
-
-  if (
-    neighbors[0].tileValue === "river" &&
-    !path.some(
-      (path) =>
-        path.position.x === neighbors[0].position.x &&
-        path.position.y === neighbors[0].position.y
-    )
-  ) {
-    path.push({ position: neighbors[0].position, direction: "UP" });
-    getRiverPath(neighbors[0].position);
-  }
-
-  if (
-    neighbors[1].tileValue === "river" &&
-    !path.some(
-      (path) =>
-        path.position.x === neighbors[1].position.x &&
-        path.position.y === neighbors[1].position.y
-    )
-  ) {
-    path.push({ position: neighbors[1].position, direction: "DOWN" });
-    getRiverPath(neighbors[1].position);
-  }
-  if (
-    neighbors[3].tileValue === "river" &&
-    !path.some(
-      (path) =>
-        path.position.x === neighbors[3].position.x &&
-        path.position.y === neighbors[3].position.y
-    )
-  ) {
-    path.push({
-      position: neighbors[3].position,
-      direction: "RIGHT",
-    });
-    getRiverPath(neighbors[3].position);
-  }
-  if (
-    neighbors[2].tileValue === "river" &&
-    !path.some(
-      (path) =>
-        path.position.x === neighbors[2].position.x &&
-        path.position.y === neighbors[2].position.y
-    )
-  ) {
-    path.push({ position: neighbors[2].position, direction: "LEFT" });
-    getRiverPath(neighbors[2].position);
-  }
-
-  return path;
-}
-
-function getRiverSpawnPosition(riverPath) {
-  if (riverPath) {
-    const position = riverPath[riverPath.length - 1].position;
-    const spawnPosition = {
-      x: position.x * tileSize,
-      y: position.y * tileSize,
-    };
-    return spawnPosition;
-  }
 }
 
 export { spawnMonsters };

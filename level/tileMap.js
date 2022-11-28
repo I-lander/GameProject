@@ -1,7 +1,6 @@
 import { Player } from "../player/player.js";
 import { createMap, map, mapSizeX, mapSizeY } from "./map.js";
 import { Mountain } from "./element/mountain.js";
-import { drawRiver } from "./element/river.js";
 import { monsters, pixelUnit } from "../app.js";
 import { Village } from "./element/village.js";
 import { Tower } from "./element/tower.js";
@@ -41,6 +40,10 @@ export class TileMap {
     this.lava = new Image();
     this.lava.src = "./src/images/lava.png";
     this.lavas = [];
+
+    this.river = new Image();
+    this.river.src = "./src/images/river.png";
+    this.rivers = [];
 
     this.desert = new Image();
     this.desert.src = "./src/images/desert.png";
@@ -178,13 +181,6 @@ export class TileMap {
             this.tileSize,
             this.tileSize
           );
-          ctx.drawImage(
-            this.lava,
-            column * this.tileSize,
-            row * this.tileSize,
-            this.tileSize,
-            this.tileSize
-          );
         }
 
         if (tile === "desert") {
@@ -195,17 +191,16 @@ export class TileMap {
             this.tileSize,
             this.tileSize
           );
+        }
+
+        if (tile === "river") {
           ctx.drawImage(
-            this.desert,
+            this.river,
             column * this.tileSize,
             row * this.tileSize,
             this.tileSize,
             this.tileSize
           );
-        }
-
-        if (tile === "river") {
-          drawRiver(column, row);
         }
         if (tile === "green") {
           ctx.drawImage(

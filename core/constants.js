@@ -31,7 +31,7 @@ const CARD_ELEMENTS = [
     value: 5,
     title: "River",
     description:
-      "Create a river path. It can block monsters.</br> The river start from the center.</br>A river Tile must be connected to the last one.",
+      "TODO",
   },
   {
     type: "village",
@@ -77,7 +77,7 @@ const CARD_ELEMENTS = [
   },
 ];
 
-const MONSTERS_LIST = ["worm", "slime", "bat", "skull", "spider", "fly"];
+const MONSTERS_LIST = ["worm", "slime", "bat", "skull", "spider", "fly","ghost"];
 
 // Elements that ground monster must dodge
 

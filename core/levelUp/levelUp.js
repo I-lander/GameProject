@@ -71,7 +71,7 @@ function drawCards(levelUpScreen) {
   const cardDescription = document.createElement("p");
   newButton.append(cardDescription);
 
-  cardDescription.innerText = card.description;
+  cardDescription.innerHTML = card.description;
   cardDescription.style.margin = `${tileSize / 2}px`;
   cardDescription.style.textAlign = "center";
   cardDescription.style.fontSize = `${10 * pixelUnit}px`;
@@ -82,7 +82,7 @@ function drawCards(levelUpScreen) {
     levelUpScreen.classList.add("disable");
     inverseLeveUp();
     inversePause();
-    buttons = []
+    buttons = [];
   };
 
   buttons.push(newButton);

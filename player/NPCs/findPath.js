@@ -56,12 +56,6 @@ const findPath = (start, target, type) => {
       ) {
         continue;
       }
-      if (
-        type === "river" &&
-        (tile === "0" || tile === "mountain" || tile === "green")
-      ) {
-        continue;
-      }
 
       const key = toKey(neighbor.x, neighbor.y);
 
