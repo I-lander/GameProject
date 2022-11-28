@@ -32,7 +32,8 @@ function spawnMonsters(timestamp) {
           arrow.monstersCount = 0;
           arrow.MaxmonstersCount++;
         });
-        inverseLeveUp();
+        setTimeout(()=>{inverseLeveUp();},500)
+        
         tileMap.players[0].level++;
       }
       return;

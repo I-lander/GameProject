@@ -23,21 +23,21 @@ const CARD_FOR_LEVEL_UP = [
   class PlaceSpawnPoint {
     title = "Spawn Point";
     description =
-      "Place an spawn point anywhere in the screen border.</br>Gain 10 soul ressources.";
+      "Place an spawn point anywhere in the screen border.</br>Gain 3 soul ressources.";
     function = () => {
         cleanMap;
-        updateSelectedBtn({ type: "arrows", value: -10 });
+        updateSelectedBtn({ type: "arrows", value: 0 });
         possibilityForClick();
         tileMap.draw(ctxScreen);
         setTimeout(() => {
           inversePause();
         }, 100);
-      tileMap.players[0].stats.manaRessource += 10;
+      tileMap.players[0].stats.manaRessource += 3;
     };
   },
   class GainRessources {
     title = "Gain";
-    description = "Gain 100 soul ressources.\n\nLose 10 PV.";
+    description = "Gain 100 soul ressources.</br>Lose 10 PV.";
     function = () => {
       tileMap.players[0].stats.manaRessource += 100;
       tileMap.players[0].stats.hp -= 10;
