@@ -80,6 +80,12 @@ document.getElementById("startBtn").addEventListener("click", () => {
   startGame();
 });
 
+let isGod = false
+document.getElementById("startBtnAsGod").addEventListener("click", () => {
+  isGod = true
+  startGame();
+});
+
 // Method used to initialize the variable to start the game with clean values
 
 function init() {
@@ -144,7 +150,8 @@ function animate(timestamp) {
   renderCardDescription(selectedBtn);
 
   tileMap.draw(ctxScreen); // draw the map
-  const mainPlayer = tileMap.players[0]; // create a variable to make the player easiest to use
+  const mainPlayer = tileMap.players[0];
+  isGod ? tileMap.players[0].stats.manaRessource = 9999 : null
   spawnMonsters(timestamp); // method that handle any spawning monsters
 
   if (levelUp) {

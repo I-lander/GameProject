@@ -13,14 +13,14 @@ let buttons = [];
 
 function levelUpScreen() {
   const levelUpScreen = document.getElementById("levelUpScreen");
-  const levelText = document.createElement("p");
-  levelUpScreen.appendChild(levelText);
-  levelText.innerText = "Level : " + tileMap.players[0].level;
-  levelText.style.position = "absolute";
-  levelText.style.width = `${gameScreen.width}px`;
-  levelText.style.margin = `${tileSize / 2}px`;
-  levelText.style.textAlign = "center";
-  levelText.style.fontSize = `${10 * pixelUnit}px`;
+  const levelNumber = document.getElementById("levelNumber");
+
+  levelNumber.innerText = "Level : " + tileMap.players[0].level;
+  levelNumber.style.position = "absolute";
+  levelNumber.style.width = `${gameScreen.width}px`;
+  levelNumber.style.margin = `${tileSize / 2}px`;
+  levelNumber.style.textAlign = "center";
+  levelNumber.style.fontSize = `${10 * pixelUnit}px`;
 
   levelUpScreen.classList.remove("disable");
   for (let card = 0; card < choices; card++) {
