@@ -152,7 +152,7 @@ function animate(timestamp) {
   tileMap.draw(ctxScreen); // draw the map
   const mainPlayer = tileMap.players[0];
   isGod ? tileMap.players[0].stats.manaRessource = 9999 : null
-  spawnMonsters(timestamp); // method that handle any spawning monsters
+  spawnMonsters(); // method that handle any spawning monsters
 
   if (levelUp) {
     isPause = true;

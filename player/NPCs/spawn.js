@@ -19,7 +19,9 @@ const playerPos = {
 let path = [];
 let spawnGroundRate = 0.2;
 
-function spawnMonsters(timestamp) {
+function spawnMonsters() {
+  let timestamp = Date.now();
+
   if (isPause) {
     return;
   }
@@ -28,15 +30,14 @@ function spawnMonsters(timestamp) {
     const arrow = tileMap.arrows[i];
     if (arrow.monstersCount === arrow.MaxmonstersCount) {
       if (monsters.length === 0) {
-        tileMap.arrows.forEach((arrow) => {
-          arrow.monstersCount = 0;
-          arrow.MaxmonstersCount++;
-        });
-        setTimeout(() => {
-          inverseLeveUp();
-        }, 500);
-
         tileMap.players[0].level++;
+        inverseLeveUp();
+        setTimeout(() => {
+          tileMap.arrows.forEach((arrow) => {
+            arrow.monstersCount = 0;
+            arrow.MaxmonstersCount++;
+          });
+        }, 500);
       }
       return;
     }
