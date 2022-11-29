@@ -49,8 +49,6 @@ export { ctxScreen, canvasScreen };
 const tileMap = new TileMap();
 screenInit(canvasScreen);
 
-const loadScreen = document.getElementById("loadScreen")
-loadScreen.classList.add("disable")
 
 // Declare & export the variable use to uniformization of any sprite
 // The tileSize is use to calibrate screen size and elements size
