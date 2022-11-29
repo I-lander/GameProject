@@ -64,8 +64,9 @@ function drawCards(levelUpScreen) {
   newButton.append(cardTitle);
   cardTitle.innerText = card.title;
   cardTitle.style.position = "absolute";
-  cardTitle.style.top = `${tileSize}px`;
-  cardTitle.style.width = "100%";
+  cardTitle.style.top = `${tileSize+16*pixelUnit}px`;
+  cardTitle.style.left = `${tileSize/2}px`;
+  cardTitle.style.width = `${256 * pixelUnit - 32*pixelUnit}px`;
   cardTitle.style.textAlign = "center";
 
   const cardDescription = document.createElement("p");

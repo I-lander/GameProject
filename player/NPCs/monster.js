@@ -11,11 +11,12 @@ import findPath from "./findPath.js";
 import { MONTERS_STATS } from "./monstersStats.js";
 
 export class Monster {
-  constructor(x, y, radius, name = null, speed) {
+  constructor(x, y, radius, name, type, speed) {
     this.x = x + tileSize / 2;
     this.y = y + tileSize / 2;
     this.radius = radius;
     this.name = name;
+    this.type = type
     this.velocity = { x: 0, y: 0 };
     this.speed = speed ?? 0.4;
     this.collide = false;
@@ -191,8 +192,9 @@ export class Monster {
         x: Math.cos(angle),
         y: Math.sin(angle),
       };
-
-      let slowDownFactor = currentTile === "desert" ? 0.5 : 1;
+console.log(this.type);
+      let slowDownFactor =
+        currentTile === "desert" && this.type === "ground" ? 0.5 : 1;
 
       this.x +=
         this.velocity.x * pixelUnit * delta * this.speed * slowDownFactor;

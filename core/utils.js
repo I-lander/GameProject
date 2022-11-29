@@ -17,7 +17,7 @@ function possibilityForClick() {
       continue;
     }
     if (
-      monsters[i].type === "ground"
+      monsters[i].stats.type === "ground"
       // tileMap.map[monsterPosition.y][monsterPosition.x] === 0
     ) {
       monsterTiles.push(monsterPosition);

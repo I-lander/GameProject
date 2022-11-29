@@ -66,18 +66,16 @@ export class TileMap {
           this.map[row][column] = "0";
         }
 
-        if (tile === "0") {
-          ctx.save();
-          ctx.strokeStyle = "rgba(255, 255, 255, 0.05)";
-          ctx.lineWidth = 1 * pixelUnit;
-          ctx.strokeRect(
-            this.tileSize * column,
-            this.tileSize * row,
-            this.tileSize,
-            this.tileSize
-          );
-          ctx.restore();
-        }
+        ctx.save();
+        ctx.strokeStyle = "rgba(255, 255, 255, 0.05)";
+        ctx.lineWidth = 1 * pixelUnit;
+        ctx.strokeRect(
+          this.tileSize * column,
+          this.tileSize * row,
+          this.tileSize,
+          this.tileSize
+        );
+        ctx.restore();
 
         if (tile === "1") {
           if (
@@ -146,8 +144,7 @@ export class TileMap {
           );
           if (
             !this.trees.some(
-              (tree) =>
-                tree.position.x === column && tree.position.y === row
+              (tree) => tree.position.x === column && tree.position.y === row
             )
           ) {
             let tree = new Tree(column, row);
@@ -236,7 +233,13 @@ export class TileMap {
         }
       }
     }
-    this.deletableElements = [this.mountains, this.villages, this.trees, this.towers, this.stars];
+    this.deletableElements = [
+      this.mountains,
+      this.villages,
+      this.trees,
+      this.towers,
+      this.stars,
+    ];
   }
 
   init() {
