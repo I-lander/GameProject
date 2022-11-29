@@ -10,7 +10,7 @@ import { DrawDamage } from "../utils.js";
 import findPath from "./findPath.js";
 
 export class Monster {
-  constructor(x, y, type, radius, image = null, speed) {
+  constructor(x, y, radius, type = null, speed) {
     this.x = x + tileSize / 2;
     this.y = y + tileSize / 2;
     this.radius = radius;
@@ -38,9 +38,9 @@ export class Monster {
     this.lastTargetVec = this.targetVec;
     this.path = findPath(this.startVec, this.targetVec, this.type); // Create the path
 
-    this.maxHp = 6;
     this.stats = {
-      hp: this.maxHp,
+      maxHp : 6,
+      hp: 6,
       force: 1,
       attackRate: 1,
     };
@@ -56,7 +56,7 @@ export class Monster {
     this.hitBox = tileSize / 3;
 
     this.img = new Image();
-    this.img.src = image;
+    this.img.src = type;
     this.spriteSize = 32;
     this.frameX = 0;
     this.frameY = 0;

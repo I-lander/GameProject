@@ -77,7 +77,7 @@ const CARD_ELEMENTS = [
   },
 ];
 
-const MONSTERS_LIST = ["worm", "slime", "bat", "skull", "spider", "fly","ghost"];
+const MONSTERS_LIST = ["worm", "slime", "bat", "skull", "spider", "fly", "ghost", "bombMonster"];
 
 // Elements that ground monster must dodge
 

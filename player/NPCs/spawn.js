@@ -32,8 +32,10 @@ function spawnMonsters(timestamp) {
           arrow.monstersCount = 0;
           arrow.MaxmonstersCount++;
         });
-        setTimeout(()=>{inverseLeveUp();},500)
-        
+        setTimeout(() => {
+          inverseLeveUp();
+        }, 500);
+
         tileMap.players[0].level++;
       }
       return;
@@ -47,7 +49,6 @@ function spawnMonsters(timestamp) {
         new Monster(
           groundSpawnPosition.x,
           groundSpawnPosition.y,
-          "ground",
           tileSize,
           `./src/images/${
             MONSTERS_LIST[Math.floor(Math.random() * MONSTERS_LIST.length)]
