@@ -192,7 +192,6 @@ export class Monster {
         x: Math.cos(angle),
         y: Math.sin(angle),
       };
-console.log(this.type);
       let slowDownFactor =
         currentTile === "desert" && this.type === "ground" ? 0.5 : 1;
 
