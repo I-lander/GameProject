@@ -40,13 +40,11 @@ function spawnMonsters() {
     if (arrow.monstersCount === arrow.MaxmonstersCount) {
       if (monsters.length === 0) {
         tileMap.players[0].level++;
-        setTimeout(() => {
         inverseLeveUp();
           tileMap.arrows.forEach((arrow) => {
             arrow.monstersCount = 0;
             arrow.MaxmonstersCount++;
           });
-        }, 500);
       }
       return;
     }
