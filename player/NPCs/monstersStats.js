@@ -1,4 +1,4 @@
-export const MONTERS_STATS = [
+const MONTERS_STATS = [
   {
     name: "worm",
     type: "ground",
@@ -64,3 +64,5 @@ export const MONTERS_STATS = [
     attackRate: 1,
   },
 ];
+
+export { MONTERS_STATS };

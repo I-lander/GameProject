@@ -26,7 +26,7 @@ class Player {
       range: tileSize * 3.5,
       manaRessource: 0,
     };
-    this.level = 1
+    this.level = 1;
     this.lastAttack = 0;
     this.isAttacking = false;
 
@@ -39,13 +39,15 @@ class Player {
     this.maxFrame = this.horizontalFrame * this.verticalFrame;
     this.frameRate = 40;
     this.lastFrame = 0;
+
+    this.localPauseDelta = 0;
   }
 
   draw(ctx) {
     let timestamp = Date.now();
 
-    if(this.stats.hp > this.maxHp){
-      this.stats.hp = this.maxHp
+    if (this.stats.hp > this.maxHp) {
+      this.stats.hp = this.maxHp;
     }
 
     ctx.drawImage(
@@ -77,11 +79,15 @@ class Player {
   }
 
   autoFire(timestamp, monsters) {
+    if (pauseDelta > 0) {
+      this.localPauseDelta = pauseDelta;
+    }
     monsters.forEach((monster, index) => {
       monster.distance = Math.hypot(this.x - monster.x, this.y - monster.y);
       if (
         monster.distance < this.stats.range - monster.hitBox &&
-        timestamp >= this.lastAttack + 1000 / this.stats.attackRate + pauseDelta
+        timestamp >=
+          this.lastAttack + 1000 / this.stats.attackRate + this.localPauseDelta
       ) {
         const angle = Math.atan2(monster.y - this.y, monster.x - this.x);
         this.projectileVelocity = {
@@ -91,6 +97,8 @@ class Player {
         };
         this.isAttacking = true;
         this.lastAttack = timestamp;
+
+        this.localPauseDelta = 0;
       }
     });
   }
@@ -162,7 +170,7 @@ class Player {
   // }
 
   drawmanaRessource(ctx) {
-    const textX = gameScreen.width + tileSize/2 ;
+    const textX = gameScreen.width + tileSize / 2;
     const textY = tileSize * 1.5;
     ctx.font = `${tileSize / 2}px dogicapixel`;
     ctx.fillStyle = "white";

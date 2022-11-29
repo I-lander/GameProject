@@ -80,9 +80,9 @@ document.getElementById("startBtn").addEventListener("click", () => {
   startGame();
 });
 
-let isGod = false
+let isGod = false;
 document.getElementById("startBtnAsGod").addEventListener("click", () => {
-  isGod = true
+  isGod = true;
   startGame();
 });
 
@@ -139,7 +139,7 @@ function animate(timestamp) {
     requestAnimationFrame(animate);
     return;
   }
-  
+
   delta = (timestamp - lastFrameTimeMs) / speedFactor; // get the delta time since last frame
 
   lastFrameTimeMs = timestamp;
@@ -151,7 +151,9 @@ function animate(timestamp) {
 
   tileMap.draw(ctxScreen); // draw the map
   const mainPlayer = tileMap.players[0];
-  isGod ? tileMap.players[0].stats.manaRessource = 9999 : null
+  isGod ? (tileMap.players[0].stats.manaRessource = 9999) : null;
+  isGod ? (tileMap.players[0].maxHp = 9999) : null;
+  isGod ? (tileMap.players[0].stats.hp = 9999) : null;
   spawnMonsters(); // method that handle any spawning monsters
 
   if (levelUp) {
@@ -356,8 +358,6 @@ function animate(timestamp) {
 
 // Declare & export the button pressed in order to delete it after it was used
 // Declare & export function to update this button
-
-
 
 export { selectedBtn, updateSelectedBtn };
 

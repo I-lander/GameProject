@@ -17,6 +17,7 @@ export class Tower {
     };
     this.projectiles = [];
     this.lastAttack = 0;
+    this.localPauseDelta = 0;
   }
 
   update(ctx) {
@@ -31,11 +32,15 @@ export class Tower {
   }
 
   autoFire(timestamp, monsters) {
+    if (pauseDelta > 0) {
+      this.localPauseDelta = pauseDelta;
+    }
     monsters.forEach((monster, index) => {
       monster.distance = Math.hypot(this.x - monster.x, this.y - monster.y);
       if (
         monster.distance < this.stats.range - monster.hitBox &&
-        timestamp >= this.lastAttack + 1000 / this.stats.attackRate + pauseDelta
+        timestamp >=
+          this.lastAttack + 1000 / this.stats.attackRate + this.localPauseDelta
       ) {
         const angle = Math.atan2(monster.y - this.y, monster.x - this.x);
         const velocity = {
@@ -46,16 +51,12 @@ export class Tower {
 
         if (this.projectiles.length < 1) {
           this.projectiles.push(
-            new Projectile(
-              this.x,
-              this.y,
-              "white",
-              velocity,
-              this.stats.force
-            )
+            new Projectile(this.x, this.y, "white", velocity, this.stats.force)
           );
         }
         this.lastAttack = timestamp;
+
+        this.localPauseDelta = 0;
       }
     });
   }

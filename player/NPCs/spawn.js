@@ -19,13 +19,14 @@ const playerPos = {
 let path = [];
 let spawnGroundRate = 0.2;
 
+let localPauseDelta = 0;
+
 function spawnMonsters() {
-  let timestamp = Date.now();
+  const timestamp = Date.now();
 
-  if (isPause) {
-    return;
+  if (pauseDelta > 0) {
+    localPauseDelta = pauseDelta;
   }
-
   for (let i = 0; i < tileMap.arrows.length; i++) {
     const arrow = tileMap.arrows[i];
     if (arrow.monstersCount === arrow.MaxmonstersCount) {
@@ -41,9 +42,11 @@ function spawnMonsters() {
       }
       return;
     }
+
     if (
       !isPause &&
-      timestamp >= arrow.lastGroundSpawn + 1000 / spawnGroundRate + pauseDelta
+      timestamp >=
+        arrow.lastGroundSpawn + 1000 / spawnGroundRate + localPauseDelta
     ) {
       const groundSpawnPosition = getGroundSpawnPosition(arrow);
       monsters.push(
@@ -51,13 +54,14 @@ function spawnMonsters() {
           groundSpawnPosition.x,
           groundSpawnPosition.y,
           tileSize,
-          `./src/images/${
-            MONSTERS_LIST[Math.floor(Math.random() * MONSTERS_LIST.length)]
-          }.png`
+          // MONSTERS_LIST[Math.floor(Math.random() * MONSTERS_LIST.length)]
+          MONSTERS_LIST[0]
         )
       );
       arrow.monstersCount++;
       arrow.lastGroundSpawn = timestamp;
+
+      localPauseDelta = 0;
     }
   }
 

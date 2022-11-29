@@ -8,17 +8,19 @@ import {
 } from "../../app.js";
 import { DrawDamage } from "../utils.js";
 import findPath from "./findPath.js";
+import { MONTERS_STATS } from "./monstersStats.js";
 
 export class Monster {
-  constructor(x, y, radius, type = null, speed) {
+  constructor(x, y, radius, name = null, speed) {
     this.x = x + tileSize / 2;
     this.y = y + tileSize / 2;
     this.radius = radius;
-    this.type = type;
+    this.name = name;
     this.velocity = { x: 0, y: 0 };
     this.speed = speed ?? 0.4;
     this.collide = false;
     this.collideWith = null;
+    this.stats = this.getMonsterStats();
 
     this.visitedStars = [];
 
@@ -36,14 +38,7 @@ export class Monster {
     );
     this.targetVec = this.defaultTargetVec;
     this.lastTargetVec = this.targetVec;
-    this.path = findPath(this.startVec, this.targetVec, this.type); // Create the path
-
-    this.stats = {
-      maxHp : 6,
-      hp: 6,
-      force: 1,
-      attackRate: 1,
-    };
+    this.path = findPath(this.startVec, this.targetVec, this.stats.type); // Create the path
 
     this.lastAttack = 0;
     this.lastLavaDamage = 0;
@@ -56,7 +51,7 @@ export class Monster {
     this.hitBox = tileSize / 3;
 
     this.img = new Image();
-    this.img.src = type;
+    this.img.src = `./src/images/${name}.png`;
     this.spriteSize = 32;
     this.frameX = 0;
     this.frameY = 0;
@@ -64,6 +59,14 @@ export class Monster {
     this.maxFrame = this.horizontalFrame * this.verticalFrame;
     this.frameRate = 10;
     this.lastFrame = 0;
+  }
+
+  getMonsterStats() {
+    const stats = MONTERS_STATS.find((monster) => {
+      return monster.name === this.name;
+    });
+    const statsToReturn = { ...stats };
+    return statsToReturn;
   }
 
   findingPath(forceUpdate = true) {
@@ -80,7 +83,7 @@ export class Monster {
       y: Math.floor(this.y / tileSize),
     };
 
-    this.path = findPath(this.startVec, this.targetVec, this.type); // Create the path
+    this.path = findPath(this.startVec, this.targetVec, this.stats.type); // Create the path
     this.moveToTarget = this.path.shift();
   }
 

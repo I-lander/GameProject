@@ -2,7 +2,6 @@ import {
   tileSize,
   tileMap,
   pixelUnit,
-  pauseDelta,
   delta,
   gameScreen,
 } from "../../app.js";
