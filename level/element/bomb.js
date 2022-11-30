@@ -16,9 +16,10 @@ function deleteFromElementArray(elementArray, bombPos) {
       }
     }
     if (element.position.x === bombPos.x && element.position.y === bombPos.y) {
+
       elementArray.splice(i, 1);
     }
   }
 }
 
-export { bombMecanics };
+export { bombMecanics, deleteFromElementArray };

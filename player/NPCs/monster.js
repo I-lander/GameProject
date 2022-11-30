@@ -6,6 +6,7 @@ import {
   damageTexts,
   pauseDelta,
 } from "../../app.js";
+import { deleteFromElementArray } from "../../level/element/bomb.js";
 import { DrawDamage } from "../utils.js";
 import findPath from "./findPath.js";
 import { MONTERS_STATS } from "./monstersStats.js";
@@ -16,7 +17,7 @@ export class Monster {
     this.y = y + tileSize / 2;
     this.radius = radius;
     this.name = name;
-    this.type = type
+    this.type = type;
     this.velocity = { x: 0, y: 0 };
     this.speed = speed ?? 0.4;
     this.collide = false;
@@ -38,6 +39,10 @@ export class Monster {
       tileMap.players[0].y
     );
     this.targetVec = this.defaultTargetVec;
+    this.isBombTarget = false;
+    this.toDelete;
+    this.ArraythisToDelete;
+
     this.lastTargetVec = this.targetVec;
     this.path = findPath(this.startVec, this.targetVec, this.stats.type); // Create the path
 
@@ -149,11 +154,40 @@ export class Monster {
     this.moveToTarget = target;
   }
 
+  bombMonsterMecs() {
+    if (!this.isBombTarget) {
+      this.ArraythisToDelete =
+        tileMap.deletableElements[
+          Math.floor(Math.random() * tileMap.deletableElements.length)
+        ];
+      this.toDelete =
+        this.ArraythisToDelete[
+          Math.floor(Math.random() * this.ArraythisToDelete.length)
+        ];
+      if (this.toDelete) {
+        this.targetVec = tileMap.getPosition(this.toDelete.x, this.toDelete.y);
+        this.isBombTarget = true;
+        this.findingPath();
+      } else {
+        return;
+      }
+    }
+    const minDistance = 2 * pixelUnit;
+    let distance = Math.hypot(
+      this.toDelete.x - this.x + tileSize / 2,
+      this.toDelete.y - this.y + tileSize / 2
+    );
+    if (distance <= minDistance) {
+      this.stats.hp = 0;
+      deleteFromElementArray(this.ArraythisToDelete, this.targetVec);
+      tileMap.map[this.targetVec.y][this.targetVec.x] = "bomb";
+    }
+  }
+
   update(ctx) {
     let timestamp = Date.now();
-
-    this.starMecanics();
-
+    this.name !== "bombMonster" ? this.starMecanics() : null;
+    this.name === "bombMonster" ? this.bombMonsterMecs() : null;
     if (this.isTakingDamage) {
       this.damageFrameCount++;
     }
@@ -192,8 +226,7 @@ export class Monster {
         x: Math.cos(angle),
         y: Math.sin(angle),
       };
-      let slowDownFactor =
-        currentTile === "desert" && this.type === "ground" ? 0.5 : 1;
+      let slowDownFactor = currentTile === "desert" ? 0.5 : 1;
 
       this.x +=
         this.velocity.x * pixelUnit * delta * this.speed * slowDownFactor;
