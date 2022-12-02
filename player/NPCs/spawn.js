@@ -11,6 +11,7 @@ import { mapSizeX, mapSizeY } from "../../level/map.js";
 import { marginTop, marginLeft } from "../../UI/ScreenInit.js";
 import { MONSTERS_LIST } from "../../core/constants.js";
 import { MONTERS_STATS } from "./monstersStats.js";
+import { calculateInterval } from "../utils.js";
 
 const playerPos = {
   x: Math.floor(mapSizeX / 2),
@@ -28,7 +29,7 @@ function monsterSelection() {
   });
   return array;
 }
-
+let isLeveling = true;
 function spawnMonsters() {
   const timestamp = Date.now();
 
@@ -39,12 +40,16 @@ function spawnMonsters() {
     const arrow = tileMap.arrows[i];
     if (arrow.monstersCount === arrow.MaxmonstersCount) {
       if (monsters.length === 0) {
+        isLeveling = true;
         setTimeout(() => {
           inverseLeveUp();
-          tileMap.arrows.forEach((arrow) => {
-            arrow.monstersCount = 0;
-            arrow.MaxmonstersCount++;
-          });
+          if (isLeveling) {
+            tileMap.arrows.forEach((arrow) => {
+              arrow.monstersCount = 0;
+              arrow.MaxmonstersCount++;
+              isLeveling = false;
+            });
+          }
         }, 200);
       }
       return;
@@ -52,8 +57,12 @@ function spawnMonsters() {
 
     if (
       !isPause &&
-      timestamp >=
-        arrow.lastGroundSpawn + 1000 / spawnGroundRate + localPauseDelta
+      calculateInterval(
+        timestamp,
+        arrow.lastGroundSpawn,
+        1000 / spawnGroundRate,
+        localPauseDelta
+      )
     ) {
       const monsterSelectionArray = monsterSelection();
       const monsterSelected =

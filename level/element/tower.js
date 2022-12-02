@@ -1,5 +1,6 @@
 import { tileSize, pauseDelta, monsters, pixelUnit } from "../../app.js";
 import { Projectile } from "../../player/projectile.js";
+import { calculateInterval } from "../../player/utils.js";
 
 export class Tower {
   constructor(x, y, image) {
@@ -49,8 +50,12 @@ export class Tower {
       );
       if (
         monster.distance < this.stats.range - monster.hitBox &&
-        timestamp >=
-          this.lastAttack + 1000 / this.stats.attackRate + this.localPauseDelta
+        calculateInterval(
+          timestamp,
+          this.lastAttack,
+          1000 / this.stats.attackRate,
+          this.localPauseDelta
+        )
       ) {
         const angle = Math.atan2(
           monster.y - this.y - tileSize / 2,

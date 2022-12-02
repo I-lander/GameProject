@@ -1,4 +1,5 @@
 import { pixelUnit, delta, tileSize } from "../app.js";
+import { SPEED_FACTOR } from "./utils.js";
 
 class Projectile {
   constructor(x, y, color, velocity, force) {
@@ -35,8 +36,8 @@ class Projectile {
 
   update(ctx) {
     this.draw(ctx);
-    this.x += this.velocity.x * pixelUnit * delta * this.speed;
-    this.y += this.velocity.y * pixelUnit * delta * this.speed;
+    this.x += this.velocity.x * pixelUnit * delta * this.speed * SPEED_FACTOR;
+    this.y += this.velocity.y * pixelUnit * delta * this.speed * SPEED_FACTOR;
   }
 }
 

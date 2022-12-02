@@ -9,7 +9,7 @@ export class Arrow {
     this.lastGroundSpawn = 0;
     this.level = 1;
     this.monstersCount = 0
-    this.MaxmonstersCount = 2
+    this.MaxmonstersCount = 1
   }
 }
 

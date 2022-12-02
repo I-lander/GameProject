@@ -7,6 +7,7 @@ import {
   sideScreen,
 } from "../app.js";
 import { Projectile } from "./projectile.js";
+import { calculateInterval } from "./utils.js";
 class Player {
   constructor(x, y, position, radius, image) {
     this.x = x;
@@ -86,8 +87,12 @@ class Player {
       monster.distance = Math.hypot(this.x - monster.x, this.y - monster.y);
       if (
         monster.distance < this.stats.range - monster.hitBox &&
-        timestamp >=
-          this.lastAttack + 1000 / this.stats.attackRate + this.localPauseDelta
+        calculateInterval(
+          timestamp,
+          this.lastAttack,
+          1000 / this.stats.attackRate,
+          this.localPauseDelta
+        )
       ) {
         const angle = Math.atan2(monster.y - this.y, monster.x - this.x);
         this.projectileVelocity = {
@@ -119,7 +124,7 @@ class Player {
     const horizontalFrame = this.img.naturalWidth / 32;
     const verticalFrame = this.img.naturalHeight / 32;
 
-    if (timestamp >= this.lastFrame + 1000 / this.frameRate) {
+    if (calculateInterval(timestamp, this.lastFrame, 1000 / this.frameRate)) {
       if (this.frameX < horizontalFrame - 1) {
         this.frameX += 1;
       } else {

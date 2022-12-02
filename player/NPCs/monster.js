@@ -7,7 +7,7 @@ import {
   pauseDelta,
 } from "../../app.js";
 import { deleteFromElementArray } from "../../level/element/bomb.js";
-import { DrawDamage } from "../utils.js";
+import { calculateInterval, DrawDamage, SPEED_FACTOR } from "../utils.js";
 import findPath from "./findPath.js";
 import { MONTERS_STATS } from "./monstersStats.js";
 
@@ -87,7 +87,7 @@ export class Monster {
     };
 
     this.path = findPath(this.startVec, this.targetVec, this.stats.type); // Create the path
-    this.moveToTarget = this.path ? this.path.shift(): null;
+    this.moveToTarget = this.path ? this.path.shift() : null;
   }
 
   draw(ctx, timestamp) {
@@ -108,7 +108,7 @@ export class Monster {
       this.radius
     );
 
-    if (timestamp >= this.lastFrame + 1000 / this.frameRate) {
+    if (calculateInterval(timestamp, this.lastFrame, 1000 / this.frameRate)) {
       this.frameX = this.frameX < horizontalFrame - 1 ? this.frameX + 1 : 0;
       this.lastFrame = timestamp;
     }
@@ -173,7 +173,7 @@ export class Monster {
     let currentTile = tileMap.map[this.position.y][this.position.x];
 
     if (
-      timestamp >= this.lastLavaDamage + 1000 + pauseDelta &&
+      calculateInterval(timestamp, this.lastLavaDamage, 1000, pauseDelta) &&
       currentTile === "lava"
     ) {
       !this.isTakingDamage ? this.takingDamage(1) : null;
@@ -202,9 +202,9 @@ export class Monster {
       let slowDownFactor = currentTile === "desert" ? 0.5 : 1;
 
       this.x +=
-        this.velocity.x * pixelUnit * delta * this.speed * slowDownFactor;
+        this.velocity.x * pixelUnit * delta * this.speed * slowDownFactor * SPEED_FACTOR;
       this.y +=
-        this.velocity.y * pixelUnit * delta * this.speed * slowDownFactor;
+        this.velocity.y * pixelUnit * delta * this.speed * slowDownFactor * SPEED_FACTOR;
 
       if (dx === 0 && dy === 0) {
         if (this.path && this.path.length > 0) {

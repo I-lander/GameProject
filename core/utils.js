@@ -5,6 +5,8 @@ import {
   selectedBtn,
   ctxScreen,
   inversePause,
+  pixelUnit,
+  ctxScreen as ctx,
 } from "../app.js";
 import { mapSizeX, mapSizeY } from "../level/map.js";
 import { SOLID_ELEMENTS } from "./constants.js";
@@ -12,12 +14,14 @@ import { SOLID_ELEMENTS } from "./constants.js";
 function possibilityForClick() {
   let monsterTiles = [];
   for (let i = 0; i < monsters.length; i++) {
-    const monsterPosition = tileMap.getPosition(monsters[i].x, monsters[i].y);
+    const monster = monsters[i];
+
+    const monsterPosition = monster.position;
     if (tileMap.map[monsterPosition.y][monsterPosition.x] !== "0") {
       continue;
     }
     if (
-      monsters[i].stats.type === "ground"
+      monster.stats.type === "ground"
       // tileMap.map[monsterPosition.y][monsterPosition.x] === 0
     ) {
       monsterTiles.push(monsterPosition);

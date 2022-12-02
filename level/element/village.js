@@ -1,10 +1,5 @@
-import {
-  tileSize,
-  tileMap,
-  pixelUnit,
-  delta,
-  gameScreen,
-} from "../../app.js";
+import { tileSize, tileMap, pixelUnit, delta, gameScreen } from "../../app.js";
+import { calculateInterval } from "../../player/utils.js";
 
 export class Village {
   constructor(x, y, image) {
@@ -29,7 +24,9 @@ export class Village {
   update(ctx) {
     let timestamp = Date.now();
     this.drawLoadingCircle(ctx);
-    if (timestamp >= this.lastUpdate + 1000 / this.stats.loadSpeed) {
+    if (
+      calculateInterval(timestamp, this.lastUpdate, 1000 / this.stats.loadSpeed)
+    ) {
       this.stats.manaLoad++;
       this.lastUpdate = timestamp;
     }
