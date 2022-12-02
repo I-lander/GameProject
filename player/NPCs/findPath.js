@@ -80,7 +80,7 @@ const findPath = (start, target, type) => {
   let currentKey = targetKey;
 
   if (!parentForKey[targetKey]) {
-    return path;
+    return ;
   }
 
   parentForKey[targetKey].position = {

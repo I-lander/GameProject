@@ -20,8 +20,6 @@ export class Monster {
     this.type = type;
     this.velocity = { x: 0, y: 0 };
     this.speed = speed ?? 0.4;
-    this.collide = false;
-    this.collideWith = null;
     this.stats = this.getMonsterStats();
 
     this.visitedStars = [];
@@ -46,13 +44,12 @@ export class Monster {
     this.lastTargetVec = this.targetVec;
     this.path = findPath(this.startVec, this.targetVec, this.stats.type); // Create the path
 
-    this.lastAttack = 0;
     this.lastLavaDamage = 0;
 
     this.distance = 0;
     this.position = tileMap.getPosition(this.x, this.y);
 
-    this.moveToTarget = this.path.shift();
+    this.moveToTarget = this.path ? this.path.shift() : null;
 
     this.hitBox = tileSize / 3;
 
@@ -90,7 +87,7 @@ export class Monster {
     };
 
     this.path = findPath(this.startVec, this.targetVec, this.stats.type); // Create the path
-    this.moveToTarget = this.path.shift();
+    this.moveToTarget = this.path ? this.path.shift(): null;
   }
 
   draw(ctx, timestamp) {
@@ -116,30 +113,6 @@ export class Monster {
       this.lastFrame = timestamp;
     }
     ctx.restore();
-  }
-
-  isCollideWith(element) {
-    const self = {
-      x: this.x - this.radius / 2,
-      y: this.y - this.radius / 2,
-      width: tileSize,
-      height: tileSize,
-    };
-    const obstacle = {
-      x: element.x,
-      y: element.y,
-      width: tileSize,
-      height: tileSize,
-    };
-
-    if (
-      self.x <= obstacle.x + obstacle.width &&
-      self.x + self.height >= obstacle.x &&
-      self.y <= obstacle.y + obstacle.height &&
-      self.y + self.width >= obstacle.y
-    ) {
-      return true;
-    }
   }
 
   moveAlong() {
@@ -211,7 +184,7 @@ export class Monster {
 
     let dx = 0;
     let dy = 0;
-    if (this.moveToTarget && !this.collide) {
+    if (this.moveToTarget) {
       dx = this.moveToTarget.x - this.x;
       dy = this.moveToTarget.y - this.y;
       if (Math.abs(dx) < 1 * pixelUnit) {
@@ -242,32 +215,7 @@ export class Monster {
       }
     }
 
-    if (
-      timestamp >= this.lastAttack + 1000 / this.stats.attackRate &&
-      this.collide
-    ) {
-      this.attack(this.collideWith, ctx);
-      this.lastAttack = timestamp;
-    }
-
     this.lastTargetVec = this.targetVec;
-  }
-
-  attack(collideWith, ctx) {
-    const target = tileMap.mountains.find(
-      (mountain) => mountain.x === collideWith.x && mountain.y === collideWith.y
-    );
-
-    target.isAttack = true;
-    target.stats.hp -= this.stats.force;
-
-    const damageText = new DrawDamage(target, this.stats.force);
-    damageTexts.push(damageText);
-
-    if (target.stats.hp <= 0) {
-      this.collide = false;
-      this.collideWith = null;
-    }
   }
 
   takingDamage(damage) {

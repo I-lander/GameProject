@@ -26,7 +26,7 @@ class Player {
       range: tileSize * 3.5,
       manaRessource: 0,
     };
-    this.level = 1;
+    this.level = 0;
     this.lastAttack = 0;
     this.isAttacking = false;
 
@@ -74,7 +74,7 @@ class Player {
       this.stats.nextLvl = Math.round(this.stats.nextLvl * 150) / 100;
     }
     this.drawPlayerLife(ctx);
-    // this.drawPlayerExp(ctx);
+    this.drawLevel(ctx);
     this.drawmanaRessource(ctx);
   }
 
@@ -150,25 +150,6 @@ class Player {
     ctx.restore();
   }
 
-  // drawPlayerExp(ctx) {
-  //   const barRatio = this.stats.exp / this.stats.nextLvl;
-
-  //   const barWidth = tileSize * 9.5;
-  //   const barHeight = tileSize / 3;
-  //   let barX = gameScreen.width + (sideScreen.width - barWidth) / 2;
-  //   let barY = tileSize / 2 + tileSize / 3;
-
-  //   ctx.save();
-  //   ctx.fillStyle = "rgba(0, 0, 0, 0.9)";
-  //   ctx.fillRect(barX, barY, barWidth, barHeight);
-  //   ctx.fillStyle = "rgba(39, 161, 245, 0.9)";
-  //   ctx.fillRect(barX, barY, barWidth * barRatio, barHeight);
-  //   ctx.strokeStyle = "white";
-  //   ctx.lineWidth = 1 * pixelUnit;
-  //   ctx.strokeRect(barX, barY, barWidth, barHeight);
-  //   ctx.restore();
-  // }
-
   drawmanaRessource(ctx) {
     const textX = gameScreen.width + tileSize / 2;
     const textY = tileSize * 1.5;
@@ -176,6 +157,15 @@ class Player {
     ctx.fillStyle = "white";
     ctx.textAlign = "left";
     ctx.fillText(this.stats.manaRessource, textX, textY);
+  }
+
+  drawLevel(ctx) {
+    const textX = gameScreen.width + tileSize / 2;
+    const textY = tileSize * 2.2;
+    ctx.font = `${tileSize / 2}px dogicapixel`;
+    ctx.fillStyle = "white";
+    ctx.textAlign = "left";
+    ctx.fillText(`LVL: ${this.level}`, textX, textY);
   }
 }
 

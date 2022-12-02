@@ -6,10 +6,5 @@ export class Mountain {
     this.y = y * tileSize;
     this.image = image;
     this.position = { x: x, y: y };
-    this.maxHp = 5;
-    this.stats = {
-      hp: this.maxHp,
-    };
-    this.isAttack = false;
   }
 }

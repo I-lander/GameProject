@@ -1,6 +1,6 @@
 import { TileMap } from "./level/tileMap.js";
 import { Particle } from "./player/visualEffects.js";
-import { spawnMonsters } from "./player/NPCs/spawn.js";
+import { getGroundSpawnPosition, spawnMonsters } from "./player/NPCs/spawn.js";
 import { drawCards } from "./UI/card-creation.js";
 import { CARD_ELEMENTS, SOLID_ELEMENTS } from "./core/constants.js";
 import { marginLeft, marginTop } from "./UI/ScreenInit.js";
@@ -48,7 +48,6 @@ export { ctxScreen, canvasScreen };
 
 const tileMap = new TileMap();
 screenInit(canvasScreen);
-
 
 // Declare & export the variable use to uniformization of any sprite
 // The tileSize is use to calibrate screen size and elements size
@@ -176,22 +175,19 @@ function animate(timestamp) {
   monsters.forEach((monster, index) => {
     drawLifeBar(ctxScreen, monster);
 
-    // Initialize collision
-
-    monster.collideWith = null;
-    monster.collide = false;
-
-    // When a monster has no possibility to move, it go straight to the center
-    // It must detect collision in order to smash and kill element to make the path creation possible again
-
-    if (monster.path.length === 0) {
-      tileMap.mountains.forEach((mountain) => {
-        if (monster.isCollideWith(mountain)) {
-          monster.collide = true;
-          monster.collideWith = mountain;
-        }
-      });
-    } else {
+    // When a monster has no possibility to move, it is transformed into bomb
+    if (!monster.path || monster.path.length === 0) {
+      monster.findingPath();
+      monsters.push(
+        new Monster(
+          monster.x - tileSize / 2,
+          monster.y - tileSize / 2,
+          tileSize,
+          "bombMonster",
+          "air"
+        )
+      );
+      monsters.splice(index, 1);
     }
 
     monster.update(ctxScreen);
@@ -236,20 +232,6 @@ function animate(timestamp) {
       damageTexts.splice(damageTextIndex, 1);
     }
   });
-
-  // Loop on the montains array to delete element when its hp === 0
-
-  for (let i = 0; i < tileMap.mountains.length; i++) {
-    const mountain = tileMap.mountains[i];
-    drawLifeBar(ctxScreen, mountain);
-    if (mountain.stats.hp <= 0) {
-      tileMap.map[mountain.position.y][mountain.position.x] = "0";
-      tileMap.mountains.splice(i, 1);
-      monsters.forEach((monster) => {
-        monster.findingPath();
-      });
-    }
-  }
 
   for (let i = 0; i < tileMap.villages.length; i++) {
     const village = tileMap.villages[i];
@@ -426,24 +408,6 @@ canvasScreen.addEventListener("click", (event) => {
         })
       );
     }
-  }
-
-  if (selectedBtn && selectedBtn.type === "spider") {
-    monsters.push(
-      new Monster(
-        event.x - xZero - tileSize / 2,
-        y - tileSize / 2,
-        "ground",
-        tileSize,
-        "./src/images/spider.png"
-      )
-    );
-    selectedBtn = undefined;
-    const closeButton = document.getElementById("closeButton");
-    if (closeButton) {
-      closeButton.remove();
-    }
-    inversePause();
   }
 });
 

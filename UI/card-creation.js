@@ -28,7 +28,6 @@ const cardDeck = [
   "bomb",
   "star",
   "arrows",
-  "spider",
 ];
 
 function drawCards() {
@@ -73,6 +72,8 @@ function createCard(type) {
   cardValueText.style.textAlign = "center";
   cardValueText.style.fontSize = `${5 * pixelUnit}px`;
   cardValueText.style.userSelect = "none";
+  cardValueText.style.fontWeight = "bold";
+
 
   let cardTitleText = document.createElement("p");
   buttonContainer.appendChild(cardTitleText);
@@ -88,6 +89,7 @@ function createCard(type) {
   cardTitleText.style.fontSize = `${4 * pixelUnit}px`;
   cardTitleText.style.display = "table-cell";
   cardTitleText.style.userSelect = "none";
+  cardTitleText.style.fontWeight = "bold";
 
   buttons.push(newButton);
 

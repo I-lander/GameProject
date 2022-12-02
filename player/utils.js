@@ -1,14 +1,10 @@
 import { tileSize, pixelUnit, delta, damageTexts } from "../app.js";
 
 function drawLifeBar(ctx, entity) {
-  let x = entity.x;
-  let y = entity.y;
-  if (entity.type) {
-    x -= entity.radius / 2;
-    y -= entity.radius / 2;
-  }
-  if (entity.isAttack && entity.stats.hp > 0) {
-    const barRatio = entity.stats.hp / entity.maxHp;
+  let x = entity.x - tileSize / 2;
+  let y = entity.y - tileSize / 2;
+  if (entity.stats.hp < entity.stats.maxHp) {
+    const barRatio = entity.stats.hp / entity.stats.maxHp;
     ctx.save();
     ctx.fillStyle = "rgba(0, 0, 0, 0.9)";
     ctx.fillRect(

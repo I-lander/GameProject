@@ -12,6 +12,8 @@ const choices = 2;
 let buttons = [];
 
 function levelUpScreen() {
+  tileMap.players[0].level++;
+
   const levelUpScreen = document.getElementById("levelUpScreen");
   const levelNumber = document.getElementById("levelNumber");
 
