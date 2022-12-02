@@ -1,5 +1,5 @@
 import { tileSize, tileMap, pixelUnit, delta, gameScreen } from "../../app.js";
-import { calculateInterval } from "../../player/utils.js";
+import { calculateInterval } from "../../core/utils.js";
 
 export class Tree {
   constructor(x, y, image) {

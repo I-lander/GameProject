@@ -1,6 +1,6 @@
 import { tileSize, pauseDelta, monsters, pixelUnit } from "../../app.js";
 import { Projectile } from "../../player/projectile.js";
-import { calculateInterval } from "../../player/utils.js";
+import { calculateInterval } from "../../core/utils.js";
 
 export class Tower {
   constructor(x, y, image) {

@@ -18,5 +18,3 @@ function createMap() {
 }
 
 export { createMap, map, mapSizeX, mapSizeY };
-
-// export {mapTEST as map}

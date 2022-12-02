@@ -7,7 +7,7 @@ import {
   sideScreen,
 } from "../app.js";
 import { Projectile } from "./projectile.js";
-import { calculateInterval } from "./utils.js";
+import { calculateInterval } from "../core/utils.js";
 class Player {
   constructor(x, y, position, radius, image) {
     this.x = x;

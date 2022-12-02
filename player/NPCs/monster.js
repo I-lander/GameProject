@@ -7,7 +7,9 @@ import {
   pauseDelta,
 } from "../../app.js";
 import { deleteFromElementArray } from "../../level/element/bomb.js";
-import { calculateInterval, DrawDamage, SPEED_FACTOR } from "../utils.js";
+import { DrawDamage } from "../utils.js";
+import { calculateInterval, SPEED_FACTOR } from "../../core/utils.js";
+
 import findPath from "./findPath.js";
 import { MONTERS_STATS } from "./monstersStats.js";
 

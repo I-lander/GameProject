@@ -32,9 +32,9 @@ export { isPause, inversePause };
 let monsters;
 let thunders = [];
 let damageTexts;
-let particles;
+let particles = [];
 
-export { monsters, damageTexts };
+export { monsters, particles, damageTexts };
 
 // Declare & export the canvas variables used to draw on.
 

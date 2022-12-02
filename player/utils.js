@@ -31,17 +31,6 @@ function drawLifeBar(ctx, entity) {
   }
 }
 
-export const SPEED_FACTOR = 1;
-
-export function calculateInterval(
-  timestamp,
-  valueToCompare,
-  interval,
-  delta = 0
-) {
-  return timestamp >= valueToCompare + interval / SPEED_FACTOR + delta;
-}
-
 class DrawDamage {
   constructor(entity, damage) {
     this.entity = entity;

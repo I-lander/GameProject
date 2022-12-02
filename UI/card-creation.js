@@ -44,7 +44,7 @@ function createCard(type) {
   buttonContainer.style.height = `${buttonSize * 2}px`;
   let Xpos = (buttons.length % maxCardPerLign) * buttonSize;
   line = (buttons.length % maxCardPerLign) * buttonSize ? line : line + 1;
-  let Ypos = buttonSize * (line-1);
+  let Ypos = buttonSize * (line - 1);
 
   let newButton = document.createElement("button");
   buttonContainer.appendChild(newButton);
@@ -60,7 +60,6 @@ function createCard(type) {
   newButton.style.width = `${buttonSize}px`;
   newButton.style.height = `${buttonSize}px`;
 
-
   let cardValueText = document.createElement("p");
   buttonContainer.appendChild(cardValueText);
 
@@ -73,7 +72,6 @@ function createCard(type) {
   cardValueText.style.fontSize = `${5 * pixelUnit}px`;
   cardValueText.style.userSelect = "none";
   cardValueText.style.fontWeight = "bold";
-
 
   let cardTitleText = document.createElement("p");
   buttonContainer.appendChild(cardTitleText);
@@ -103,9 +101,7 @@ function createCard(type) {
       updateSelectedBtn({ type: cardSelected.type, value: cardSelected.value });
       possibilityForClick();
       tileMap.draw(ctxScreen);
-      setTimeout(() => {
-        inversePause();
-      }, 100);
+      inversePause();
       createCloseButton(newButton);
     }
   };

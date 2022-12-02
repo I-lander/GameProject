@@ -5,8 +5,6 @@ import {
   selectedBtn,
   ctxScreen,
   inversePause,
-  pixelUnit,
-  ctxScreen as ctx,
 } from "../app.js";
 import { mapSizeX, mapSizeY } from "../level/map.js";
 import { SOLID_ELEMENTS } from "./constants.js";
@@ -14,17 +12,15 @@ import { SOLID_ELEMENTS } from "./constants.js";
 function possibilityForClick() {
   let monsterTiles = [];
   for (let i = 0; i < monsters.length; i++) {
-    const monster = monsters[i];
-
-    const monsterPosition = monster.position;
-    if (tileMap.map[monsterPosition.y][monsterPosition.x] !== "0") {
+    const monster = monsters[i]
+    if (tileMap.map[monster.position.y][monster.position.x] !== "0") {
       continue;
     }
     if (
-      monster.stats.type === "ground"
-      // tileMap.map[monsterPosition.y][monsterPosition.x] === 0
+      monsters[i].stats.type === "ground"
+      // tileMap.map[monster.position.y][monster.position.x] === 0
     ) {
-      monsterTiles.push(monsterPosition);
+      monsterTiles.push(monster.position);
     }
   }
   if (SOLID_ELEMENTS.includes(selectedBtn.type)) {
@@ -77,6 +73,17 @@ function possibilityForClick() {
       }
     }
   }
+}
+
+export const SPEED_FACTOR = 1;
+
+export function calculateInterval(
+  timestamp,
+  valueToCompare,
+  interval,
+  delta = 0
+) {
+  return timestamp >= valueToCompare + interval / SPEED_FACTOR + delta;
 }
 
 export { possibilityForClick };

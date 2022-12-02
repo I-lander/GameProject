@@ -1,5 +1,5 @@
 import { pixelUnit, delta, tileSize } from "../app.js";
-import { SPEED_FACTOR } from "./utils.js";
+import { SPEED_FACTOR } from "../core/utils.js";
 
 class Projectile {
   constructor(x, y, color, velocity, force) {
