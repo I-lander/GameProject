@@ -1,5 +1,6 @@
 import { tileMap, pixelUnit, gameScreen } from "../app.js";
 import { mapSizeX, mapSizeY } from "../level/map.js";
+import { createActionButton } from "./actionButtons.js";
 
 const screenRatio = 2 / 3;
 let marginTop = 0;
@@ -43,6 +44,11 @@ function screenInit(canvasScreen, canvasMenu) {
 
   const pixelUnit = tileSize / 32;
 
+  const actionButtons = document.getElementById("actionButtons");
+  actionButtons.style.position = "absolute";
+  actionButtons.style.right = `${marginLeft + 14 * pixelUnit}px`;
+  actionButtons.style.top = `${tileSize + marginTop}px`;
+
   const buttonContainer = document.getElementById("buttonContainer");
   buttonContainer.style.left = `${gameScreen.width + marginLeft}px`;
   buttonContainer.style.width = `${sideScreen.width}px`;
@@ -61,6 +67,8 @@ function screenInit(canvasScreen, canvasMenu) {
   mainMenuBtn.style.height = `${tileSize}px`;
   mainMenuBtn.style.marginTop = "4.5rem";
   mainMenuBtn.style.fontSize = `${16 * pixelUnit}px`;
+
+  createActionButton()
 }
 
 function drawSideScreenBackground(ctx, gameScreen, sideScreen) {

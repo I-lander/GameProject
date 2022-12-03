@@ -12,7 +12,7 @@ import { SOLID_ELEMENTS } from "./constants.js";
 function possibilityForClick() {
   let monsterTiles = [];
   for (let i = 0; i < monsters.length; i++) {
-    const monster = monsters[i]
+    const monster = monsters[i];
     if (tileMap.map[monster.position.y][monster.position.x] !== "0") {
       continue;
     }
@@ -75,7 +75,11 @@ function possibilityForClick() {
   }
 }
 
-export const SPEED_FACTOR = 1;
+export let speedFactor = 1;
+
+export function updateSpeedFactore(newValue) {
+  speedFactor = newValue;
+}
 
 export function calculateInterval(
   timestamp,
@@ -83,7 +87,7 @@ export function calculateInterval(
   interval,
   delta = 0
 ) {
-  return timestamp >= valueToCompare + interval / SPEED_FACTOR + delta;
+  return timestamp >= valueToCompare + interval / speedFactor + delta;
 }
 
 export { possibilityForClick };

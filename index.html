@@ -15,7 +15,6 @@
     <div class="mainMenu" id="mainMenu">
       <img src="./src/images/godIcon.png" />
       <p>
-
       </p>
       <button id="startBtn">Start Game</button>
       <button id="startBtnAsGod" style="margin: 32px; height: 64px; font-size: 32px;">GOD MODE</button>
@@ -25,10 +24,17 @@
       <canvas id="canvasScreen" class="canvasScreen"></canvas>
     </div>
 
+    <div class="actionButtons" id="actionButtons">
+      <button id="pause"><img src="./src/images/pauseButton.png"></button>
+      <button id="play"><img src="./src/images/playButton.png"></button>
+      <button id="fastForward"><img src="./src/images/fastForwardButton.png"></button>
+    </div>
     <div class="buttonContainer" id="buttonContainer"></div>
     <div class="cardDescription" id="cardDescription"></div>
 
     <div class="levelUpScreen disable" id="levelUpScreen"><p id="levelNumber"></p></div>
+
+    <div class="beforeInit" id="beforeInit"></div>
 
     <script src="./app.js" type="module"></script>
   </body>

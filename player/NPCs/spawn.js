@@ -10,7 +10,7 @@ import {
 import { Monster } from "./monster.js";
 import { mapSizeX, mapSizeY } from "../../level/map.js";
 import { marginTop, marginLeft } from "../../UI/ScreenInit.js";
-import { MONTERS_STATS } from "./monstersStats.js";
+import { MONTERS_STATS } from "../../core/constants.js";
 import { calculateInterval } from "../../core/utils.js";
 
 const playerPos = {
@@ -68,8 +68,6 @@ function spawnMonsters() {
           groundSpawnPosition.x,
           groundSpawnPosition.y,
           tileSize,
-          // MONSTERS_LIST[Math.floor(Math.random() * MONSTERS_LIST.length)]
-          // MONSTERS_LIST[0]
           monsterSelected.name,
           monsterSelected.type
         )

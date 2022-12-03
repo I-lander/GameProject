@@ -8,10 +8,10 @@ import {
 } from "../../app.js";
 import { deleteFromElementArray } from "../../level/element/bomb.js";
 import { DrawDamage } from "../utils.js";
-import { calculateInterval, SPEED_FACTOR } from "../../core/utils.js";
+import { calculateInterval, speedFactor } from "../../core/utils.js";
 
 import findPath from "./findPath.js";
-import { MONTERS_STATS } from "./monstersStats.js";
+import { MONTERS_STATS } from "../../core/constants.js";
 
 export class Monster {
   constructor(x, y, radius, name, type, speed) {
@@ -204,9 +204,19 @@ export class Monster {
       let slowDownFactor = currentTile === "desert" ? 0.5 : 1;
 
       this.x +=
-        this.velocity.x * pixelUnit * delta * this.speed * slowDownFactor * SPEED_FACTOR;
+        this.velocity.x *
+        pixelUnit *
+        delta *
+        this.speed *
+        slowDownFactor *
+        speedFactor;
       this.y +=
-        this.velocity.y * pixelUnit * delta * this.speed * slowDownFactor * SPEED_FACTOR;
+        this.velocity.y *
+        pixelUnit *
+        delta *
+        this.speed *
+        slowDownFactor *
+        speedFactor;
 
       if (dx === 0 && dy === 0) {
         if (this.path && this.path.length > 0) {

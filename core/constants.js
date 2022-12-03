@@ -14,7 +14,7 @@ const CARD_ELEMENTS = [
   },
   {
     type: "mountain",
-    value: 1,
+    value: 5,
     title: "Mountain",
     description:
       "A natural obstacle that will block path for attacking monsters.",
@@ -30,18 +30,17 @@ const CARD_ELEMENTS = [
     type: "river",
     value: 5,
     title: "River",
-    description:
-      "TODO",
+    description: "TODO",
   },
   {
     type: "village",
-    value: 10,
+    value: 20,
     title: "Village",
     description: "Generate 3 mana every 5 seconds.",
   },
   {
     type: "tower",
-    value: 15,
+    value: 30,
     title: "Tower",
     description: "A tower that will shoot on monsters.",
   },
@@ -53,13 +52,13 @@ const CARD_ELEMENTS = [
   },
   {
     type: "lava",
-    value: 20,
+    value: 30,
     title: "Lava",
     description: "Any monster that pass through it take damage.",
   },
   {
     type: "desert",
-    value: 15,
+    value: 30,
     title: "Desert",
     description: "Any monster that pass through it are slowed down.",
   },
@@ -77,8 +76,6 @@ const CARD_ELEMENTS = [
   },
 ];
 
-const MONSTERS_LIST = ["worm", "slime", "bat", "skull", "spider", "fly", "ghost", "bombMonster"];
-
 // Elements that ground monster must dodge
 
 const SOLID_ELEMENTS = [
@@ -89,9 +86,101 @@ const SOLID_ELEMENTS = [
   "desert",
   "tree",
   "lava",
-  "star"
+  "star",
 ];
 
-const FRANCHISSABLE_ELEMENTS = ["lava", "desert","star"];
+const FRANCHISSABLE_ELEMENTS = ["lava", "desert", "star"];
 
-export { CARD_ELEMENTS, MONSTERS_LIST, SOLID_ELEMENTS, FRANCHISSABLE_ELEMENTS };
+const MONTERS_STATS = [
+  {
+    name: "worm",
+    type: "ground",
+    level: 1,
+    maxHp: 6,
+    hp: 6,
+    force: 1,
+    attackRate: 1,
+  },
+  {
+    name: "spider",
+    type: "ground",
+    level: 1,
+    maxHp: 10,
+    hp: 10,
+    force: 1,
+    attackRate: 1,
+  },
+  {
+    name: "fly",
+    type: "air",
+    level: 1,
+    maxHp: 6,
+    hp: 6,
+    force: 4,
+    attackRate: 1,
+  },
+  {
+    name: "slime",
+    type: "ground",
+    level: 3,
+    maxHp: 30,
+    hp: 30,
+    force: 3,
+    attackRate: 1,
+  },
+  {
+    name: "bat",
+    type: "air",
+    level: 5,
+    maxHp: 23,
+    hp: 23,
+    force: 3,
+    attackRate: 1,
+  },
+  {
+    name: "skull",
+    type: "ground",
+    level: 7,
+    maxHp: 42,
+    hp: 42,
+    force: 10,
+    attackRate: 1,
+  },
+  {
+    name: "ghost",
+    type: "air",
+    level: 7,
+    maxHp: 52,
+    hp: 52,
+    force: 24,
+    attackRate: 1,
+  },
+  {
+    name: "bombMonster",
+    type: "air",
+    level: 9999,
+    maxHp: 150,
+    hp: 150,
+    force: 30,
+    attackRate: 1,
+  },
+];
+
+const MONSTERS_LIST = [
+  "worm",
+  "slime",
+  "bat",
+  "skull",
+  "spider",
+  "fly",
+  "ghost",
+  "bombMonster",
+];
+
+export {
+  CARD_ELEMENTS,
+  MONSTERS_LIST,
+  MONTERS_STATS,
+  SOLID_ELEMENTS,
+  FRANCHISSABLE_ELEMENTS,
+};
