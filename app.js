@@ -18,6 +18,7 @@ import { renderCardDescription } from "./UI/card-description.js";
 import { levelUpScreen } from "./core/levelUp/levelUp.js";
 import { speedFactor } from "./core/utils.js";
 import { updateStatusText } from "./UI/actionButtons.js";
+import { handleClick, thunders } from "./core/handleClick.js";
 
 // Declare & export the variable used to pause the game
 // Declare & export the function that update pause status
@@ -33,7 +34,6 @@ export { isPause, inversePause };
 // Declare & export arrays used to store game elements
 
 let monsters;
-let thunders = [];
 let damageTexts;
 let particles = [];
 
@@ -353,70 +353,7 @@ function animate(timestamp) {
 export { selectedBtn, updateSelectedBtn };
 
 canvasScreen.addEventListener("click", (event) => {
-  if (selectedBtn) {
-    CARD_ELEMENTS.some((card) => card.type === selectedBtn.type);
-  }
-  const xZero = marginLeft;
-  const yZero = marginTop;
-  const x = event.x - xZero;
-  const y = event.y - yZero;
-  const clickPositionInGrid = tileMap.getPosition(x, y);
-  if (
-    tileMap.map[clickPositionInGrid.y][clickPositionInGrid.x] === "green" &&
-    CARD_ELEMENTS.some((card) => card.type === selectedBtn.type)
-  ) {
-    tileMap.map[clickPositionInGrid.y][clickPositionInGrid.x] =
-      selectedBtn.type;
-    tileMap.players[0].stats.manaRessource -= parseInt(selectedBtn.value);
-
-    cleanMap();
-    selectedBtn = undefined;
-    const closeButton = document.getElementById("closeButton");
-    if (closeButton) {
-      closeButton.remove();
-    }
-    monsters.forEach((monster) => {
-      monster.findingPath();
-    });
-    inversePause();
-  }
-  if (selectedBtn && selectedBtn.type === "thunder") {
-    const thunder = new Thunder(x, y);
-    thunders.push(thunder);
-    tileMap.players[0].stats.manaRessource -= parseInt(selectedBtn.value);
-    selectedBtn = undefined;
-    const closeButton = document.getElementById("closeButton");
-    if (closeButton) {
-      closeButton.remove();
-    }
-    inversePause();
-  }
-
-  if (
-    selectedBtn &&
-    selectedBtn.type === "bomb" &&
-    SOLID_ELEMENTS.includes(
-      tileMap.map[clickPositionInGrid.y][clickPositionInGrid.x]
-    )
-  ) {
-    tileMap.map[clickPositionInGrid.y][clickPositionInGrid.x] =
-      selectedBtn.type;
-    bombMecanics(clickPositionInGrid);
-    selectedBtn = undefined;
-    const closeButton = document.getElementById("closeButton");
-    if (closeButton) {
-      closeButton.remove();
-    }
-    inversePause();
-    for (let i = 0; i < 40; i++) {
-      particles.push(
-        new Particle(x, y, Math.random() * 2 * pixelUnit, {
-          x: Math.random() - 0.5,
-          y: Math.random() - 0.5,
-        })
-      );
-    }
-  }
+  handleClick(event);
 });
 
 function cleanMap() {
