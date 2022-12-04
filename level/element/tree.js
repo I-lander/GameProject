@@ -22,9 +22,11 @@ export class Tree {
   }
 
   update(ctx) {
+    let timestamp = Date.now();
     this.drawLoadingHealth(ctx);
-
-    if (calculateInterval(this.lastUpdate, 1000 / this.stats.loadSpeed)) {
+    if (
+      calculateInterval(timestamp, this.lastUpdate, 1000 / this.stats.loadSpeed)
+    ) {
       this.stats.healthLoad++;
       this.lastUpdate = timestamp;
     }
