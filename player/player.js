@@ -25,7 +25,7 @@ class Player {
       force: 3,
       attackRate: 1,
       range: tileSize * 3.5,
-      manaRessource: 0,
+      manaRessource: 50,
     };
     this.level = 0;
     this.lastAttack = 0;

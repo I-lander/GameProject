@@ -10,6 +10,7 @@ import {
 } from "../app.js";
 import { CARD_ELEMENTS } from "../core/constants.js";
 import { possibilityForClick } from "../core/utils.js";
+import { updateStatusText } from "./actionButtons.js";
 import { marginTop, marginLeft } from "./ScreenInit.js";
 
 const buttons = [];
@@ -101,6 +102,7 @@ function createCard(type) {
       possibilityForClick();
       tileMap.draw(ctxScreen);
       inversePause();
+      updateStatusText(pixelUnit)
       createCloseButton(newButton);
     }
   };

@@ -8,7 +8,7 @@ class Projectile {
     this.radius = 6 * pixelUnit;
     this.color = color;
     this.velocity = velocity;
-    this.speed = 0.3;
+    this.speed = 1;
     this.force = force;
     this.sprite = new Image();
     this.spriteSize = tileSize;
@@ -28,10 +28,6 @@ class Projectile {
       this.spriteSize
     );
     ctx.restore();
-    // ctx.beginPath();
-    // ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-    // ctx.fillStyle = "white";
-    // ctx.fill();
   }
 
   update(ctx) {

@@ -17,6 +17,7 @@ import { bombMecanics } from "./level/element/bomb.js";
 import { renderCardDescription } from "./UI/card-description.js";
 import { levelUpScreen } from "./core/levelUp/levelUp.js";
 import { speedFactor } from "./core/utils.js";
+import { updateStatusText } from "./UI/actionButtons.js";
 
 // Declare & export the variable used to pause the game
 // Declare & export the function that update pause status
@@ -24,6 +25,7 @@ import { speedFactor } from "./core/utils.js";
 let isPause = true;
 function inversePause() {
   isPause = !isPause;
+  updateStatusText(pixelUnit);
 }
 
 export { isPause, inversePause };
@@ -50,8 +52,8 @@ export { ctxScreen, canvasScreen };
 const tileMap = new TileMap();
 screenInit(canvasScreen);
 
-const beforeInit = document.getElementById("beforeInit")
-beforeInit.classList.add("disable")
+const beforeInit = document.getElementById("beforeInit");
+beforeInit.classList.add("disable");
 
 // Declare & export the variable use to uniformization of any sprite
 // The tileSize is use to calibrate screen size and elements size
@@ -120,6 +122,7 @@ let levelUp = true;
 
 function inverseLeveUp() {
   levelUp = !levelUp;
+  updateStatusText(pixelUnit);
 }
 
 let selectedBtn;
@@ -162,6 +165,7 @@ function animate(timestamp) {
 
   if (levelUp) {
     isPause = true;
+    updateStatusText(pixelUnit);
     levelUpScreen(levelUp);
   }
 
@@ -412,12 +416,6 @@ canvasScreen.addEventListener("click", (event) => {
         })
       );
     }
-  }
-});
-
-window.addEventListener("keydown", (event) => {
-  if (event.code === "Space") {
-    isPause = !isPause;
   }
 });
 

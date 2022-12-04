@@ -68,7 +68,7 @@ function screenInit(canvasScreen, canvasMenu) {
   mainMenuBtn.style.marginTop = "4.5rem";
   mainMenuBtn.style.fontSize = `${16 * pixelUnit}px`;
 
-  createActionButton()
+  createActionButton(pixelUnit)
 }
 
 function drawSideScreenBackground(ctx, gameScreen, sideScreen) {
