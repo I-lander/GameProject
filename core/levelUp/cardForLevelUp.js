@@ -1,4 +1,10 @@
-import { cleanMap, ctxScreen, inversePause, tileMap, updateSelectedBtn } from "../../app.js";
+import {
+  cleanMap,
+  ctxScreen,
+  inversePause,
+  tileMap,
+  updateSelectedBtn,
+} from "../../app.js";
 import { mapSizeX, mapSizeY } from "../../level/map.js";
 import { possibilityForClick } from "../utils.js";
 
@@ -16,6 +22,15 @@ const CARD_FOR_LEVEL_UP = [
         x = Math.floor(Math.random() * mapSizeX);
         y = Math.random() < 0.5 ? 0 : mapSizeY - 1;
       }
+      while (tileMap.arrows.some((arrow) => arrow.position.x === x && arrow.position.y === y)) {
+        if (Math.random() < 0.5) {
+          x = Math.random() < 0.5 ? 0 : mapSizeX - 1;
+          y = Math.floor(Math.random() * mapSizeY);
+        } else {
+          x = Math.floor(Math.random() * mapSizeX);
+          y = Math.random() < 0.5 ? 0 : mapSizeY - 1;
+        }
+      }
       tileMap.map[y][x] = "arrows";
       tileMap.players[0].stats.manaRessource += 10;
     };
@@ -25,13 +40,13 @@ const CARD_FOR_LEVEL_UP = [
     description =
       "Place an spawn point anywhere in the screen border.</br>Gain 3 soul ressources.";
     function = () => {
-        cleanMap;
-        updateSelectedBtn({ type: "arrows", value: 0 });
-        possibilityForClick();
-        tileMap.draw(ctxScreen);
-        setTimeout(() => {
-          inversePause();
-        }, 100);
+      cleanMap;
+      updateSelectedBtn({ type: "arrows", value: 0 });
+      possibilityForClick();
+      tileMap.draw(ctxScreen);
+      setTimeout(() => {
+        inversePause();
+      }, 100);
       tileMap.players[0].stats.manaRessource += 3;
     };
   },
