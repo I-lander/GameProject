@@ -100,3 +100,7 @@ canvas {
 .actionButtons button {
   position: fixed;
 }
+
+.actionButtons img {
+  height: 100%;
+}

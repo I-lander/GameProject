@@ -45,26 +45,37 @@ function screenInit(canvasScreen, canvasMenu) {
   const pixelUnit = tileSize / 32;
 
   const actionButtons = document.getElementById("actionButtons");
+  actionButtons.style.height = `${tileSize}px`;
+  actionButtons.style.width = `${tileSize * 3}px`;
   actionButtons.style.top = `${tileSize + marginTop}px`;
+  actionButtons.style.left = `${
+    marginLeft + canvasScreen.width - (tileSize * 3.5 - 2 * pixelUnit)
+  }px`;
 
   const pause = document.getElementById("pause");
-  actionButtons.style.left = `${
-    marginLeft + canvasScreen.width - 102 * pixelUnit
+  pause.style.height = `${tileSize}px`;
+  pause.style.left = `${
+    marginLeft + canvasScreen.width - (tileSize * 3.5 - 2 * pixelUnit)
   }px`;
 
   const play = document.getElementById("play");
+  play.style.height = `${tileSize}px`;
   play.style.left = `${
-    marginLeft + canvasScreen.width - (102 - 32) * pixelUnit
+    marginLeft + canvasScreen.width - (tileSize * 2.5 - 2 * pixelUnit)
   }px`;
 
   const fastForward = document.getElementById("fastForward");
+  fastForward.style.height = `${tileSize}px`;
   fastForward.style.left = `${
-    marginLeft + canvasScreen.width - (102 - 64) * pixelUnit
+    marginLeft + canvasScreen.width - (tileSize * 1.5 - 2 * pixelUnit)
   }px`;
 
   const actionStatus = document.getElementById("actionStatus");
   actionStatus.style.top = `${tileSize * 2 + marginTop}px`;
-  actionStatus.style.width = `${tileSize * 3 - 14}px`;
+  actionStatus.style.left = `${
+    marginLeft + canvasScreen.width - tileSize * 3.5
+  }px`;
+  actionStatus.style.width = `${tileSize * 3}px`;
 
   const buttonContainer = document.getElementById("buttonContainer");
   buttonContainer.style.left = `${gameScreen.width + marginLeft}px`;
