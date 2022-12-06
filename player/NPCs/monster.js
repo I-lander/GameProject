@@ -29,11 +29,7 @@ export class Monster {
     this.isTakingDamage = false;
     this.damageFrameCount = 0;
 
-    this.startVec = {
-      // Declare the start point for pathfinding
-      x: Math.floor(this.x / tileSize),
-      y: Math.floor(this.y / tileSize),
-    };
+    this.startVec = tileMap.getPosition(this.x, this.y);
     this.defaultTargetVec = tileMap.getPosition(
       tileMap.players[0].x,
       tileMap.players[0].y
@@ -82,13 +78,15 @@ export class Monster {
     ) {
       return;
     }
-    this.startVec = {
-      // Declare the start point for pathfinding
-      x: Math.floor(this.x / tileSize),
-      y: Math.floor(this.y / tileSize),
-    };
-
-    this.path = findPath(this.startVec, this.targetVec, this.stats.type); // Create the path
+    this.startVec = tileMap.getPosition(this.x, this.y);
+    
+    if (
+      this.startVec.x === this.targetVec.x &&
+      this.startVec.y === this.targetVec.y
+    ) {
+      return;
+    }
+    this.path = findPath(this.startVec, this.targetVec, this.stats.type);
     this.moveToTarget = this.path ? this.path.shift() : null;
   }
 

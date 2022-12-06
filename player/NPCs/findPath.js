@@ -1,13 +1,15 @@
 import { map, mapSizeX, mapSizeY } from "../../level/map.js";
 import { tileSize } from "../../app.js";
-import { SOLID_ELEMENTS, FRANCHISSABLE_ELEMENTS } from "../../core/constants.js";
+import {
+  SOLID_ELEMENTS,
+  FRANCHISSABLE_ELEMENTS,
+} from "../../core/constants.js";
 
 const toKey = (x, y) => `${x}x${y}`;
 
 const findPath = (start, target, type) => {
   const queue = [];
   const parentForKey = {};
-
   const startKey = toKey(start.x, start.y);
   const targetKey = toKey(target.x, target.y);
 
@@ -50,9 +52,9 @@ const findPath = (start, target, type) => {
         continue;
       }
       if (
-        type === "ground" &&
-        SOLID_ELEMENTS.includes(tile) &&
-        !FRANCHISSABLE_ELEMENTS.includes(tile) ||
+        (type === "ground" &&
+          SOLID_ELEMENTS.includes(tile) &&
+          !FRANCHISSABLE_ELEMENTS.includes(tile)) ||
         tile === "player"
       ) {
         continue;
@@ -81,7 +83,7 @@ const findPath = (start, target, type) => {
   let currentKey = targetKey;
 
   if (!parentForKey[targetKey]) {
-    return ;
+    return;
   }
 
   parentForKey[targetKey].position = {

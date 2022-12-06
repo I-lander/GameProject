@@ -113,7 +113,7 @@ const MONTERS_STATS = [
   {
     name: "fly",
     type: "air",
-    level: 1,
+    level: 3,
     maxHp: 6,
     hp: 6,
     force: 4,
