@@ -207,9 +207,7 @@ function animate(timestamp) {
       mainPlayer.y - monster.y
     );
     if (distance - monster.hitBox < 1) {
-      mainPlayer.stats.hp -= monster.stats.force; // Player lose as hp as the monster force
-      const damageText = new DrawDamage(mainPlayer, monster.stats.force);
-      damageTexts.push(damageText);
+      mainPlayer.takingDamage(monster.stats.force)
       monster.stats.hp = 0;
     }
 
@@ -236,7 +234,7 @@ function animate(timestamp) {
 
   damageTexts.forEach((damageText, damageTextIndex) => {
     damageText.draw(ctxScreen);
-    if (damageText.entity.y - damageText.y > tileSize / 2) {
+    if (damageText.hue <= 0) {
       damageTexts.splice(damageTextIndex, 1);
     }
   });
@@ -326,7 +324,6 @@ function animate(timestamp) {
         if (distance - monster.hitBox - projectile.radius < 1) {
           player.projectiles.splice(projectileIndex, 1);
           !monster.isTakingDame ? monster.takingDamage(projectile.force) : null;
-          mainPlayer.stats.exp++; // earn experience
         }
       });
       projectile.update(ctxScreen);

@@ -5,9 +5,11 @@ import {
   monsters,
   gameScreen,
   sideScreen,
+  damageTexts,
 } from "../app.js";
 import { Projectile } from "./projectile.js";
 import { calculateInterval } from "../core/utils.js";
+import { DrawDamage } from "./utils.js";
 class Player {
   constructor(x, y, position, radius, image) {
     this.x = x;
@@ -31,6 +33,9 @@ class Player {
     this.lastAttack = 0;
     this.isAttacking = false;
 
+    this.isTakingDamage = false;
+    this.damageFrameCount = 0;
+
     this.img = new Image();
     this.img.src = image;
     this.spriteSize = 32;
@@ -51,6 +56,8 @@ class Player {
       this.stats.hp = this.maxHp;
     }
 
+    this.frameY = this.isTakingDamage ? 1 : 0;
+
     ctx.drawImage(
       this.img,
       this.frameX * this.spriteSize,
@@ -62,6 +69,15 @@ class Player {
       this.radius,
       this.radius
     );
+
+    if (this.isTakingDamage) {
+      this.damageFrameCount++;
+    }
+    if (this.damageFrameCount === 10) {
+      this.isTakingDamage = false;
+      this.damageFrameCount = 0;
+    }
+
     this.isAttacking ? this.shootAnimation(timestamp) : null;
     ctx.beginPath();
     ctx.lineWidth = 1 * pixelUnit;
@@ -118,6 +134,13 @@ class Player {
         this.stats.force
       )
     );
+  }
+
+  takingDamage(damage) {
+    this.stats.hp -= damage;
+    this.isTakingDamage = true;
+    const damageText = new DrawDamage(this, damage);
+    damageTexts.push(damageText);
   }
 
   shootAnimation(timestamp) {

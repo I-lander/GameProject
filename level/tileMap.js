@@ -89,8 +89,7 @@ export class TileMap {
               this.tileSize * row + this.tileSize / 2,
               { x: column, y: row },
               this.tileSize,
-              "./src/images/god.png",
-              null
+              "./src/images/god.png"
             );
             this.players.push(player);
           }

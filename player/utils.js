@@ -20,13 +20,6 @@ function drawLifeBar(ctx, entity) {
       tileSize * barRatio * 0.6,
       tileSize * 0.1
     );
-    ctx.strokeStyle = "white";
-    ctx.strokeRect(
-      x + (tileSize * 0.4) / 2,
-      y - tileSize * 0.1,
-      tileSize * 0.6,
-      tileSize * 0.1
-    );
     ctx.restore();
   }
 }
@@ -34,21 +27,23 @@ function drawLifeBar(ctx, entity) {
 class DrawDamage {
   constructor(entity, damage) {
     this.entity = entity;
-    this.y = entity.y;
+    this.y = entity.y - tileSize/2;
+    this.yGap = 0
     this.damage = damage;
+    this.hue = 1;
   }
 
   draw(ctx) {
     let x = this.entity.x;
-    if (this.entity.type) {
-      x -= this.entity.radius / 2;
-    }
+    x -= this.entity.radius / 2;
     ctx.font = `${tileSize / 3}px dogicapixel`;
-    ctx.fillStyle = "white";
+    ctx.fillStyle = `hsla(1, 100%, 100%, ${this.hue})`;
     ctx.textAlign = "center";
     ctx.fillText(this.damage, x + tileSize / 2, this.y);
 
-    this.y -= 0.5 * pixelUnit * delta;
+    this.yGap -= 0.5 * pixelUnit * delta;
+    this.y = this.entity.y - tileSize/2 + this.yGap
+    this.hue -= 0.05;
   }
 }
 
