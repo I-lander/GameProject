@@ -45,9 +45,26 @@ function screenInit(canvasScreen, canvasMenu) {
   const pixelUnit = tileSize / 32;
 
   const actionButtons = document.getElementById("actionButtons");
-  actionButtons.style.position = "absolute";
-  actionButtons.style.right = `${marginLeft + 14 * pixelUnit}px`;
   actionButtons.style.top = `${tileSize + marginTop}px`;
+
+  const pause = document.getElementById("pause");
+  actionButtons.style.left = `${
+    marginLeft + canvasScreen.width - 102 * pixelUnit
+  }px`;
+
+  const play = document.getElementById("play");
+  play.style.left = `${
+    marginLeft + canvasScreen.width - (102 - 32) * pixelUnit
+  }px`;
+
+  const fastForward = document.getElementById("fastForward");
+  fastForward.style.left = `${
+    marginLeft + canvasScreen.width - (102 - 64) * pixelUnit
+  }px`;
+
+  const actionStatus = document.getElementById("actionStatus");
+  actionStatus.style.top = `${tileSize * 2 + marginTop}px`;
+  actionStatus.style.width = `${tileSize * 3 - 14}px`;
 
   const buttonContainer = document.getElementById("buttonContainer");
   buttonContainer.style.left = `${gameScreen.width + marginLeft}px`;
@@ -68,7 +85,7 @@ function screenInit(canvasScreen, canvasMenu) {
   mainMenuBtn.style.marginTop = "4.5rem";
   mainMenuBtn.style.fontSize = `${16 * pixelUnit}px`;
 
-  createActionButton(pixelUnit)
+  createActionButton(pixelUnit);
 }
 
 function drawSideScreenBackground(ctx, gameScreen, sideScreen) {

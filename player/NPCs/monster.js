@@ -37,7 +37,7 @@ export class Monster {
     this.targetVec = this.defaultTargetVec;
     this.isBombTarget = false;
     this.toDelete;
-    this.ArraythisToDelete;
+    this.ArrayToDelete;
 
     this.lastTargetVec = this.targetVec;
     this.path = findPath(this.startVec, this.targetVec, this.stats.type); // Create the path
@@ -129,13 +129,13 @@ export class Monster {
 
   bombMonsterMecs() {
     if (!this.isBombTarget) {
-      this.ArraythisToDelete =
+      this.ArrayToDelete =
         tileMap.deletableElements[
           Math.floor(Math.random() * tileMap.deletableElements.length)
         ];
       this.toDelete =
-        this.ArraythisToDelete[
-          Math.floor(Math.random() * this.ArraythisToDelete.length)
+        this.ArrayToDelete[
+          Math.floor(Math.random() * this.ArrayToDelete.length)
         ];
       if (this.toDelete) {
         this.targetVec = tileMap.getPosition(this.toDelete.x, this.toDelete.y);
@@ -152,7 +152,7 @@ export class Monster {
     );
     if (distance <= minDistance) {
       this.stats.hp = 0;
-      deleteFromElementArray(this.ArraythisToDelete, this.targetVec);
+      deleteFromElementArray(this.ArrayToDelete, this.targetVec);
       tileMap.map[this.targetVec.y][this.targetVec.x] = "bomb";
     }
   }

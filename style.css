@@ -89,4 +89,14 @@ canvas {
 .actionStatus {
   color: white;
   text-align: end;
+  user-select: none;
+  position: fixed;
+}
+
+.actionButtons {
+  position: fixed;
+}
+
+.actionButtons button {
+  position: fixed;
 }
