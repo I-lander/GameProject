@@ -3,8 +3,8 @@ import { tileSize, pixelUnit, delta, damageTexts } from "../app.js";
 function drawLifeBar(ctx, entity) {
   let x = entity.x - tileSize / 2;
   let y = entity.y - tileSize / 2;
-  if (entity.stats.hp < entity.stats.maxHp) {
-    const barRatio = entity.stats.hp / entity.stats.maxHp;
+  if (entity.stats.hp < entity.maxHp) {
+    const barRatio = entity.stats.hp / entity.maxHp;
     ctx.save();
     ctx.fillStyle = "rgba(0, 0, 0, 0.9)";
     ctx.fillRect(

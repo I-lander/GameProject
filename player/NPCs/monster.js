@@ -13,6 +13,8 @@ import { calculateInterval, speedFactor } from "../../core/utils.js";
 import findPath from "./findPath.js";
 import { MONTERS_STATS } from "../../core/constants.js";
 
+const bombArray = []
+
 export class Monster {
   constructor(x, y, radius, name, type, speed) {
     this.x = x + tileSize / 2;
@@ -23,6 +25,7 @@ export class Monster {
     this.velocity = { x: 0, y: 0 };
     this.speed = speed ?? 0.4;
     this.stats = this.getMonsterStats();
+    this.maxHp = this.stats.hp
 
     this.visitedStars = [];
 
