@@ -154,7 +154,6 @@ function animate(timestamp) {
   ctxScreen.clearRect(0, 0, canvasScreen.width, canvasScreen.height);
 
   drawBackGameBackground(ctxScreen, gameScreen);
-  renderCardDescription(selectedBtn);
 
   tileMap.draw(ctxScreen); // draw the map
   const mainPlayer = tileMap.players[0];

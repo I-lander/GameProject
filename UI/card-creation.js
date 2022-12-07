@@ -11,7 +11,7 @@ import {
 import { CARD_ELEMENTS } from "../core/constants.js";
 import { possibilityForClick } from "../core/utils.js";
 import { updateStatusText } from "./actionButtons.js";
-import { marginTop, marginLeft } from "./ScreenInit.js";
+import { renderCardDescription } from "./card-description.js";
 
 const buttons = [];
 const maxCardPerLign = 5;
@@ -99,10 +99,11 @@ function createCard(type) {
     ) {
       cleanMap();
       updateSelectedBtn({ type: cardSelected.type, value: cardSelected.value });
+      renderCardDescription({ type: cardSelected.type, value: cardSelected.value });
       possibilityForClick();
       tileMap.draw(ctxScreen);
       inversePause();
-      updateStatusText(pixelUnit)
+      updateStatusText(pixelUnit);
       createCloseButton(newButton);
     }
   };

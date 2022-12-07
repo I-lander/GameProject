@@ -54,6 +54,7 @@ const findPath = (start, target, type) => {
       if (
         (type === "ground" &&
           SOLID_ELEMENTS.includes(tile) &&
+          tile !== "river" &&
           !FRANCHISSABLE_ELEMENTS.includes(tile)) ||
         tile === "player"
       ) {

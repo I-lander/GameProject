@@ -13,7 +13,7 @@ import { calculateInterval, speedFactor } from "../../core/utils.js";
 import findPath from "./findPath.js";
 import { MONTERS_STATS } from "../../core/constants.js";
 
-const bombArray = []
+const bombArray = [];
 
 export class Monster {
   constructor(x, y, radius, name, type, speed) {
@@ -25,7 +25,7 @@ export class Monster {
     this.velocity = { x: 0, y: 0 };
     this.speed = speed ?? 0.4;
     this.stats = this.getMonsterStats();
-    this.maxHp = this.stats.hp
+    this.maxHp = this.stats.hp;
 
     this.visitedStars = [];
 
@@ -82,7 +82,7 @@ export class Monster {
       return;
     }
     this.startVec = tileMap.getPosition(this.x, this.y);
-    
+
     if (
       this.startVec.x === this.targetVec.x &&
       this.startVec.y === this.targetVec.y
@@ -182,6 +182,8 @@ export class Monster {
       !this.isTakingDamage ? this.takingDamage(1) : null;
       this.lastLavaDamage = timestamp;
     }
+
+    currentTile === "river" ? (this.stats.hp = 0) : null;
 
     this.draw(ctx, timestamp);
 
