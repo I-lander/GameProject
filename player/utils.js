@@ -34,6 +34,7 @@ class DrawDamage {
   }
 
   draw(ctx) {
+    ctx.save()
     let x = this.entity.x;
     x -= this.entity.radius / 2;
     ctx.font = `${tileSize / 3}px dogicapixel`;
@@ -44,6 +45,7 @@ class DrawDamage {
     this.yGap -= 0.5 * pixelUnit * delta;
     this.y = this.entity.y - tileSize/2 + this.yGap
     this.hue -= 0.05;
+    ctx.restore()
   }
 }
 
