@@ -97,6 +97,8 @@ function screenInit(canvasScreen, canvasMenu) {
   const startBtn = document.getElementById("startBtn");
   startBtn.style.height = `${tileSize*2}px`;
   startBtn.style.width = `${tileSize * 6}px`;
+  startBtn.style.fontSize = `${tileSize*0.65}px`;
+
   startBtn.style.top = `${marginTop + tileSize * 8}px`;
   startBtn.style.left = `${
     marginLeft + canvasScreen.width / 2 - tileSize * 3
@@ -105,6 +107,7 @@ function screenInit(canvasScreen, canvasMenu) {
   const startBtnAsGod = document.getElementById("startBtnAsGod");
   startBtnAsGod.style.height = `${tileSize}px`;
   startBtnAsGod.style.width = `${tileSize * 6}px`;
+  startBtnAsGod.style.fontSize = `${tileSize*0.65}px`;
 
   startBtnAsGod.style.top = `${marginTop + tileSize * 10.5}px`;
   startBtnAsGod.style.left = `${
