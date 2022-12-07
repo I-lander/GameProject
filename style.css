@@ -104,3 +104,9 @@ canvas {
 .actionButtons img {
   height: 100%;
 }
+
+.manaRessource, .levelText {
+  position: fixed;
+  color: white;
+  text-align: left;
+}

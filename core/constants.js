@@ -28,7 +28,7 @@ const CARD_ELEMENTS = [
   },
   {
     type: "river",
-    value: 5,
+    value: 50,
     title: "River",
     description: "The ground monster walking in it is drowned.",
   },

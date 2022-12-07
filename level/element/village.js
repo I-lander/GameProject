@@ -69,7 +69,7 @@ class ManaToFeed {
   constructor(x, y) {
     this.x = x;
     this.y = y;
-    this.targetX = gameScreen.width + tileSize * 9.75;
+    this.targetX = gameScreen.width;
     this.targetY = tileSize * 1.75;
     this.velocity;
     this.speed = 3;

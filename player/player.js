@@ -10,6 +10,7 @@ import {
 import { Projectile } from "./projectile.js";
 import { calculateInterval } from "../core/utils.js";
 import { DrawDamage } from "./utils.js";
+import { marginLeft } from "../UI/ScreenInit.js";
 class Player {
   constructor(x, y, position, radius, image) {
     this.x = x;
@@ -91,8 +92,8 @@ class Player {
       this.stats.nextLvl = Math.round(this.stats.nextLvl * 150) / 100;
     }
     this.drawPlayerLife(ctx);
-    this.drawLevel(ctx);
-    this.drawmanaRessource(ctx);
+    this.drawLevel();
+    this.drawmanaRessource();
   }
 
   autoFire(timestamp, monsters) {
@@ -178,22 +179,20 @@ class Player {
     ctx.restore();
   }
 
-  drawmanaRessource(ctx) {
-    const textX = gameScreen.width + tileSize / 2;
-    const textY = tileSize * 1.5;
-    ctx.font = `${tileSize / 2}px dogicapixel`;
-    ctx.fillStyle = "white";
-    ctx.textAlign = "left";
-    ctx.fillText(this.stats.manaRessource, textX, textY);
+  drawmanaRessource() {
+    const manaRessource = document.getElementById("manaRessource")
+    manaRessource.innerHTML = `${this.stats.manaRessource}`
+    manaRessource.style.left = `${marginLeft + gameScreen.width + tileSize / 2}px`
+    manaRessource.style.top = `${tileSize *1.3}px`
+    manaRessource.style.fontSize =  `${tileSize / 2}px`
   }
 
-  drawLevel(ctx) {
-    const textX = gameScreen.width + tileSize / 2;
-    const textY = tileSize * 2.2;
-    ctx.font = `${tileSize / 2}px dogicapixel`;
-    ctx.fillStyle = "white";
-    ctx.textAlign = "left";
-    ctx.fillText(`LVL: ${this.level}`, textX, textY);
+  drawLevel() {
+    const levelText = document.getElementById("levelText")
+    levelText.innerHTML = `LVL: ${this.level}`
+    levelText.style.left = `${marginLeft + gameScreen.width + tileSize / 2}px`
+    levelText.style.top = `${tileSize *2}px`
+    levelText.style.fontSize =  `${tileSize / 2}px`
   }
 }
 
