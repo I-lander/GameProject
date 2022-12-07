@@ -30,7 +30,7 @@ const CARD_ELEMENTS = [
     type: "river",
     value: 5,
     title: "River",
-    description: "TODO",
+    description: "The ground monster walking in it is drowned.",
   },
   {
     type: "village",
