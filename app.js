@@ -19,6 +19,7 @@ import { levelUpScreen } from "./core/levelUp/levelUp.js";
 import { speedFactor } from "./core/utils.js";
 import { updateStatusText } from "./UI/actionButtons.js";
 import { handleClick, thunders } from "./core/handleClick.js";
+import { gameOverScreen } from "./UI/gameOverScreen.js";
 
 // Declare & export the variable used to pause the game
 // Declare & export the function that update pause status
@@ -96,6 +97,7 @@ document.getElementById("startBtnAsGod").addEventListener("click", () => {
 
 function init() {
   tileMap.init();
+  levelUp = true;
   monsters = [];
   damageTexts = [];
   particles = [];
@@ -103,7 +105,7 @@ function init() {
 
 // Method used to start the game after clicking on the start game button
 
-function startGame() {
+export function startGame() {
   init();
   isPause = false;
   mainMenu.classList.add("disable");
@@ -157,9 +159,9 @@ function animate(timestamp) {
 
   tileMap.draw(ctxScreen); // draw the map
   const mainPlayer = tileMap.players[0];
-  isGod ? (tileMap.players[0].stats.manaRessource = 9999) : null;
-  isGod ? (tileMap.players[0].maxHp = 9999) : null;
-  isGod ? (tileMap.players[0].stats.hp = 9999) : null;
+  isGod ? (mainPlayer.stats.manaRessource = 9999) : null;
+  isGod ? (mainPlayer.maxHp = 9999) : null;
+  isGod ? (mainPlayer.stats.hp = 9999) : null;
   spawnMonsters(); // method that handle any spawning monsters
 
   if (levelUp) {
@@ -206,7 +208,7 @@ function animate(timestamp) {
       mainPlayer.y - monster.y
     );
     if (distance - monster.hitBox < 1) {
-      mainPlayer.takingDamage(monster.stats.force)
+      mainPlayer.takingDamage(monster.stats.force);
       monster.stats.hp = 0;
     }
 
@@ -307,9 +309,11 @@ function animate(timestamp) {
     // Condition of death GAME OVER
 
     if (mainPlayer.stats.hp <= 0) {
-      mainMenu.classList.remove("disable");
       isPause = true;
       init();
+      setTimeout(() => {
+        gameOverScreen(mainPlayer.level);
+      }, 300);
     }
 
     // Loop on any player's projectiles & monsters to check if it touch an monster

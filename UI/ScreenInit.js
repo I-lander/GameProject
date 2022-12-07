@@ -88,15 +88,28 @@ function screenInit(canvasScreen, canvasMenu) {
   mainMenuP.style.lineHeight = `${24 * pixelUnit}px`;
 
   const mainMenuImg = mainMenu.querySelector("img");
-  mainMenuImg.style.margin = `${tileSize}px`;
-  mainMenuImg.style.height = `${96 * pixelUnit}px`;
-
-  const mainMenuBtn = mainMenu.querySelector("button");
-  mainMenuBtn.style.height = `${tileSize}px`;
-  mainMenuBtn.style.marginTop = "4.5rem";
-  mainMenuBtn.style.fontSize = `${16 * pixelUnit}px`;
+  mainMenuImg.style.height = `${tileSize * 5}px`;
+  mainMenuImg.style.top = `${marginTop + tileSize * 2}px`;
+  mainMenuImg.style.left = `${marginLeft + canvasScreen.width/2 - tileSize * 2.5}px`;
 
   createActionButton(pixelUnit);
+
+  const startBtn = document.getElementById("startBtn");
+  startBtn.style.height = `${tileSize*2}px`;
+  startBtn.style.width = `${tileSize * 6}px`;
+  startBtn.style.top = `${marginTop + tileSize * 8}px`;
+  startBtn.style.left = `${
+    marginLeft + canvasScreen.width / 2 - tileSize * 3
+  }px`;
+
+  const startBtnAsGod = document.getElementById("startBtnAsGod");
+  startBtnAsGod.style.height = `${tileSize}px`;
+  startBtnAsGod.style.width = `${tileSize * 6}px`;
+
+  startBtnAsGod.style.top = `${marginTop + tileSize * 10.5}px`;
+  startBtnAsGod.style.left = `${
+    marginLeft + canvasScreen.width / 2 - tileSize * 3
+  }px`;
 }
 
 function drawSideScreenBackground(ctx, gameScreen, sideScreen) {

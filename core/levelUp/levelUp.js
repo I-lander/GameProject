@@ -9,9 +9,10 @@ import {
 import { CARD_FOR_LEVEL_UP } from "./cardForLevelUp.js";
 
 const choices = 2;
-let buttons = [];
 
 function levelUpScreen() {
+  let buttons = [];
+
   tileMap.players[0].level++;
   const levelUpScreen = document.getElementById("levelUpScreen");
   const levelNumber = document.getElementById("levelNumber");
@@ -25,11 +26,11 @@ function levelUpScreen() {
 
   levelUpScreen.classList.remove("disable");
   for (let card = 0; card < choices; card++) {
-    drawCards(levelUpScreen);
+    drawCards(levelUpScreen, buttons);
   }
 }
 
-function drawCards(levelUpScreen) {
+function drawCards(levelUpScreen, buttons) {
   const buttonSize = { width: 256 * pixelUnit, height: 384 * pixelUnit };
   const Xpos =
     tileSize * 2 +
@@ -37,11 +38,11 @@ function drawCards(levelUpScreen) {
     buttons.length * tileSize;
   const Ypos = tileSize * 2;
 
-  const constSelectedCard =
+  const SelectedCard =
     // CARD_FOR_LEVEL_UP[Math.floor(Math.random() * CARD_FOR_LEVEL_UP.length)];
     CARD_FOR_LEVEL_UP[buttons.length];
-
-  const card = new constSelectedCard();
+  console.log(buttons.length);
+  const card = new SelectedCard();
 
   const newButton = document.createElement("button");
   levelUpScreen.appendChild(newButton);
@@ -65,9 +66,9 @@ function drawCards(levelUpScreen) {
   newButton.append(cardTitle);
   cardTitle.innerText = card.title;
   cardTitle.style.position = "absolute";
-  cardTitle.style.top = `${tileSize+16*pixelUnit}px`;
-  cardTitle.style.left = `${tileSize/2}px`;
-  cardTitle.style.width = `${256 * pixelUnit - 32*pixelUnit}px`;
+  cardTitle.style.top = `${tileSize + 16 * pixelUnit}px`;
+  cardTitle.style.left = `${tileSize / 2}px`;
+  cardTitle.style.width = `${256 * pixelUnit - 32 * pixelUnit}px`;
   cardTitle.style.textAlign = "center";
 
   const cardDescription = document.createElement("p");
@@ -84,7 +85,6 @@ function drawCards(levelUpScreen) {
     levelUpScreen.classList.add("disable");
     inverseLeveUp();
     inversePause();
-    buttons = [];
   };
 
   buttons.push(newButton);

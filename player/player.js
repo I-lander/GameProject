@@ -10,7 +10,7 @@ import {
 import { Projectile } from "./projectile.js";
 import { calculateInterval } from "../core/utils.js";
 import { DrawDamage } from "./utils.js";
-import { marginLeft } from "../UI/ScreenInit.js";
+import { marginLeft, marginTop } from "../UI/ScreenInit.js";
 class Player {
   constructor(x, y, position, radius, image) {
     this.x = x;
@@ -23,12 +23,11 @@ class Player {
     this.maxHp = 30;
     this.stats = {
       hp: this.maxHp,
-      nextLvl: 1,
       exp: 0,
       force: 3,
       attackRate: 1,
       range: tileSize * 3.5,
-      manaRessource: 50,
+      manaRessource: 30,
     };
     this.level = 0;
     this.lastAttack = 0;
@@ -180,19 +179,21 @@ class Player {
   }
 
   drawmanaRessource() {
-    const manaRessource = document.getElementById("manaRessource")
-    manaRessource.innerHTML = `${this.stats.manaRessource}`
-    manaRessource.style.left = `${marginLeft + gameScreen.width + tileSize / 2}px`
-    manaRessource.style.top = `${tileSize *1.3}px`
-    manaRessource.style.fontSize =  `${tileSize / 2}px`
+    const manaRessource = document.getElementById("manaRessource");
+    manaRessource.innerHTML = `${this.stats.manaRessource}`;
+    manaRessource.style.left = `${
+      marginLeft + gameScreen.width + tileSize / 2
+    }px`;
+    manaRessource.style.top = `${marginTop + tileSize * 1.3}px`;
+    manaRessource.style.fontSize = `${tileSize / 2}px`;
   }
 
   drawLevel() {
-    const levelText = document.getElementById("levelText")
-    levelText.innerHTML = `LVL: ${this.level}`
-    levelText.style.left = `${marginLeft + gameScreen.width + tileSize / 2}px`
-    levelText.style.top = `${tileSize *2}px`
-    levelText.style.fontSize =  `${tileSize / 2}px`
+    const levelText = document.getElementById("levelText");
+    levelText.innerHTML = `LVL: ${this.level}`;
+    levelText.style.left = `${marginLeft + gameScreen.width + tileSize / 2}px`;
+    levelText.style.top = `${marginTop + tileSize * 2}px`;
+    levelText.style.fontSize = `${tileSize / 2}px`;
   }
 }
 
