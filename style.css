@@ -35,24 +35,28 @@ canvas {
   z-index: 10001;
   width: 100%;
   height: 100%;
-  background-color: rgba(33, 34, 36, 1);
+  background-color: rgba(33, 34, 36, .1);
   color: white;
   text-align: center;
 }
-
 .mainMenu img {
-  border-radius: 33%;
   position: fixed;
 }
 
-.mainMenu button {
-  background-color: rgb(105, 102, 96);
-  padding: 6px;
-  color: white;
+.startBtn {
+  background-image: url("../src/images/menuButtonStart.png");
+}
+
+.startBtnAsGod {
+  background-image: url("../src/images/menuButtonStartAsGod.png");
 }
 
 .startBtn, .startBtnAsGod {
+  background-color: rgba(255, 255, 255, .1);
   position: fixed;
+  border: none;
+  background-size: contain;
+  color: white;
 }
 
 .disable {

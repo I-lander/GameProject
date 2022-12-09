@@ -41,7 +41,6 @@ function drawCards(levelUpScreen, buttons) {
   const SelectedCard =
     // CARD_FOR_LEVEL_UP[Math.floor(Math.random() * CARD_FOR_LEVEL_UP.length)];
     CARD_FOR_LEVEL_UP[buttons.length];
-  console.log(buttons.length);
   const card = new SelectedCard();
 
   const newButton = document.createElement("button");
@@ -56,7 +55,6 @@ function drawCards(levelUpScreen, buttons) {
   newButton.style.backgroundRepeat = "no-repeat";
   newButton.style.backgroundSize = "cover";
 
-  // newButton.style.padding = `${tileSize / 2}px`;
   newButton.style.left = `${Xpos}px`;
   newButton.style.top = `${Ypos}px`;
   newButton.style.width = `${buttonSize.width}px`;
@@ -64,6 +62,7 @@ function drawCards(levelUpScreen, buttons) {
 
   const cardTitle = document.createElement("h1");
   newButton.append(cardTitle);
+  cardTitle.style.fontSize = `${32 * pixelUnit}px`;
   cardTitle.innerText = card.title;
   cardTitle.style.position = "absolute";
   cardTitle.style.top = `${tileSize + 16 * pixelUnit}px`;

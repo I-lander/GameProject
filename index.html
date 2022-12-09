@@ -12,13 +12,7 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <div class="mainMenu" id="mainMenu">
-      <img src="./src/images/godIcon.png" />
-      <p>
-      </p>
-      <button id="startBtn" class="startBtn">Start Game</button>
-      <button id="startBtnAsGod" class="startBtnAsGod">GOD MODE</button>
-    </div>
+    
 
     <div id="gameScreen">
       <canvas id="canvasScreen" class="canvasScreen"></canvas>
@@ -26,7 +20,7 @@
       <p class="levelText" id="levelText"></p>
     </div>
 
-    <div class="actionButtons" id="actionButtons">
+    <div class="actionButtons disable" id="actionButtons">
       <button id="pause"><img src="./src/images/pauseButton.png"></button>
       <button id="play"><img src="./src/images/playButton.png"></button>
       <button id="fastForward"><img src="./src/images/fastForwardButton.png"></button>
@@ -39,6 +33,15 @@
 
     <div class="gameOverScreen disable" id="gameOverScreen">
       <button class="resetButton" id="resetButton">Reset Game</button>
+    </div>
+
+    <canvas class="mainMenuCanvas" id="mainMenuCanvas"></canvas>
+    <div class="mainMenu" id="mainMenu">
+      <img src="./src/images/godIcon.png" />
+      <p>
+      </p>
+      <button id="startBtn" class="startBtn">Start Game</button>
+      <button id="startBtnAsGod" class="startBtnAsGod">GOD MODE</button>
     </div>
 
     <div class="beforeInit" id="beforeInit"></div>

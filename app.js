@@ -17,7 +17,7 @@ import { bombMecanics } from "./level/element/bomb.js";
 import { renderCardDescription } from "./UI/card-description.js";
 import { levelUpScreen } from "./core/levelUp/levelUp.js";
 import { speedFactor } from "./core/utils.js";
-import { updateStatusText } from "./UI/actionButtons.js";
+import { createActionButton, updateStatusText } from "./UI/actionButtons.js";
 import { handleClick, thunders } from "./core/handleClick.js";
 import { gameOverScreen } from "./UI/gameOverScreen.js";
 
@@ -45,9 +45,12 @@ export { monsters, particles, damageTexts };
 const canvasScreen = document.getElementById("canvasScreen");
 const ctxScreen = canvasScreen.getContext("2d");
 
+const mainMenuCanvas = document.getElementById("mainMenuCanvas");
+const ctxmainMenuCanvas = canvasScreen.getContext("2d");
+
 ctxScreen.imageSmoothingEnabled = false;
 
-export { ctxScreen, canvasScreen };
+export { ctxScreen, canvasScreen, mainMenuCanvas, ctxmainMenuCanvas };
 // Create and initialize the game screen and map
 
 const tileMap = new TileMap();
@@ -75,7 +78,8 @@ const sideScreen = {
 export { tileMap, tileSize, pixelUnit, gameScreen, sideScreen };
 
 // As this method need the tileSize variable it must be execute after its declaration
-drawCards();
+
+drawBackGameBackground(ctxmainMenuCanvas, mainMenuCanvas, true);
 
 // Declare the variable containing the main menu is order to hide it
 
@@ -108,7 +112,10 @@ function init() {
 export function startGame() {
   init();
   isPause = false;
+  drawCards();
+  createActionButton(pixelUnit);
   mainMenu.classList.add("disable");
+  mainMenuCanvas.classList.add("disable");
   animate();
 }
 

@@ -1,8 +1,10 @@
-import { inversePause, isPause, pixelUnit, selectedBtn } from "../app.js";
+import { inversePause, isPause, tileSize, selectedBtn } from "../app.js";
 import { speedFactor, updateSpeedFactore } from "../core/utils.js";
+import { marginLeft, marginTop } from "./ScreenInit.js";
 
 export function createActionButton(pixelUnit) {
   const actionStatus = window.document.getElementById("actionStatus");
+  actionStatus.classList.remove("disable")
   actionStatus.innerHTML = `<span style=font-size:${5 * pixelUnit}px>x</span>1`;
   actionStatus.style.fontSize = `${8 * pixelUnit}px`;
 
@@ -35,6 +37,39 @@ export function createActionButton(pixelUnit) {
       updateStatusText(pixelUnit);
     }
   };
+
+  const actionButtons = document.getElementById("actionButtons");
+  actionButtons.classList.remove("disable")
+  actionButtons.style.height = `${tileSize}px`;
+  actionButtons.style.width = `${tileSize * 3}px`;
+  actionButtons.style.top = `${tileSize + marginTop}px`;
+  actionButtons.style.left = `${
+    marginLeft + canvasScreen.width - (tileSize * 3.5 - 2 * pixelUnit)
+  }px`;
+
+  const pause = document.getElementById("pause");
+  pause.style.height = `${tileSize}px`;
+  pause.style.left = `${
+    marginLeft + canvasScreen.width - (tileSize * 3.5 - 2 * pixelUnit)
+  }px`;
+
+  const play = document.getElementById("play");
+  play.style.height = `${tileSize}px`;
+  play.style.left = `${
+    marginLeft + canvasScreen.width - (tileSize * 2.5 - 2 * pixelUnit)
+  }px`;
+
+  const fastForward = document.getElementById("fastForward");
+  fastForward.style.height = `${tileSize}px`;
+  fastForward.style.left = `${
+    marginLeft + canvasScreen.width - (tileSize * 1.5 - 2 * pixelUnit)
+  }px`;
+
+  actionStatus.style.top = `${tileSize * 2 + marginTop}px`;
+  actionStatus.style.left = `${
+    marginLeft + canvasScreen.width - tileSize * 3.5
+  }px`;
+  actionStatus.style.width = `${tileSize * 3}px`;
 }
 
 export function updateStatusText(pixelUnit) {
