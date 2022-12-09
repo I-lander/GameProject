@@ -21,7 +21,7 @@ class Player {
     this.projectiles = [];
     this.projectileVelocity = {};
 
-    this.maxHp = 30;
+    this.maxHp = 0;
     this.stats = {
       hp: this.maxHp,
       exp: 0,

@@ -19,6 +19,8 @@ export function gameOverScreen(level) {
   resetButton.style.left = `${
     marginLeft + canvasScreen.width / 2 - tileSize * 3
   }px`;
+  resetButton.style.fontSize = `${tileSize * 0.55}px`;
+  resetButton.style.padding = `${9.5*pixelUnit}px`
 
   resetButton.onclick = () => {
     startGame();
