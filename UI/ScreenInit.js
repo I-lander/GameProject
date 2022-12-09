@@ -85,6 +85,7 @@ function screenInit(canvasScreen, canvasMenu) {
   startBtnAsGod.style.left = `${
     marginLeft + canvasScreen.width / 2 - tileSize * 3
   }px`;
+  startBtnAsGod.style.padding = `${9.5*pixelUnit}px`
 
   mainMenuCanvas.width = gameScreen.width + sideScreen.width;
   mainMenuCanvas.height = gameScreen.height;
