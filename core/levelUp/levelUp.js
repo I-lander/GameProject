@@ -13,6 +13,7 @@ const choices = 2;
 
 function levelUpScreen() {
   let buttons = [];
+  let cards = [];
 
   tileMap.players[0].level++;
   const levelUpScreen = document.getElementById("levelUpScreen");
@@ -27,11 +28,11 @@ function levelUpScreen() {
 
   levelUpScreen.classList.remove("disable");
   for (let card = 0; card < choices; card++) {
-    drawCards(levelUpScreen, buttons);
+    drawCards(levelUpScreen, cards, buttons);
   }
 }
 
-function drawCards(levelUpScreen, buttons) {
+function drawCards(levelUpScreen, cards, buttons) {
   const buttonSize = { width: 256 * pixelUnit, height: 384 * pixelUnit };
   const Xpos =
     tileSize * 2 +
@@ -42,7 +43,15 @@ function drawCards(levelUpScreen, buttons) {
   const SelectedCard =
     CARD_FOR_LEVEL_UP[Math.floor(Math.random() * CARD_FOR_LEVEL_UP.length)];
   // CARD_FOR_LEVEL_UP[buttons.length];
-  const card = new SelectedCard();
+  let card = new SelectedCard();
+
+  while (cards.some((existingCard) => existingCard.title === card.title)) {
+    const SelectedCard =
+      CARD_FOR_LEVEL_UP[Math.floor(Math.random() * CARD_FOR_LEVEL_UP.length)];
+    // CARD_FOR_LEVEL_UP[buttons.length];
+    card = new SelectedCard();
+  }
+  cards.push(card);
 
   const newButton = document.createElement("button");
   levelUpScreen.appendChild(newButton);
