@@ -103,7 +103,7 @@ function drawSideScreenBackground(ctx, screen, sideScreen) {
 const stars = [];
 
 function drawBackGameBackground(ctx, screen, isMainMenu = false) {
-  const maxStars = screen.width /3;
+  const maxStars = 200;
 
   const mainMenuStars = [];
   let starsArray;
