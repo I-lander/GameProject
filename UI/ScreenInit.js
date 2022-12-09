@@ -125,7 +125,7 @@ function generateStars(starsArray, screen) {
   const xStar = Math.random() * screen.width;
   const yStar = Math.random() * screen.height;
   const starSize = Math.random() * 4 * pixelUnit;
-  const brightness = Math.random() - 0.6;
+  const brightness = Math.random() *( 0.5 - 0.1 )+ 0.1;
 
   starsArray.push({
     xStar: xStar,
