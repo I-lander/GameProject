@@ -13,7 +13,7 @@ export class Tower {
       hp: this.maxHp,
       loadSpeed: 10,
       force: 3,
-      attackRate: 1,
+      attackRate: 0,
       range: tileSize * 2.5,
     };
     this.projectiles = [];
@@ -53,7 +53,7 @@ export class Tower {
         calculateInterval(
           timestamp,
           this.lastAttack,
-          1000 / this.stats.attackRate,
+          1000 - this.stats.attackRate,
           this.localPauseDelta
         )
       ) {

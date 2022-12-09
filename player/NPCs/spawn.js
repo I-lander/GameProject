@@ -97,4 +97,30 @@ export function getGroundSpawnPosition(arrow) {
   return position;
 }
 
+export function generateSpawn() {
+  let x, y;
+  if (Math.random() < 0.5) {
+    x = Math.random() < 0.5 ? 0 : mapSizeX - 1;
+    y = Math.floor(Math.random() * mapSizeY);
+  } else {
+    x = Math.floor(Math.random() * mapSizeX);
+    y = Math.random() < 0.5 ? 0 : mapSizeY - 1;
+  }
+  while (
+    tileMap.arrows.some(
+      (arrow) => arrow.position.x === x && arrow.position.y === y
+    )
+  ) {
+    if (Math.random() < 0.5) {
+      x = Math.random() < 0.5 ? 0 : mapSizeX - 1;
+      y = Math.floor(Math.random() * mapSizeY);
+    } else {
+      x = Math.floor(Math.random() * mapSizeX);
+      y = Math.random() < 0.5 ? 0 : mapSizeY - 1;
+    }
+  }
+  tileMap.map[y][x] = "arrows";
+  tileMap.players[0].stats.soulRessource += 10;
+}
+
 export { spawnMonsters };

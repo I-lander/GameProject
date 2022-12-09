@@ -35,7 +35,6 @@ canvas {
   z-index: 10001;
   width: 100%;
   height: 100%;
-  background-color: rgba(33, 34, 36, .1);
   color: white;
   text-align: center;
 }
@@ -113,7 +112,7 @@ canvas {
   height: 100%;
 }
 
-.manaRessource, .levelText {
+.soulRessource, .levelText {
   position: fixed;
   color: white;
   text-align: left;

@@ -1,4 +1,13 @@
-import { cleanMap, selectedBtn, tileMap, inversePause, updateSelectedBtn, monsters, particles, pixelUnit } from "../app.js";
+import {
+  cleanMap,
+  selectedBtn,
+  tileMap,
+  inversePause,
+  updateSelectedBtn,
+  monsters,
+  particles,
+  pixelUnit,
+} from "../app.js";
 import { bombMecanics } from "../level/element/bomb.js";
 import { Thunder } from "../player/thunder.js";
 import { Particle } from "../player/visualEffects.js";
@@ -22,7 +31,7 @@ export function handleClick(event) {
   ) {
     tileMap.map[clickPositionInGrid.y][clickPositionInGrid.x] =
       selectedBtn.type;
-    tileMap.players[0].stats.manaRessource -= parseInt(selectedBtn.value);
+    tileMap.players[0].stats.soulRessource -= parseInt(selectedBtn.value);
 
     cleanMap();
     updateSelectedBtn(undefined);
@@ -38,7 +47,7 @@ export function handleClick(event) {
   if (selectedBtn && selectedBtn.type === "thunder") {
     const thunder = new Thunder(x, y);
     thunders.push(thunder);
-    tileMap.players[0].stats.manaRessource -= parseInt(selectedBtn.value);
+    tileMap.players[0].stats.soulRessource -= parseInt(selectedBtn.value);
     updateSelectedBtn(undefined);
     const closeButton = document.getElementById("closeButton");
     if (closeButton) {
@@ -57,7 +66,7 @@ export function handleClick(event) {
     tileMap.map[clickPositionInGrid.y][clickPositionInGrid.x] =
       selectedBtn.type;
     bombMecanics(clickPositionInGrid);
-    updateSelectedBtn(undefined)
+    updateSelectedBtn(undefined);
     const closeButton = document.getElementById("closeButton");
     if (closeButton) {
       closeButton.remove();

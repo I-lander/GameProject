@@ -58,7 +58,7 @@ export class Village {
       this.manasToFeed[i].update(ctx);
       if (this.manasToFeed[i].x >= this.manasToFeed[i].targetX) {
         this.manasToFeed.splice(i, 1);
-        tileMap.players[0].stats.manaRessource += this.stats.manaBonus;
+        tileMap.players[0].stats.soulRessource += this.stats.manaBonus;
         this.ismanaGenerated = false;
       }
     }

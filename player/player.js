@@ -25,9 +25,9 @@ class Player {
       hp: this.maxHp,
       exp: 0,
       force: 3,
-      attackRate: 1,
+      attackRate: 0,
       range: tileSize * 3.5,
-      manaRessource: 30,
+      soulRessource: 30,
     };
     this.level = 0;
     this.lastAttack = 0;
@@ -54,6 +54,10 @@ class Player {
 
     if (this.stats.hp > this.maxHp) {
       this.stats.hp = this.maxHp;
+    }
+
+    if (this.stats.soulRessource < 0) {
+      this.stats.soulRessource = 0;
     }
 
     this.frameY = this.isTakingDamage ? 1 : 0;
@@ -92,7 +96,7 @@ class Player {
     }
     this.drawPlayerLife(ctx);
     this.drawLevel();
-    this.drawmanaRessource();
+    this.drawsoulRessource();
   }
 
   autoFire(timestamp, monsters) {
@@ -106,7 +110,7 @@ class Player {
         calculateInterval(
           timestamp,
           this.lastAttack,
-          1000 / this.stats.attackRate,
+          1000 - this.stats.attackRate,
           this.localPauseDelta
         )
       ) {
@@ -178,14 +182,14 @@ class Player {
     ctx.restore();
   }
 
-  drawmanaRessource() {
-    const manaRessource = document.getElementById("manaRessource");
-    manaRessource.innerHTML = `${this.stats.manaRessource}`;
-    manaRessource.style.left = `${
+  drawsoulRessource() {
+    const soulRessource = document.getElementById("soulRessource");
+    soulRessource.innerHTML = `${this.stats.soulRessource}`;
+    soulRessource.style.left = `${
       marginLeft + gameScreen.width + tileSize / 2
     }px`;
-    manaRessource.style.top = `${marginTop + tileSize * 1.3}px`;
-    manaRessource.style.fontSize = `${tileSize / 2}px`;
+    soulRessource.style.top = `${marginTop + tileSize * 1.3}px`;
+    soulRessource.style.fontSize = `${tileSize / 2}px`;
   }
 
   drawLevel() {

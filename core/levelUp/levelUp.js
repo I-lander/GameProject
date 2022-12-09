@@ -6,6 +6,7 @@ import {
   inverseLeveUp,
   gameScreen,
 } from "../../app.js";
+import { generateSpawn } from "../../player/NPCs/spawn.js";
 import { CARD_FOR_LEVEL_UP } from "./cardForLevelUp.js";
 
 const choices = 2;
@@ -39,8 +40,8 @@ function drawCards(levelUpScreen, buttons) {
   const Ypos = tileSize * 2;
 
   const SelectedCard =
-    // CARD_FOR_LEVEL_UP[Math.floor(Math.random() * CARD_FOR_LEVEL_UP.length)];
-    CARD_FOR_LEVEL_UP[buttons.length];
+    CARD_FOR_LEVEL_UP[Math.floor(Math.random() * CARD_FOR_LEVEL_UP.length)];
+    // CARD_FOR_LEVEL_UP[buttons.length];
   const card = new SelectedCard();
 
   const newButton = document.createElement("button");
@@ -63,7 +64,7 @@ function drawCards(levelUpScreen, buttons) {
   const cardTitle = document.createElement("h1");
   newButton.append(cardTitle);
   cardTitle.style.fontSize = `${32 * pixelUnit}px`;
-  cardTitle.innerText = card.title;
+  cardTitle.innerHTML = card.title;
   cardTitle.style.position = "absolute";
   cardTitle.style.top = `${tileSize + 16 * pixelUnit}px`;
   cardTitle.style.left = `${tileSize / 2}px`;
@@ -81,6 +82,7 @@ function drawCards(levelUpScreen, buttons) {
 
   newButton.onclick = () => {
     card.function();
+    card.title === "Spawn Point" ? null : generateSpawn();
     levelUpScreen.classList.add("disable");
     inverseLeveUp();
     inversePause();

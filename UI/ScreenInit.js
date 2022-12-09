@@ -103,7 +103,7 @@ function drawSideScreenBackground(ctx, screen, sideScreen) {
 const stars = [];
 
 function drawBackGameBackground(ctx, screen, isMainMenu = false) {
-  const maxStars = screen.width/2;
+  const maxStars = screen.width /3;
 
   const mainMenuStars = [];
   let starsArray;
@@ -114,17 +114,18 @@ function drawBackGameBackground(ctx, screen, isMainMenu = false) {
   ctx.restore();
   if (stars.length < maxStars) {
     for (let i = 0; i < maxStars; i++) {
-      generateStars(starsArray);
+      generateStars(starsArray, screen);
     }
   }
   drawStars(ctx, starsArray);
 }
 
-function generateStars(starsArray) {
+function generateStars(starsArray, screen) {
+
   const xStar = Math.random() * screen.width;
   const yStar = Math.random() * screen.height;
   const starSize = Math.random() * 4 * pixelUnit;
-  const brightness = Math.random() - 0.3;
+  const brightness = Math.random() - 0.6;
 
   starsArray.push({
     xStar: xStar,

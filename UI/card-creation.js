@@ -94,12 +94,15 @@ function createCard(type) {
   newButton.onclick = function () {
     if (
       !isPause &&
-      cardSelected.value <= tileMap.players[0].stats.manaRessource &&
-      tileMap.players[0].stats.manaRessource >= 0
+      cardSelected.value <= tileMap.players[0].stats.soulRessource &&
+      tileMap.players[0].stats.soulRessource >= 0
     ) {
       cleanMap();
       updateSelectedBtn({ type: cardSelected.type, value: cardSelected.value });
-      renderCardDescription({ type: cardSelected.type, value: cardSelected.value });
+      renderCardDescription({
+        type: cardSelected.type,
+        value: cardSelected.value,
+      });
       possibilityForClick();
       tileMap.draw(ctxScreen);
       inversePause();
