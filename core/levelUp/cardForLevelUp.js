@@ -15,10 +15,10 @@ const CARD_FOR_LEVEL_UP = [
     description =
       "Place an spawn point anywhere in the screen border.</br>Gain 3 soul ressources.";
     function = () => {
-      cleanMap;
       updateSelectedBtn({ type: "arrows", value: 0 });
       possibilityForClick();
       tileMap.draw(ctxScreen);
+      tileMap.players[0].draw(ctxScreen)
       inversePause();
       tileMap.players[0].stats.soulRessource += 3;
     };

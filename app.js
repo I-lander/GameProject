@@ -170,7 +170,6 @@ function animate(timestamp) {
   isGod ? (mainPlayer.maxHp = 9999) : null;
   isGod ? (mainPlayer.stats.hp = 9999) : null;
   spawnMonsters(); // method that handle any spawning monsters
-
   if (levelUp) {
     isPause = true;
     updateStatusText(pixelUnit);
