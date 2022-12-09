@@ -1,4 +1,10 @@
-import { tileMap, pixelUnit, gameScreen, ctxmainMenuCanvas, mainMenuCanvas } from "../app.js";
+import {
+  tileMap,
+  pixelUnit,
+  gameScreen,
+  ctxmainMenuCanvas,
+  mainMenuCanvas,
+} from "../app.js";
 import { mapSizeX, mapSizeY } from "../level/map.js";
 
 const screenRatio = 2 / 3;
@@ -43,8 +49,6 @@ function screenInit(canvasScreen, canvasMenu) {
 
   const pixelUnit = tileSize / 32;
 
-  
-
   const buttonContainer = document.getElementById("buttonContainer");
   buttonContainer.style.left = `${gameScreen.width + marginLeft}px`;
   buttonContainer.style.width = `${sideScreen.width}px`;
@@ -61,7 +65,6 @@ function screenInit(canvasScreen, canvasMenu) {
   mainMenuImg.style.left = `${
     marginLeft + canvasScreen.width / 2 - tileSize * 2.5
   }px`;
-
 
   const startBtn = document.getElementById("startBtn");
   startBtn.style.height = `${tileSize * 2}px`;
@@ -97,18 +100,19 @@ function drawSideScreenBackground(ctx, screen, sideScreen) {
 }
 
 const stars = [];
-const maxStarts = 1000;
 
 function drawBackGameBackground(ctx, screen, isMainMenu = false) {
-  const mainMenuStars = []
-  let starsArray
-  starsArray = isMainMenu ? mainMenuStars : stars
+  const maxStars = screen.width/2;
+
+  const mainMenuStars = [];
+  let starsArray;
+  starsArray = isMainMenu ? mainMenuStars : stars;
   ctx.save();
   ctx.fillStyle = "rgba(10, 10, 10, 1)";
   ctx.fillRect(0, 0, screen.width, screen.height);
   ctx.restore();
-  if (stars.length < maxStarts) {
-    for (let i = 0; i < maxStarts; i++) {
+  if (stars.length < maxStars) {
+    for (let i = 0; i < maxStars; i++) {
       generateStars(starsArray);
     }
   }

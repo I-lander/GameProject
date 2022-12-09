@@ -44,11 +44,11 @@ canvas {
 }
 
 .startBtn {
-  background-image: url("../src/images/menuButtonStart.png");
+  background-image: url("./src/images/menuButtonStart.png");
 }
 
 .startBtnAsGod {
-  background-image: url("../src/images/menuButtonStartAsGod.png");
+  background-image: url("./src/images/menuButtonStartAsGod.png");
 }
 
 .startBtn, .startBtnAsGod {
