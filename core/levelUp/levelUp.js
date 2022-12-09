@@ -41,7 +41,7 @@ function drawCards(levelUpScreen, buttons) {
 
   const SelectedCard =
     CARD_FOR_LEVEL_UP[Math.floor(Math.random() * CARD_FOR_LEVEL_UP.length)];
-    // CARD_FOR_LEVEL_UP[buttons.length];
+  // CARD_FOR_LEVEL_UP[buttons.length];
   const card = new SelectedCard();
 
   const newButton = document.createElement("button");
@@ -82,7 +82,9 @@ function drawCards(levelUpScreen, buttons) {
 
   newButton.onclick = () => {
     card.function();
-    card.title === "Spawn Point" ? null : generateSpawn();
+    card.title === "Spawn Point" || card.title === "Spawn"
+      ? null
+      : generateSpawn();
     levelUpScreen.classList.add("disable");
     inverseLeveUp();
     inversePause();

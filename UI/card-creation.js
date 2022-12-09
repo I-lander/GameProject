@@ -7,6 +7,7 @@ import {
   cleanMap,
   updateSelectedBtn,
   pixelUnit,
+  selectedBtn,
 } from "../app.js";
 import { CARD_ELEMENTS } from "../core/constants.js";
 import { possibilityForClick } from "../core/utils.js";
@@ -127,6 +128,7 @@ function createCloseButton(newButton) {
   closeButton.style.height = `${closeButtonSize}px`;
   closeButton.onclick = function () {
     updateSelectedBtn({ type: undefined, value: undefined });
+    renderCardDescription(selectedBtn)
     closeButton.remove();
     cleanMap();
     setTimeout(() => {

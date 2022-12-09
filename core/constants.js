@@ -98,7 +98,7 @@ const MONTERS_STATS = [
     level: 1,
     hp: 6,
     force: 1,
-    attackRate: 1,
+    speed: 0.8,
   },
   {
     name: "spider",
@@ -106,7 +106,7 @@ const MONTERS_STATS = [
     level: 3,
     hp: 10,
     force: 1,
-    attackRate: 1,
+    speed: 1.2,
   },
   {
     name: "fly",
@@ -114,15 +114,15 @@ const MONTERS_STATS = [
     level: 5,
     hp: 12,
     force: 4,
-    attackRate: 1,
+    speed: 1.5,
   },
   {
     name: "slime",
     type: "ground",
     level: 7,
-    hp: 30,
+    hp: 50,
     force: 3,
-    attackRate: 1,
+    speed: 0.7,
   },
   {
     name: "bat",
@@ -130,15 +130,15 @@ const MONTERS_STATS = [
     level: 7,
     hp: 23,
     force: 3,
-    attackRate: 1,
+    speed: 1.6,
   },
   {
     name: "skull",
     type: "ground",
     level: 9,
-    hp: 42,
+    hp: 82,
     force: 10,
-    attackRate: 1,
+    speed: 0.8,
   },
   {
     name: "ghost",
@@ -146,7 +146,7 @@ const MONTERS_STATS = [
     level: 12,
     hp: 52,
     force: 24,
-    attackRate: 1,
+    speed: 1.6,
   },
   {
     name: "bombMonster",
@@ -154,7 +154,7 @@ const MONTERS_STATS = [
     level: 9999,
     hp: 150,
     force: 30,
-    attackRate: 1,
+    speed: .9,
   },
 ];
 

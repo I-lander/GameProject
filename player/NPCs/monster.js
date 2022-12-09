@@ -16,15 +16,16 @@ import { MONTERS_STATS } from "../../core/constants.js";
 const bombArray = [];
 
 export class Monster {
-  constructor(x, y, radius, name, type, speed) {
+  constructor(x, y, radius, name, type) {
     this.x = x + tileSize / 2;
     this.y = y + tileSize / 2;
     this.radius = radius;
     this.name = name;
     this.type = type;
     this.velocity = { x: 0, y: 0 };
-    this.speed = speed ?? 0.4;
     this.stats = this.getMonsterStats();
+    this.speed = this.stats.speed * 0.4;
+
     this.maxHp = this.stats.hp;
 
     this.visitedStars = [];

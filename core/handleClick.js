@@ -11,6 +11,7 @@ import {
 import { bombMecanics } from "../level/element/bomb.js";
 import { Thunder } from "../player/thunder.js";
 import { Particle } from "../player/visualEffects.js";
+import { renderCardDescription } from "../UI/card-description.js";
 import { marginLeft, marginTop } from "../UI/ScreenInit.js";
 import { CARD_ELEMENTS, SOLID_ELEMENTS } from "./constants.js";
 
@@ -35,6 +36,7 @@ export function handleClick(event) {
 
     cleanMap();
     updateSelectedBtn(undefined);
+    renderCardDescription(selectedBtn);
     const closeButton = document.getElementById("closeButton");
     if (closeButton) {
       closeButton.remove();
@@ -49,6 +51,7 @@ export function handleClick(event) {
     thunders.push(thunder);
     tileMap.players[0].stats.soulRessource -= parseInt(selectedBtn.value);
     updateSelectedBtn(undefined);
+    renderCardDescription(selectedBtn);
     const closeButton = document.getElementById("closeButton");
     if (closeButton) {
       closeButton.remove();
@@ -67,6 +70,7 @@ export function handleClick(event) {
       selectedBtn.type;
     bombMecanics(clickPositionInGrid);
     updateSelectedBtn(undefined);
+    renderCardDescription(selectedBtn);
     const closeButton = document.getElementById("closeButton");
     if (closeButton) {
       closeButton.remove();
