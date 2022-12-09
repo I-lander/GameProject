@@ -80,7 +80,7 @@ const CARD_FOR_LEVEL_UP = [
   },
   class TowerForceUpgrade {
     title = "Tower Force Upgrade";
-    description = "All existing towers gain + 1 attack.";
+    description = "All towers gain + 1 attack.";
     function = () => {
       update_tower_force(1);
       console.log(TOWER_FORCE);
@@ -88,7 +88,7 @@ const CARD_FOR_LEVEL_UP = [
   },
   class TowerSpeedUpgrade {
     title = "Tower Speed Upgrade";
-    description = "All existing towers gain + 1 speed.</br> Maximum speed : 5";
+    description = "All towers gain + 1 speed.</br> Maximum speed : 5";
     function = () => {
       TOWER_ATTACK_RATE < 500 ? update_tower_attack_rate(100) : null;
     };
