@@ -56,6 +56,10 @@ class Player {
       this.stats.hp = this.maxHp;
     }
 
+    if (this.stats.hp < 0) {
+      this.stats.hp = 0;
+    }
+
     if (this.stats.soulRessource < 0) {
       this.stats.soulRessource = 0;
     }
