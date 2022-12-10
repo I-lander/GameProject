@@ -13,7 +13,7 @@ export class Village {
       manaLoad: 0,
       maxMana: 100,
       loadSpeed: 20,
-      manaBonus: 3,
+      manaBonus: 5,
     };
     this.isAttack = false;
     this.lastUpdate = 0;

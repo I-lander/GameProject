@@ -36,7 +36,7 @@ const CARD_ELEMENTS = [
       type: "village",
       value: 20,
       title: "Village",
-      description: "Generate 3 mana every 5 seconds.",
+      description: "Generate 5 mana every 5 seconds.",
     },
     {
       type: "tower",

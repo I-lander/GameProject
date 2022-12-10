@@ -39,7 +39,13 @@ function possibilityForClick() {
           tileMap.map[row][column] = "monster";
         }
         let tile = tileMap.map[row][column];
-        if (tile === "0") {
+        if (
+          tile === "0" &&
+          !(row === 0 ||
+            row === mapSizeY - 1 ||
+            column === 0 ||
+            column === mapSizeX - 1)
+        ) {
           tileMap.map[row][column] = "green";
         }
         if (
