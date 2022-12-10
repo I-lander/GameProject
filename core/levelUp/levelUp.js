@@ -56,10 +56,6 @@ function drawCards(levelUpScreen, cards, buttons) {
   const newButton = document.createElement("button");
   levelUpScreen.appendChild(newButton);
   newButton.id = `cardLevelUp_${buttons.length}`;
-  newButton.style.position = "absolute";
-  newButton.style.backgroundColor = "transparent";
-  newButton.style.backgroundImage = `url(./src/images/card-levelUp.png)`;
-  newButton.style.border = "none";
   newButton.style.width = `${buttonSize.width}px`;
   newButton.style.height = `${buttonSize.height}px`;
   newButton.style.backgroundRepeat = "no-repeat";
@@ -72,19 +68,20 @@ function drawCards(levelUpScreen, cards, buttons) {
 
   const cardTitle = document.createElement("h1");
   newButton.append(cardTitle);
-  cardTitle.style.fontSize = `${32 * pixelUnit}px`;
+  cardTitle.style.fontSize = `${26 * pixelUnit}px`;
   cardTitle.innerHTML = card.title;
   cardTitle.style.position = "absolute";
-  cardTitle.style.top = `${tileSize + 16 * pixelUnit}px`;
+  cardTitle.style.top = `${tileSize}px`;
   cardTitle.style.left = `${tileSize / 2}px`;
   cardTitle.style.width = `${256 * pixelUnit - 32 * pixelUnit}px`;
-  cardTitle.style.textAlign = "center";
+  cardTitle.style.height = `${tileSize*4}px`;
 
   const cardDescription = document.createElement("p");
   newButton.append(cardDescription);
-
   cardDescription.innerHTML = card.description;
   cardDescription.style.margin = `${tileSize / 2}px`;
+  cardDescription.style.padding = `${tileSize / 2}px`;
+  cardDescription.style.top = `${tileSize * 5}px`;
   cardDescription.style.textAlign = "center";
   cardDescription.style.fontSize = `${10 * pixelUnit}px`;
   cardDescription.style.lineHeight = `${tileSize / 2}px`;
