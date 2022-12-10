@@ -19,6 +19,7 @@ import { speedFactor } from "./core/utils.js";
 import { createActionButton, updateStatusText } from "./UI/actionButtons.js";
 import { handleClick, thunders } from "./core/handleClick.js";
 import { gameOverScreen } from "./UI/gameOverScreen.js";
+import { resetBonus } from "./core/levelUp/bonus.js";
 
 // Declare & export the variable used to pause the game
 // Declare & export the function that update pause status
@@ -99,6 +100,7 @@ document.getElementById("startBtnAsGod").addEventListener("click", () => {
 // Method used to initialize the variable to start the game with clean values
 
 function init() {
+  resetBonus();
   tileMap.init();
   levelUp = true;
   monsters = [];

@@ -19,4 +19,11 @@ export function update_god_attack_rate(bonus) {
   GOD_ATTACK_RATE += bonus;
 }
 
+export function resetBonus() {
+  TOWER_FORCE = 0;
+  TOWER_ATTACK_RATE = 0;
+  GOD_FORCE = 0;
+  GOD_ATTACK_RATE = 0;
+}
+
 export { TOWER_FORCE, TOWER_ATTACK_RATE, GOD_FORCE, GOD_ATTACK_RATE };

@@ -7,6 +7,7 @@ export function gameOverScreen(level) {
 
   const gameOverScreenText = document.createElement("p");
   gameOverScreen.appendChild(gameOverScreenText);
+  gameOverScreenText.id = "gameOverScreenText"
   gameOverScreenText.innerText = `Level Reached : ${level}`;
   gameOverScreenText.style.fontSize = `${tileSize * 1.5}px`;
   gameOverScreenText.style.display = "flex";
@@ -26,6 +27,7 @@ export function gameOverScreen(level) {
     startGame();
     setTimeout(() => {
       gameOverScreen.classList.add("disable");
+      gameOverScreenText.remove()
     }, 100);
   };
 }
