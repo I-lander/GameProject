@@ -3,7 +3,7 @@ import { tileSize } from "../../app.js";
 import {
   SOLID_ELEMENTS,
   FRANCHISSABLE_ELEMENTS,
-} from "../../core/constants.js";
+} from "../../core/constants/tiles.js";
 
 const toKey = (x, y) => `${x}x${y}`;
 
@@ -54,7 +54,6 @@ const findPath = (start, target, type) => {
       if (
         (type === "ground" &&
           SOLID_ELEMENTS.includes(tile) &&
-          tile !== "river" &&
           !FRANCHISSABLE_ELEMENTS.includes(tile)) ||
         tile === "player"
       ) {

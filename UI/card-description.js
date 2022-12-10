@@ -5,7 +5,7 @@ import {
   sideScreen,
   tileSize,
 } from "../app.js";
-import { CARD_ELEMENTS } from "../core/constants.js";
+import { CARD_ELEMENTS } from "../core/constants/tiles.js";
 import { marginLeft, marginTop } from "./ScreenInit.js";
 
 function renderCardDescription(selectedCard) {

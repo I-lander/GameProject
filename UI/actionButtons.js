@@ -48,18 +48,21 @@ export function createActionButton(pixelUnit) {
   }px`;
 
   const pause = document.getElementById("pause");
+  pause.style.width = `${tileSize}px`;
   pause.style.height = `${tileSize}px`;
   pause.style.left = `${
     marginLeft + canvasScreen.width - (tileSize * 3.5 - 2 * pixelUnit)
   }px`;
 
   const play = document.getElementById("play");
+  play.style.width = `${tileSize}px`;
   play.style.height = `${tileSize}px`;
   play.style.left = `${
     marginLeft + canvasScreen.width - (tileSize * 2.5 - 2 * pixelUnit)
   }px`;
 
   const fastForward = document.getElementById("fastForward");
+  fastForward.style.width = `${tileSize}px`;
   fastForward.style.height = `${tileSize}px`;
   fastForward.style.left = `${
     marginLeft + canvasScreen.width - (tileSize * 1.5 - 2 * pixelUnit)

@@ -1,4 +1,4 @@
-import { canvasScreen, startGame, tileSize } from "../app.js";
+import { canvasScreen, startGame, tileSize, pixelUnit } from "../app.js";
 import { marginLeft, marginTop } from "./ScreenInit.js";
 
 export function gameOverScreen(level) {
@@ -20,7 +20,7 @@ export function gameOverScreen(level) {
     marginLeft + canvasScreen.width / 2 - tileSize * 3
   }px`;
   resetButton.style.fontSize = `${tileSize * 0.55}px`;
-  resetButton.style.padding = `${9.5*pixelUnit}px`
+  resetButton.style.padding = `${9.5 * pixelUnit}px`;
 
   resetButton.onclick = () => {
     startGame();

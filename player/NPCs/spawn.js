@@ -10,7 +10,7 @@ import {
 import { Monster } from "./monster.js";
 import { mapSizeX, mapSizeY } from "../../level/map.js";
 import { marginTop, marginLeft } from "../../UI/ScreenInit.js";
-import { MONTERS_STATS } from "../../core/constants.js";
+import { MONTERS_STATS } from "../../core/constants/monsters.js";
 import { calculateInterval } from "../../core/utils.js";
 
 const playerPos = {

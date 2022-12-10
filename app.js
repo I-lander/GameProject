@@ -2,8 +2,7 @@ import { TileMap } from "./level/tileMap.js";
 import { Particle } from "./player/visualEffects.js";
 import { getGroundSpawnPosition, spawnMonsters } from "./player/NPCs/spawn.js";
 import { drawCards } from "./UI/card-creation.js";
-import { CARD_ELEMENTS, SOLID_ELEMENTS } from "./core/constants.js";
-import { marginLeft, marginTop } from "./UI/ScreenInit.js";
+import { CARD_ELEMENTS, SOLID_ELEMENTS } from "./core/constants/tiles.js";
 import {
   screenInit,
   drawSideScreenBackground,

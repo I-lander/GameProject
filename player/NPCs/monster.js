@@ -11,7 +11,7 @@ import { DrawDamage } from "../utils.js";
 import { calculateInterval, speedFactor } from "../../core/utils.js";
 
 import findPath from "./findPath.js";
-import { MONTERS_STATS } from "../../core/constants.js";
+import { MONTERS_STATS } from "../../core/constants/monsters.js";
 
 const bombArray = [];
 

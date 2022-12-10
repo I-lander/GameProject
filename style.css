@@ -62,6 +62,11 @@ canvas {
   color: white;
 }
 
+.startBtn:active, .startBtnAsGod:active, .resetButton:active {
+  background-color: rgba(255, 255, 255, 0.5);
+  color: black;
+}
+
 .disable {
   display: none;
 }
@@ -112,10 +117,6 @@ canvas {
   position: fixed;
 }
 
-.actionButtons img {
-  height: 100%;
-}
-
 .soulRessource, .levelText {
   position: fixed;
   color: white;
@@ -150,4 +151,33 @@ canvas {
   height: 100%;
   user-select: none;
   z-index: 1;
+}
+
+.pause:active{
+  background-image: url("./src/images/pauseButton-clicked.png");
+  background-size: contain;
+}
+
+.pause{
+  background-image: url("./src/images/pauseButton.png");
+  background-size: contain;
+}
+
+.play:active{
+  background-image: url("./src/images/playButton-clicked.png");
+  background-size: contain;
+}
+
+.play{
+  background-image: url("./src/images/playButton.png");
+  background-size: contain;
+
+}.fastForward:active{
+  background-image: url("./src/images/fastForwardButton-clicked.png");
+  background-size: contain;
+}
+
+.fastForward{
+  background-image: url("./src/images/fastForwardButton.png");
+  background-size: contain;
 }

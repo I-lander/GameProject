@@ -7,7 +7,7 @@ import {
   inversePause,
 } from "../app.js";
 import { mapSizeX, mapSizeY } from "../level/map.js";
-import { SOLID_ELEMENTS } from "./constants.js";
+import { SOLID_ELEMENTS } from "./constants/tiles.js";
 
 function possibilityForClick() {
   let monsterTiles = [];

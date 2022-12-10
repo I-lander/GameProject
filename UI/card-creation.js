@@ -9,7 +9,7 @@ import {
   pixelUnit,
   selectedBtn,
 } from "../app.js";
-import { CARD_ELEMENTS } from "../core/constants.js";
+import { CARD_ELEMENTS } from "../core/constants/tiles.js";
 import { possibilityForClick } from "../core/utils.js";
 import { updateStatusText } from "./actionButtons.js";
 import { renderCardDescription } from "./card-description.js";

@@ -13,7 +13,7 @@ import { Thunder } from "../player/thunder.js";
 import { Particle } from "../player/visualEffects.js";
 import { renderCardDescription } from "../UI/card-description.js";
 import { marginLeft, marginTop } from "../UI/ScreenInit.js";
-import { CARD_ELEMENTS, SOLID_ELEMENTS } from "./constants.js";
+import { CARD_ELEMENTS, SOLID_ELEMENTS } from "./constants/tiles.js";
 
 export const thunders = [];
 
