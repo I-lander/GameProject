@@ -246,6 +246,7 @@ export class TileMap {
     this.mountains = [];
     this.villages = [];
     this.towers = [];
+    this.trees = [];
     this.arrows = [];
     this.stars = [];
     createMap();
