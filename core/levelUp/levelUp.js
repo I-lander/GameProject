@@ -66,22 +66,37 @@ function drawCards(levelUpScreen, cards, buttons) {
   newButton.style.width = `${buttonSize.width}px`;
   newButton.style.height = `${buttonSize.height}px`;
 
-  const cardTitle = document.createElement("h1");
-  newButton.append(cardTitle);
-  cardTitle.style.fontSize = `${26 * pixelUnit}px`;
-  cardTitle.innerHTML = card.title;
-  cardTitle.style.position = "absolute";
-  cardTitle.style.top = `${tileSize}px`;
-  cardTitle.style.left = `${tileSize / 2}px`;
-  cardTitle.style.width = `${256 * pixelUnit - 32 * pixelUnit}px`;
-  cardTitle.style.height = `${tileSize*4}px`;
+  // const cardTitle = document.createElement("h1");
+  // newButton.append(cardTitle);
+  // cardTitle.style.fontSize = `${26 * pixelUnit}px`;
+  // cardTitle.innerHTML = card.title;
+  // cardTitle.style.position = "absolute";
+  // cardTitle.style.top = `${tileSize}px`;
+  // cardTitle.style.left = `${tileSize / 2}px`;
+  // cardTitle.style.width = `${256 * pixelUnit - 32 * pixelUnit}px`;
+  // cardTitle.style.height = `${tileSize*4}px`;
+
+  const cardBonus = document.createElement("img");
+  newButton.append(cardBonus);
+  cardBonus.src = `./src/images/${card.bonus}.png`;
+  cardBonus.style.width = `${62*pixelUnit}px`
+  cardBonus.style.height = `${62*pixelUnit}px`
+  cardBonus.style.top = `${0*pixelUnit}px`
+  cardBonus.style.left = `${buttonSize.width/2 - 62*pixelUnit/2}px`
+
+  const cardTile = document.createElement("img");
+  newButton.append(cardTile);
+  cardTile.src = `./src/images/${card.tile}.png`;
+  cardTile.style.width = `${124*pixelUnit}px`
+  cardTile.style.height = `${124*pixelUnit}px`
+  cardTile.style.top = `${62*pixelUnit}px`
+  cardTile.style.left = `${buttonSize.width/2 - 124*pixelUnit/2}px`
 
   const cardDescription = document.createElement("p");
   newButton.append(cardDescription);
   cardDescription.innerHTML = card.description;
-  cardDescription.style.margin = `${tileSize / 2}px`;
-  cardDescription.style.padding = `${tileSize / 2}px`;
-  cardDescription.style.top = `${tileSize * 5}px`;
+  cardDescription.style.width = "100%";
+  cardDescription.style.top = `${tileSize * 7}px`;
   cardDescription.style.textAlign = "center";
   cardDescription.style.fontSize = `${10 * pixelUnit}px`;
   cardDescription.style.lineHeight = `${tileSize / 2}px`;
