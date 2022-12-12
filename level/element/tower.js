@@ -1,7 +1,7 @@
 import { tileSize, pauseDelta, monsters, pixelUnit } from "../../app.js";
 import { Projectile } from "../../player/projectile.js";
 import { calculateInterval } from "../../core/utils.js";
-import { TOWER_ATTACK_RATE, TOWER_FORCE } from "../../core/levelUp/bonus.js";
+import { BONUS } from "../../core/levelUp/bonus.js";
 
 export class Tower {
   constructor(x, y, image) {
@@ -23,7 +23,6 @@ export class Tower {
 
   update(ctx) {
     let timestamp = Date.now();
-
     ctx.beginPath();
     ctx.lineWidth = 1 * pixelUnit;
     ctx.arc(
@@ -53,7 +52,7 @@ export class Tower {
         calculateInterval(
           timestamp,
           this.lastAttack,
-          1000 - TOWER_ATTACK_RATE,
+          1000 - BONUS.TOWER_ATTACK_RATE,
           this.localPauseDelta
         )
       ) {
@@ -74,7 +73,7 @@ export class Tower {
               this.y + tileSize / 2,
               "white",
               velocity,
-              this.stats.force + TOWER_FORCE
+              this.stats.force + BONUS.TOWER_FORCE
             )
           );
         }

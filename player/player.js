@@ -11,7 +11,7 @@ import { Projectile } from "./projectile.js";
 import { calculateInterval } from "../core/utils.js";
 import { DrawDamage } from "./utils.js";
 import { marginLeft, marginTop } from "../UI/ScreenInit.js";
-import { GOD_ATTACK_RATE, GOD_FORCE } from "../core/levelUp/bonus.js";
+import { BONUS } from "../core/levelUp/bonus.js";
 class Player {
   constructor(x, y, position, radius, image) {
     this.x = x;
@@ -114,7 +114,7 @@ class Player {
         calculateInterval(
           timestamp,
           this.lastAttack,
-          1000 - GOD_ATTACK_RATE,
+          1000 - BONUS.GOD_ATTACK_RATE,
           this.localPauseDelta
         )
       ) {
@@ -139,7 +139,7 @@ class Player {
         this.y,
         "white",
         this.projectileVelocity,
-        this.stats.force + GOD_FORCE
+        this.stats.force + BONUS.GOD_FORCE
       )
     );
   }

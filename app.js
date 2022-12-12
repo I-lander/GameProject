@@ -247,6 +247,11 @@ function animate(timestamp) {
     }
   });
 
+  for (let i = 0; i < tileMap.stars.length; i++) {
+    const star = tileMap.stars[i];
+    star.update(ctxScreen);
+  }
+
   for (let i = 0; i < tileMap.villages.length; i++) {
     const village = tileMap.villages[i];
     village.update(ctxScreen);
@@ -255,11 +260,6 @@ function animate(timestamp) {
   for (let i = 0; i < tileMap.trees.length; i++) {
     const tree = tileMap.trees[i];
     tree.update(ctxScreen);
-  }
-
-  for (let i = 0; i < tileMap.stars.length; i++) {
-    const star = tileMap.stars[i];
-    star.update(ctxScreen);
   }
 
   for (let i = 0; i < thunders.length; i++) {
@@ -283,7 +283,7 @@ function animate(timestamp) {
         if (distance - monster.hitBox - projectile.radius < 1) {
           tower.projectiles.splice(projectileIndex, 1);
           !monster.isTakingDame ? monster.takingDamage(projectile.force) : null;
-          return
+          return;
         }
       });
       projectile.update(ctxScreen);
@@ -300,22 +300,11 @@ function animate(timestamp) {
     });
   }
 
-  const greenTile = new Image();
-  greenTile.src = "./src/images/greenTile.png";
-  ctxScreen.drawImage(
-    greenTile,
-    tileSize * 100,
-    tileSize * 100,
-    tileSize,
-    tileSize
-  );
-
   drawSideScreenBackground(ctxScreen, gameScreen, sideScreen);
+  
   tileMap.players.forEach((player, index) => {
     player.draw(ctxScreen);
-
     // Condition of death GAME OVER
-
     if (mainPlayer.stats.hp <= 0) {
       isPause = true;
       init();
@@ -323,9 +312,7 @@ function animate(timestamp) {
         gameOverScreen(mainPlayer.level);
       }, 300);
     }
-
     // Loop on any player's projectiles & monsters to check if it touch an monster
-
     player.projectiles.forEach((projectile, projectileIndex) => {
       monsters.forEach((monster, index) => {
         const distance = Math.hypot(
@@ -335,7 +322,7 @@ function animate(timestamp) {
         if (distance - monster.hitBox - projectile.radius < 1) {
           player.projectiles.splice(projectileIndex, 1);
           !monster.isTakingDame ? monster.takingDamage(projectile.force) : null;
-          return
+          return;
         }
       });
       projectile.update(ctxScreen);

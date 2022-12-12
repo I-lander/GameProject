@@ -184,7 +184,7 @@ export class Monster {
       this.lastLavaDamage = timestamp;
     }
 
-    currentTile === "river" ? (this.stats.hp = 0) : null;
+    currentTile === "river" && this.type === "ground" ? (this.stats.hp = 0) : null;
 
     this.draw(ctx, timestamp);
 

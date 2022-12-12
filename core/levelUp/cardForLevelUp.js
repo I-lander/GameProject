@@ -8,15 +8,7 @@ import {
 } from "../../app.js";
 import { mapSizeX, mapSizeY } from "../../level/map.js";
 import { possibilityForClick } from "../utils.js";
-import {
-  GOD_ATTACK_RATE,
-  TOWER_ATTACK_RATE,
-  TOWER_FORCE,
-  update_god_attack_rate,
-  update_god_force,
-  update_tower_attack_rate,
-  update_tower_force,
-} from "./bonus.js";
+import { BONUS } from "./bonus.js";
 
 const CARD_FOR_LEVEL_UP = [
   class Spawn {
@@ -92,7 +84,7 @@ const CARD_FOR_LEVEL_UP = [
     bonus = "force-up";
     description = "All towers gain + 1 attack.";
     function = () => {
-      update_tower_force(1);
+      BONUS.TOWER_FORCE += 1
     };
   },
   class TowerForceDowngrade {
@@ -101,7 +93,8 @@ const CARD_FOR_LEVEL_UP = [
     bonus = "force-down";
     description = "All towers lose 1 attack.</br>Minimum force bonus : -2";
     function = () => {
-      update_tower_force(-1);
+      BONUS.TOWER_FORCE -= 1
+      BONUS.TOWER_FORCE < -2 ? BONUS.TOWER_FORCE = -2 : null
     };
   },
   class TowerSpeedUpgrade {
@@ -109,10 +102,10 @@ const CARD_FOR_LEVEL_UP = [
     tile = "tower";
     bonus = "cooldown-up";
     description = `All towers gain + 1 speed.</br> Maximum speed :  7 bonus</br></br>Current speed : ${
-      TOWER_ATTACK_RATE / 100
+      BONUS.TOWER_ATTACK_RATE / 100
     }`;
     function = () => {
-      TOWER_ATTACK_RATE < 700 ? update_tower_attack_rate(100) : null;
+      BONUS.TOWER_ATTACK_RATE < 700 ? BONUS.TOWER_ATTACK_RATE += 100 : null;
     };
   },
   class TowerSpeedDowngrade {
@@ -120,10 +113,11 @@ const CARD_FOR_LEVEL_UP = [
     tile = "tower";
     bonus = "cooldown-down";
     description = `Towers lose + 1 speed.</br> Minimum speed bonus : -7</br></br>Current speed : ${
-      TOWER_ATTACK_RATE / 100
+      BONUS.TOWER_ATTACK_RATE / 100
     }`;
     function = () => {
-      update_tower_attack_rate(-100);
+      BONUS.TOWER_ATTACK_RATE -= 100
+      BONUS.TOWER_ATTACK_RATE < -700 ? BONUS.TOWER_ATTACK_RATE =-700 : null;
     };
   },
   class GodForceUpgrade {
@@ -132,7 +126,7 @@ const CARD_FOR_LEVEL_UP = [
     bonus = "force-up";
     description = "God gains + 1 attack.";
     function = () => {
-      update_god_force(1);
+      BONUS.GOD_FORCE += 1
     };
   },
   class GodForceDowngrade {
@@ -141,7 +135,8 @@ const CARD_FOR_LEVEL_UP = [
     bonus = "force-down";
     description = "God lose 1 attack.</br>Minimum force bonus : -2";
     function = () => {
-      update_god_force(-1);
+      BONUS.GOD_FORCE -= 1
+      BONUS.GOD_FORCE < -2 ? BONUS.GOD_FORCE = -2 : null
     };
   },
   class GodSpeedUpgrade {
@@ -149,10 +144,10 @@ const CARD_FOR_LEVEL_UP = [
     tile = "god-tile";
     bonus = "cooldown-up";
     description = `God gains + 1 speed.</br> Maximum speed bonus : 7</br></br>Current speed : ${
-      GOD_ATTACK_RATE / 100
+      BONUS.GOD_ATTACK_RATE / 100
     }`;
     function = () => {
-      GOD_ATTACK_RATE < 700 ? update_god_attack_rate(100) : null;
+      BONUS.GOD_ATTACK_RATE < 700 ? BONUS.TOWER_ATTACK_RATE += 100 : null;
     };
   },
   class GodSpeedDowngrade {
@@ -160,10 +155,11 @@ const CARD_FOR_LEVEL_UP = [
     tile = "god-tile";
     bonus = "cooldown-down";
     description = `God lose + 1 speed.</br> Minimum speed bonus : -7</br></br>Current speed : ${
-      GOD_ATTACK_RATE / 100
+      BONUS.GOD_ATTACK_RATE / 100
     }`;
     function = () => {
-      update_god_attack_rate(-100);
+      BONUS.GOD_ATTACK_RATE -= 100
+      BONUS.GOD_ATTACK_RATE < -700 ? BONUS.TOWER_ATTACK_RATE =-700 : null;
     };
   },
 ];

@@ -92,7 +92,7 @@ function drawCards(levelUpScreen, cards, buttons) {
   cardDescription.style.top = `${tile + 4 * buttonUnit}px`;
   cardDescription.style.left = `${buttonUnit * 8}px`;
   cardDescription.style.textAlign = "center";
-  cardDescription.style.fontSize = `${10 * pixelUnit}px`;
+  cardDescription.style.fontSize = `${9 * pixelUnit}px`;
   cardDescription.style.lineHeight = `${tileSize / 2}px`;
 
   newButton.onclick = () => {
