@@ -97,7 +97,7 @@ function drawCards(levelUpScreen, cards, buttons) {
 
   newButton.onclick = () => {
     card.function();
-    card.title === "Spawn Point" || card.title === "Spawn"
+    card.id === "PlaceSpawnPoint" || card.id === "Spawn"
       ? null
       : generateSpawn();
     levelUpScreen.classList.add("disable");
