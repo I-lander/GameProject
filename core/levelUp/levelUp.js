@@ -42,10 +42,10 @@ function drawCards(levelUpScreen, cards, buttons) {
 
   const SelectedCard =
     CARD_FOR_LEVEL_UP[Math.floor(Math.random() * CARD_FOR_LEVEL_UP.length)];
-  // CARD_FOR_LEVEL_UP[buttons.length];
+    // CARD_FOR_LEVEL_UP[0];
   let card = new SelectedCard();
 
-  while (cards.some((existingCard) => existingCard.title === card.title)) {
+  while (cards.some((existingCard) => existingCard.id === card.id)) {
     const SelectedCard =
       CARD_FOR_LEVEL_UP[Math.floor(Math.random() * CARD_FOR_LEVEL_UP.length)];
     // CARD_FOR_LEVEL_UP[buttons.length];
@@ -66,37 +66,31 @@ function drawCards(levelUpScreen, cards, buttons) {
   newButton.style.width = `${buttonSize.width}px`;
   newButton.style.height = `${buttonSize.height}px`;
 
-  // const cardTitle = document.createElement("h1");
-  // newButton.append(cardTitle);
-  // cardTitle.style.fontSize = `${26 * pixelUnit}px`;
-  // cardTitle.innerHTML = card.title;
-  // cardTitle.style.position = "absolute";
-  // cardTitle.style.top = `${tileSize}px`;
-  // cardTitle.style.left = `${tileSize / 2}px`;
-  // cardTitle.style.width = `${256 * pixelUnit - 32 * pixelUnit}px`;
-  // cardTitle.style.height = `${tileSize*4}px`;
+  const cardTile = document.createElement("img");
+  const tile = (buttonSize.width * 2) / 3;
+  newButton.append(cardTile);
+  cardTile.src = `./src/images/${card.tile}.png`;
+  cardTile.style.width = `${tile}px`;
+  cardTile.style.height = `${tile}px`;
+  cardTile.style.top = `${0 * pixelUnit}px`;
+  cardTile.style.left = `${0 * pixelUnit}px`;
 
   const cardBonus = document.createElement("img");
   newButton.append(cardBonus);
+  const bonus = tile / 2;
   cardBonus.src = `./src/images/${card.bonus}.png`;
-  cardBonus.style.width = `${62*pixelUnit}px`
-  cardBonus.style.height = `${62*pixelUnit}px`
-  cardBonus.style.top = `${0*pixelUnit}px`
-  cardBonus.style.left = `${buttonSize.width/2 - 62*pixelUnit/2}px`
-
-  const cardTile = document.createElement("img");
-  newButton.append(cardTile);
-  cardTile.src = `./src/images/${card.tile}.png`;
-  cardTile.style.width = `${124*pixelUnit}px`
-  cardTile.style.height = `${124*pixelUnit}px`
-  cardTile.style.top = `${62*pixelUnit}px`
-  cardTile.style.left = `${buttonSize.width/2 - 124*pixelUnit/2}px`
+  cardBonus.style.width = `${bonus}px`;
+  cardBonus.style.height = `${bonus}px`;
+  cardBonus.style.top = `${tile / 2}px`;
+  cardBonus.style.left = `${tile}px`;
 
   const cardDescription = document.createElement("p");
   newButton.append(cardDescription);
+  const buttonUnit = tile / 32;
   cardDescription.innerHTML = card.description;
-  cardDescription.style.width = "100%";
-  cardDescription.style.top = `${tileSize * 7}px`;
+  cardDescription.style.width = `${buttonSize.width - 16 * buttonUnit}px`;
+  cardDescription.style.top = `${tile + 4 * buttonUnit}px`;
+  cardDescription.style.left = `${buttonUnit * 8}px`;
   cardDescription.style.textAlign = "center";
   cardDescription.style.fontSize = `${10 * pixelUnit}px`;
   cardDescription.style.lineHeight = `${tileSize / 2}px`;
