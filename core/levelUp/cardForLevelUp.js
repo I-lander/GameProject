@@ -4,6 +4,7 @@ import {
   inversePause,
   pixelUnit,
   tileMap,
+  tileSize,
   updateSelectedBtn,
 } from "../../app.js";
 import { mapSizeX, mapSizeY } from "../../level/map.js";
@@ -84,7 +85,7 @@ const CARD_FOR_LEVEL_UP = [
     bonus = "force-up";
     description = "All towers gain + 1 attack.";
     function = () => {
-      BONUS.TOWER_FORCE += 1
+      BONUS.TOWER_FORCE += 1;
     };
   },
   class TowerForceDowngrade {
@@ -93,8 +94,8 @@ const CARD_FOR_LEVEL_UP = [
     bonus = "force-down";
     description = "All towers lose 1 attack.</br>Minimum force bonus : -2";
     function = () => {
-      BONUS.TOWER_FORCE -= 1
-      BONUS.TOWER_FORCE < -2 ? BONUS.TOWER_FORCE = -2 : null
+      BONUS.TOWER_FORCE -= 1;
+      BONUS.TOWER_FORCE < -2 ? (BONUS.TOWER_FORCE = -2) : null;
     };
   },
   class TowerSpeedUpgrade {
@@ -105,7 +106,7 @@ const CARD_FOR_LEVEL_UP = [
       BONUS.TOWER_ATTACK_RATE / 100
     }`;
     function = () => {
-      BONUS.TOWER_ATTACK_RATE < 700 ? BONUS.TOWER_ATTACK_RATE += 100 : null;
+      BONUS.TOWER_ATTACK_RATE < 700 ? (BONUS.TOWER_ATTACK_RATE += 100) : null;
     };
   },
   class TowerSpeedDowngrade {
@@ -116,8 +117,8 @@ const CARD_FOR_LEVEL_UP = [
       BONUS.TOWER_ATTACK_RATE / 100
     }`;
     function = () => {
-      BONUS.TOWER_ATTACK_RATE -= 100
-      BONUS.TOWER_ATTACK_RATE < -700 ? BONUS.TOWER_ATTACK_RATE =-700 : null;
+      BONUS.TOWER_ATTACK_RATE -= 100;
+      BONUS.TOWER_ATTACK_RATE < -700 ? (BONUS.TOWER_ATTACK_RATE = -700) : null;
     };
   },
   class GodForceUpgrade {
@@ -126,7 +127,7 @@ const CARD_FOR_LEVEL_UP = [
     bonus = "force-up";
     description = "God gains + 1 attack.";
     function = () => {
-      BONUS.GOD_FORCE += 1
+      BONUS.GOD_FORCE += 1;
     };
   },
   class GodForceDowngrade {
@@ -135,8 +136,8 @@ const CARD_FOR_LEVEL_UP = [
     bonus = "force-down";
     description = "God lose 1 attack.</br>Minimum force bonus : -2";
     function = () => {
-      BONUS.GOD_FORCE -= 1
-      BONUS.GOD_FORCE < -2 ? BONUS.GOD_FORCE = -2 : null
+      BONUS.GOD_FORCE -= 1;
+      BONUS.GOD_FORCE < -2 ? (BONUS.GOD_FORCE = -2) : null;
     };
   },
   class GodSpeedUpgrade {
@@ -147,7 +148,7 @@ const CARD_FOR_LEVEL_UP = [
       BONUS.GOD_ATTACK_RATE / 100
     }`;
     function = () => {
-      BONUS.GOD_ATTACK_RATE < 700 ? BONUS.TOWER_ATTACK_RATE += 100 : null;
+      BONUS.GOD_ATTACK_RATE < 700 ? (BONUS.TOWER_ATTACK_RATE += 100) : null;
     };
   },
   class GodSpeedDowngrade {
@@ -158,8 +159,56 @@ const CARD_FOR_LEVEL_UP = [
       BONUS.GOD_ATTACK_RATE / 100
     }`;
     function = () => {
-      BONUS.GOD_ATTACK_RATE -= 100
-      BONUS.GOD_ATTACK_RATE < -700 ? BONUS.TOWER_ATTACK_RATE =-700 : null;
+      BONUS.GOD_ATTACK_RATE -= 100;
+      BONUS.GOD_ATTACK_RATE < -700 ? (BONUS.TOWER_ATTACK_RATE = -700) : null;
+    };
+  },
+  class GodRangeDowngrade {
+    id = "GodRangeDowngrade";
+    tile = "god-tile";
+    bonus = "range-down";
+    description = `God range is shortened.`;
+    function = () => {
+      BONUS.GOD_RANGE -= 0.5 * tileSize;
+      BONUS.GOD_RANGE < -2 * tileSize
+        ? (BONUS.GOD_RANGE = -2 * tileSize)
+        : null;
+    };
+  },
+  class GodRangeUpgrade {
+    id = "GodRangeUpgrade";
+    tile = "god-tile";
+    bonus = "range-up";
+    description = `God range is expended.`;
+    function = () => {
+      BONUS.GOD_RANGE += 0.5 * tileSize;
+      BONUS.GOD_RANGE > 2 * tileSize
+        ? (BONUS.GOD_RANGE = 2 * tileSize)
+        : null;
+    };
+  },
+  class TowerRangeDowngrade {
+    id = "TowerRangeDowngrade";
+    tile = "tower";
+    bonus = "range-down";
+    description = `Tower range is shortened.`;
+    function = () => {
+      BONUS.TOWER_RANGE -= 0.5 * tileSize;
+      BONUS.TOWER_RANGE < -2 * tileSize
+        ? (BONUS.TOWER_RANGE = -2 * tileSize)
+        : null;
+    };
+  },
+  class TowerRangeUpgrade {
+    id = "TowerRangeUpgrade";
+    tile = "tower";
+    bonus = "range-up";
+    description = `Tower range is expended.`;
+    function = () => {
+      BONUS.TOWER_RANGE += 0.5 * tileSize;
+      BONUS.TOWER_RANGE > 2 * tileSize
+        ? (BONUS.TOWER_RANGE = 2 * tileSize)
+        : null;
     };
   },
 ];

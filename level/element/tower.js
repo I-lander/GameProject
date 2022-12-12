@@ -28,7 +28,7 @@ export class Tower {
     ctx.arc(
       this.x + tileSize / 2,
       this.y + tileSize / 2,
-      this.stats.range,
+      this.stats.range + BONUS.TOWER_RANGE,
       0,
       Math.PI * 2,
       false
@@ -48,7 +48,7 @@ export class Tower {
         this.y + tileSize / 2 - monster.y
       );
       if (
-        monster.distance < this.stats.range - monster.hitBox &&
+        monster.distance < this.stats.range + BONUS.TOWER_RANGE - monster.hitBox &&
         calculateInterval(
           timestamp,
           this.lastAttack,

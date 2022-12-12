@@ -48,7 +48,6 @@ function drawCards(levelUpScreen, cards, buttons) {
   while (cards.some((existingCard) => existingCard.id === card.id)) {
     const SelectedCard =
       CARD_FOR_LEVEL_UP[Math.floor(Math.random() * CARD_FOR_LEVEL_UP.length)];
-    // CARD_FOR_LEVEL_UP[buttons.length];
     card = new SelectedCard();
   }
   cards.push(card);

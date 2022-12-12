@@ -85,11 +85,17 @@ class Player {
       this.isTakingDamage = false;
       this.damageFrameCount = 0;
     }
-
     this.isAttacking ? this.shootAnimation(timestamp) : null;
     ctx.beginPath();
     ctx.lineWidth = 1 * pixelUnit;
-    ctx.arc(this.x, this.y, this.stats.range, 0, Math.PI * 2, false);
+    ctx.arc(
+      this.x,
+      this.y,
+      this.stats.range + BONUS.GOD_RANGE,
+      0,
+      Math.PI * 2,
+      false
+    );
     ctx.strokeStyle = "rgba(255, 255, 255, 0.1)";
     ctx.stroke();
 
@@ -110,7 +116,8 @@ class Player {
     monsters.forEach((monster, index) => {
       monster.distance = Math.hypot(this.x - monster.x, this.y - monster.y);
       if (
-        monster.distance < this.stats.range - monster.hitBox &&
+        monster.distance <
+          this.stats.range + BONUS.GOD_RANGE - monster.hitBox &&
         calculateInterval(
           timestamp,
           this.lastAttack,
