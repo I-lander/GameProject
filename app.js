@@ -283,6 +283,7 @@ function animate(timestamp) {
         if (distance - monster.hitBox - projectile.radius < 1) {
           tower.projectiles.splice(projectileIndex, 1);
           !monster.isTakingDame ? monster.takingDamage(projectile.force) : null;
+          return
         }
       });
       projectile.update(ctxScreen);
@@ -334,6 +335,7 @@ function animate(timestamp) {
         if (distance - monster.hitBox - projectile.radius < 1) {
           player.projectiles.splice(projectileIndex, 1);
           !monster.isTakingDame ? monster.takingDamage(projectile.force) : null;
+          return
         }
       });
       projectile.update(ctxScreen);
