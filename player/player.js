@@ -12,7 +12,6 @@ import { calculateInterval } from "../core/utils.js";
 import { DrawDamage } from "./utils.js";
 import { marginLeft, marginTop } from "../UI/ScreenInit.js";
 import { BONUS } from "../core/levelUp/bonus.js";
-import { shootAudio } from "../src/sounds/sounds.js";
 class Player {
   constructor(x, y, position, radius, image) {
     this.x = x;
@@ -141,7 +140,8 @@ class Player {
   }
 
   shoot() {
-    shootAudio.play()
+    const shootAudio = new Audio("./src/sounds/shoot.wav");
+    shootAudio.play();
     this.projectiles.push(
       new Projectile(
         this.x,

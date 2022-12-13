@@ -177,6 +177,25 @@ const CARD_FOR_LEVEL_UP = [
         : null;
     };
   },
+  class LavaForceUpgrade {
+    id = "LavaForceUpgrade";
+    tile = "lava";
+    bonus = "force-up";
+    description = `Lava gains + 1 attack.`;
+    function = () => {
+      BONUS.LAVA_FORCE += 1
+    };
+  },
+  class LavaForceDowngrade {
+    id = "LavaForceDowngrade";
+    tile = "lava";
+    bonus = "force-down";
+    description = "Lava lose 1 attack.</br>Minimum force bonus : -2";
+    function = () => {
+      BONUS.LAVA_FORCE -= 1;
+      BONUS.LAVA_FORCE < -2 ? (BONUS.LAVA_FORCE = -2) : null;
+    };
+  },
 ];
 
 export { CARD_FOR_LEVEL_UP };

@@ -7,7 +7,7 @@ export function gameOverScreen(level) {
 
   const gameOverScreenText = document.createElement("p");
   gameOverScreen.appendChild(gameOverScreenText);
-  gameOverScreenText.id = "gameOverScreenText"
+  gameOverScreenText.id = "gameOverScreenText";
   gameOverScreenText.innerText = `Level Reached : ${level}`;
   gameOverScreenText.style.fontSize = `${tileSize * 1.5}px`;
   gameOverScreenText.style.display = "flex";
@@ -24,10 +24,12 @@ export function gameOverScreen(level) {
   resetButton.style.padding = `${9.5 * pixelUnit}px`;
 
   resetButton.onclick = () => {
+    const clicAudio = new Audio("./src/sounds/clic.wav");
+    clicAudio.play();
     startGame();
     setTimeout(() => {
       gameOverScreen.classList.add("disable");
-      gameOverScreenText.remove()
+      gameOverScreenText.remove();
     }, 100);
   };
 }

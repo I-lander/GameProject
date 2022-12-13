@@ -2,7 +2,6 @@ import { tileSize, pauseDelta, monsters, pixelUnit } from "../../app.js";
 import { Projectile } from "../../player/projectile.js";
 import { calculateInterval } from "../../core/utils.js";
 import { BONUS } from "../../core/levelUp/bonus.js";
-import { shootAudio } from "../../src/sounds/sounds.js";
 
 export class Tower {
   constructor(x, y, image) {
@@ -68,7 +67,8 @@ export class Tower {
         };
 
         if (this.projectiles.length < 1) {
-          shootAudio.play()
+          const shootAudio = new Audio("./src/sounds/shoot.wav");
+          shootAudio.play();
           this.projectiles.push(
             new Projectile(
               this.x + tileSize / 2,

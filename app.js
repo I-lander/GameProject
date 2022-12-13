@@ -88,12 +88,16 @@ const mainMenu = document.getElementById("mainMenu");
 // Handle click on start game button
 
 document.getElementById("startBtn").addEventListener("click", () => {
+  const clicAudio = new Audio("./src/sounds/clic.wav");
+  clicAudio.play();
   startGame();
 });
 
 let isGod = false;
 document.getElementById("startBtnAsGod").addEventListener("click", () => {
   isGod = true;
+  const clicAudio = new Audio("./src/sounds/clic.wav");
+  clicAudio.play();
   startGame();
 });
 
@@ -185,7 +189,6 @@ function animate(timestamp) {
       particles.splice(index, 1);
     }
   });
-
 
   for (let i = 0; i < tileMap.spawnPoints.length; i++) {
     const spawnPoint = tileMap.spawnPoints[i];

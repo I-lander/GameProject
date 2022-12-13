@@ -12,6 +12,7 @@ import { calculateInterval, speedFactor } from "../../core/utils.js";
 
 import findPath from "./findPath.js";
 import { MONTERS_STATS } from "../../core/constants/monsters.js";
+import { BONUS } from "../../core/levelUp/bonus.js";
 
 const bombArray = [];
 
@@ -180,11 +181,13 @@ export class Monster {
       calculateInterval(timestamp, this.lastLavaDamage, 1000, pauseDelta) &&
       currentTile === "lava"
     ) {
-      !this.isTakingDamage ? this.takingDamage(1) : null;
+      !this.isTakingDamage ? this.takingDamage(3 + BONUS.LAVA_FORCE) : null;
       this.lastLavaDamage = timestamp;
     }
 
-    currentTile === "river" && this.type === "ground" ? (this.stats.hp = 0) : null;
+    currentTile === "river" && this.type === "ground"
+      ? (this.stats.hp = 0)
+      : null;
 
     this.draw(ctx, timestamp);
 
@@ -239,6 +242,8 @@ export class Monster {
     this.isTakingDamage = true;
     const damageText = new DrawDamage(this, damage);
     damageTexts.push(damageText);
+    const damageAudio = new Audio("./src/sounds/damage.wav");
+    damageAudio.play();
   }
 
   starMecanics() {
