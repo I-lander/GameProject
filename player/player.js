@@ -160,7 +160,6 @@ class Player {
 
   shootAnimation(timestamp) {
     const horizontalFrame = this.img.naturalWidth / 32;
-    const verticalFrame = this.img.naturalHeight / 32;
 
     if (calculateInterval(timestamp, this.lastFrame, 1000 / this.frameRate)) {
       if (this.frameX < horizontalFrame - 1) {

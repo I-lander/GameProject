@@ -4,7 +4,7 @@ import { Mountain } from "./element/mountain.js";
 import { monsters, pixelUnit } from "../app.js";
 import { Village } from "./element/village.js";
 import { Tower } from "./element/tower.js";
-import { drawArrows, Arrow } from "./spawningArrows.js";
+import { SpawnPoint } from "./spawningSpawnPoints.js";
 import { Star } from "./element/star.js";
 import { selectedBtn } from "../app.js";
 import { Tree } from "./element/tree.js";
@@ -53,7 +53,7 @@ export class TileMap {
     this.star.src = "./src/images/star.png";
     this.stars = [];
 
-    this.arrows = [];
+    this.spawnPoints = [];
 
     this.map = map;
   }
@@ -208,15 +208,16 @@ export class TileMap {
           );
         }
 
-        if (tile === "arrows") {
-          drawArrows(ctx, column, row);
+        if (tile === "spawnPoints") {
           if (
-            !this.arrows.some(
-              (arrow) => arrow.position.x === column && arrow.position.y === row
+            !this.spawnPoints.some(
+              (spawnPoint) =>
+                spawnPoint.position.x === column &&
+                spawnPoint.position.y === row
             )
           ) {
-            let arrow = new Arrow(column, row);
-            this.arrows.push(arrow);
+            let spawnPoint = new SpawnPoint(column, row);
+            this.spawnPoints.push(spawnPoint);
           }
         }
 
@@ -247,7 +248,7 @@ export class TileMap {
     this.villages = [];
     this.towers = [];
     this.trees = [];
-    this.arrows = [];
+    this.spawnPoints = [];
     this.stars = [];
     createMap();
     this.map = map;

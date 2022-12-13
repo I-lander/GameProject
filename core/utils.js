@@ -41,10 +41,12 @@ function possibilityForClick() {
         let tile = tileMap.map[row][column];
         if (
           tile === "0" &&
-          !(row === 0 ||
+          !(
+            row === 0 ||
             row === mapSizeY - 1 ||
             column === 0 ||
-            column === mapSizeX - 1)
+            column === mapSizeX - 1
+          )
         ) {
           tileMap.map[row][column] = "green";
         }
@@ -58,12 +60,12 @@ function possibilityForClick() {
       }
     }
   }
-  if (selectedBtn.type === "arrows") {
+  if (selectedBtn.type === "spawnPoints") {
     for (let row = 0; row < mapSizeY; row++) {
       for (let column = 0; column < mapSizeX; column++) {
         let tile = tileMap.map[row][column];
         if (
-          tile !== "arrows" &&
+          tile !== "spawnPoints" &&
           tile !== "mountain" &&
           tile !== "tower" &&
           tile !== "village" &&

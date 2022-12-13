@@ -186,6 +186,11 @@ function animate(timestamp) {
     }
   });
 
+
+  for (let i = 0; i < tileMap.spawnPoints.length; i++) {
+    const spawnPoint = tileMap.spawnPoints[i];
+    spawnPoint.update(ctxScreen);
+  }
   // Loop on all monsters to update / draw it
 
   monsters.forEach((monster, index) => {
@@ -301,7 +306,7 @@ function animate(timestamp) {
   }
 
   drawSideScreenBackground(ctxScreen, gameScreen, sideScreen);
-  
+
   tileMap.players.forEach((player, index) => {
     player.draw(ctxScreen);
     // Condition of death GAME OVER

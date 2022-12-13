@@ -35,14 +35,14 @@ function spawnMonsters() {
   if (pauseDelta > 0) {
     localPauseDelta = pauseDelta;
   }
-  for (let i = 0; i < tileMap.arrows.length; i++) {
-    const arrow = tileMap.arrows[i];
-    if (arrow.monstersCount === arrow.MaxmonstersCount) {
+  for (let i = 0; i < tileMap.spawnPoints.length; i++) {
+    const spawnPoint = tileMap.spawnPoints[i];
+    if (spawnPoint.monstersCount === spawnPoint.MaxmonstersCount) {
       if (monsters.length === 0 && particles.length === 0) {
         inverseLeveUp();
-        tileMap.arrows.forEach((arrow) => {
-          arrow.monstersCount = 0;
-          arrow.MaxmonstersCount++;
+        tileMap.spawnPoints.forEach((spawnPoint) => {
+          spawnPoint.monstersCount = 0;
+          spawnPoint.MaxmonstersCount++;
         });
       }
       return;
@@ -52,7 +52,7 @@ function spawnMonsters() {
       !isPause &&
       calculateInterval(
         timestamp,
-        arrow.lastGroundSpawn,
+        spawnPoint.lastGroundSpawn,
         1000 / spawnGroundRate,
         localPauseDelta
       )
@@ -62,18 +62,23 @@ function spawnMonsters() {
         monsterSelectionArray[
           Math.floor(Math.random() * monsterSelectionArray.length)
         ];
-      const groundSpawnPosition = getGroundSpawnPosition(arrow);
-      monsters.push(
-        new Monster(
-          groundSpawnPosition.x,
-          groundSpawnPosition.y,
-          tileSize,
-          monsterSelected.name,
-          monsterSelected.type
-        )
-      );
-      arrow.monstersCount++;
-      arrow.lastGroundSpawn = timestamp;
+      const groundSpawnPosition = getGroundSpawnPosition(spawnPoint);
+      spawnPoint.isSpawning = true;
+      setTimeout(() => {
+        monsters.push(
+          new Monster(
+            groundSpawnPosition.x,
+            groundSpawnPosition.y,
+            tileSize,
+            monsterSelected.name,
+            monsterSelected.type
+          )
+        );
+      spawnPoint.monstersCount++;
+
+      }, 200);
+
+      spawnPoint.lastGroundSpawn = timestamp;
 
       localPauseDelta = 0;
     }
@@ -83,17 +88,8 @@ function spawnMonsters() {
   return;
 }
 
-export function getGroundSpawnPosition(arrow) {
-  let x = marginLeft;
-  let y = marginTop;
-  // if (Math.random() < 0.5) {
-  //   x = Math.random() < 0.5 ? 0 - tileSize : mapSizeX * tileSize + tileSize;
-  //   y = Math.random() * mapSizeY * tileSize + tileSize;
-  // } else {
-  //   x = Math.random() * mapSizeX * tileSize + tileSize;
-  //   y = Math.random() < 0.5 ? 0 - tileSize : mapSizeY * tileSize + tileSize;
-  // }
-  const position = { x: arrow.x, y: arrow.y };
+export function getGroundSpawnPosition(spawnPoint) {
+  const position = { x: spawnPoint.x, y: spawnPoint.y };
   return position;
 }
 
@@ -107,8 +103,8 @@ export function generateSpawn() {
     y = Math.random() < 0.5 ? 0 : mapSizeY - 1;
   }
   while (
-    tileMap.arrows.some(
-      (arrow) => arrow.position.x === x && arrow.position.y === y
+    tileMap.spawnPoints.some(
+      (spawnPoint) => spawnPoint.position.x === x && spawnPoint.position.y === y
     )
   ) {
     if (Math.random() < 0.5) {
@@ -119,7 +115,7 @@ export function generateSpawn() {
       y = Math.random() < 0.5 ? 0 : mapSizeY - 1;
     }
   }
-  tileMap.map[y][x] = "arrows";
+  tileMap.map[y][x] = "spawnPoints";
   tileMap.players[0].stats.soulRessource += 10;
 }
 

@@ -12,46 +12,14 @@ import { possibilityForClick } from "../utils.js";
 import { BONUS } from "./bonus.js";
 
 const CARD_FOR_LEVEL_UP = [
-  class Spawn {
-    id = "Spawn";
-    tile = "tile-blank";
-    bonus = "bonus-blank";
-    description =
-      "Add an arrow in a random position at any screen border.</br>Gain 10 soul ressources.";
-    function = () => {
-      let x, y;
-      if (Math.random() < 0.5) {
-        x = Math.random() < 0.5 ? 0 : mapSizeX - 1;
-        y = Math.floor(Math.random() * mapSizeY);
-      } else {
-        x = Math.floor(Math.random() * mapSizeX);
-        y = Math.random() < 0.5 ? 0 : mapSizeY - 1;
-      }
-      while (
-        tileMap.arrows.some(
-          (arrow) => arrow.position.x === x && arrow.position.y === y
-        )
-      ) {
-        if (Math.random() < 0.5) {
-          x = Math.random() < 0.5 ? 0 : mapSizeX - 1;
-          y = Math.floor(Math.random() * mapSizeY);
-        } else {
-          x = Math.floor(Math.random() * mapSizeX);
-          y = Math.random() < 0.5 ? 0 : mapSizeY - 1;
-        }
-      }
-      tileMap.map[y][x] = "arrows";
-      tileMap.players[0].stats.manaRessource += 10;
-    };
-  },
   class PlaceSpawnPoint {
     id = "PlaceSpawnPoint";
-    tile = "tile-blank";
+    tile = "spawn-tile";
     bonus = "bonus-blank";
     description =
       "Place an spawn point anywhere in the screen border.</br>Gain 3 soul ressources.";
     function = () => {
-      updateSelectedBtn({ type: "arrows", value: 0 });
+      updateSelectedBtn({ type: "spawnPoints", value: 0 });
       possibilityForClick();
       tileMap.draw(ctxScreen);
       tileMap.players[0].draw(ctxScreen);
@@ -182,9 +150,7 @@ const CARD_FOR_LEVEL_UP = [
     description = `God range is expended.`;
     function = () => {
       BONUS.GOD_RANGE += 0.5 * tileSize;
-      BONUS.GOD_RANGE > 2 * tileSize
-        ? (BONUS.GOD_RANGE = 2 * tileSize)
-        : null;
+      BONUS.GOD_RANGE > 2 * tileSize ? (BONUS.GOD_RANGE = 2 * tileSize) : null;
     };
   },
   class TowerRangeDowngrade {
