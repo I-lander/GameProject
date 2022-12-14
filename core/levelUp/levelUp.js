@@ -100,6 +100,8 @@ function drawCards(levelUpScreen, cards, buttons) {
       ? null
       : generateSpawn();
     levelUpScreen.classList.add("disable");
+    const clicAudio = new Audio("./src/sounds/clic.wav");
+    clicAudio.play();
     inverseLeveUp();
     inversePause();
   };
