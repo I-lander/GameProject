@@ -95,8 +95,8 @@ function createCard(type) {
   newButton.onclick = function () {
     if (
       !isPause &&
-      cardSelected.value <= tileMap.players[0].stats.soulRessource &&
-      tileMap.players[0].stats.soulRessource >= 0
+      cardSelected.value <= tileMap.players[0].stats.soulResource &&
+      tileMap.players[0].stats.soulResource >= 0
     ) {
       cleanMap();
       updateSelectedBtn({ type: cardSelected.type, value: cardSelected.value });
@@ -128,7 +128,7 @@ function createCloseButton(newButton) {
   closeButton.style.height = `${closeButtonSize}px`;
   closeButton.onclick = function () {
     updateSelectedBtn({ type: undefined, value: undefined });
-    renderCardDescription(selectedBtn)
+    renderCardDescription(selectedBtn);
     closeButton.remove();
     cleanMap();
     setTimeout(() => {

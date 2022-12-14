@@ -27,7 +27,7 @@ class Player {
       exp: 0,
       force: 3,
       range: tileSize * 3.5,
-      soulRessource: 30,
+      soulResource: 30,
     };
     this.level = 0;
     this.lastAttack = 0;
@@ -47,6 +47,9 @@ class Player {
     this.lastFrame = 0;
 
     this.localPauseDelta = 0;
+
+    this.shootAudio = new Audio("./src/sounds/shoot.wav");
+    this.damageAudio = new Audio("./src/sounds/godDamage.wav");
   }
 
   draw(ctx) {
@@ -60,8 +63,8 @@ class Player {
       this.stats.hp = 0;
     }
 
-    if (this.stats.soulRessource < 0) {
-      this.stats.soulRessource = 0;
+    if (this.stats.soulResource < 0) {
+      this.stats.soulResource = 0;
     }
 
     this.frameY = this.isTakingDamage ? 1 : 0;
@@ -106,7 +109,7 @@ class Player {
     }
     this.drawPlayerLife(ctx);
     this.drawLevel();
-    this.drawsoulRessource();
+    this.drawsoulResource();
   }
 
   autoFire(timestamp, monsters) {
@@ -140,8 +143,7 @@ class Player {
   }
 
   shoot() {
-    const shootAudio = new Audio("./src/sounds/shoot.wav");
-    shootAudio.play();
+    this.shootAudio.play();
     this.projectiles.push(
       new Projectile(
         this.x,
@@ -158,8 +160,7 @@ class Player {
     this.isTakingDamage = true;
     const damageText = new DrawDamage(this, damage);
     damageTexts.push(damageText);
-    const damageAudio = new Audio("./src/sounds/godDamage.wav");
-    damageAudio.play();
+    this.damageAudio.play();
   }
 
   shootAnimation(timestamp) {
@@ -196,14 +197,14 @@ class Player {
     ctx.restore();
   }
 
-  drawsoulRessource() {
-    const soulRessource = document.getElementById("soulRessource");
-    soulRessource.innerHTML = `${this.stats.soulRessource}`;
-    soulRessource.style.left = `${
+  drawsoulResource() {
+    const soulResource = document.getElementById("soulResource");
+    soulResource.innerHTML = `${this.stats.soulResource}`;
+    soulResource.style.left = `${
       marginLeft + gameScreen.width + tileSize / 2
     }px`;
-    soulRessource.style.top = `${marginTop + tileSize * 1.3}px`;
-    soulRessource.style.fontSize = `${tileSize / 2}px`;
+    soulResource.style.top = `${marginTop + tileSize * 1.3}px`;
+    soulResource.style.fontSize = `${tileSize / 2}px`;
   }
 
   drawLevel() {

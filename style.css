@@ -54,15 +54,19 @@ canvas {
   background-image: url("./src/images/menuButtonStartAsGod.png");
 }
 
-.startBtn, .startBtnAsGod, .resetButton {
-  background-color: rgba(255, 255, 255, .1);
+.startBtn,
+.startBtnAsGod,
+.resetButton {
+  background-color: rgba(255, 255, 255, 0.1);
   position: fixed;
   border: none;
   background-size: contain;
   color: white;
 }
 
-.startBtn:active, .startBtnAsGod:active, .resetButton:active {
+.startBtn:active,
+.startBtnAsGod:active,
+.resetButton:active {
   background-color: rgba(255, 255, 255, 0.5);
   color: black;
 }
@@ -76,7 +80,8 @@ canvas {
   background-repeat: no-repeat;
 }
 
-.buttonContainer, .cardDescription {
+.buttonContainer,
+.cardDescription {
   position: fixed;
   overflow: auto;
   background-color: #c5c5c53b;
@@ -89,15 +94,15 @@ canvas {
 }
 
 .levelUpScreen button {
-  position : absolute;
-  background-color : transparent;
-  background-image : url("./src/images/card-levelUp.png");
-  border : none;
+  position: absolute;
+  background-color: transparent;
+  background-image: url("./src/images/card-levelUp.png");
+  border: none;
   color: black;
 }
 
 .levelUpScreen img {
-position: absolute;
+  position: absolute;
 }
 
 .levelUpScreen h1 {
@@ -114,7 +119,7 @@ position: absolute;
   align-items: center;
 }
 
-.actionButtons button{
+.actionButtons button {
   background-color: transparent;
   border: none;
 }
@@ -143,7 +148,8 @@ position: absolute;
   position: fixed;
 }
 
-.soulRessource, .levelText {
+.soulResource,
+.levelText {
   position: fixed;
   color: white;
   text-align: left;
@@ -179,31 +185,31 @@ position: absolute;
   z-index: 1;
 }
 
-.pause:active{
+.pause:active {
   background-image: url("./src/images/pauseButton-clicked.png");
   background-size: contain;
 }
 
-.pause{
+.pause {
   background-image: url("./src/images/pauseButton.png");
   background-size: contain;
 }
 
-.play:active{
+.play:active {
   background-image: url("./src/images/playButton-clicked.png");
   background-size: contain;
 }
 
-.play{
+.play {
   background-image: url("./src/images/playButton.png");
   background-size: contain;
-
-}.fastForward:active{
+}
+.fastForward:active {
   background-image: url("./src/images/fastForwardButton-clicked.png");
   background-size: contain;
 }
 
-.fastForward{
+.fastForward {
   background-image: url("./src/images/fastForwardButton.png");
   background-size: contain;
 }

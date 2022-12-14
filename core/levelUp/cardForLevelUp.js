@@ -17,23 +17,23 @@ const CARD_FOR_LEVEL_UP = [
     tile = "spawn-tile";
     bonus = "bonus-blank";
     description =
-      "Place an spawn point anywhere in the screen border.</br>Gain 3 soul ressources.";
+      "Place an spawn point anywhere in the screen border.</br>Gain 3 soul resources.";
     function = () => {
       updateSelectedBtn({ type: "spawnPoints", value: 0 });
       possibilityForClick();
       tileMap.draw(ctxScreen);
       tileMap.players[0].draw(ctxScreen);
       inversePause();
-      tileMap.players[0].stats.soulRessource += 3;
+      tileMap.players[0].stats.soulResource += 3;
     };
   },
-  class GainRessources {
-    id = "GainRessources";
+  class GainResources {
+    id = "GainResources";
     tile = "tile-blank";
     bonus = "bonus-up";
-    description = "Gain 100 soul ressources.</br>Lose 10 PV.";
+    description = "Gain 100 soul resources.</br>Lose 10 PV.";
     function = () => {
-      tileMap.players[0].stats.soulRessource += 100;
+      tileMap.players[0].stats.soulResource += 100;
       tileMap.players[0].stats.hp -= 10;
     };
   },
@@ -41,9 +41,9 @@ const CARD_FOR_LEVEL_UP = [
     id = "GainLife";
     tile = "health-cross";
     bonus = "bonus-up";
-    description = "Gain 10 HP.</br>Lose 100 soul ressources .";
+    description = "Gain 10 HP.</br>Lose 100 soul resources .";
     function = () => {
-      tileMap.players[0].stats.soulRessource -= 100;
+      tileMap.players[0].stats.soulResource -= 100;
       tileMap.players[0].stats.hp += 10;
     };
   },
@@ -183,7 +183,7 @@ const CARD_FOR_LEVEL_UP = [
     bonus = "force-up";
     description = `Lava gains + 1 attack.`;
     function = () => {
-      BONUS.LAVA_FORCE += 1
+      BONUS.LAVA_FORCE += 1;
     };
   },
   class LavaForceDowngrade {

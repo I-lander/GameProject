@@ -32,7 +32,7 @@ export function handleClick(event) {
   ) {
     tileMap.map[clickPositionInGrid.y][clickPositionInGrid.x] =
       selectedBtn.type;
-    tileMap.players[0].stats.soulRessource -= parseInt(selectedBtn.value);
+    tileMap.players[0].stats.soulResource -= parseInt(selectedBtn.value);
 
     cleanMap();
     updateSelectedBtn(undefined);
@@ -51,7 +51,7 @@ export function handleClick(event) {
   if (selectedBtn && selectedBtn.type === "thunder") {
     const thunder = new Thunder(x, y);
     thunders.push(thunder);
-    tileMap.players[0].stats.soulRessource -= parseInt(selectedBtn.value);
+    tileMap.players[0].stats.soulResource -= parseInt(selectedBtn.value);
     updateSelectedBtn(undefined);
     renderCardDescription(selectedBtn);
     const closeButton = document.getElementById("closeButton");

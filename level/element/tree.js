@@ -43,7 +43,7 @@ export class Tree {
       this.healthsToFeed[i].update(ctx);
       if (this.healthsToFeed[i].x >= this.healthsToFeed[i].targetX) {
         this.healthsToFeed.splice(i, 1);
-        tileMap.players[0].stats.healthRessource += this.stats.healthBonus;
+        tileMap.players[0].stats.healthResource += this.stats.healthBonus;
         this.ishealthGenerated = false;
       }
     }

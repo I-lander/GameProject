@@ -12,21 +12,22 @@ export class Village {
       hp: this.maxHp,
       manaLoad: 0,
       maxMana: 100,
-      loadSpeed: 20,
       manaBonus: 5,
     };
     this.isAttack = false;
     this.lastUpdate = 0;
     this.ismanaGenerated = false;
     this.manasToFeed = [];
+    this.resourcePopingAudio = new Audio("./src/sounds/resourcePoping.wav")
   }
 
   update(ctx) {
     let timestamp = Date.now();
-    this.drawLoadingCircle(ctx);
+    this.drawLoadingCircle(ctx,timestamp);
     if (
-      calculateInterval(timestamp, this.lastUpdate, 1000 / this.stats.loadSpeed)
+      calculateInterval(timestamp, this.lastUpdate, 50)
     ) {
+      console.log(timestamp);
       this.stats.manaLoad++;
       this.lastUpdate = timestamp;
     }
@@ -35,7 +36,7 @@ export class Village {
     }
   }
 
-  drawLoadingCircle(ctx) {
+  drawLoadingCircle(ctx,timestamp) {
     let x = this.x + tileSize / 2;
     let y = this.y;
     const barRatio = this.stats.manaLoad / this.stats.maxMana;
@@ -50,7 +51,10 @@ export class Village {
     ctx.fill();
     ctx.restore();
     if (barRatio >= 1 && !this.ismanaGenerated) {
+      console.log(timestamp);
       this.ismanaGenerated = true;
+      this.resourcePopingAudio.volume = .3
+      this.resourcePopingAudio.play()
       const mana = new ManaToFeed(x, y);
       this.manasToFeed.push(mana);
     }
@@ -58,7 +62,7 @@ export class Village {
       this.manasToFeed[i].update(ctx);
       if (this.manasToFeed[i].x >= this.manasToFeed[i].targetX) {
         this.manasToFeed.splice(i, 1);
-        tileMap.players[0].stats.soulRessource += this.stats.manaBonus;
+        tileMap.players[0].stats.soulResource += this.stats.manaBonus;
         this.ismanaGenerated = false;
       }
     }

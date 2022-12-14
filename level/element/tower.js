@@ -19,6 +19,9 @@ export class Tower {
     this.projectiles = [];
     this.lastAttack = 0;
     this.localPauseDelta = 0;
+
+    this.shootAudio = new Audio("./src/sounds/shoot.wav");
+
   }
 
   update(ctx) {
@@ -67,8 +70,7 @@ export class Tower {
         };
 
         if (this.projectiles.length < 1) {
-          const shootAudio = new Audio("./src/sounds/shoot.wav");
-          shootAudio.play();
+          this.shootAudio.play();
           this.projectiles.push(
             new Projectile(
               this.x + tileSize / 2,

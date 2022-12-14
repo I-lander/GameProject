@@ -74,8 +74,7 @@ function spawnMonsters() {
             monsterSelected.type
           )
         );
-      spawnPoint.monstersCount++;
-
+        spawnPoint.monstersCount++;
       }, 200);
 
       spawnPoint.lastGroundSpawn = timestamp;
@@ -116,7 +115,7 @@ export function generateSpawn() {
     }
   }
   tileMap.map[y][x] = "spawnPoints";
-  tileMap.players[0].stats.soulRessource += 10;
+  tileMap.players[0].stats.soulResource += 10;
 }
 
 export { spawnMonsters };

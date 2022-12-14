@@ -15,7 +15,6 @@ import { Thunder } from "./player/thunder.js";
 import { bombMecanics } from "./level/element/bomb.js";
 import { renderCardDescription } from "./UI/card-description.js";
 import { levelUpScreen } from "./core/levelUp/levelUp.js";
-import { speedFactor } from "./core/utils.js";
 import { createActionButton, updateStatusText } from "./UI/actionButtons.js";
 import { handleClick, thunders } from "./core/handleClick.js";
 import { gameOverScreen } from "./UI/gameOverScreen.js";
@@ -171,7 +170,7 @@ function animate(timestamp) {
 
   tileMap.draw(ctxScreen); // draw the map
   const mainPlayer = tileMap.players[0];
-  isGod ? (mainPlayer.stats.soulRessource = 9999) : null;
+  isGod ? (mainPlayer.stats.soulResource = 9999) : null;
   isGod ? (mainPlayer.maxHp = 9999) : null;
   isGod ? (mainPlayer.stats.hp = 9999) : null;
   spawnMonsters(); // method that handle any spawning monsters

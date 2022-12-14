@@ -65,6 +65,8 @@ export class Monster {
     this.maxFrame = this.horizontalFrame * this.verticalFrame;
     this.frameRate = 10;
     this.lastFrame = 0;
+
+    this.damageAudio = new Audio("./src/sounds/damage.wav");
   }
 
   getMonsterStats() {
@@ -242,8 +244,7 @@ export class Monster {
     this.isTakingDamage = true;
     const damageText = new DrawDamage(this, damage);
     damageTexts.push(damageText);
-    const damageAudio = new Audio("./src/sounds/damage.wav");
-    damageAudio.play();
+    this.damageAudio.play();
   }
 
   starMecanics() {
