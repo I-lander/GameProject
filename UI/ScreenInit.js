@@ -4,14 +4,14 @@ import {
   mainMenuCanvas,
 } from "../app.js";
 import { mapSizeX, mapSizeY } from "../level/map.js";
-import { loadAssets } from "./loadAssets.js";
+import { loadAssets } from "../core/loadAssets.js";
 
 const screenRatio = 2 / 3;
 let marginTop = 0;
 let marginLeft = 0;
 
 function screenInit(canvasScreen) {
-  // loadAssets()
+  loadAssets()
   const screenWidth = innerWidth;
   const screenHeight = innerHeight;
   canvasScreen.width = innerWidth;
