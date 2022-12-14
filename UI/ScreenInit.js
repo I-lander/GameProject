@@ -1,17 +1,17 @@
 import {
   tileMap,
   pixelUnit,
-  gameScreen,
-  ctxmainMenuCanvas,
   mainMenuCanvas,
 } from "../app.js";
 import { mapSizeX, mapSizeY } from "../level/map.js";
+import { loadAssets } from "./loadAssets.js";
 
 const screenRatio = 2 / 3;
 let marginTop = 0;
 let marginLeft = 0;
 
-function screenInit(canvasScreen, canvasMenu) {
+function screenInit(canvasScreen) {
+  loadAssets()
   const screenWidth = innerWidth;
   const screenHeight = innerHeight;
   canvasScreen.width = innerWidth;
