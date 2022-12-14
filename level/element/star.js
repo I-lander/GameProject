@@ -1,4 +1,5 @@
 import { tileSize, pixelUnit } from "../../app.js";
+import { BONUS } from "../../core/levelUp/bonus.js";
 
 export class Star {
   constructor(x, y, image) {
@@ -20,7 +21,7 @@ export class Star {
     ctx.arc(
       this.x + tileSize / 2,
       this.y + tileSize / 2,
-      this.stats.range,
+      this.stats.range + BONUS.STAR_RANGE,
       0,
       Math.PI * 2,
       false

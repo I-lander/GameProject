@@ -37,7 +37,7 @@ const MONTERS_STATS = [
       level: 7,
       hp: 23,
       force: 3,
-      speed: 1.6,
+      speed: 1.9,
     },
     {
       name: "skull",
@@ -51,17 +51,17 @@ const MONTERS_STATS = [
       name: "ghost",
       type: "air",
       level: 12,
-      hp: 52,
-      force: 24,
-      speed: 1.6,
+      hp: 100,
+      force: 20,
+      speed: 1.8,
     },
     {
       name: "bombMonster",
-      type: "air",
+      type: "bomb",
       level: 9999,
       hp: 150,
-      force: 30,
-      speed: .9,
+      force: 1,
+      speed: 2.5,
     },
   ];
   

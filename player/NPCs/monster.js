@@ -255,9 +255,8 @@ export class Monster {
         star.x - this.x + tileSize / 2,
         star.y - this.y + tileSize / 2
       );
-
       if (
-        distance - star.stats.range <= 0 &&
+        distance - star.stats.range - BONUS.STAR_RANGE <= 0 &&
         distance > minDistance &&
         !this.visitedStars.some(
           (visitedStar) => visitedStar.x === star.x && visitedStar.y === star.y

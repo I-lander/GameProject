@@ -4,7 +4,8 @@ function drawLifeBar(ctx, entity) {
   let x = entity.x - tileSize / 2;
   let y = entity.y - tileSize / 2;
   if (entity.stats.hp < entity.maxHp) {
-    const barRatio = entity.stats.hp / entity.maxHp;
+    let barRatio = entity.stats.hp / entity.maxHp;
+    barRatio < 0 ? barRatio = 0 : barRatio
     ctx.save();
     ctx.fillStyle = "rgba(0, 0, 0, 0.9)";
     ctx.fillRect(

@@ -66,6 +66,44 @@ const CARD_FOR_LEVEL_UP = [
       BONUS.TOWER_FORCE < -2 ? (BONUS.TOWER_FORCE = -2) : null;
     };
   },
+  class GodForceUpgrade {
+    id = "GodForceUpgrade";
+    tile = "god-tile";
+    bonus = "force-up";
+    description = "God gains + 1 attack.";
+    function = () => {
+      BONUS.GOD_FORCE += 1;
+    };
+  },
+  class GodForceDowngrade {
+    id = "GodForceDowngrade";
+    tile = "god-tile";
+    bonus = "force-down";
+    description = "God lose 1 attack.</br>Minimum force bonus : -2";
+    function = () => {
+      BONUS.GOD_FORCE -= 1;
+      BONUS.GOD_FORCE < -2 ? (BONUS.GOD_FORCE = -2) : null;
+    };
+  },
+  class LavaForceUpgrade {
+    id = "LavaForceUpgrade";
+    tile = "lava";
+    bonus = "force-up";
+    description = `Lava gains + 1 attack.`;
+    function = () => {
+      BONUS.LAVA_FORCE += 1;
+    };
+  },
+  class LavaForceDowngrade {
+    id = "LavaForceDowngrade";
+    tile = "lava";
+    bonus = "force-down";
+    description = "Lava lose 1 attack.</br>Minimum force bonus : -2";
+    function = () => {
+      BONUS.LAVA_FORCE -= 1;
+      BONUS.LAVA_FORCE < -2 ? (BONUS.LAVA_FORCE = -2) : null;
+    };
+  },
   class TowerSpeedUpgrade {
     id = "TowerSpeedUpgrade";
     tile = "tower";
@@ -87,25 +125,6 @@ const CARD_FOR_LEVEL_UP = [
     function = () => {
       BONUS.TOWER_ATTACK_RATE -= 100;
       BONUS.TOWER_ATTACK_RATE < -700 ? (BONUS.TOWER_ATTACK_RATE = -700) : null;
-    };
-  },
-  class GodForceUpgrade {
-    id = "GodForceUpgrade";
-    tile = "god-tile";
-    bonus = "force-up";
-    description = "God gains + 1 attack.";
-    function = () => {
-      BONUS.GOD_FORCE += 1;
-    };
-  },
-  class GodForceDowngrade {
-    id = "GodForceDowngrade";
-    tile = "god-tile";
-    bonus = "force-down";
-    description = "God lose 1 attack.</br>Minimum force bonus : -2";
-    function = () => {
-      BONUS.GOD_FORCE -= 1;
-      BONUS.GOD_FORCE < -2 ? (BONUS.GOD_FORCE = -2) : null;
     };
   },
   class GodSpeedUpgrade {
@@ -177,23 +196,28 @@ const CARD_FOR_LEVEL_UP = [
         : null;
     };
   },
-  class LavaForceUpgrade {
-    id = "LavaForceUpgrade";
-    tile = "lava";
-    bonus = "force-up";
-    description = `Lava gains + 1 attack.`;
+  class StarRangeUpgrade {
+    id = "StarRangeUpgrade";
+    tile = "star";
+    bonus = "range-up";
+    description = `Star range is expended.`;
     function = () => {
-      BONUS.LAVA_FORCE += 1;
+      BONUS.STAR_RANGE += 0.5 * tileSize;
+      BONUS.STAR_RANGE > 2 * tileSize
+        ? (BONUS.STAR_RANGE = 2 * tileSize)
+        : null;
     };
   },
-  class LavaForceDowngrade {
-    id = "LavaForceDowngrade";
-    tile = "lava";
-    bonus = "force-down";
-    description = "Lava lose 1 attack.</br>Minimum force bonus : -2";
+  class StarRangeDowngrade {
+    id = "StarRangeDowngrade";
+    tile = "star";
+    bonus = "range-down";
+    description = `Star range is shortened.`;
     function = () => {
-      BONUS.LAVA_FORCE -= 1;
-      BONUS.LAVA_FORCE < -2 ? (BONUS.LAVA_FORCE = -2) : null;
+      BONUS.STAR_RANGE -= 0.5 * tileSize;
+      BONUS.STAR_RANGE < -2 * tileSize
+        ? (BONUS.STAR_RANGE = -2 * tileSize)
+        : null;
     };
   },
 ];

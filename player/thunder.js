@@ -13,9 +13,7 @@ class Thunder {
     this.lightningArray = [];
     this.maxRadius = tileSize * 2;
     this.radius = 0;
-    this.damage = 10;
-
-    this.attacked = false
+    this.damage = 100;
   }
 
   update(ctx) {
@@ -33,9 +31,8 @@ class Thunder {
 
     monsters.forEach((monster, index) => {
       monster.distance = Math.hypot(this.x - monster.x, this.y - monster.y);
-      if (monster.distance < this.radius - monster.hitBox && !this.attacked) {
+      if (monster.distance < this.radius - monster.hitBox) {
         hitMonsters(monster, this.damage);
-        this.attacked = true
       }
     });
 

@@ -27,7 +27,6 @@ export class Village {
     if (
       calculateInterval(timestamp, this.lastUpdate, 50)
     ) {
-      console.log(timestamp);
       this.stats.manaLoad++;
       this.lastUpdate = timestamp;
     }
@@ -51,7 +50,6 @@ export class Village {
     ctx.fill();
     ctx.restore();
     if (barRatio >= 1 && !this.ismanaGenerated) {
-      console.log(timestamp);
       this.ismanaGenerated = true;
       this.resourcePopingAudio.volume = .3
       this.resourcePopingAudio.play()

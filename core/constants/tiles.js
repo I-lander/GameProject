@@ -17,7 +17,7 @@ const CARD_ELEMENTS = [
     value: 5,
     title: "Mountain",
     description:
-      "A natural obstacle that will block path for attacking monsters.",
+      "A natural obstacle that will block path for any attacking monsters.",
   },
   {
     type: "thunder",

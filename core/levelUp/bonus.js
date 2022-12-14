@@ -5,7 +5,8 @@ const BONUS = {
   GOD_FORCE: 0,
   GOD_ATTACK_RATE: 0,
   GOD_RANGE: 0,
-  LAVA_FORCE: 0
+  LAVA_FORCE: 0,
+  STAR_RANGE: 0,
 };
 
 export function resetBonus() {
