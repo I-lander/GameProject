@@ -44,6 +44,8 @@ export function handleClick(event) {
     monsters.forEach((monster) => {
       monster.findingPath();
     });
+    const addTileAudio = new Audio("./src/sounds/addTile.wav");
+    addTileAudio.play();
     inversePause();
   }
   if (selectedBtn && selectedBtn.type === "thunder") {

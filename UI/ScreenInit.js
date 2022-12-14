@@ -11,7 +11,7 @@ let marginTop = 0;
 let marginLeft = 0;
 
 function screenInit(canvasScreen) {
-  loadAssets()
+  // loadAssets()
   const screenWidth = innerWidth;
   const screenHeight = innerHeight;
   canvasScreen.width = innerWidth;

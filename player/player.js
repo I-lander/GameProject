@@ -158,6 +158,8 @@ class Player {
     this.isTakingDamage = true;
     const damageText = new DrawDamage(this, damage);
     damageTexts.push(damageText);
+    const damageAudio = new Audio("./src/sounds/godDamage.wav");
+    damageAudio.play();
   }
 
   shootAnimation(timestamp) {
