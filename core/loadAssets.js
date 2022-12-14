@@ -4,7 +4,7 @@ export function loadAssets() {
     assets.push(new Audio("./src/sounds/shoot.wav"));
     assets.push(new Audio("./src/sounds/clic.wav"));
     assets.push(new Audio("./src/sounds/damage.wav"));
-    assets.push(new Audio("./src/sounds/godDame.wav"));
+    assets.push(new Audio("./src/sounds/godDamage.wav"));
     assets.push(new Audio("./src/sounds/addTile.wav"));
 
     // images
