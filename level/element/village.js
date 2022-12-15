@@ -51,7 +51,7 @@ export class Village {
     ctx.restore();
     if (barRatio >= 1 && !this.ismanaGenerated) {
       this.ismanaGenerated = true;
-      this.resourcePopingAudio.volume = .3
+      this.resourcePopingAudio.volume = .5
       this.resourcePopingAudio.play()
       const mana = new ManaToFeed(x, y);
       this.manasToFeed.push(mana);
