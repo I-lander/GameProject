@@ -45,12 +45,16 @@ export function handleClick(event) {
       monster.findingPath();
     });
     const addTileAudio = new Audio("./src/sounds/addTile.wav");
+    addTileAudio.volume = .5
     addTileAudio.play();
     inversePause();
   }
   if (selectedBtn && selectedBtn.type === "thunder") {
     const thunder = new Thunder(x, y);
     thunders.push(thunder);
+    const thunderStrike = new Audio("./src/sounds/thunderStrike.wav")
+    thunderStrike.volume = .2
+    thunderStrike.play()
     tileMap.players[0].stats.soulResource -= parseInt(selectedBtn.value);
     updateSelectedBtn(undefined);
     renderCardDescription(selectedBtn);

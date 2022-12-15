@@ -8,6 +8,7 @@ export function loadAssets() {
     assets.push(new Audio("./src/sounds/godDamage.wav"));
     assets.push(new Audio("./src/sounds/addTile.wav"));
     assets.push(new Audio("./src/sounds/resourcePoping.wav"));
+    assets.push(new Audio("./src/sounds/thunderStrike.wav"));
 
     // images
     const pauseButtonClicked = new Image

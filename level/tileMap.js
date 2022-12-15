@@ -66,16 +66,16 @@ export class TileMap {
           this.map[row][column] = "0";
         }
 
-        ctx.save();
-        ctx.strokeStyle = "rgba(255, 255, 255, 0.05)";
-        ctx.lineWidth = 1 * pixelUnit;
-        ctx.strokeRect(
-          this.tileSize * column,
-          this.tileSize * row,
-          this.tileSize,
-          this.tileSize
-        );
-        ctx.restore();
+        // ctx.save();
+        // ctx.strokeStyle = "rgba(255, 255, 255, 0.05)";
+        // ctx.lineWidth = 1 * pixelUnit;
+        // ctx.strokeRect(
+        //   this.tileSize * column,
+        //   this.tileSize * row,
+        //   this.tileSize,
+        //   this.tileSize
+        // );
+        // ctx.restore();
 
         if (tile === "1") {
           if (
