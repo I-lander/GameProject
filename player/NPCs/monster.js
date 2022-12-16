@@ -198,17 +198,17 @@ export class Monster {
     if (this.moveToTarget) {
       dx = this.moveToTarget.x - this.x;
       dy = this.moveToTarget.y - this.y;
-      if (Math.abs(dx) < 1 * pixelUnit) {
+      if (Math.abs(dx) < 5 * pixelUnit) {
         dx = 0;
       }
-      if (Math.abs(dy) < 1 * pixelUnit) {
+      if (Math.abs(dy) < 5 * pixelUnit) {
         dy = 0;
       }
 
       const angle = Math.atan2(dy, dx);
       this.velocity = {
-        x: Math.cos(angle),
-        y: Math.sin(angle),
+        x: dx === 0 ? 0 : Math.cos(angle),
+        y: dy === 0 ? 0 : Math.sin(angle),
       };
       let slowDownFactor = currentTile === "desert" ? 0.5 : 1;
 
