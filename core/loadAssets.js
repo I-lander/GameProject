@@ -1,7 +1,7 @@
 export function loadAssets() {
     const assets = []
     // sounds
-    const test = new Audio("./src/sounds/shoot.wav")
+    assets.push(new Audio("./src/sounds/mainLoop.mp3"));
     assets.push(new Audio("./src/sounds/shoot.wav"));
     assets.push(new Audio("./src/sounds/clic.wav"));
     assets.push(new Audio("./src/sounds/damage.wav"));

@@ -146,6 +146,8 @@ function updateSelectedBtn(btn) {
 
 export { delta, pauseDelta, inverseLeveUp };
 
+const mainLoop = new Audio("./src/sounds/mainLoop.mp3");
+
 // Game Loop method use to create the animation
 
 function animate(timestamp) {
@@ -167,6 +169,8 @@ function animate(timestamp) {
   ctxScreen.clearRect(0, 0, canvasScreen.width, canvasScreen.height);
 
   drawBackGameBackground(ctxScreen, gameScreen);
+
+  mainLoop.play()
 
   tileMap.draw(ctxScreen); // draw the map
   const mainPlayer = tileMap.players[0];
