@@ -53,6 +53,8 @@ export class TileMap {
     this.star.src = "./src/images/star.png";
     this.stars = [];
 
+    this.elements = [];
+
     this.spawnPoints = [];
 
     this.map = map;
@@ -233,12 +235,24 @@ export class TileMap {
         }
       }
     }
+    
     this.deletableElements = [
       this.mountains,
       this.villages,
       this.trees,
       this.towers,
       this.stars,
+    ];
+
+    this.elements = [
+      { type: "mountain", element: this.mountains },
+      { type: "village", element: this.villages },
+      { type: "tree", element: this.trees },
+      { type: "tower", element: this.towers },
+      { type: "star", element: this.stars },
+      { type: "river", element: this.rivers },
+      { type: "desert", element: this.deserts },
+      { type: "lava", element: this.lavas },
     ];
   }
 

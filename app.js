@@ -1,7 +1,7 @@
 import { TileMap } from "./level/tileMap.js";
 import { Particle } from "./player/visualEffects.js";
 import { getGroundSpawnPosition, spawnMonsters } from "./player/NPCs/spawn.js";
-import { drawCards } from "./UI/card-creation.js";
+import { drawCards, updateNumberOfElement } from "./UI/card-creation.js";
 import { CARD_ELEMENTS, SOLID_ELEMENTS } from "./core/constants/tiles.js";
 import {
   screenInit,
@@ -187,6 +187,7 @@ function animate(timestamp) {
     updateStatusText(pixelUnit);
     levelUpScreen(levelUp);
   }
+  updateNumberOfElement()
 
   // Delete particles when too small
 
@@ -384,6 +385,7 @@ window.addEventListener("blur", () => {
   mainLoop.pause()
   musicPause = true;
   isPause = true;
+  updateStatusText(pixelUnit);
 });
 
 window.addEventListener("focus", (event) => {
