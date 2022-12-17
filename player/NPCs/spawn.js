@@ -31,13 +31,21 @@ function monsterSelection() {
 }
 function spawnMonsters() {
   const timestamp = Date.now();
-
+  let highestLevelSpawn
+  if(tileMap.spawnPoints.length>0)
+{
+   highestLevelSpawn = tileMap.spawnPoints.reduce((max, spawnPoint) =>
+    max.MaxmonstersCount > spawnPoint.MaxmonstersCount ? max : spawnPoint
+  );
+}
   if (pauseDelta > 0) {
     localPauseDelta = pauseDelta;
   }
   for (let i = 0; i < tileMap.spawnPoints.length; i++) {
     const spawnPoint = tileMap.spawnPoints[i];
-    if (spawnPoint.monstersCount === spawnPoint.MaxmonstersCount) {
+    if (
+      highestLevelSpawn && highestLevelSpawn.monstersCount === highestLevelSpawn.MaxmonstersCount
+    ) {
       if (monsters.length === 0 && particles.length === 0) {
         inverseLeveUp();
         tileMap.spawnPoints.forEach((spawnPoint) => {
