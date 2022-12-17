@@ -8,13 +8,14 @@ import {
   updateSelectedBtn,
   pixelUnit,
   selectedBtn,
+  updatePause,
 } from "../app.js";
-import { CARD_ELEMENTS } from "../core/constants/tiles.js";
+import { CARD_ELEMENTS, SOLID_ELEMENTS } from "../core/constants/tiles.js";
 import { possibilityForClick } from "../core/utils.js";
 import { updateStatusText } from "./actionButtons.js";
 import { renderCardDescription } from "./card-description.js";
 
-const buttons = [];
+export const cardButtons = [];
 const maxCardPerLign = 5;
 let line = 0;
 
@@ -43,13 +44,13 @@ function createCard(type) {
   const buttonSize = 64 * pixelUnit;
   const buttonContainer = document.getElementById("buttonContainer");
   buttonContainer.style.height = `${buttonSize * 2}px`;
-  let Xpos = (buttons.length % maxCardPerLign) * buttonSize;
-  line = (buttons.length % maxCardPerLign) * buttonSize ? line : line + 1;
+  let Xpos = (cardButtons.length % maxCardPerLign) * buttonSize;
+  line = (cardButtons.length % maxCardPerLign) * buttonSize ? line : line + 1;
   let Ypos = buttonSize * (line - 1);
 
   let newButton = document.createElement("button");
   buttonContainer.appendChild(newButton);
-  newButton.id = `${type + buttons.length}`;
+  newButton.id = `${type + cardButtons.length}`;
   newButton.classList.add("buttonsTile");
   newButton.style.position = "absolute";
   newButton.style.left = `${Xpos}px`;
@@ -90,11 +91,15 @@ function createCard(type) {
   cardTitleText.style.userSelect = "none";
   cardTitleText.style.fontWeight = "bold";
 
-  buttons.push(newButton);
+  cardButtons.push(newButton);
 
   newButton.onclick = function () {
+    const closeBtn = document.getElementById("closeButton");
+
+    for (let button of cardButtons) {
+      button.disabled === true ? (button.disabled = false) : null;
+    }
     if (
-      !isPause &&
       cardSelected.value <= tileMap.players[0].stats.soulResource &&
       tileMap.players[0].stats.soulResource >= 0
     ) {
@@ -105,10 +110,13 @@ function createCard(type) {
         value: cardSelected.value,
       });
       possibilityForClick();
-      tileMap.draw(ctxScreen);
-      inversePause();
+      if(!closeBtn )
+      {tileMap.draw(ctxScreen);}
+      updatePause(true);
       updateStatusText(pixelUnit);
       createCloseButton(newButton);
+      newButton.disabled = true;
+      closeBtn ? closeBtn.remove() : null;
     }
   };
 }
@@ -128,12 +136,15 @@ function createCloseButton(newButton) {
   closeButton.style.height = `${closeButtonSize}px`;
   closeButton.onclick = function () {
     updateSelectedBtn(undefined);
-    renderCardDescription(selectedBtn);
+    renderCardDescription(undefined);
     closeButton.remove();
     cleanMap();
     setTimeout(() => {
-      inversePause();
-    }, 100);
+      updatePause(false);
+    for (let button of cardButtons) {
+      button.disabled === true ? (button.disabled = false) : null;
+    }
+  }, 100);
   };
 }
 

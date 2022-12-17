@@ -248,7 +248,7 @@ export class Monster {
   }
 
   starMecanics() {
-    const minDistance = 2 * pixelUnit;
+    const minDistance = 5 * pixelUnit;
     for (let i = 0; i < tileMap.stars.length; i++) {
       let star = tileMap.stars[i];
       let distance = Math.hypot(
