@@ -99,3 +99,31 @@ export function calculateInterval(
 }
 
 export { possibilityForClick };
+
+
+export function getNumberOfElement(element) {
+  const array = tileMap.elements.find((e) => {
+    return e.type === element.type;
+  });
+  if (array) {
+    return array.element.length;
+  }
+  return 99;
+}
+
+export function updateNumberOfElement() {
+
+  for(let element of tileMap.elements){
+    let text = document.getElementById(`${element.type + "Number"}`)
+    console.log(element.element.length);
+
+    text.innerText = element.element.length
+  }
+}
+
+function isCardAuthorized(element){
+  return  tileMap.elements.some((e) =>
+     e.type === element.type && e.element.length < element.maximum
+  );
+
+}
