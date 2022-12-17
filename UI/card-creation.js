@@ -127,7 +127,7 @@ function createCloseButton(newButton) {
   closeButton.style.width = `${closeButtonSize}px`;
   closeButton.style.height = `${closeButtonSize}px`;
   closeButton.onclick = function () {
-    updateSelectedBtn({ type: undefined, value: undefined });
+    updateSelectedBtn(undefined);
     renderCardDescription(selectedBtn);
     closeButton.remove();
     cleanMap();

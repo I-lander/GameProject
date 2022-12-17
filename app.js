@@ -29,7 +29,11 @@ function inversePause() {
   updateStatusText(pixelUnit);
 }
 
-export { isPause, inversePause };
+function updatePause(bool) {
+  isPause = bool;
+}
+
+export { isPause, inversePause, updatePause };
 
 // Declare & export arrays used to store game elements
 
@@ -381,7 +385,7 @@ function cleanMap() {
 export { cleanMap };
 
 window.addEventListener("blur", () => {
-  mainLoop.pause()
+  mainLoop.pause();
   musicPause = true;
   isPause = true;
   updateStatusText(pixelUnit);

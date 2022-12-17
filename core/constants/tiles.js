@@ -1,5 +1,12 @@
 const CARD_ELEMENTS = [
   {
+    type: "spawnPoints",
+    value: -10,
+    title: "Spawn",
+    description:
+      "Generate a spawning point.</br>Monster will start to pop from it.</br>Posing this tile will generate 10 manas.",
+  },
+  {
     type: "mountain",
     value: 5,
     title: "Mountain",

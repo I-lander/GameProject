@@ -198,10 +198,10 @@ export class Monster {
     if (this.moveToTarget) {
       dx = this.moveToTarget.x - this.x;
       dy = this.moveToTarget.y - this.y;
-      if (Math.abs(dx) < 5 * pixelUnit) {
+      if (Math.abs(dx) < 2 * pixelUnit) {
         dx = 0;
       }
-      if (Math.abs(dy) < 5 * pixelUnit) {
+      if (Math.abs(dy) < 2 * pixelUnit) {
         dy = 0;
       }
 
