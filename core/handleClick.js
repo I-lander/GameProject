@@ -28,6 +28,8 @@ export function handleClick(event) {
         return card.type === selectedBtn.type;
       })
     : null;
+
+    console.log(getNumberOfElement(cardSelected) , cardSelected.maximum);
   const xZero = marginLeft;
   const yZero = marginTop;
   const x = event.x - xZero;
