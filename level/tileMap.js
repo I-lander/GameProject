@@ -179,6 +179,14 @@ export class TileMap {
             this.tileSize,
             this.tileSize
           );
+          if (
+            !this.lavas.some(
+              (lava) => lava.column === column && lava.row === row
+            )
+          ) {
+            let lava = { column: column, row: row };
+            this.lavas.push(lava);
+          }
         }
 
         if (tile === "desert") {
@@ -189,6 +197,14 @@ export class TileMap {
             this.tileSize,
             this.tileSize
           );
+          if (
+            !this.deserts.some(
+              (desert) => desert.column === column && desert.row === row
+            )
+          ) {
+            let desert = { column: column, row: row };
+            this.deserts.push(desert);
+          }
         }
 
         if (tile === "river") {
@@ -199,7 +215,16 @@ export class TileMap {
             this.tileSize,
             this.tileSize
           );
+          if (
+            !this.rivers.some(
+              (river) => river.column === column && river.row === row
+            )
+          ) {
+            let river = { column: column, row: row };
+            this.rivers.push(river);
+          }
         }
+
         if (tile === "green") {
           ctx.drawImage(
             this.greenTile,
@@ -235,7 +260,7 @@ export class TileMap {
         }
       }
     }
-    
+
     this.deletableElements = [
       this.mountains,
       this.villages,

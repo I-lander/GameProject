@@ -66,6 +66,8 @@ export class Monster {
     this.frameRate = 10;
     this.lastFrame = 0;
 
+    this.localPauseDelta = 0;
+
     this.damageAudio = new Audio("./src/sounds/damage.wav");
   }
 
@@ -166,6 +168,11 @@ export class Monster {
 
   update(ctx) {
     let timestamp = Date.now();
+
+    if (pauseDelta > 0) {
+      this.localPauseDelta = pauseDelta;
+    }
+
     this.name !== "bombMonster" ? this.starMecanics() : null;
     this.name === "bombMonster" ? this.bombMonsterMecs() : null;
     if (this.isTakingDamage) {
@@ -180,11 +187,13 @@ export class Monster {
     let currentTile = tileMap.map[this.position.y][this.position.x];
 
     if (
-      calculateInterval(timestamp, this.lastLavaDamage, 1000, pauseDelta) &&
+      calculateInterval(timestamp, this.lastLavaDamage, 1000, this.localPauseDelta) &&
       currentTile === "lava"
     ) {
       !this.isTakingDamage ? this.takingDamage(3 + BONUS.LAVA_FORCE) : null;
       this.lastLavaDamage = timestamp;
+      this.localPauseDelta = 0;
+
     }
 
     currentTile === "river" && this.type === "ground"

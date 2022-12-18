@@ -12,6 +12,7 @@
   padding: 0;
   font-family: "dogicapixel";
   image-rendering: pixelated;
+  user-select: none;
 }
 
 html,

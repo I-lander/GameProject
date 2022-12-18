@@ -101,10 +101,7 @@ function createCard(type) {
     for (let button of cardButtons) {
       button.disabled === true ? (button.disabled = false) : null;
     }
-    if (
-      cardSelected.value <= tileMap.players[0].stats.soulResource &&
-      tileMap.players[0].stats.soulResource >= 0
-    ) {
+
       cleanMap();
       updateSelectedBtn({ type: cardSelected.type, value: cardSelected.value });
       renderCardDescription({
@@ -122,7 +119,7 @@ function createCard(type) {
       closeBtn ? closeBtn.remove() : null;
     }
   };
-}
+
 
 function createCloseButton(newButton) {
   const closeButtonSize = 32 * pixelUnit;
