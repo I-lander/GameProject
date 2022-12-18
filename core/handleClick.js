@@ -49,6 +49,9 @@ export function handleClick(event) {
     addTileAudio.volume = .5
     addTileAudio.play();
     inversePause();
+    for (let button of cardButtons) {
+      button.disabled === true ? (button.disabled = false) : null;
+    }
   }
   if (selectedBtn && selectedBtn.type === "thunder") {
     const thunder = new Thunder(x, y);
@@ -64,6 +67,9 @@ export function handleClick(event) {
       closeButton.remove();
     }
     inversePause();
+    for (let button of cardButtons) {
+      button.disabled === true ? (button.disabled = false) : null;
+    }
   }
 
   if (
@@ -83,6 +89,9 @@ export function handleClick(event) {
       closeButton.remove();
     }
     inversePause();
+    for (let button of cardButtons) {
+      button.disabled === true ? (button.disabled = false) : null;
+    }
     for (let i = 0; i < 40; i++) {
       particles.push(
         new Particle(x, y, Math.random() * 2 * pixelUnit, {
@@ -91,8 +100,5 @@ export function handleClick(event) {
         })
       );
     }
-  }
-  for (let button of cardButtons) {
-    button.disabled === true ? (button.disabled = false) : null;
   }
 }

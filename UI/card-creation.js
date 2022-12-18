@@ -22,14 +22,14 @@ let line = 0;
 const cardDeck = [
   "mountain",
   "village",
-  "river",
+  "tree",
   "tower",
-  "thunder",
   "desert",
   "lava",
-  "tree",
-  "bomb",
+  "river",
   "star",
+  "bomb",
+  "thunder",
 ];
 
 function drawCards() {
@@ -95,7 +95,9 @@ function createCard(type) {
 
   newButton.onclick = function () {
     const closeBtn = document.getElementById("closeButton");
-
+    if (selectedBtn && selectedBtn.type === "spawnPoints") {
+      return;
+    }
     for (let button of cardButtons) {
       button.disabled === true ? (button.disabled = false) : null;
     }
@@ -110,8 +112,9 @@ function createCard(type) {
         value: cardSelected.value,
       });
       possibilityForClick();
-      if(!closeBtn )
-      {tileMap.draw(ctxScreen);}
+      if (!closeBtn) {
+        tileMap.draw(ctxScreen);
+      }
       updatePause(true);
       updateStatusText(pixelUnit);
       createCloseButton(newButton);
@@ -141,10 +144,10 @@ function createCloseButton(newButton) {
     cleanMap();
     setTimeout(() => {
       updatePause(false);
-    for (let button of cardButtons) {
-      button.disabled === true ? (button.disabled = false) : null;
-    }
-  }, 100);
+      for (let button of cardButtons) {
+        button.disabled === true ? (button.disabled = false) : null;
+      }
+    }, 100);
   };
 }
 

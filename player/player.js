@@ -193,7 +193,7 @@ class Player {
     ctx.fillRect(barX, barY, barWidth * barRatio, barHeight);
     ctx.strokeStyle = "white";
     ctx.lineWidth = 1 * pixelUnit;
-    ctx.strokeRect(barX, barY, barWidth, barHeight);
+    ctx.strokeRect(barX, barY-1*pixelUnit, barWidth, barHeight+2*pixelUnit);
     ctx.restore();
   }
 
