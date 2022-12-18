@@ -29,7 +29,6 @@ export function handleClick(event) {
       })
     : null;
 
-    console.log(getNumberOfElement(cardSelected) , cardSelected.maximum);
   const xZero = marginLeft;
   const yZero = marginTop;
   const x = event.x - xZero;
