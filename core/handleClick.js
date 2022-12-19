@@ -38,8 +38,9 @@ export function handleClick(event) {
     tileMap.map[clickPositionInGrid.y][clickPositionInGrid.x] === "green" &&
     CARD_ELEMENTS.some((card) => card.type === selectedBtn.type) &&
     selectedBtn.value <= tileMap.players[0].stats.soulResource &&
-    tileMap.players[0].stats.soulResource >= 0 &&
-    getNumberOfElement(cardSelected) < cardSelected.maximum
+    tileMap.players[0].stats.soulResource >= 0
+    // &&
+    // getNumberOfElement(cardSelected) < cardSelected.maximum
   ) {
     tileMap.map[clickPositionInGrid.y][clickPositionInGrid.x] =
       selectedBtn.type;
