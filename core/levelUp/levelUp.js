@@ -26,13 +26,15 @@ function levelUpScreen() {
   levelNumber.style.textAlign = "center";
   levelNumber.style.fontSize = `${10 * pixelUnit}px`;
 
+  const isBonus = Math.random() < 0.5 ? true : false;
+
   levelUpScreen.classList.remove("disable");
   for (let card = 0; card < choices; card++) {
-    drawCards(levelUpScreen, cards, buttons);
+    drawCards(levelUpScreen, cards, buttons, isBonus);
   }
 }
 
-function drawCards(levelUpScreen, cards, buttons) {
+function drawCards(levelUpScreen, cards, buttons, isBonus) {
   const buttonSize = { width: 256 * pixelUnit, height: 384 * pixelUnit };
   const Xpos =
     tileSize * 2 +
@@ -40,15 +42,22 @@ function drawCards(levelUpScreen, cards, buttons) {
     buttons.length * tileSize;
   const Ypos = tileSize * 2;
 
-  const SelectedCard =
-    CARD_FOR_LEVEL_UP[Math.floor(Math.random() * CARD_FOR_LEVEL_UP.length)];
-    // CARD_FOR_LEVEL_UP[0];
-  let card = new SelectedCard();
+  let cardForSelectionArray = [];
+
+  CARD_FOR_LEVEL_UP.forEach((card) => {
+    cardForSelectionArray.push(new card());
+  });
+
+  const cardForSelection = cardForSelectionArray.filter((card) => {
+    return card.isBonus === isBonus;
+  });
+  let card =
+    cardForSelection[Math.floor(Math.random() * cardForSelection.length)];
+    // cardForSelection[0];
 
   while (cards.some((existingCard) => existingCard.id === card.id)) {
-    const SelectedCard =
-      CARD_FOR_LEVEL_UP[Math.floor(Math.random() * CARD_FOR_LEVEL_UP.length)];
-    card = new SelectedCard();
+    card =
+      cardForSelection[Math.floor(Math.random() * cardForSelection.length)];
   }
   cards.push(card);
 
