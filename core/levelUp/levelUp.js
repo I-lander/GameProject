@@ -62,13 +62,18 @@ function drawCards(levelUpScreen, cards, buttons, isBonus) {
   }
   cards.push(card);
 
+  const cardImg = ASSETS["cardLevelUp"].cloneNode()
   const newButton = document.createElement("button");
   levelUpScreen.appendChild(newButton);
+  newButton.appendChild(cardImg);
+  cardImg.style.width = "100%"
+  cardImg.style.height = "100%"
+  cardImg.style.left = "0px"
+  cardImg.style.top = "0px"
   newButton.id = `cardLevelUp_${buttons.length}`;
   newButton.style.width = `${buttonSize.width}px`;
   newButton.style.height = `${buttonSize.height}px`;
-  newButton.style.backgroundRepeat = "no-repeat";
-  newButton.style.backgroundSize = "cover";
+
 
   newButton.style.left = `${Xpos}px`;
   newButton.style.top = `${Ypos}px`;
