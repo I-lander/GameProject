@@ -2,6 +2,7 @@ import { tileSize, pauseDelta, monsters, pixelUnit } from "../../app.js";
 import { Projectile } from "../../player/projectile.js";
 import { calculateInterval } from "../../core/utils.js";
 import { BONUS } from "../../core/levelUp/bonus.js";
+import { ASSETS } from "../../core/loadAssets.js";
 
 export class Tower {
   constructor(x, y, image) {
@@ -20,7 +21,7 @@ export class Tower {
     this.lastAttack = 0;
     this.localPauseDelta = 0;
 
-    this.shootAudio = new Audio("./src/sounds/shoot.wav");
+    this.shootAudio = ASSETS["shoot"].cloneNode();
 
   }
 

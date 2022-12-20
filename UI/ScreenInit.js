@@ -1,17 +1,12 @@
-import {
-  tileMap,
-  pixelUnit,
-  mainMenuCanvas,
-} from "../app.js";
+import { tileMap, pixelUnit, mainMenuCanvas,  } from "../app.js";
 import { mapSizeX, mapSizeY } from "../level/map.js";
-import { loadAssets } from "../core/loadAssets.js";
+import { ASSETS_COUNT, loadAssets } from "../core/loadAssets.js";
 
 const screenRatio = 2 / 3;
 let marginTop = 0;
 let marginLeft = 0;
 
 function screenInit(canvasScreen) {
-  loadAssets()
   const screenWidth = innerWidth;
   const screenHeight = innerHeight;
   canvasScreen.width = innerWidth;
@@ -85,7 +80,7 @@ function screenInit(canvasScreen) {
   startBtnAsGod.style.left = `${
     marginLeft + canvasScreen.width / 2 - tileSize * 3
   }px`;
-  startBtnAsGod.style.padding = `${9.5*pixelUnit}px`
+  startBtnAsGod.style.padding = `${9.5 * pixelUnit}px`;
 
   mainMenuCanvas.width = gameScreen.width + sideScreen.width;
   mainMenuCanvas.height = gameScreen.height;
@@ -121,11 +116,10 @@ function drawBackGameBackground(ctx, screen, isMainMenu = false) {
 }
 
 function generateStars(starsArray, screen) {
-
   const xStar = Math.random() * screen.width;
   const yStar = Math.random() * screen.height;
   const starSize = Math.random() * 4 * pixelUnit;
-  const brightness = Math.random() *( 0.5 - 0.1 )+ 0.1;
+  const brightness = Math.random() * (0.5 - 0.1) + 0.1;
 
   starsArray.push({
     xStar: xStar,

@@ -23,6 +23,7 @@ import { createActionButton, updateStatusText } from "./UI/actionButtons.js";
 import { handleClick, thunders } from "./core/handleClick.js";
 import { gameOverScreen } from "./UI/gameOverScreen.js";
 import { resetBonus } from "./core/levelUp/bonus.js";
+import { ASSETS, loadAssets } from "./core/loadAssets.js";
 
 // Declare & export the variable used to pause the game
 // Declare & export the function that update pause status
@@ -61,7 +62,7 @@ export { ctxScreen, canvasScreen, mainMenuCanvas, ctxmainMenuCanvas };
 // Create and initialize the game screen and map
 
 const tileMap = new TileMap();
-screenInit(canvasScreen);
+loadAssets(canvasScreen);
 
 const beforeInit = document.getElementById("beforeInit");
 beforeInit.classList.add("disable");
@@ -95,7 +96,7 @@ const mainMenu = document.getElementById("mainMenu");
 // Handle click on start game button
 
 document.getElementById("startBtn").addEventListener("click", () => {
-  const clicAudio = new Audio("./src/sounds/clic.wav");
+  const clicAudio = ASSETS["clic"];
   clicAudio.play();
   startGame();
 });
@@ -103,7 +104,7 @@ document.getElementById("startBtn").addEventListener("click", () => {
 let isGod = false;
 document.getElementById("startBtnAsGod").addEventListener("click", () => {
   isGod = true;
-  const clicAudio = new Audio("./src/sounds/clic.wav");
+  const clicAudio = ASSETS["clic"];
   clicAudio.play();
   startGame();
 });
@@ -155,12 +156,13 @@ function updateSelectedBtn(btn) {
 
 export { delta, pauseDelta, inverseLeveUp };
 
-const mainLoop = new Audio("./src/sounds/mainLoop.mp3");
+const mainLoop = ASSETS["mainLoop"];
 let musicPause = false;
 
 // Game Loop method use to create the animation
 
 function animate(timestamp) {
+
   if (musicPause) {
     mainLoop.pause();
   } else {

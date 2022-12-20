@@ -57,10 +57,13 @@ function createCard(type) {
   newButton.style.top = `${Ypos}px`;
 
   const btnImage = new Image();
-  btnImage.src = `./src/images/card-${type}.png`;
+  btnImage.src = `./src/images/${type}.png`;
   newButton.appendChild(btnImage);
-  btnImage.style.width = `${buttonSize}px`;
-  btnImage.style.height = `${buttonSize}px`;
+  btnImage.style.position = "absolute";
+  btnImage.style.width = `${32 * pixelUnit}px`;
+  btnImage.style.height = `${32 * pixelUnit}px`;
+  btnImage.style.left = `${16 * pixelUnit}px`;
+  btnImage.style.top = `${16 * pixelUnit}px`;
 
   newButton.style.backgroundColor = "transparent";
   newButton.style.border = "none";

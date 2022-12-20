@@ -12,6 +12,7 @@ import { calculateInterval } from "../core/utils.js";
 import { DrawDamage } from "./utils.js";
 import { marginLeft, marginTop } from "../UI/ScreenInit.js";
 import { BONUS } from "../core/levelUp/bonus.js";
+import { ASSETS } from "../core/loadAssets.js";
 class Player {
   constructor(x, y, position, radius, image) {
     this.x = x;
@@ -48,8 +49,8 @@ class Player {
 
     this.localPauseDelta = 0;
 
-    this.shootAudio = new Audio("./src/sounds/shoot.wav");
-    this.damageAudio = new Audio("./src/sounds/godDamage.wav");
+    this.shootAudio = ASSETS["shoot"].cloneNode();
+    this.damageAudio = ASSETS["godDamage"]
   }
 
   draw(ctx) {

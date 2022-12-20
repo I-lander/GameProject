@@ -1,4 +1,5 @@
 import { tileSize, tileMap, pixelUnit, delta, gameScreen } from "../../app.js";
+import { ASSETS } from "../../core/loadAssets.js";
 import { calculateInterval } from "../../core/utils.js";
 
 export class Village {
@@ -18,7 +19,7 @@ export class Village {
     this.lastUpdate = 0;
     this.ismanaGenerated = false;
     this.manasToFeed = [];
-    this.resourcePopingAudio = new Audio("./src/sounds/resourcePoping.wav")
+    this.resourcePopingAudio = ASSETS["resourcePoping"]
   }
 
   update(ctx) {
@@ -51,8 +52,9 @@ export class Village {
     ctx.restore();
     if (barRatio >= 1 && !this.ismanaGenerated) {
       this.ismanaGenerated = true;
-      this.resourcePopingAudio.volume = .5
-      this.resourcePopingAudio.play()
+      const localResourcePopingAudio = this.resourcePopingAudio.cloneNode()
+      localResourcePopingAudio.volume = .5
+      localResourcePopingAudio.play()
       const mana = new ManaToFeed(x, y);
       this.manasToFeed.push(mana);
     }

@@ -15,6 +15,10 @@
   user-select: none;
 }
 
+img {
+  pointer-events: none;
+}
+
 html,
 body {
   width: 100%;
@@ -79,6 +83,7 @@ canvas {
 .buttonsTile {
   background-size: cover;
   background-repeat: no-repeat;
+  background-image: url("./src/images/emptyCard.png");;
 }
 
 .buttonContainer,
@@ -97,7 +102,7 @@ canvas {
 .levelUpScreen button {
   position: absolute;
   background-color: transparent;
-  background-image: url("./src/images/card-levelUp.png");
+  background-image: url("./src/images/cardLevelUp.png");
   border: none;
   color: black;
 }
@@ -132,6 +137,13 @@ canvas {
   height: 100%;
   position: absolute;
   z-index: 100000;
+}
+
+.beforeInit img {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  translate: -50%;
 }
 
 .actionStatus {

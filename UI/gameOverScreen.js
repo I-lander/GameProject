@@ -1,4 +1,5 @@
 import { canvasScreen, startGame, tileSize, pixelUnit } from "../app.js";
+import { ASSETS } from "../core/loadAssets.js";
 import { marginLeft, marginTop } from "./ScreenInit.js";
 
 export function gameOverScreen(level) {
@@ -24,7 +25,7 @@ export function gameOverScreen(level) {
   resetButton.style.padding = `${9.5 * pixelUnit}px`;
 
   resetButton.onclick = () => {
-    const clicAudio = new Audio("./src/sounds/clic.wav");
+    const clicAudio = ASSETS["clic"];
     clicAudio.play();
     startGame();
     setTimeout(() => {

@@ -1,4 +1,5 @@
 import { pixelUnit, delta, tileSize } from "../app.js";
+import { ASSETS } from "../core/loadAssets.js";
 import { speedFactor } from "../core/utils.js";
 
 class Projectile {
@@ -10,9 +11,8 @@ class Projectile {
     this.velocity = velocity;
     this.speed = 1.2;
     this.force = force;
-    this.sprite = new Image();
+    this.sprite = ASSETS["bullet"].cloneNode();
     this.spriteSize = tileSize;
-    this.sprite.src = "./src/images/bullet.png";
   }
 
   draw(ctx) {

@@ -13,6 +13,7 @@ import { calculateInterval, speedFactor } from "../../core/utils.js";
 import findPath from "./findPath.js";
 import { MONTERS_STATS } from "../../core/constants/monsters.js";
 import { BONUS } from "../../core/levelUp/bonus.js";
+import { ASSETS } from "../../core/loadAssets.js";
 
 const bombArray = [];
 
@@ -68,7 +69,7 @@ export class Monster {
 
     this.localPauseDelta = 0;
 
-    this.damageAudio = new Audio("./src/sounds/damage.wav");
+    this.damageAudio = ASSETS["damage"].cloneNode();
   }
 
   getMonsterStats() {

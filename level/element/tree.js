@@ -18,7 +18,7 @@ export class Tree {
     this.healthsToFeed = [];
 
     this.crossHealth = new Image();
-    this.crossHealth.src = "./src/images/health-cross.png";
+    this.crossHealth.src = "./src/images/healthCross.png";
   }
 
   update(ctx) {
@@ -77,7 +77,7 @@ class HealthToFeed {
     this.velocity;
     this.speed = 3;
     this.crossHealth = new Image();
-    this.crossHealth.src = "./src/images/health-cross.png";
+    this.crossHealth.src = "./src/images/healthCross.png";
   }
 
   update(ctx) {
