@@ -5,8 +5,16 @@ import {
   selectedBtn,
   ctxScreen,
   inversePause,
+  cleanMap,
+  canvasScreen,
+  gameScreen,
+  sideScreen,
 } from "../app.js";
 import { mapSizeX, mapSizeY } from "../level/map.js";
+import {
+  drawBackGameBackground,
+  drawSideScreenBackground,
+} from "../UI/ScreenInit.js";
 import { SOLID_ELEMENTS } from "./constants/tiles.js";
 
 function possibilityForClick() {
@@ -100,7 +108,6 @@ export function calculateInterval(
 
 export { possibilityForClick };
 
-
 export function getNumberOfElement(element) {
   const array = tileMap.elements.find((e) => {
     return e.type === element.type;
@@ -112,16 +119,33 @@ export function getNumberOfElement(element) {
 }
 
 export function updateNumberOfElement() {
-
-  for(let element of tileMap.elements){
-    let text = document.getElementById(`${element.type + "Number"}`)
-    text.innerText = element.element.length
+  for (let element of tileMap.elements) {
+    let text = document.getElementById(`${element.type + "Number"}`);
+    text.innerText = element.element.length;
   }
 }
 
-function isCardAuthorized(element){
-  return  tileMap.elements.some((e) =>
-     e.type === element.type && e.element.length < element.maximum
+function isCardAuthorized(element) {
+  return tileMap.elements.some(
+    (e) => e.type === element.type && e.element.length < element.maximum
   );
+}
 
+export function renderScreenOnce() {
+  ctxScreen.clearRect(0, 0, canvasScreen.width, canvasScreen.height);
+  drawBackGameBackground(ctxScreen, gameScreen);
+  drawSideScreenBackground(ctxScreen, gameScreen, sideScreen);
+  tileMap.players[0].draw(ctxScreen);
+  for (let i = 0; i < tileMap.spawnPoints.length; i++) {
+    const spawnPoint = tileMap.spawnPoints[i];
+    spawnPoint.update(ctxScreen);
+  }
+  for (let i = 0; i < monsters.length; i++) {
+    const monster = monsters[i];
+    monster.draw(ctxScreen);
+  }
+  cleanMap();
+  possibilityForClick();
+
+  tileMap.draw(ctxScreen);
 }

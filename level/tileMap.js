@@ -68,17 +68,6 @@ export class TileMap {
           this.map[row][column] = "0";
         }
 
-        // ctx.save();
-        // ctx.strokeStyle = "rgba(255, 255, 255, 0.05)";
-        // ctx.lineWidth = 1 * pixelUnit;
-        // ctx.strokeRect(
-        //   this.tileSize * column,
-        //   this.tileSize * row,
-        //   this.tileSize,
-        //   this.tileSize
-        // );
-        // ctx.restore();
-
         if (tile === "1") {
           if (
             !this.players.some(
@@ -188,7 +177,6 @@ export class TileMap {
             this.lavas.push(lava);
           }
         }
-
         if (tile === "desert") {
           ctx.drawImage(
             this.desert,
@@ -249,6 +237,13 @@ export class TileMap {
         }
 
         if (tile === "star") {
+          ctx.drawImage(
+            this.star,
+            this.tileSize * column,
+            this.tileSize * row,
+            this.tileSize,
+            this.tileSize
+          );
           if (
             !this.stars.some(
               (star) => star.position.x === column && star.position.y === row

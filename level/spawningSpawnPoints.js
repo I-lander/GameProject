@@ -1,4 +1,4 @@
-import { tileSize, tileMap } from "../app.js";
+import { tileSize, tileMap, isPause } from "../app.js";
 import { calculateInterval } from "../core/utils.js";
 import { mapSizeX, mapSizeY } from "./map.js";
 
@@ -40,8 +40,7 @@ export class SpawnPoint {
       tileSize
     );
 
-    this.isSpawning ? this.drawSpawnAnimation(timestamp) : null;
-
+    this.isSpawning && !isPause ? this.drawSpawnAnimation(timestamp) : null;
 
     ctx.restore();
   }

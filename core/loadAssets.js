@@ -12,7 +12,7 @@ const SOUNDS = [
   "thunderStrike",
 ];
 
-const IMAGES = ["bullet", "cardLevelUp", "pauseButton","pauseButton-clicked"];
+const IMAGES = ["bullet", "cardLevelUp", "star"];
 
 export const ASSETS = [];
 

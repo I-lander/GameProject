@@ -73,7 +73,7 @@ export function handleClick(event) {
   ) {
     const thunder = new Thunder(x, y);
     thunders.push(thunder);
-    const thunderStrike = ASSETS["thunderStrike"];
+    const thunderStrike = ASSETS["thunderStrike"].cloneNode();
     thunderStrike.volume = 0.2;
     thunderStrike.play();
     tileMap.players[0].stats.soulResource -= parseInt(selectedBtn.value);

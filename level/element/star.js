@@ -15,7 +15,6 @@ export class Star {
   }
 
   update(ctx) {
-    ctx.drawImage(this.starImage, this.x, this.y, tileSize, tileSize);
     ctx.beginPath();
     ctx.lineWidth = 1 * pixelUnit;
     ctx.arc(

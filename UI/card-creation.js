@@ -11,7 +11,7 @@ import {
   updatePause,
 } from "../app.js";
 import { CARD_ELEMENTS, SOLID_ELEMENTS } from "../core/constants/tiles.js";
-import { possibilityForClick } from "../core/utils.js";
+import { possibilityForClick, renderScreenOnce } from "../core/utils.js";
 import { updateStatusText } from "./actionButtons.js";
 import { renderCardDescription } from "./card-description.js";
 
@@ -110,16 +110,12 @@ function createCard(type) {
       button.disabled === true ? (button.disabled = false) : null;
     }
 
-    cleanMap();
     updateSelectedBtn({ type: cardSelected.type, value: cardSelected.value });
     renderCardDescription({
       type: cardSelected.type,
       value: cardSelected.value,
     });
-    possibilityForClick();
-    if (!closeBtn) {
-      tileMap.draw(ctxScreen);
-    }
+    renderScreenOnce();
     updatePause(true);
     updateStatusText(pixelUnit);
     createCloseButton(newButton);

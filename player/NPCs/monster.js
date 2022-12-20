@@ -5,6 +5,7 @@ import {
   tileSize,
   damageTexts,
   pauseDelta,
+  isPause,
 } from "../../app.js";
 import { deleteFromElementArray } from "../../level/element/bomb.js";
 import { DrawDamage } from "../utils.js";
@@ -118,9 +119,11 @@ export class Monster {
       this.radius
     );
 
-    if (calculateInterval(timestamp, this.lastFrame, 1000 / this.frameRate)) {
-      this.frameX = this.frameX < horizontalFrame - 1 ? this.frameX + 1 : 0;
-      this.lastFrame = timestamp;
+    if (!isPause) {
+      if (calculateInterval(timestamp, this.lastFrame, 1000 / this.frameRate)) {
+        this.frameX = this.frameX < horizontalFrame - 1 ? this.frameX + 1 : 0;
+        this.lastFrame = timestamp;
+      }
     }
     ctx.restore();
   }
@@ -188,13 +191,17 @@ export class Monster {
     let currentTile = tileMap.map[this.position.y][this.position.x];
 
     if (
-      calculateInterval(timestamp, this.lastLavaDamage, 1000, this.localPauseDelta) &&
+      calculateInterval(
+        timestamp,
+        this.lastLavaDamage,
+        1000,
+        this.localPauseDelta
+      ) &&
       currentTile === "lava"
     ) {
       !this.isTakingDamage ? this.takingDamage(3 + BONUS.LAVA_FORCE) : null;
       this.lastLavaDamage = timestamp;
       this.localPauseDelta = 0;
-
     }
 
     currentTile === "river" && this.type === "ground"

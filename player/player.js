@@ -6,6 +6,7 @@ import {
   gameScreen,
   sideScreen,
   damageTexts,
+  isPause,
 } from "../app.js";
 import { Projectile } from "./projectile.js";
 import { calculateInterval } from "../core/utils.js";
@@ -47,12 +48,12 @@ class Player {
     this.frameRate = 40;
     this.lastFrame = 0;
 
-    this.bullet = ASSETS["bullet"].cloneNode()
+    this.bullet = ASSETS["bullet"].cloneNode();
 
     this.localPauseDelta = 0;
 
     this.shootAudio = ASSETS["shoot"].cloneNode();
-    this.damageAudio = ASSETS["godDamage"]
+    this.damageAudio = ASSETS["godDamage"];
   }
 
   draw(ctx) {
@@ -83,32 +84,34 @@ class Player {
       this.radius,
       this.radius
     );
+    
+    if (!isPause) {
+      if (this.isTakingDamage) {
+        this.damageFrameCount++;
+      }
+      if (this.damageFrameCount === 10) {
+        this.isTakingDamage = false;
+        this.damageFrameCount = 0;
+      }
+      this.isAttacking ? this.shootAnimation(timestamp) : null;
+      ctx.beginPath();
+      ctx.lineWidth = 1 * pixelUnit;
+      ctx.arc(
+        this.x,
+        this.y,
+        this.stats.range + BONUS.GOD_RANGE,
+        0,
+        Math.PI * 2,
+        false
+      );
+      ctx.strokeStyle = "rgba(255, 255, 255, 0.1)";
+      ctx.stroke();
 
-    if (this.isTakingDamage) {
-      this.damageFrameCount++;
-    }
-    if (this.damageFrameCount === 10) {
-      this.isTakingDamage = false;
-      this.damageFrameCount = 0;
-    }
-    this.isAttacking ? this.shootAnimation(timestamp) : null;
-    ctx.beginPath();
-    ctx.lineWidth = 1 * pixelUnit;
-    ctx.arc(
-      this.x,
-      this.y,
-      this.stats.range + BONUS.GOD_RANGE,
-      0,
-      Math.PI * 2,
-      false
-    );
-    ctx.strokeStyle = "rgba(255, 255, 255, 0.1)";
-    ctx.stroke();
-
-    this.autoFire(timestamp, monsters);
-    if (this.stats.exp >= this.stats.nextLvl) {
-      this.stats.exp = 0;
-      this.stats.nextLvl = Math.round(this.stats.nextLvl * 150) / 100;
+      this.autoFire(timestamp, monsters);
+      if (this.stats.exp >= this.stats.nextLvl) {
+        this.stats.exp = 0;
+        this.stats.nextLvl = Math.round(this.stats.nextLvl * 150) / 100;
+      }
     }
     this.drawPlayerLife(ctx);
     this.drawLevel();
@@ -197,7 +200,12 @@ class Player {
     ctx.fillRect(barX, barY, barWidth * barRatio, barHeight);
     ctx.strokeStyle = "white";
     ctx.lineWidth = 1 * pixelUnit;
-    ctx.strokeRect(barX, barY-1*pixelUnit, barWidth, barHeight+2*pixelUnit);
+    ctx.strokeRect(
+      barX,
+      barY - 1 * pixelUnit,
+      barWidth,
+      barHeight + 2 * pixelUnit
+    );
     ctx.restore();
   }
 
