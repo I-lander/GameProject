@@ -56,8 +56,13 @@ function createCard(type) {
   newButton.style.left = `${Xpos}px`;
   newButton.style.top = `${Ypos}px`;
 
+  const btnImage = new Image();
+  btnImage.src = `./src/images/card-${type}.png`;
+  newButton.appendChild(btnImage);
+  btnImage.style.width = `${buttonSize}px`;
+  btnImage.style.height = `${buttonSize}px`;
+
   newButton.style.backgroundColor = "transparent";
-  newButton.style.backgroundImage = `url(./src/images/card-${type}.png)`;
   newButton.style.border = "none";
   newButton.style.width = `${buttonSize}px`;
   newButton.style.height = `${buttonSize}px`;
@@ -102,24 +107,23 @@ function createCard(type) {
       button.disabled === true ? (button.disabled = false) : null;
     }
 
-      cleanMap();
-      updateSelectedBtn({ type: cardSelected.type, value: cardSelected.value });
-      renderCardDescription({
-        type: cardSelected.type,
-        value: cardSelected.value,
-      });
-      possibilityForClick();
-      if (!closeBtn) {
-        tileMap.draw(ctxScreen);
-      }
-      updatePause(true);
-      updateStatusText(pixelUnit);
-      createCloseButton(newButton);
-      newButton.disabled = true;
-      closeBtn ? closeBtn.remove() : null;
+    cleanMap();
+    updateSelectedBtn({ type: cardSelected.type, value: cardSelected.value });
+    renderCardDescription({
+      type: cardSelected.type,
+      value: cardSelected.value,
+    });
+    possibilityForClick();
+    if (!closeBtn) {
+      tileMap.draw(ctxScreen);
     }
+    updatePause(true);
+    updateStatusText(pixelUnit);
+    createCloseButton(newButton);
+    newButton.disabled = true;
+    closeBtn ? closeBtn.remove() : null;
   };
-
+}
 
 function createCloseButton(newButton) {
   const closeButtonSize = 32 * pixelUnit;
@@ -128,6 +132,9 @@ function createCloseButton(newButton) {
   newButton.appendChild(closeButton);
   closeButton.id = "closeButton";
   closeButton.classList.add("buttonsTile");
+  closeButton.style.position = "absolute";
+  closeButton.style.left = `${16 * pixelUnit}px`;
+  closeButton.style.top = `${16 * pixelUnit}px`;
   closeButton.style.backgroundColor = "rgba(50,50,50,0.6)";
   closeButton.style.backgroundImage = `url(./src/images/closeButton.png)`;
   closeButton.style.border = "none";

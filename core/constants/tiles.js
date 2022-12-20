@@ -94,7 +94,6 @@ const CARD_ELEMENTS = [
 
 function resetTileCards () {
 for(let card of CARD_ELEMENTS){
-  console.log(card);
   card.maximum = card.maximumDefault
 }
 }

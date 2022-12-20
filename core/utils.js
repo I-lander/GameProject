@@ -115,8 +115,6 @@ export function updateNumberOfElement() {
 
   for(let element of tileMap.elements){
     let text = document.getElementById(`${element.type + "Number"}`)
-    console.log(element.element.length);
-
     text.innerText = element.element.length
   }
 }
