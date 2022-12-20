@@ -21,6 +21,9 @@ export class TileMap {
     this.greenTile = new Image();
     this.greenTile.src = "./src/images/greenTile.png";
 
+    this.greenTileFull = new Image();
+    this.greenTileFull.src = "./src/images/greenTileFull.png";
+
     this.mountain = new Image();
     this.mountain.src = "./src/images/mountain.png";
     this.mountains = [];
@@ -94,6 +97,15 @@ export class TileMap {
             this.tileSize,
             this.tileSize
           );
+          if (selectedBtn && selectedBtn.type === "bomb") {
+            ctx.drawImage(
+              this.greenTileFull,
+              column * this.tileSize,
+              row * this.tileSize,
+              this.tileSize,
+              this.tileSize
+            );
+          }
           if (
             !this.mountains.some(
               (mountain) =>
@@ -113,6 +125,15 @@ export class TileMap {
             this.tileSize,
             this.tileSize
           );
+          if (selectedBtn && selectedBtn.type === "bomb") {
+            ctx.drawImage(
+              this.greenTileFull,
+              column * this.tileSize,
+              row * this.tileSize,
+              this.tileSize,
+              this.tileSize
+            );
+          }
           if (
             !this.villages.some(
               (village) =>
@@ -132,6 +153,15 @@ export class TileMap {
             this.tileSize,
             this.tileSize
           );
+          if (selectedBtn && selectedBtn.type === "bomb") {
+            ctx.drawImage(
+              this.greenTileFull,
+              column * this.tileSize,
+              row * this.tileSize,
+              this.tileSize,
+              this.tileSize
+            );
+          }
           if (
             !this.trees.some(
               (tree) => tree.position.x === column && tree.position.y === row
@@ -150,6 +180,15 @@ export class TileMap {
             this.tileSize,
             this.tileSize
           );
+          if (selectedBtn && selectedBtn.type === "bomb") {
+            ctx.drawImage(
+              this.greenTileFull,
+              column * this.tileSize,
+              row * this.tileSize,
+              this.tileSize,
+              this.tileSize
+            );
+          }
           if (
             !this.towers.some(
               (tower) => tower.position.x === column && tower.position.y === row
@@ -168,6 +207,15 @@ export class TileMap {
             this.tileSize,
             this.tileSize
           );
+          if (selectedBtn && selectedBtn.type === "bomb") {
+            ctx.drawImage(
+              this.greenTileFull,
+              column * this.tileSize,
+              row * this.tileSize,
+              this.tileSize,
+              this.tileSize
+            );
+          }
           if (
             !this.lavas.some(
               (lava) => lava.column === column && lava.row === row
@@ -185,6 +233,15 @@ export class TileMap {
             this.tileSize,
             this.tileSize
           );
+          if (selectedBtn && selectedBtn.type === "bomb") {
+            ctx.drawImage(
+              this.greenTileFull,
+              column * this.tileSize,
+              row * this.tileSize,
+              this.tileSize,
+              this.tileSize
+            );
+          }
           if (
             !this.deserts.some(
               (desert) => desert.column === column && desert.row === row
@@ -203,6 +260,15 @@ export class TileMap {
             this.tileSize,
             this.tileSize
           );
+          if (selectedBtn && selectedBtn.type === "bomb") {
+            ctx.drawImage(
+              this.greenTileFull,
+              column * this.tileSize,
+              row * this.tileSize,
+              this.tileSize,
+              this.tileSize
+            );
+          }
           if (
             !this.rivers.some(
               (river) => river.column === column && river.row === row
@@ -210,6 +276,33 @@ export class TileMap {
           ) {
             let river = { column: column, row: row };
             this.rivers.push(river);
+          }
+        }
+
+        if (tile === "star") {
+          ctx.drawImage(
+            this.star,
+            this.tileSize * column,
+            this.tileSize * row,
+            this.tileSize,
+            this.tileSize
+          );
+          if (selectedBtn && selectedBtn.type === "bomb") {
+            ctx.drawImage(
+              this.greenTileFull,
+              column * this.tileSize,
+              row * this.tileSize,
+              this.tileSize,
+              this.tileSize
+            );
+          }
+          if (
+            !this.stars.some(
+              (star) => star.position.x === column && star.position.y === row
+            )
+          ) {
+            let star = new Star(column, row, this.star);
+            this.stars.push(star);
           }
         }
 
@@ -234,25 +327,7 @@ export class TileMap {
             let spawnPoint = new SpawnPoint(column, row);
             this.spawnPoints.push(spawnPoint);
           }
-        }
-
-        if (tile === "star") {
-          ctx.drawImage(
-            this.star,
-            this.tileSize * column,
-            this.tileSize * row,
-            this.tileSize,
-            this.tileSize
-          );
-          if (
-            !this.stars.some(
-              (star) => star.position.x === column && star.position.y === row
-            )
-          ) {
-            let star = new Star(column, row, this.star);
-            this.stars.push(star);
-          }
-        }
+        }        
       }
     }
 

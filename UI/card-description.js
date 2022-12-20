@@ -7,6 +7,7 @@ import {
   tileSize,
 } from "../app.js";
 import { CARD_ELEMENTS } from "../core/constants/tiles.js";
+import { ASSETS } from "../core/loadAssets.js";
 import { getNumberOfElement } from "../core/utils.js";
 import { marginLeft, marginTop } from "./ScreenInit.js";
 
@@ -31,10 +32,11 @@ function renderCardDescription(selectedCard) {
   const ValueColor =
   selectedBtn.value <= tileMap.players[0].stats.soulResource ? "black" : "red";
 
-  cardDescription.innerHTML = `<img src="./src/images/${cardSelected.type}.png"><span id="cardValue" style="color:${ValueColor}">${cardSelected.value}</span>
+  cardDescription.innerHTML = `<span id="cardValue" style="color:${ValueColor}">${cardSelected.value}</span>
   <h1>${cardSelected.title}</h1>
   <p>Cost: ${cardSelected.value}</br>Description: ${cardSelected.description}</p>`;
 
+  cardDescription.appendChild(ASSETS[cardSelected.type])
   const numberVsMax = document.createElement("p");
   cardDescription.appendChild(numberVsMax);
 
@@ -83,6 +85,7 @@ function renderCardDescription(selectedCard) {
   if (imgTag) {
     imgTag.style.position = "absolute";
     imgTag.style.right = `0px`;
+    imgTag.style.top = `0px`;
     imgTag.style.width = `${tileSize}px`;
   }
 }

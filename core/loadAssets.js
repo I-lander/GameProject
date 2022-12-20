@@ -12,7 +12,20 @@ const SOUNDS = [
   "thunderStrike",
 ];
 
-const IMAGES = ["bullet", "cardLevelUp", "star"];
+const IMAGES = [
+  "bullet",
+  "cardLevelUp",
+  "mountain",
+  "village",
+  "tree",
+  "tower",
+  "desert",
+  "lava",
+  "river",
+  "star",
+  "bomb",
+  "thunder",
+];
 
 export const ASSETS = [];
 
