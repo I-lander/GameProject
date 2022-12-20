@@ -3,7 +3,7 @@ import { ASSETS } from "../core/loadAssets.js";
 import { speedFactor } from "../core/utils.js";
 
 class Projectile {
-  constructor(x, y, color, velocity, force) {
+  constructor(x, y, color, velocity, force, sprite) {
     this.x = x;
     this.y = y;
     this.radius = 6 * pixelUnit;
@@ -11,7 +11,7 @@ class Projectile {
     this.velocity = velocity;
     this.speed = 1.2;
     this.force = force;
-    this.sprite = ASSETS["bullet"].cloneNode();
+    this.sprite = sprite;
     this.spriteSize = tileSize;
   }
 

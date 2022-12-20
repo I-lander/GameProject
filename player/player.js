@@ -47,6 +47,8 @@ class Player {
     this.frameRate = 40;
     this.lastFrame = 0;
 
+    this.bullet = ASSETS["bullet"].cloneNode()
+
     this.localPauseDelta = 0;
 
     this.shootAudio = ASSETS["shoot"].cloneNode();
@@ -151,7 +153,8 @@ class Player {
         this.y,
         "white",
         this.projectileVelocity,
-        this.stats.force + BONUS.GOD_FORCE
+        this.stats.force + BONUS.GOD_FORCE,
+        this.bullet
       )
     );
   }

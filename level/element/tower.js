@@ -21,6 +21,8 @@ export class Tower {
     this.lastAttack = 0;
     this.localPauseDelta = 0;
 
+    this.bullet = ASSETS["bullet"].cloneNode()
+
     this.shootAudio = ASSETS["shoot"].cloneNode();
 
   }
@@ -78,7 +80,8 @@ export class Tower {
               this.y + tileSize / 2,
               "white",
               velocity,
-              this.stats.force + BONUS.TOWER_FORCE
+              this.stats.force + BONUS.TOWER_FORCE,
+              this.bullet
             )
           );
         }
