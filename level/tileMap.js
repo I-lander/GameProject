@@ -1,7 +1,6 @@
 import { Player } from "../player/player.js";
 import { createMap, map, mapSizeX, mapSizeY } from "./map.js";
 import { Mountain } from "./element/mountain.js";
-import { monsters, pixelUnit } from "../app.js";
 import { Village } from "./element/village.js";
 import { Tower } from "./element/tower.js";
 import { SpawnPoint } from "./spawningSpawnPoints.js";

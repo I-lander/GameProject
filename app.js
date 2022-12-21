@@ -1,23 +1,15 @@
 import { TileMap } from "./level/tileMap.js";
 import { Particle } from "./player/visualEffects.js";
-import { getGroundSpawnPosition, spawnMonsters } from "./player/NPCs/spawn.js";
+import { spawnMonsters } from "./player/NPCs/spawn.js";
 import { drawCards } from "./UI/card-creation.js";
+import { resetTileCards } from "./core/constants/tiles.js";
 import {
-  CARD_ELEMENTS,
-  resetTileCards,
-  SOLID_ELEMENTS,
-} from "./core/constants/tiles.js";
-import {
-  screenInit,
   drawSideScreenBackground,
   drawBackGameBackground,
 } from "./UI/ScreenInit.js";
 import { Monster } from "./player/NPCs/monster.js";
-import { drawLifeBar, DrawDamage } from "./player/utils.js";
+import { drawLifeBar } from "./player/utils.js";
 import { mapSizeX, mapSizeY } from "./level/map.js";
-import { Thunder } from "./player/thunder.js";
-import { bombMecanics } from "./level/element/bomb.js";
-import { renderCardDescription } from "./UI/card-description.js";
 import { levelUpScreen } from "./core/levelUp/levelUp.js";
 import { createActionButton, updateStatusText } from "./UI/actionButtons.js";
 import { handleClick, thunders } from "./core/handleClick.js";
@@ -162,7 +154,6 @@ let musicPause = false;
 // Game Loop method use to create the animation
 
 function animate(timestamp) {
-
   if (musicPause) {
     mainLoop.pause();
   } else {

@@ -1,4 +1,3 @@
-import { canvasScreen } from "../app.js";
 import { screenInit } from "../UI/ScreenInit.js";
 
 const SOUNDS = [
