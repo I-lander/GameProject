@@ -36,8 +36,6 @@ function renderCardDescription(selectedCard) {
 
   cardDescription.innerHTML = `<span id="cardValue" style="color:${ValueColor}">${cardSelected.value}</span>`;
 
-  cardDescription.appendChild(ASSETS[cardSelected.type]);
-
   const cardValue = document.getElementById("cardValue");
   cardValue.style.position = "absolute";
   cardValue.style.fontSize = `${20 * pixelUnit}px`;
@@ -60,7 +58,7 @@ function renderCardDescription(selectedCard) {
   numberVsMax.style.fontSize = `${16 * pixelUnit}px`;
   numberVsMax.style.height = `${tileSize}px`;
   numberVsMax.style.right = `${tileSize + 3 * pixelUnit}px`;
-  numberVsMax.style.marginTop = `${ 4 * pixelUnit}px`;
+  numberVsMax.style.marginTop = `${4 * pixelUnit}px`;
   numberVsMax.style.display = "flex";
   numberVsMax.style.alignItems = "center";
   numberVsMax.style.justifyContent = "center";
@@ -83,13 +81,12 @@ function renderCardDescription(selectedCard) {
   cardDescriptionText.style.lineHeight = `${tileSize / 2}px`;
   cardDescriptionText.style.fontSize = `${10 * pixelUnit}px`;
 
-  const imgTag = cardDescription.querySelector("img");
-  if (imgTag) {
-    imgTag.style.position = "absolute";
-    imgTag.style.right = `0px`;
-    imgTag.style.top = `0px`;
-    imgTag.style.width = `${tileSize}px`;
-  }
+  const cardDescriptionImg = ASSETS[cardSelected.type];
+  cardDescription.appendChild(cardDescriptionImg);
+  cardDescriptionImg.style.position = "absolute";
+  cardDescriptionImg.style.right = `0px`;
+  cardDescriptionImg.style.top = `0px`;
+  cardDescriptionImg.style.width = `${tileSize}px`;
 }
 
 export { renderCardDescription };
