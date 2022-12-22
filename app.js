@@ -16,6 +16,7 @@ import { handleClick, thunders } from "./core/handleClick.js";
 import { gameOverScreen } from "./UI/gameOverScreen.js";
 import { resetBonus } from "./core/levelUp/bonus.js";
 import { ASSETS, loadAssets } from "./core/loadAssets.js";
+import { renderCardDescription } from "./UI/card-description.js";
 
 // Declare & export the variable used to pause the game
 // Declare & export the function that update pause status
@@ -119,6 +120,7 @@ export function startGame() {
   init();
   isPause = false;
   drawCards();
+  renderCardDescription();
   createActionButton(pixelUnit);
   mainMenu.classList.add("disable");
   mainMenuCanvas.classList.add("disable");

@@ -11,7 +11,7 @@ import { ASSETS } from "../core/loadAssets.js";
 import { getNumberOfElement } from "../core/utils.js";
 import { marginLeft, marginTop } from "./ScreenInit.js";
 
-function renderCardDescription(selectedCard) {
+function renderCardDescription(selectedCard = undefined) {
   const cardSelected = selectedCard
     ? CARD_ELEMENTS.find((card) => {
         return card.type === selectedCard.type;
