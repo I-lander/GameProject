@@ -18,11 +18,17 @@ function renderCardDescription(selectedCard) {
       })
     : null;
   const cardDescription = document.getElementById("cardDescription");
+  const containerMargin = 16;
 
   cardDescription.style.left = `${gameScreen.width + marginLeft}px`;
-  cardDescription.style.width = `${sideScreen.width}px`;
-  cardDescription.style.height = `${tileSize * 7}px`;
-  cardDescription.style.bottom = `${marginTop}px`;
+  cardDescription.style.width = `${
+    sideScreen.width - tileSize - 4 * pixelUnit
+  }px`;
+  cardDescription.style.margin = `0px ${containerMargin * pixelUnit}px`;
+  cardDescription.style.height = `${
+    tileSize * 7 - containerMargin * pixelUnit
+  }px`;
+  cardDescription.style.bottom = `${marginTop + containerMargin * pixelUnit}px`;
 
   if (!selectedBtn || !selectedBtn.type) {
     cardDescription.innerHTML = "";
@@ -38,9 +44,9 @@ function renderCardDescription(selectedCard) {
 
   const cardValue = document.getElementById("cardValue");
   cardValue.style.position = "absolute";
-  cardValue.style.fontSize = `${20 * pixelUnit}px`;
+  cardValue.style.fontSize = `${18 * pixelUnit}px`;
   cardValue.style.marginTop = `${3 * pixelUnit}px`;
-  cardValue.style.width = `${tileSize * 2}px`;
+  cardValue.style.width = `${tileSize * 1.75}px`;
   cardValue.style.height = `${tileSize}px`;
   cardValue.style.display = "flex";
   cardValue.style.alignItems = "center";
@@ -63,13 +69,20 @@ function renderCardDescription(selectedCard) {
   numberVsMax.style.alignItems = "center";
   numberVsMax.style.justifyContent = "center";
 
+  const cardDescriptionImg = ASSETS[cardSelected.type];
+  cardDescription.appendChild(cardDescriptionImg);
+  cardDescriptionImg.style.position = "absolute";
+  cardDescriptionImg.style.right = `0px`;
+  cardDescriptionImg.style.top = `0px`;
+  cardDescriptionImg.style.width = `${tileSize}px`;
+
   const cardDescriptionTitle = document.createElement("div");
   cardDescription.append(cardDescriptionTitle);
   cardDescriptionTitle.innerHTML = `${cardSelected.title}`;
   cardDescriptionTitle.style.color = "rgba(50,50,50, 1)";
   cardDescriptionTitle.style.lineHeight = `${tileSize * 1.25}px`;
-  cardDescriptionTitle.style.fontSize = `${24 * pixelUnit}px`;
-  cardDescriptionTitle.style.paddingLeft = `${tileSize * 2}px`;
+  cardDescriptionTitle.style.fontSize = `${22 * pixelUnit}px`;
+  cardDescriptionTitle.style.paddingLeft = `${tileSize * 1.75}px`;
   cardDescriptionTitle.style.backgroundColor = "white";
   cardDescriptionTitle.style.height = `${tileSize}px`;
 
@@ -81,12 +94,6 @@ function renderCardDescription(selectedCard) {
   cardDescriptionText.style.lineHeight = `${tileSize / 2}px`;
   cardDescriptionText.style.fontSize = `${10 * pixelUnit}px`;
 
-  const cardDescriptionImg = ASSETS[cardSelected.type];
-  cardDescription.appendChild(cardDescriptionImg);
-  cardDescriptionImg.style.position = "absolute";
-  cardDescriptionImg.style.right = `0px`;
-  cardDescriptionImg.style.top = `0px`;
-  cardDescriptionImg.style.width = `${tileSize}px`;
 }
 
 export { renderCardDescription };

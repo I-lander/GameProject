@@ -93,6 +93,18 @@ canvas {
   background-color: #c5c5c53b;
 }
 
+.buttonContainer {
+  background-image: url("./src/images/buttonContainer.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.cardDescription {
+  background-image: url("./src/images/cardDescriptionContainer.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
 .levelUpScreen {
   position: fixed;
   color: white;

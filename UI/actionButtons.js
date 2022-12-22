@@ -42,7 +42,7 @@ export function createActionButton(pixelUnit) {
   actionButtons.classList.remove("disable")
   actionButtons.style.height = `${tileSize}px`;
   actionButtons.style.width = `${tileSize * 3}px`;
-  actionButtons.style.top = `${tileSize + marginTop}px`;
+  actionButtons.style.top = `${tileSize*1.25 + marginTop}px`;
   actionButtons.style.left = `${
     marginLeft + canvasScreen.width - (tileSize * 3.5 - 2 * pixelUnit)
   }px`;
@@ -68,7 +68,7 @@ export function createActionButton(pixelUnit) {
     marginLeft + canvasScreen.width - (tileSize * 1.5 - 2 * pixelUnit)
   }px`;
 
-  actionStatus.style.top = `${tileSize * 2 + marginTop}px`;
+  actionStatus.style.top = `${tileSize * 2.40 + marginTop}px`;
   actionStatus.style.left = `${
     marginLeft + canvasScreen.width - tileSize * 3.5
   }px`;

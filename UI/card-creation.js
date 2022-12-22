@@ -9,6 +9,7 @@ import {
   pixelUnit,
   selectedBtn,
   updatePause,
+  sideScreen,
 } from "../app.js";
 import { CARD_ELEMENTS, SOLID_ELEMENTS } from "../core/constants/tiles.js";
 import { possibilityForClick, renderScreenOnce } from "../core/utils.js";
@@ -37,16 +38,26 @@ function drawCards() {
     createCard(cardDeck[card]);
   }
 }
+
+const imgPosition = "16";
+
 function createCard(type) {
+  console.log(pixelUnit);
   const cardSelected = CARD_ELEMENTS.find((card) => {
     return card.type === type;
   });
-  const buttonSize = 64 * pixelUnit;
+  const containerMargin = 16;
+  const buttonSize = { width: 60 * pixelUnit, height: 64 * pixelUnit };
   const buttonContainer = document.getElementById("buttonContainer");
-  buttonContainer.style.height = `${buttonSize * 2}px`;
-  let Xpos = (cardButtons.length % maxCardPerLign) * buttonSize;
-  line = (cardButtons.length % maxCardPerLign) * buttonSize ? line : line + 1;
-  let Ypos = buttonSize * (line - 1);
+  buttonContainer.style.height = `${buttonSize.height * 2 + 8 * pixelUnit}px`;
+  buttonContainer.style.width = `${
+    sideScreen.width - tileSize - 4 * pixelUnit
+  }px`;
+  buttonContainer.style.margin = `0px ${containerMargin * pixelUnit}px`;
+  let Xpos = (cardButtons.length % maxCardPerLign) * buttonSize.width;
+  line =
+    (cardButtons.length % maxCardPerLign) * buttonSize.width ? line : line + 1;
+  let Ypos = buttonSize.height * (line - 1) + 4 * pixelUnit;
 
   let newButton = document.createElement("button");
   buttonContainer.appendChild(newButton);
@@ -54,7 +65,7 @@ function createCard(type) {
   newButton.classList.add("buttonsTile");
   newButton.style.position = "absolute";
   newButton.style.left = `${Xpos}px`;
-  newButton.style.top = `${Ypos}px`;
+  newButton.style.top = `${Ypos }px`;
 
   const btnImage = new Image();
   btnImage.src = `./src/images/${type}.png`;
@@ -62,22 +73,24 @@ function createCard(type) {
   btnImage.style.position = "absolute";
   btnImage.style.width = `${32 * pixelUnit}px`;
   btnImage.style.height = `${32 * pixelUnit}px`;
-  btnImage.style.left = `${16 * pixelUnit}px`;
+  btnImage.style.left = `${imgPosition * pixelUnit}px`;
   btnImage.style.top = `${16 * pixelUnit}px`;
 
   newButton.style.backgroundColor = "transparent";
   newButton.style.border = "none";
-  newButton.style.width = `${buttonSize}px`;
-  newButton.style.height = `${buttonSize}px`;
+  newButton.style.width = `${buttonSize.width}px`;
+  newButton.style.height = `${buttonSize.height}px`;
 
   let cardValueText = document.createElement("p");
   buttonContainer.appendChild(cardValueText);
 
   cardValueText.innerText = `${cardSelected.value}`;
   cardValueText.style.position = "absolute";
-  cardValueText.style.left = `${Xpos}px`;
+  cardValueText.style.left = `${Xpos + tileSize / 2 + 1 * pixelUnit}px`;
   cardValueText.style.top = `${Ypos + 7 * pixelUnit}px`;
-  cardValueText.style.width = `${buttonSize}px`;
+  cardValueText.style.width = `${buttonSize.width / 2}px`;
+  cardValueText.style.display = "flex";
+  cardValueText.style.justifyContent = "center";
   cardValueText.style.textAlign = "center";
   cardValueText.style.fontSize = `${5 * pixelUnit}px`;
   cardValueText.style.userSelect = "none";
@@ -88,7 +101,7 @@ function createCard(type) {
 
   cardTitleText.innerText = `${cardSelected.title}`;
   cardTitleText.style.position = "absolute";
-  cardTitleText.style.left = `${Xpos + 16 * pixelUnit}px`;
+  cardTitleText.style.left = `${Xpos + imgPosition * pixelUnit}px`;
   cardTitleText.style.top = `${Ypos + 54 * pixelUnit}px`;
   cardTitleText.style.width = `${32 * pixelUnit}px`;
   cardTitleText.style.height = `${10 * pixelUnit}px`;
@@ -132,7 +145,7 @@ function createCloseButton(newButton) {
   closeButton.id = "closeButton";
   closeButton.classList.add("buttonsTile");
   closeButton.style.position = "absolute";
-  closeButton.style.left = `${16 * pixelUnit}px`;
+  closeButton.style.left = `${imgPosition * pixelUnit}px`;
   closeButton.style.top = `${16 * pixelUnit}px`;
   closeButton.style.backgroundColor = "rgba(50,50,50,0.6)";
   closeButton.style.backgroundImage = `url(./src/images/closeButton.png)`;
