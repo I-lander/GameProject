@@ -30,30 +30,29 @@ function renderCardDescription(selectedCard) {
   }
 
   const ValueColor =
-  selectedBtn.value <= tileMap.players[0].stats.soulResource ? "black" : "red";
+    selectedBtn.value <= tileMap.players[0].stats.soulResource
+      ? "black"
+      : "red";
 
-  cardDescription.innerHTML = `<span id="cardValue" style="color:${ValueColor}">${cardSelected.value}</span>
-  <h1>${cardSelected.title}</h1>
-  <p>Cost: ${cardSelected.value}</br>Description: ${cardSelected.description}</p>`;
+  cardDescription.innerHTML = `<span id="cardValue" style="color:${ValueColor}">${cardSelected.value}</span>`;
 
-  cardDescription.appendChild(ASSETS[cardSelected.type])
-  const numberVsMax = document.createElement("p");
-  cardDescription.appendChild(numberVsMax);
+  cardDescription.appendChild(ASSETS[cardSelected.type]);
 
-  const cardValue = document.getElementById("cardValue")
-  cardValue.style.position = "absolute"
+  const cardValue = document.getElementById("cardValue");
+  cardValue.style.position = "absolute";
   cardValue.style.fontSize = `${20 * pixelUnit}px`;
   cardValue.style.marginTop = `${3 * pixelUnit}px`;
-  cardValue.style.width = `${tileSize*2}px`
-  cardValue.style.height = `${tileSize}px`
+  cardValue.style.width = `${tileSize * 2}px`;
+  cardValue.style.height = `${tileSize}px`;
   cardValue.style.display = "flex";
   cardValue.style.alignItems = "center";
   cardValue.style.justifyContent = "center";
 
-
   const NumberColor =
     getNumberOfElement(cardSelected) < cardSelected.maximum ? "black" : "red";
 
+  const numberVsMax = document.createElement("div");
+  cardDescription.appendChild(numberVsMax);
   numberVsMax.innerHTML = `<span style="color:${NumberColor}">${getNumberOfElement(
     cardSelected
   )}</span>/${cardSelected.maximum}`;
@@ -61,26 +60,29 @@ function renderCardDescription(selectedCard) {
   numberVsMax.style.fontSize = `${16 * pixelUnit}px`;
   numberVsMax.style.height = `${tileSize}px`;
   numberVsMax.style.right = `${tileSize + 3 * pixelUnit}px`;
-  numberVsMax.style.top = `${0}px`;
+  numberVsMax.style.marginTop = `${ 4 * pixelUnit}px`;
   numberVsMax.style.display = "flex";
   numberVsMax.style.alignItems = "center";
+  numberVsMax.style.justifyContent = "center";
 
-  const h1Tag = cardDescription.querySelector("h1");
-  if (h1Tag) {
-    h1Tag.style.color = "rgba(50,50,50, 1)";
-    h1Tag.style.lineHeight = `${tileSize * 1.25}px`;
-    h1Tag.style.fontSize = `${24 * pixelUnit}px`;
-    h1Tag.style.paddingLeft = `${tileSize*2}px`;
-    h1Tag.style.backgroundColor = "white";
-    h1Tag.style.height = `${tileSize}px`;
-  }
-  const pTag = cardDescription.querySelector("p");
-  if (pTag) {
-    pTag.style.color = "white";
-    pTag.style.margin = `${tileSize / 2}px`;
-    pTag.style.lineHeight = `${tileSize / 2}px`;
-    pTag.style.fontSize = `${10 * pixelUnit}px`;
-  }
+  const cardDescriptionTitle = document.createElement("div");
+  cardDescription.append(cardDescriptionTitle);
+  cardDescriptionTitle.innerHTML = `${cardSelected.title}`;
+  cardDescriptionTitle.style.color = "rgba(50,50,50, 1)";
+  cardDescriptionTitle.style.lineHeight = `${tileSize * 1.25}px`;
+  cardDescriptionTitle.style.fontSize = `${24 * pixelUnit}px`;
+  cardDescriptionTitle.style.paddingLeft = `${tileSize * 2}px`;
+  cardDescriptionTitle.style.backgroundColor = "white";
+  cardDescriptionTitle.style.height = `${tileSize}px`;
+
+  const cardDescriptionText = document.createElement("div");
+  cardDescription.append(cardDescriptionText);
+  cardDescriptionText.innerHTML = `Cost: ${cardSelected.value}</br>Description: ${cardSelected.description}`;
+  cardDescriptionText.style.color = "white";
+  cardDescriptionText.style.margin = `${tileSize / 2}px`;
+  cardDescriptionText.style.lineHeight = `${tileSize / 2}px`;
+  cardDescriptionText.style.fontSize = `${10 * pixelUnit}px`;
+
   const imgTag = cardDescription.querySelector("img");
   if (imgTag) {
     imgTag.style.position = "absolute";
