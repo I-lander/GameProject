@@ -1,0 +1,227 @@
+@font-face {
+  font-family: "dogicapixel";
+  src: url("./src/font/pixelFont/dogicapixel-webfont.woff");
+}
+
+:root {
+  --tileSize: 0px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "dogicapixel";
+  image-rendering: pixelated;
+  user-select: none;
+}
+
+img {
+  pointer-events: none;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  background-color: black;
+}
+
+canvas {
+  display: block;
+  position: fixed;
+}
+
+.canvasMenu {
+  background-color: rgba(61, 63, 65);
+}
+
+.mainMenu {
+  position: fixed;
+  z-index: 10001;
+  width: 100%;
+  height: 100%;
+  color: white;
+  text-align: center;
+}
+.mainMenu img {
+  position: fixed;
+}
+
+.startBtn {
+  background-image: url("../assets/src/images/menuButtonStart.png");
+}
+
+.startBtnAsGod {
+  background-image: url("../assets/src/images/menuButtonStartAsGod.png");
+}
+
+.resetButton {
+  background-image: url("../assets/src/images/menuButtonStartAsGod.png");
+}
+
+.startBtn,
+.startBtnAsGod,
+.resetButton {
+  background-color: rgba(255, 255, 255, 0.1);
+  position: fixed;
+  border: none;
+  background-size: contain;
+  color: white;
+}
+
+.startBtn:active,
+.startBtnAsGod:active,
+.resetButton:active {
+  background-color: rgba(255, 255, 255, 0.5);
+  color: black;
+}
+
+.disable {
+  display: none;
+}
+
+.buttonsTile {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-image: url("../assets/src/images/emptyCard.png");
+}
+
+.buttonContainer,
+.cardDescription {
+  position: fixed;
+  overflow: auto;
+  background-color: #c5c5c53b;
+}
+
+.levelUpScreen {
+  position: fixed;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.75);
+}
+
+.levelUpScreen button {
+  position: absolute;
+  background-color: transparent;
+  border: none;
+  color: black;
+}
+
+.levelUpScreen img {
+  position: absolute;
+}
+
+.levelUpScreen h1 {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.levelUpScreen p {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.actionButtons button {
+  background-color: transparent;
+  border: none;
+}
+
+.beforeInit {
+  background-color: rgba(33, 34, 36, 1);
+  top: 0px;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 100000;
+}
+
+.beforeInit img {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  translate: -50%;
+}
+
+.actionStatus {
+  color: white;
+  text-align: end;
+  user-select: none;
+  position: fixed;
+}
+
+.actionButtons {
+  position: fixed;
+}
+
+.actionButtons button {
+  position: fixed;
+}
+
+.soulResource,
+.levelText {
+  position: fixed;
+  color: white;
+  text-align: left;
+}
+
+.gameOverScreen {
+  background-color: rgba(33, 34, 36, 1);
+  color: white;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+}
+
+.gameOverScreen button {
+  background-color: rgb(105, 102, 96);
+  padding: 6px;
+  color: white;
+  width: 50%;
+  position: fixed;
+  z-index: 2;
+}
+
+.gameOverScreen p {
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  user-select: none;
+  z-index: 1;
+}
+
+.pause:active {
+  background-image: url("../assets/src/images/pauseButton-clicked.png");
+  background-size: contain;
+}
+
+.pause {
+  background-image: url("../assets/src/images/pauseButton.png");
+  background-size: contain;
+}
+
+.play:active {
+  background-image: url("../assets/src/images/playButton-clicked.png");
+  background-size: contain;
+}
+
+.play {
+  background-image: url("../assets/src/images/playButton.png");
+  background-size: contain;
+}
+.fastForward:active {
+  background-image: url("../assets/src/images/fastForwardButton-clicked.png");
+  background-size: contain;
+}
+
+.fastForward {
+  background-image: url("../assets/src/images/fastForwardButton.png");
+  background-size: contain;
+}
