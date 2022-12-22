@@ -12,7 +12,7 @@ import { DrawDamage } from "../utils.js";
 import { calculateInterval, speedFactor } from "../../core/utils.js";
 
 import findPath from "./findPath.js";
-import { MONTERS_STATS } from "../../core/constants/monsters.js";
+import { MONSTERS_STATS } from "../../core/constants/monsters.js";
 import { BONUS } from "../../core/levelUp/bonus.js";
 import { ASSETS } from "../../core/loadAssets.js";
 
@@ -74,7 +74,7 @@ export class Monster {
   }
 
   getMonsterStats() {
-    const stats = MONTERS_STATS.find((monster) => {
+    const stats = MONSTERS_STATS.find((monster) => {
       return monster.name === this.name;
     });
     const statsToReturn = { ...stats };

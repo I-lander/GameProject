@@ -10,7 +10,7 @@ import {
 import { Monster } from "./monster.js";
 import { mapSizeX, mapSizeY } from "../../level/map.js";
 import { marginTop, marginLeft } from "../../UI/ScreenInit.js";
-import { MONTERS_STATS } from "../../core/constants/monsters.js";
+import { MONSTERS_STATS } from "../../core/constants/monsters.js";
 import { calculateInterval } from "../../core/utils.js";
 
 const playerPos = {
@@ -24,27 +24,27 @@ let spawnGroundRate = 0.2;
 let localPauseDelta = 0;
 
 function monsterSelection() {
-  const array = MONTERS_STATS.filter((monster) => {
+  const array = MONSTERS_STATS.filter((monster) => {
     return monster.level <= tileMap.players[0].level;
   });
   return array;
 }
 function spawnMonsters() {
   const timestamp = Date.now();
-  let highestLevelSpawn
-  if(tileMap.spawnPoints.length>0)
-{
-   highestLevelSpawn = tileMap.spawnPoints.reduce((max, spawnPoint) =>
-    max.MaxmonstersCount > spawnPoint.MaxmonstersCount ? max : spawnPoint
-  );
-}
+  let highestLevelSpawn;
+  if (tileMap.spawnPoints.length > 0) {
+    highestLevelSpawn = tileMap.spawnPoints.reduce((max, spawnPoint) =>
+      max.MaxmonstersCount > spawnPoint.MaxmonstersCount ? max : spawnPoint
+    );
+  }
   if (pauseDelta > 0) {
     localPauseDelta = pauseDelta;
   }
   for (let i = 0; i < tileMap.spawnPoints.length; i++) {
     const spawnPoint = tileMap.spawnPoints[i];
     if (
-      highestLevelSpawn && highestLevelSpawn.monstersCount === highestLevelSpawn.MaxmonstersCount
+      highestLevelSpawn &&
+      highestLevelSpawn.monstersCount === highestLevelSpawn.MaxmonstersCount
     ) {
       if (monsters.length === 0 && particles.length === 0) {
         inverseLeveUp();
