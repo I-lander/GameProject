@@ -42,7 +42,6 @@ function drawCards() {
 const imgPosition = "16";
 
 function createCard(type) {
-  console.log(pixelUnit);
   const cardSelected = CARD_ELEMENTS.find((card) => {
     return card.type === type;
   });
@@ -65,7 +64,7 @@ function createCard(type) {
   newButton.classList.add("buttonsTile");
   newButton.style.position = "absolute";
   newButton.style.left = `${Xpos}px`;
-  newButton.style.top = `${Ypos }px`;
+  newButton.style.top = `${Ypos}px`;
 
   const btnImage = new Image();
   btnImage.src = `./src/images/${type}.png`;
@@ -124,10 +123,7 @@ function createCard(type) {
     }
 
     updateSelectedBtn({ type: cardSelected.type, value: cardSelected.value });
-    renderCardDescription({
-      type: cardSelected.type,
-      value: cardSelected.value,
-    });
+    renderCardDescription(selectedBtn);
     renderScreenOnce();
     updatePause(true);
     updateStatusText(pixelUnit);
