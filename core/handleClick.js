@@ -8,6 +8,7 @@ import {
   particles,
   pixelUnit,
   lowResources,
+  emptyLowResourcesArray,
 } from "../app.js";
 import { bombMecanics } from "../level/element/bomb.js";
 import { Thunder } from "../player/thunder.js";
@@ -38,7 +39,7 @@ export function handleClick(event) {
   const y = event.y - yZero;
   const clickPositionInGrid = tileMap.getPosition(x, y);
   if (selectedBtn.value >= tileMap.players[0].stats.soulResource) {
-    lowResources.length === 0 ? lowResources.push(new LowResource()) : null
+     lowResources.push(new LowResource()) 
     return;
   }
   if (
@@ -47,6 +48,7 @@ export function handleClick(event) {
     // &&
     // getNumberOfElement(cardSelected) < cardSelected.maximum
   ) {
+    emptyLowResourcesArray()
     tileMap.map[clickPositionInGrid.y][clickPositionInGrid.x] =
       selectedBtn.type;
     tileMap.players[0].stats.soulResource -= parseInt(selectedBtn.value);

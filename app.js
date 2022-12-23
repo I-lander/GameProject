@@ -43,6 +43,12 @@ let particles = [];
 
 export { monsters, particles, damageTexts, lowResources };
 
+export function emptyLowResourcesArray() {
+  lowResources = [];
+  const previousText = document.getElementById("lowResource");
+  previousText ? previousText.remove() : null;
+}
+
 // Declare & export the canvas variables used to draw on.
 
 const canvasScreen = document.getElementById("canvasScreen");
