@@ -16,9 +16,14 @@ import { possibilityForClick, renderScreenOnce } from "../core/utils.js";
 import { updateStatusText } from "./actionButtons.js";
 import { renderCardDescription } from "./card-description.js";
 
-export const cardButtons = [];
-const maxCardPerLign = 5;
+export let cardButtons = [];
 let line = 0;
+
+export function resetCardContainer (){
+  cardButtons = []
+  line = 0
+}
+const maxCardPerLign = 5;
 
 const cardDeck = [
   "mountain",

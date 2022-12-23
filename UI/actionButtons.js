@@ -1,10 +1,28 @@
-import { inversePause, isPause, tileSize, selectedBtn } from "../app.js";
-import { speedFactor, updateSpeedFactore } from "../core/utils.js";
-import { marginLeft, marginTop } from "./ScreenInit.js";
+import {
+  inversePause,
+  isPause,
+  tileSize,
+  selectedBtn,
+  pixelUnit,
+  startGame,
+  mainMenuCanvas,
+  mainMenu,
+  ctxmainMenuCanvas,
+  updatePause,
+  musicMute,
+  soundMute,
+  musicMuteFunction,
+  soundMuteFunction,
+} from "../app.js";
+import { ASSETS } from "../core/loadAssets.js";
+import { playSound, speedFactor, updateSpeedFactore } from "../core/utils.js";
+import { resetCardContainer } from "./card-creation.js";
+import { handlePauseMenu } from "./pauseMenu.js";
+import { drawBackGameBackground, marginLeft, marginTop } from "./ScreenInit.js";
 
 export function createActionButton(pixelUnit) {
   const actionStatus = window.document.getElementById("actionStatus");
-  actionStatus.classList.remove("disable")
+  actionStatus.classList.remove("disable");
   actionStatus.innerHTML = `<span style=font-size:${5 * pixelUnit}px>x</span>1`;
   actionStatus.style.fontSize = `${8 * pixelUnit}px`;
 
@@ -14,6 +32,7 @@ export function createActionButton(pixelUnit) {
       inversePause();
     }
     updateStatusText(pixelUnit);
+    handlePauseMenu();
   };
 
   const playButton = document.getElementById("play");
@@ -39,10 +58,10 @@ export function createActionButton(pixelUnit) {
   };
 
   const actionButtons = document.getElementById("actionButtons");
-  actionButtons.classList.remove("disable")
+  actionButtons.classList.remove("disable");
   actionButtons.style.height = `${tileSize}px`;
   actionButtons.style.width = `${tileSize * 3}px`;
-  actionButtons.style.top = `${tileSize*1.25 + marginTop}px`;
+  actionButtons.style.top = `${tileSize * 1.25 + marginTop}px`;
   actionButtons.style.left = `${
     marginLeft + canvasScreen.width - (tileSize * 3.5 - 2 * pixelUnit)
   }px`;
@@ -68,7 +87,7 @@ export function createActionButton(pixelUnit) {
     marginLeft + canvasScreen.width - (tileSize * 1.5 - 2 * pixelUnit)
   }px`;
 
-  actionStatus.style.top = `${tileSize * 2.40 + marginTop}px`;
+  actionStatus.style.top = `${tileSize * 2.4 + marginTop}px`;
   actionStatus.style.left = `${
     marginLeft + canvasScreen.width - tileSize * 3.5
   }px`;
@@ -76,7 +95,7 @@ export function createActionButton(pixelUnit) {
 }
 
 export function updateStatusText(pixelUnit) {
-  const actionStatus = window.document.getElementById("actionStatus");
+  const actionStatus = document.getElementById("actionStatus");
   speedFactor === 1
     ? (actionStatus.innerHTML = `<span style=font-size:${
         5 * pixelUnit

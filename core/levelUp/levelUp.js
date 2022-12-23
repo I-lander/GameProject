@@ -8,6 +8,7 @@ import {
 } from "../../app.js";
 import { generateSpawn } from "../../player/NPCs/spawn.js";
 import { ASSETS } from "../loadAssets.js";
+import { playSound } from "../utils.js";
 import { CARD_FOR_LEVEL_UP } from "./cardForLevelUp.js";
 
 const choices = 2;
@@ -115,8 +116,7 @@ function drawCards(levelUpScreen, cards, buttons, isBonus) {
       ? null
       : generateSpawn();
     levelUpScreen.classList.add("disable");
-    const clicAudio = ASSETS["clic"];
-    clicAudio.play();
+    playSound("clic")
     inverseLeveUp();
     inversePause();
   };

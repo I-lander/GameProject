@@ -1,4 +1,10 @@
-import { tileSize, pauseDelta, monsters, pixelUnit } from "../../app.js";
+import {
+  tileSize,
+  pauseDelta,
+  monsters,
+  pixelUnit,
+  soundMute,
+} from "../../app.js";
 import { Projectile } from "../../player/projectile.js";
 import { calculateInterval } from "../../core/utils.js";
 import { BONUS } from "../../core/levelUp/bonus.js";
@@ -21,10 +27,9 @@ export class Tower {
     this.lastAttack = 0;
     this.localPauseDelta = 0;
 
-    this.bullet = ASSETS["bullet"].cloneNode()
+    this.bullet = ASSETS["bullet"].cloneNode();
 
     this.shootAudio = ASSETS["shoot"].cloneNode();
-
   }
 
   update(ctx) {
@@ -54,7 +59,8 @@ export class Tower {
         this.y + tileSize / 2 - monster.y
       );
       if (
-        monster.distance < this.stats.range + BONUS.TOWER_RANGE - monster.hitBox &&
+        monster.distance <
+          this.stats.range + BONUS.TOWER_RANGE - monster.hitBox &&
         calculateInterval(
           timestamp,
           this.lastAttack,
@@ -73,7 +79,7 @@ export class Tower {
         };
 
         if (this.projectiles.length < 1) {
-          this.shootAudio.play();
+          !soundMute ? this.shootAudio.play() : null;
           this.projectiles.push(
             new Projectile(
               this.x + tileSize / 2,

@@ -16,7 +16,7 @@ import { renderCardDescription } from "../UI/card-description.js";
 import { marginLeft, marginTop } from "../UI/ScreenInit.js";
 import { CARD_ELEMENTS, SOLID_ELEMENTS } from "./constants/tiles.js";
 import { ASSETS } from "./loadAssets.js";
-import { getNumberOfElement } from "./utils.js";
+import { getNumberOfElement, playSound } from "./utils.js";
 
 export const thunders = [];
 
@@ -57,9 +57,8 @@ export function handleClick(event) {
     monsters.forEach((monster) => {
       monster.findingPath();
     });
-    const addTileAudio = ASSETS["addTile"];
-    addTileAudio.volume = 0.5;
-    addTileAudio.play();
+    playSound("addTile");
+
     inversePause();
     for (let button of cardButtons) {
       button.disabled === true ? (button.disabled = false) : null;
@@ -73,9 +72,7 @@ export function handleClick(event) {
   ) {
     const thunder = new Thunder(x, y);
     thunders.push(thunder);
-    const thunderStrike = ASSETS["thunderStrike"].cloneNode();
-    thunderStrike.volume = 0.2;
-    thunderStrike.play();
+    playSound("thunderStrike");
     tileMap.players[0].stats.soulResource -= parseInt(selectedBtn.value);
     updateSelectedBtn(undefined);
     renderCardDescription(selectedBtn);

@@ -1,6 +1,7 @@
-import { tileMap, pixelUnit, mainMenuCanvas,  } from "../app.js";
+import { tileMap, pixelUnit, mainMenuCanvas } from "../app.js";
 import { mapSizeX, mapSizeY } from "../level/map.js";
 import { ASSETS_COUNT, loadAssets } from "../core/loadAssets.js";
+import { musicMuteElementMain, soundMuteElementMain } from "./pauseMenu.js";
 
 const screenRatio = 2 / 3;
 let marginTop = 0;
@@ -56,7 +57,7 @@ function screenInit(canvasScreen) {
 
   const mainMenuImg = mainMenu.querySelector("img");
   mainMenuImg.style.height = `${tileSize * 5}px`;
-  mainMenuImg.style.top = `${marginTop + tileSize * 2}px`;
+  mainMenuImg.style.top = `${marginTop + tileSize * 1}px`;
   mainMenuImg.style.left = `${
     marginLeft + canvasScreen.width / 2 - tileSize * 2.5
   }px`;
@@ -66,7 +67,7 @@ function screenInit(canvasScreen) {
   startBtn.style.width = `${tileSize * 6}px`;
   startBtn.style.fontSize = `${tileSize * 0.65}px`;
 
-  startBtn.style.top = `${marginTop + tileSize * 8}px`;
+  startBtn.style.top = `${marginTop + tileSize * 7}px`;
   startBtn.style.left = `${
     marginLeft + canvasScreen.width / 2 - tileSize * 3
   }px`;
@@ -76,11 +77,14 @@ function screenInit(canvasScreen) {
   startBtnAsGod.style.width = `${tileSize * 6}px`;
   startBtnAsGod.style.fontSize = `${tileSize * 0.55}px`;
 
-  startBtnAsGod.style.top = `${marginTop + tileSize * 10.5}px`;
+  startBtnAsGod.style.top = `${marginTop + tileSize * 9.5}px`;
   startBtnAsGod.style.left = `${
     marginLeft + canvasScreen.width / 2 - tileSize * 3
   }px`;
   startBtnAsGod.style.padding = `${9.5 * pixelUnit}px`;
+
+  musicMuteElementMain(tileSize, pixelUnit);
+  soundMuteElementMain(tileSize, pixelUnit);
 
   mainMenuCanvas.width = gameScreen.width + sideScreen.width;
   mainMenuCanvas.height = gameScreen.height;
@@ -96,11 +100,10 @@ function drawSideScreenBackground(ctx, screen, sideScreen) {
 }
 
 const stars = [];
+const mainMenuStars = [];
 
 function drawBackGameBackground(ctx, screen, isMainMenu = false) {
   const maxStars = 200;
-
-  const mainMenuStars = [];
   let starsArray;
   starsArray = isMainMenu ? mainMenuStars : stars;
   ctx.save();
@@ -120,7 +123,6 @@ function generateStars(starsArray, screen) {
   const yStar = Math.random() * screen.height;
   const starSize = Math.random() * 4 * pixelUnit;
   const brightness = Math.random() * (0.5 - 0.1) + 0.1;
-
   starsArray.push({
     xStar: xStar,
     yStar: yStar,

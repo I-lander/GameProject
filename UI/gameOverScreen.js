@@ -1,10 +1,14 @@
 import { canvasScreen, startGame, tileSize, pixelUnit } from "../app.js";
 import { ASSETS } from "../core/loadAssets.js";
+import { playSound } from "../core/utils.js";
 import { marginLeft, marginTop } from "./ScreenInit.js";
 
 export function gameOverScreen(level) {
   const gameOverScreen = document.getElementById("gameOverScreen");
   gameOverScreen.classList.remove("disable");
+
+  const mainMenuCanvas = document.getElementById("mainMenuCanvas");
+  const mainMenu = document.getElementById("mainMenu");
 
   const gameOverScreenText = document.createElement("p");
   gameOverScreen.appendChild(gameOverScreenText);
@@ -25,12 +29,12 @@ export function gameOverScreen(level) {
   resetButton.style.padding = `${9.5 * pixelUnit}px`;
 
   resetButton.onclick = () => {
-    const clicAudio = ASSETS["clic"];
-    clicAudio.play();
-    startGame();
+    playSound("clic")
     setTimeout(() => {
       gameOverScreen.classList.add("disable");
       gameOverScreenText.remove();
+      mainMenu.classList.remove("disable");
+      mainMenuCanvas.classList.remove("disable");
     }, 100);
   };
 }

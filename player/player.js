@@ -7,9 +7,10 @@ import {
   sideScreen,
   damageTexts,
   isPause,
+  soundMute,
 } from "../app.js";
 import { Projectile } from "./projectile.js";
-import { calculateInterval } from "../core/utils.js";
+import { calculateInterval, playSound } from "../core/utils.js";
 import { DrawDamage } from "./utils.js";
 import { marginLeft, marginTop } from "../UI/ScreenInit.js";
 import { BONUS } from "../core/levelUp/bonus.js";
@@ -53,7 +54,6 @@ class Player {
     this.localPauseDelta = 0;
 
     this.shootAudio = ASSETS["shoot"].cloneNode();
-    this.damageAudio = ASSETS["godDamage"];
   }
 
   draw(ctx) {
@@ -84,7 +84,7 @@ class Player {
       this.radius,
       this.radius
     );
-    
+
     if (!isPause) {
       if (this.isTakingDamage) {
         this.damageFrameCount++;
@@ -149,7 +149,7 @@ class Player {
   }
 
   shoot() {
-    this.shootAudio.play();
+    !soundMute ? this.shootAudio.play() : null;
     this.projectiles.push(
       new Projectile(
         this.x,
@@ -167,7 +167,7 @@ class Player {
     this.isTakingDamage = true;
     const damageText = new DrawDamage(this, damage);
     damageTexts.push(damageText);
-    this.damageAudio.play();
+    playSound("godDamage");
   }
 
   shootAnimation(timestamp) {

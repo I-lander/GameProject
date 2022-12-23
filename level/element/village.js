@@ -1,4 +1,4 @@
-import { tileSize, tileMap, pixelUnit, delta, gameScreen } from "../../app.js";
+import { tileSize, tileMap, pixelUnit, delta, gameScreen, soundMute } from "../../app.js";
 import { ASSETS } from "../../core/loadAssets.js";
 import { calculateInterval } from "../../core/utils.js";
 
@@ -54,7 +54,7 @@ export class Village {
       this.ismanaGenerated = true;
       const localResourcePopingAudio = this.resourcePopingAudio.cloneNode()
       localResourcePopingAudio.volume = .5
-      localResourcePopingAudio.play()
+      !soundMute ? localResourcePopingAudio.play() : null
       const mana = new ManaToFeed(x, y);
       this.manasToFeed.push(mana);
     }

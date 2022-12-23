@@ -17,6 +17,7 @@ import { gameOverScreen } from "./UI/gameOverScreen.js";
 import { resetBonus } from "./core/levelUp/bonus.js";
 import { ASSETS, loadAssets } from "./core/loadAssets.js";
 import { renderCardDescription } from "./UI/card-description.js";
+import { playSound } from "./core/utils.js";
 
 // Declare & export the variable used to pause the game
 // Declare & export the function that update pause status
@@ -55,6 +56,19 @@ export { ctxScreen, canvasScreen, mainMenuCanvas, ctxmainMenuCanvas };
 // Create and initialize the game screen and map
 
 const tileMap = new TileMap();
+
+let musicMute = false;
+let soundMute = false;
+
+function musicMuteFunction() {
+  musicMute = !musicMute;
+}
+function soundMuteFunction() {
+  soundMute = !soundMute;
+}
+
+export { musicMuteFunction, soundMuteFunction, musicMute, soundMute };
+
 loadAssets(canvasScreen);
 
 const beforeInit = document.getElementById("beforeInit");
@@ -84,21 +98,19 @@ drawBackGameBackground(ctxmainMenuCanvas, mainMenuCanvas, true);
 
 // Declare the variable containing the main menu is order to hide it
 
-const mainMenu = document.getElementById("mainMenu");
+export const mainMenu = document.getElementById("mainMenu");
 
 // Handle click on start game button
 
 document.getElementById("startBtn").addEventListener("click", () => {
-  const clicAudio = ASSETS["clic"];
-  clicAudio.play();
+  playSound("clic")
   startGame();
 });
 
 let isGod = false;
 document.getElementById("startBtnAsGod").addEventListener("click", () => {
   isGod = true;
-  const clicAudio = ASSETS["clic"];
-  clicAudio.play();
+  playSound("clic")
   startGame();
 });
 
@@ -119,6 +131,12 @@ function init() {
 export function startGame() {
   init();
   isPause = false;
+  const soundsOption = document.getElementById("soundsOption");
+  soundsOption.classList.add("disable")
+  const soulResource = document.getElementById("soulResource");
+  soulResource.classList.remove("disable");
+  const levelText = document.getElementById("levelText");
+  levelText.classList.remove("disable");
   drawCards();
   renderCardDescription();
   createActionButton(pixelUnit);
@@ -159,7 +177,7 @@ function animate(timestamp) {
   if (musicPause) {
     mainLoop.pause();
   } else {
-    mainLoop.play();
+    !musicMute ? mainLoop.play() : mainLoop.pause();
   }
   if (isPause) {
     pauseDelta = timestamp - lastFrameBeforePause;

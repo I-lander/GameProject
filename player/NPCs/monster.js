@@ -6,6 +6,7 @@ import {
   damageTexts,
   pauseDelta,
   isPause,
+  soundMute,
 } from "../../app.js";
 import { deleteFromElementArray } from "../../level/element/bomb.js";
 import { DrawDamage } from "../utils.js";
@@ -261,7 +262,7 @@ export class Monster {
     this.isTakingDamage = true;
     const damageText = new DrawDamage(this, damage);
     damageTexts.push(damageText);
-    this.damageAudio.play();
+    !soundMute ? this.damageAudio.play() : null;
   }
 
   starMecanics() {

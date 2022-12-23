@@ -9,6 +9,7 @@ import {
   canvasScreen,
   gameScreen,
   sideScreen,
+  soundMute,
 } from "../app.js";
 import { mapSizeX, mapSizeY } from "../level/map.js";
 import {
@@ -16,6 +17,7 @@ import {
   drawSideScreenBackground,
 } from "../UI/ScreenInit.js";
 import { SOLID_ELEMENTS } from "./constants/tiles.js";
+import { ASSETS } from "./loadAssets.js";
 
 function possibilityForClick() {
   let monsterTiles = [];
@@ -148,4 +150,13 @@ export function renderScreenOnce() {
   possibilityForClick();
 
   tileMap.draw(ctxScreen);
+}
+
+export function playSound(sound) {
+  if (soundMute) {
+    return;
+  }
+  sound === "addTile" ? (ASSETS[sound].volume = 0.5) : null;
+  sound === "thunderStrike" ? (ASSETS[sound].volume = 0.2) : null;
+  ASSETS[sound].play();
 }

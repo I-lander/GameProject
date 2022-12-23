@@ -24,6 +24,10 @@ const IMAGES = [
   "star",
   "bomb",
   "thunder",
+  "sound",
+  "soundMute",
+  "music",
+  "musicMute"
 ];
 
 export const ASSETS = [];
