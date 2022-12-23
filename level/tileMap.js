@@ -8,9 +8,6 @@ import { Star } from "./element/star.js";
 import { selectedBtn } from "../app.js";
 import { Tree } from "./element/tree.js";
 
-const canvasScreen = document.getElementById("canvasScreen");
-const ctxScreen = canvasScreen.getContext("2d");
-ctxScreen.imageSmoothingEnabled = false;
 export class TileMap {
   constructor() {
     this.tileSize = 0;
