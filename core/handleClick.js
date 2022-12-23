@@ -9,6 +9,7 @@ import {
   pixelUnit,
   lowResources,
   emptyLowResourcesArray,
+  gameScreen,
 } from "../app.js";
 import { bombMecanics } from "../level/element/bomb.js";
 import { Thunder } from "../player/thunder.js";
@@ -24,6 +25,9 @@ import { getNumberOfElement, playSound } from "./utils.js";
 export const thunders = [];
 
 export function handleClick(event) {
+  if(event.x > gameScreen.width){
+    return
+  }
   if (selectedBtn) {
     CARD_ELEMENTS.some((card) => card.type === selectedBtn.type);
   }
