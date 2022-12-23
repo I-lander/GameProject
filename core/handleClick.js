@@ -7,6 +7,7 @@ import {
   monsters,
   particles,
   pixelUnit,
+  lowResources,
 } from "../app.js";
 import { bombMecanics } from "../level/element/bomb.js";
 import { Thunder } from "../player/thunder.js";
@@ -16,6 +17,7 @@ import { renderCardDescription } from "../UI/card-description.js";
 import { marginLeft, marginTop } from "../UI/ScreenInit.js";
 import { CARD_ELEMENTS, SOLID_ELEMENTS } from "./constants/tiles.js";
 import { ASSETS } from "./loadAssets.js";
+import { LowResource } from "./lowResource.js";
 import { getNumberOfElement, playSound } from "./utils.js";
 
 export const thunders = [];
@@ -35,11 +37,13 @@ export function handleClick(event) {
   const x = event.x - xZero;
   const y = event.y - yZero;
   const clickPositionInGrid = tileMap.getPosition(x, y);
+  if (selectedBtn.value >= tileMap.players[0].stats.soulResource) {
+    lowResources.length === 0 ? lowResources.push(new LowResource()) : null
+    return;
+  }
   if (
     tileMap.map[clickPositionInGrid.y][clickPositionInGrid.x] === "green" &&
-    CARD_ELEMENTS.some((card) => card.type === selectedBtn.type) &&
-    selectedBtn.value <= tileMap.players[0].stats.soulResource &&
-    tileMap.players[0].stats.soulResource >= 0
+    CARD_ELEMENTS.some((card) => card.type === selectedBtn.type)
     // &&
     // getNumberOfElement(cardSelected) < cardSelected.maximum
   ) {

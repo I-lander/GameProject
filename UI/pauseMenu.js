@@ -109,7 +109,6 @@ function musicMuteElement() {
 
   musicMuteButton.onclick = () => {
     musicMuteFunction();
-    console.log(musicMute);
     musicMuteButtonImg.remove();
     musicMuteButtonImg = !musicMute ? ASSETS["music"] : ASSETS["musicMute"]
     musicMuteButton.appendChild(musicMuteButtonImg);
@@ -177,7 +176,6 @@ export function musicMuteElementMain(tileSize, pixelUnit) {
     musicMuteFunction();
     musicMuteButtonImg.remove();
     musicMuteButtonImg = !musicMute ? ASSETS["music"] : ASSETS["musicMute"]
-    console.log(musicMuteButtonImg);
     musicMuteButton.appendChild(musicMuteButtonImg);
     musicMuteButtonImg.style.height = `${tileSize}px`;
     musicMuteButtonImg.style.width = `${tileSize}px`;

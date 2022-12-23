@@ -38,9 +38,10 @@ export { isPause, inversePause, updatePause };
 
 let monsters;
 let damageTexts;
+let lowResources = [];
 let particles = [];
 
-export { monsters, particles, damageTexts };
+export { monsters, particles, damageTexts, lowResources };
 
 // Declare & export the canvas variables used to draw on.
 
@@ -182,6 +183,14 @@ function animate(timestamp) {
   if (isPause) {
     pauseDelta = timestamp - lastFrameBeforePause;
     lastFrameTimeMs = timestamp;
+    lowResources.forEach((lowResource, index) => {
+      lowResource.update();
+      if (lowResource.opacity <= 0) {
+        lowResources.splice(index, 1);
+        const previousText = document.getElementById("lowResource")
+        previousText ? previousText.remove() : null
+      }
+    });
     requestAnimationFrame(animate);
     return;
   }

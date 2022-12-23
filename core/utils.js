@@ -147,7 +147,7 @@ export function renderScreenOnce() {
     monster.draw(ctxScreen);
   }
   cleanMap();
-  possibilityForClick();
+  selectedBtn ? possibilityForClick() : null;
 
   tileMap.draw(ctxScreen);
 }
