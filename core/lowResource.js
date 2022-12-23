@@ -29,7 +29,7 @@ export class LowResource {
     text.style.backgroundColor = `rgba(0,0,0,${this.opacity})`;
     text.style.top = `${this.y}px`;
 
-    this.opacity -= 0.01;
+    this.opacity -= 0.01 * delta;
     this.y -= 0.5 * pixelUnit * delta
   }
 }
