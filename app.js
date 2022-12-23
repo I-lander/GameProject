@@ -104,14 +104,14 @@ export const mainMenu = document.getElementById("mainMenu");
 // Handle click on start game button
 
 document.getElementById("startBtn").addEventListener("click", () => {
-  playSound("clic")
+  playSound("clic");
   startGame();
 });
 
 let isGod = false;
 document.getElementById("startBtnAsGod").addEventListener("click", () => {
   isGod = true;
-  playSound("clic")
+  playSound("clic");
   startGame();
 });
 
@@ -133,7 +133,7 @@ export function startGame() {
   init();
   isPause = false;
   const soundsOption = document.getElementById("soundsOption");
-  soundsOption.classList.add("disable")
+  soundsOption.classList.add("disable");
   const soulResource = document.getElementById("soulResource");
   soulResource.classList.remove("disable");
   const levelText = document.getElementById("levelText");
@@ -149,6 +149,7 @@ export function startGame() {
 // Declare elements used to maintain stable speed for the animation
 
 let lastFrameTimeMs = 0; // The last time the loop was run
+let lastTextFrameTimeMs = 0;
 let lastFrameBeforePause = 0;
 let maxFPS = 90; // The maximum FPS we want to allow
 let deltaFactor = 10;
@@ -183,14 +184,19 @@ function animate(timestamp) {
   if (isPause) {
     pauseDelta = timestamp - lastFrameBeforePause;
     lastFrameTimeMs = timestamp;
+
+    const Textdelta = (timestamp - lastTextFrameTimeMs) / deltaFactor;
+
     lowResources.forEach((lowResource, index) => {
-      lowResource.update();
+      lowResource.update(Textdelta);
       if (lowResource.opacity <= 0) {
         lowResources.splice(index, 1);
-        const previousText = document.getElementById("lowResource")
-        previousText ? previousText.remove() : null
+        const previousText = document.getElementById("lowResource");
+        previousText ? previousText.remove() : null;
       }
     });
+    lastTextFrameTimeMs = timestamp;
+
     requestAnimationFrame(animate);
     return;
   }

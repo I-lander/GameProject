@@ -1,4 +1,4 @@
-import { canvasScreen, delta, gameScreen, pixelUnit, tileSize } from "../app.js";
+import { canvasScreen, gameScreen, pixelUnit, tileSize } from "../app.js";
 import { marginLeft, marginTop } from "../UI/ScreenInit.js";
 
 export class LowResource {
@@ -11,7 +11,7 @@ export class LowResource {
   }
 
 
-  update() {
+  update(delta) {
     const previousText = document.getElementById("lowResource")
     previousText ? previousText.remove() : null
 
