@@ -109,6 +109,7 @@ export function handleClick(event) {
       selectedBtn.type;
     bombMecanics(clickPositionInGrid);
     tileMap.players[0].updateHp(true)
+tileMap.players[0].stats.soulResource -= parseInt(selectedBtn.value);
     updateSelectedBtn(undefined);
     renderCardDescription(selectedBtn);
     const closeButton = document.getElementById("closeButton");
