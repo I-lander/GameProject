@@ -239,7 +239,7 @@ class Player {
     if (isClicked) {
       setTimeout(() => {
         this.maxHp = 30 + tileMap.mountains.length * 5;
-        this.stats.hp += 5;
+        
       }, 100);
     }
 
