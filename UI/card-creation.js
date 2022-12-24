@@ -10,6 +10,7 @@ import {
   selectedBtn,
   updatePause,
   sideScreen,
+  emptyLowResourcesArray,
 } from "../app.js";
 import { CARD_ELEMENTS, SOLID_ELEMENTS } from "../core/constants/tiles.js";
 import { possibilityForClick, renderScreenOnce } from "../core/utils.js";
@@ -19,9 +20,9 @@ import { renderCardDescription } from "./card-description.js";
 export let cardButtons = [];
 let line = 0;
 
-export function resetCardContainer (){
-  cardButtons = []
-  line = 0
+export function resetCardContainer() {
+  cardButtons = [];
+  line = 0;
 }
 const maxCardPerLign = 5;
 
@@ -158,6 +159,7 @@ function createCloseButton(newButton) {
     updateSelectedBtn(undefined);
     renderCardDescription(undefined);
     closeButton.remove();
+    emptyLowResourcesArray();
     cleanMap();
     setTimeout(() => {
       updatePause(false);
