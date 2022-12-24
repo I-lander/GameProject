@@ -42,7 +42,7 @@ export function handleClick(event) {
   const x = event.x - xZero;
   const y = event.y - yZero;
   const clickPositionInGrid = tileMap.getPosition(x, y);
-  if (selectedBtn.value >= tileMap.players[0].stats.soulResource) {
+  if (selectedBtn.value > tileMap.players[0].stats.soulResource) {
      lowResources.push(new LowResource()) 
     return;
   }
