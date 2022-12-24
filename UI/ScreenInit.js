@@ -1,6 +1,6 @@
 import { tileMap, pixelUnit, mainMenuCanvas } from "../app.js";
 import { mapSizeX, mapSizeY } from "../level/map.js";
-import { ASSETS_COUNT, loadAssets } from "../core/loadAssets.js";
+import { ASSETS, ASSETS_COUNT, loadAssets } from "../core/loadAssets.js";
 import { musicMuteElementMain, soundMuteElementMain } from "./pauseMenu.js";
 
 const screenRatio = 2 / 3;
@@ -63,6 +63,9 @@ function screenInit(canvasScreen) {
   }px`;
 
   const startBtn = document.getElementById("startBtn");
+  const startBtnImg = ASSETS["menuButtonStart"];
+  startBtn.appendChild(startBtnImg);
+
   startBtn.style.height = `${tileSize * 2}px`;
   startBtn.style.width = `${tileSize * 6}px`;
   startBtn.style.fontSize = `${tileSize * 0.65}px`;
@@ -73,6 +76,8 @@ function screenInit(canvasScreen) {
   }px`;
 
   const startBtnAsGod = document.getElementById("startBtnAsGod");
+  const startBtnAsGodImg = ASSETS["menuButtonStartAsGod"];
+  startBtnAsGod.appendChild(startBtnAsGodImg);
   startBtnAsGod.style.height = `${tileSize}px`;
   startBtnAsGod.style.width = `${tileSize * 6}px`;
   startBtnAsGod.style.fontSize = `${tileSize * 0.55}px`;

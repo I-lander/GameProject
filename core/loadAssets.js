@@ -27,7 +27,9 @@ const IMAGES = [
   "sound",
   "soundMute",
   "music",
-  "musicMute"
+  "musicMute",
+  "menuButtonStart",
+  "menuButtonStartAsGod",
 ];
 
 export const ASSETS = [];
