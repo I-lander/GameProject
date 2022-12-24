@@ -1,7 +1,7 @@
 import { tileMap, pixelUnit, mainMenuCanvas } from "../app.js";
 import { mapSizeX, mapSizeY } from "../level/map.js";
 import { ASSETS, ASSETS_COUNT, loadAssets } from "../core/loadAssets.js";
-import { musicMuteElementMain, soundMuteElementMain } from "./pauseMenu.js";
+import { musicMuteElement, soundMuteElement } from "./pauseMenu.js";
 
 const screenRatio = 2 / 3;
 let marginTop = 0;
@@ -88,8 +88,8 @@ function screenInit(canvasScreen) {
   }px`;
   startBtnAsGod.style.padding = `${9.5 * pixelUnit}px`;
 
-  musicMuteElementMain(tileSize, pixelUnit);
-  soundMuteElementMain(tileSize, pixelUnit);
+  musicMuteElement(tileSize, true);
+  soundMuteElement(tileSize, true);
 
   mainMenuCanvas.width = gameScreen.width + sideScreen.width;
   mainMenuCanvas.height = gameScreen.height;

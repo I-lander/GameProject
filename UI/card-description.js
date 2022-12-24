@@ -97,7 +97,7 @@ function renderCardDescription(selectedCard = undefined) {
 
   const cardDescriptionText = document.createElement("div");
   cardDescription.append(cardDescriptionText);
-  cardDescriptionText.innerHTML = `Cost: ${cardSelected.value}</br>Description: ${cardSelected.description}`;
+  cardDescriptionText.innerHTML = `${cardSelected.description}`;
   cardDescriptionText.style.color = "white";
   cardDescriptionText.style.margin = `${tileSize * 1.75}px ${tileSize/2}px`;
   cardDescriptionText.style.lineHeight = `${tileSize / 2}px`;

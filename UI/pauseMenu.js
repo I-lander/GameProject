@@ -23,16 +23,20 @@ export function handlePauseMenu() {
   if (isPause) {
     pauseMenu.classList.remove("disable");
     const soundsOption = document.getElementById("soundsOption");
-    soundsOption.classList.remove("disable")
+    soundsOption.classList.remove("disable");
     resetButton(pauseMenu);
     resumeButton();
-    musicMuteElement();
-    soundMuteElement();
+    musicMuteElement(tileSize, false);
+    soundMuteElement(tileSize, false);
   }
 }
 
 export function resetButton(pauseMenu) {
   const resetButton = document.getElementById("resetButtonPauseMenu");
+  const resetButtonImg = new Image();
+  resetButtonImg.src = "./src/images/menuButtonStartAsGod.png";
+  resetButton.appendChild(resetButtonImg);
+  resetButton.classList.add("resetButton")
   resetButton.style.height = `${tileSize}px`;
   resetButton.style.width = `${tileSize * 6}px`;
   resetButton.style.top = `${marginTop + tileSize * 7.5}px`;
@@ -45,8 +49,8 @@ export function resetButton(pauseMenu) {
     const buttonContainer = document.getElementById("buttonContainer");
     buttonContainer.innerHTML = "";
     resetCardContainer();
-    musicMuteElementMain(tileSize, pixelUnit);
-    soundMuteElementMain(tileSize, pixelUnit);
+    musicMuteElement(tileSize, true);
+    soundMuteElement(tileSize, true);
     buttonContainer.style.height = "0px";
     const cardDescription = document.getElementById("cardDescription");
     cardDescription.style.height = "0px";
@@ -68,6 +72,10 @@ export function resetButton(pauseMenu) {
 
 function resumeButton() {
   const resumeButton = document.getElementById("resumeButton");
+  const resumeButtonImg = new Image();
+  resumeButtonImg.src = "./src/images/menuButtonStartAsGod.png";
+  resumeButton.appendChild(resumeButtonImg);
+  resumeButton.classList.add("resumeButton")
   resumeButton.style.height = `${tileSize}px`;
   resumeButton.style.width = `${tileSize * 6}px`;
   resumeButton.style.top = `${marginTop + tileSize * 6}px`;
@@ -81,15 +89,16 @@ function resumeButton() {
     !selectedBtn ? updatePause(false) : null;
     updateStatusText(pixelUnit);
     const soundsOption = document.getElementById("soundsOption");
-    soundsOption.classList.add("disable")
+    soundsOption.classList.add("disable");
     playSound("clic");
   };
 }
 
-function musicMuteElement() {
+export function musicMuteElement(tileSize, isMain) {
+  const yPos = isMain ? tileSize * 11.5 : tileSize * 9.5;
+
   const musicMuteElement = document.getElementById("musicMute");
-  musicMuteElement.style.left = `${marginLeft + tileSize * 7.5}px`;
-  musicMuteElement.style.top = `${marginTop + tileSize * 9.5}px`;
+  musicMuteElement.style.top = `${marginTop + yPos}px`;
   musicMuteElement.style.fontSize = `${tileSize * 0.55}px`;
   musicMuteElement.style.width = `${tileSize * 5}px`;
   musicMuteElement.style.left = `${
@@ -104,13 +113,13 @@ function musicMuteElement() {
   musicMuteButton.appendChild(musicMuteButtonImg);
   musicMuteButtonImg.style.height = `${tileSize}px`;
   musicMuteButtonImg.style.width = `${tileSize}px`;
-  musicMuteButton.style.position = "absolute"
+  musicMuteButton.style.position = "absolute";
   musicMuteButton.style.right = `0px`;
 
   musicMuteButton.onclick = () => {
     musicMuteFunction();
     musicMuteButtonImg.remove();
-    musicMuteButtonImg = !musicMute ? ASSETS["music"] : ASSETS["musicMute"]
+    musicMuteButtonImg = !musicMute ? ASSETS["music"] : ASSETS["musicMute"];
     musicMuteButton.appendChild(musicMuteButtonImg);
     musicMuteButtonImg.style.height = `${tileSize}px`;
     musicMuteButtonImg.style.width = `${tileSize}px`;
@@ -118,9 +127,10 @@ function musicMuteElement() {
   };
 }
 
-function soundMuteElement() {
+export function soundMuteElement(tileSize, isMain) {
+  const yPos = isMain ? tileSize * 13 : tileSize * 11;
   const soundMuteElement = document.getElementById("soundMute");
-  soundMuteElement.style.top = `${marginTop + tileSize * 11}px`;
+  soundMuteElement.style.top = `${marginTop + yPos}px`;
   soundMuteElement.style.fontSize = `${tileSize * 0.55}px`;
   soundMuteElement.style.width = `${tileSize * 5}px`;
   soundMuteElement.style.left = `${
@@ -130,7 +140,7 @@ function soundMuteElement() {
   const soundMuteButton = document.getElementById("soundMuteButton");
   soundMuteButton.style.height = `${tileSize}px`;
   soundMuteButton.style.width = `${tileSize}px`;
-  soundMuteButton.style.position = "absolute"
+  soundMuteButton.style.position = "absolute";
   soundMuteButton.style.right = `0px`;
   let soundMuteButtonImg = !soundMute ? ASSETS["sound"] : ASSETS["soundMute"];
   soundMuteButton.appendChild(soundMuteButtonImg);
@@ -143,81 +153,6 @@ function soundMuteElement() {
     soundMuteButton.appendChild(soundMuteButtonImg);
     soundMuteButtonImg.style.height = `${tileSize}px`;
     soundMuteButtonImg.style.width = `${tileSize}px`;
-    playSound("clic");
-  };
-}
-
-
-export function musicMuteElementMain(tileSize, pixelUnit) {
-  const musicMuteElement = document.getElementById("musicMute");
-  musicMuteElement.style.left = `${marginLeft + tileSize * 6.5}px`;
-  musicMuteElement.style.top = `${marginTop + tileSize * 11.5}px`;
-  musicMuteElement.style.fontSize = `${tileSize * 0.55}px`;
-  musicMuteElement.style.width = `${tileSize * 5}px`;
-  musicMuteElement.style.left = `${
-    marginLeft + canvasScreen.width / 2 - tileSize * 3
-  }px`;
-
-  const musicMuteButton = document.getElementById("musicMuteButton");
-  musicMuteButton.style.height = `${tileSize}px`;
-  musicMuteButton.style.width = `${tileSize}px`;
-
-  let musicMuteButtonImg = !musicMute ? ASSETS["music"] : ASSETS["musicMute"];
-  musicMuteButton.appendChild(musicMuteButtonImg);
-  musicMuteButtonImg.style.height = `${tileSize}px`;
-  musicMuteButtonImg.style.width = `${tileSize}px`;
-  musicMuteButtonImg.style.position = "absolute"
-  musicMuteButtonImg.style.top = "0px"
-  musicMuteButtonImg.style.left = "0px"
-  musicMuteButton.style.position = "absolute"
-  musicMuteButton.style.right = `0px`;
-
-  musicMuteButton.onclick = () => {
-    musicMuteFunction();
-    musicMuteButtonImg.remove();
-    musicMuteButtonImg = !musicMute ? ASSETS["music"] : ASSETS["musicMute"]
-    musicMuteButton.appendChild(musicMuteButtonImg);
-    musicMuteButtonImg.style.height = `${tileSize}px`;
-    musicMuteButtonImg.style.width = `${tileSize}px`;
-    musicMuteButtonImg.style.position = "absolute"
-    musicMuteButtonImg.style.top = "0px"
-    musicMuteButtonImg.style.left = "0px"
-    playSound("clic");
-  };
-}
-
-export function soundMuteElementMain(tileSize, pixelUnit) {
-  const soundMuteElement = document.getElementById("soundMute");
-  soundMuteElement.style.top = `${marginTop + tileSize * 13}px`;
-  soundMuteElement.style.fontSize = `${tileSize * 0.55}px`;
-  soundMuteElement.style.width = `${tileSize * 5}px`;
-  soundMuteElement.style.left = `${
-    marginLeft + canvasScreen.width / 2 - tileSize * 3
-  }px`;
-
-  const soundMuteButton = document.getElementById("soundMuteButton");
-  soundMuteButton.style.height = `${tileSize}px`;
-  soundMuteButton.style.width = `${tileSize}px`;
-  soundMuteButton.style.position = "absolute"
-  soundMuteButton.style.right = `0px`;
-  let soundMuteButtonImg = !soundMute ? ASSETS["sound"] : ASSETS["soundMute"];
-
-  soundMuteButton.appendChild(soundMuteButtonImg);
-  soundMuteButtonImg.style.height = `${tileSize}px`;
-  soundMuteButtonImg.style.width = `${tileSize}px`;
-  soundMuteButtonImg.style.position = "absolute"
-  soundMuteButtonImg.style.top = "0px"
-  soundMuteButtonImg.style.left = "0px"
-  soundMuteButton.onclick = () => {
-    soundMuteFunction();
-    soundMuteButtonImg.remove();
-    soundMuteButtonImg = !soundMute ? ASSETS["sound"] : ASSETS["soundMute"];
-    soundMuteButton.appendChild(soundMuteButtonImg);
-    soundMuteButtonImg.style.height = `${tileSize}px`;
-    soundMuteButtonImg.style.width = `${tileSize}px`;
-    soundMuteButtonImg.style.position = "absolute"
-    soundMuteButtonImg.style.top = "0px"
-    soundMuteButtonImg.style.left = "0px"
     playSound("clic");
   };
 }

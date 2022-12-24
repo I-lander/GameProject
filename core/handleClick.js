@@ -56,7 +56,7 @@ export function handleClick(event) {
     tileMap.map[clickPositionInGrid.y][clickPositionInGrid.x] =
       selectedBtn.type;
     tileMap.players[0].stats.soulResource -= parseInt(selectedBtn.value);
-
+    tileMap.players[0].updateHp(true)
     cleanMap();
     updateSelectedBtn(undefined);
     renderCardDescription(selectedBtn);
@@ -108,6 +108,7 @@ export function handleClick(event) {
     tileMap.map[clickPositionInGrid.y][clickPositionInGrid.x] =
       selectedBtn.type;
     bombMecanics(clickPositionInGrid);
+    tileMap.players[0].updateHp(true)
     updateSelectedBtn(undefined);
     renderCardDescription(selectedBtn);
     const closeButton = document.getElementById("closeButton");

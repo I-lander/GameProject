@@ -9,6 +9,7 @@ const SOUNDS = [
   "resourcePoping",
   "shoot",
   "thunderStrike",
+  "bombSound",
 ];
 
 const IMAGES = [

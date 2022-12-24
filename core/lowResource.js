@@ -7,7 +7,7 @@ export class LowResource {
     this.x = marginLeft + canvasScreen.width / 2 - this.width/2;
     this.y = marginTop + tileSize * 5;
     this.opacity = 1;
-    this.text = "Not enought resources";
+    this.text = "Not enough resources";
   }
 
 

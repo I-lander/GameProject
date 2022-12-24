@@ -1,4 +1,6 @@
 import { monsters, tileMap } from "../../app.js";
+import { ASSETS } from "../../core/loadAssets.js";
+import { playSound } from "../../core/utils.js";
 
 function bombMecanics(bombPos) {
   for (let i = 0; i < tileMap.deletableElements.length; i++) {
@@ -16,8 +18,8 @@ function deleteFromElementArray(elementArray, bombPos) {
       }
     }
     if (element.position.x === bombPos.x && element.position.y === bombPos.y) {
-
       elementArray.splice(i, 1);
+      playSound("bombSound");
     }
   }
 }

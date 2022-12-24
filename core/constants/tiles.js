@@ -15,7 +15,7 @@ const CARD_ELEMENTS = [
     maximumDefault : 4,
     maximum: 99,
     description:
-      "A natural obstacle that will block path for any attacking monsters.",
+      "A natural obstacle that will block path for any attacking monsters.</br></br>Each mountain increases the God's maximum HP.",
   },
   {
     type: "thunder",

@@ -158,5 +158,6 @@ export function playSound(sound) {
   }
   sound === "addTile" ? (ASSETS[sound].volume = 0.5) : null;
   sound === "thunderStrike" ? (ASSETS[sound].volume = 0.2) : null;
+  sound === "bombSound" ? (ASSETS[sound].volume = 0.3) : null;
   ASSETS[sound].play();
 }

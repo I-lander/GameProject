@@ -8,6 +8,7 @@ import {
   damageTexts,
   isPause,
   soundMute,
+  tileMap,
 } from "../app.js";
 import { Projectile } from "./projectile.js";
 import { calculateInterval, playSound } from "../core/utils.js";
@@ -59,13 +60,7 @@ class Player {
   draw(ctx) {
     let timestamp = Date.now();
 
-    if (this.stats.hp > this.maxHp) {
-      this.stats.hp = this.maxHp;
-    }
-
-    if (this.stats.hp < 0) {
-      this.stats.hp = 0;
-    }
+    this.updateHp();
 
     if (this.stats.soulResource < 0) {
       this.stats.soulResource = 0;
@@ -116,6 +111,7 @@ class Player {
     this.drawPlayerLife(ctx);
     this.drawLevel();
     this.drawsoulResource();
+    this.drawHpLvl();
   }
 
   autoFire(timestamp, monsters) {
@@ -225,6 +221,35 @@ class Player {
     levelText.style.left = `${marginLeft + gameScreen.width + tileSize / 2}px`;
     levelText.style.top = `${marginTop + tileSize * 2}px`;
     levelText.style.fontSize = `${tileSize / 2}px`;
+  }
+
+  drawHpLvl() {
+    const hpLvl = document.getElementById("hpLvl");
+    hpLvl.innerHTML = `${this.stats.hp}/${this.maxHp}`;
+    hpLvl.style.width = `${tileSize * 9.5}px`;
+    hpLvl.style.height = `${tileSize / 3}px`;
+    hpLvl.style.left = `${
+      gameScreen.width + (sideScreen.width - tileSize * 9.5) / 2
+    }px`;
+    hpLvl.style.top = `${marginTop + tileSize / 2 + 1 * pixelUnit}px`;
+    hpLvl.style.fontSize = `${9 * pixelUnit}px`;
+  }
+
+  updateHp(isClicked = false) {
+    if (isClicked) {
+      setTimeout(() => {
+        this.maxHp = 30 + tileMap.mountains.length * 5;
+        this.stats.hp += 5;
+      }, 100);
+    }
+
+    if (this.stats.hp > this.maxHp) {
+      this.stats.hp = this.maxHp;
+    }
+
+    if (this.stats.hp < 0) {
+      this.stats.hp = 0;
+    }
   }
 }
 

@@ -52,7 +52,7 @@ const MONSTERS_STATS = [
     type: "air",
     level: 12,
     hp: 100,
-    force: 20,
+    force: 15,
     speed: 1.8,
   },
   {
@@ -60,7 +60,7 @@ const MONSTERS_STATS = [
     type: "bomb",
     level: 9999,
     hp: 150,
-    force: 1,
+    force: 3,
     speed: 2.5,
   },
 ];
