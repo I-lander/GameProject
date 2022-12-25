@@ -142,14 +142,15 @@ export function renderScreenOnce() {
     const spawnPoint = tileMap.spawnPoints[i];
     spawnPoint.update(ctxScreen);
   }
-  for (let i = 0; i < monsters.length; i++) {
-    const monster = monsters[i];
-    monster.draw(ctxScreen);
-  }
   cleanMap();
   selectedBtn ? possibilityForClick() : null;
 
   tileMap.draw(ctxScreen);
+
+  for (let i = 0; i < monsters.length; i++) {
+    const monster = monsters[i];
+    monster.draw(ctxScreen);
+  }
 }
 
 export function playSound(sound) {

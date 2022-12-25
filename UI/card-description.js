@@ -68,7 +68,7 @@ function renderCardDescription(selectedCard = undefined) {
 
   const numberVsMax = document.createElement("div");
   cardDescriptionHeader.appendChild(numberVsMax);
-  if (!cardSelected.type === "bomb" || !cardSelected.type === "thunder") {
+  if (cardSelected.maximum) {
     numberVsMax.innerHTML = `<span style="color:${NumberColor}">${getNumberOfElement(
       cardSelected
     )}</span>/${cardSelected.maximum}`;
@@ -106,7 +106,7 @@ function renderCardDescription(selectedCard = undefined) {
   cardDescriptionText.style.lineHeight = `${tileSize / 2}px`;
   cardDescriptionText.style.fontSize = `${10 * pixelUnit}px`;
 
-  if (!cardSelected.type === "bomb" || !cardSelected.type === "thunder") {
+  if (cardSelected.increaseMax) {
     const cardDescriptionFooter = document.createElement("div");
     cardDescription.appendChild(cardDescriptionFooter);
     cardDescriptionFooter.style.backgroundColor = "rgba(50,50,50,1)";
