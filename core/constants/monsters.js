@@ -12,7 +12,7 @@ const MONSTERS_STATS = [
     type: "ground",
     level: 3,
     hp: 10,
-    force: 1,
+    force: 2,
     speed: 1.2,
   },
   {

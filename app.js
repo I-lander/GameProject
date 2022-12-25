@@ -115,6 +115,11 @@ document.getElementById("startBtn").addEventListener("click", () => {
 });
 
 let isGod = false;
+
+export function initIsGod () {
+  isGod = false;
+}
+
 document.getElementById("startBtnAsGod").addEventListener("click", () => {
   isGod = true;
   playSound("clic");
@@ -144,6 +149,8 @@ export function startGame() {
   soulResource.classList.remove("disable");
   const levelText = document.getElementById("levelText");
   levelText.classList.remove("disable");
+  const hpLvl = document.getElementById("hpLvl");
+  hpLvl.classList.remove("disable");
   drawCards();
   renderCardDescription();
   createActionButton(pixelUnit);

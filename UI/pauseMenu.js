@@ -11,6 +11,7 @@ import {
   ctxmainMenuCanvas,
   mainMenu,
   mainMenuCanvas,
+  initIsGod,
 } from "../app.js";
 import { ASSETS } from "../core/loadAssets.js";
 import { playSound } from "../core/utils.js";
@@ -24,22 +25,27 @@ export function handlePauseMenu() {
     pauseMenu.classList.remove("disable");
     const soundsOption = document.getElementById("soundsOption");
     soundsOption.classList.remove("disable");
-    resetButton(pauseMenu);
+    resetButton();
     resumeButton();
     musicMuteElement(tileSize, false);
     soundMuteElement(tileSize, false);
   }
 }
 
-export function resetButton(pauseMenu) {
-  const resetButton = document.getElementById("resetButtonPauseMenu");
+export function resetButton(isGameOver = false) {
+  const yPos = isGameOver ? 9 : 7.5
+  const pauseMenu = document.getElementById("pauseMenu");
+  const resetButton = document.getElementById("resetButton");
+  const gameOverScreen = document.getElementById("gameOverScreen");
+
+  resetButton.classList.remove("disable");
   const resetButtonImg = new Image();
   resetButtonImg.src = "./src/images/menuButtonStartAsGod.png";
   resetButton.appendChild(resetButtonImg);
-  resetButton.classList.add("resetButton")
+  resetButton.classList.add("resetButton");
   resetButton.style.height = `${tileSize}px`;
   resetButton.style.width = `${tileSize * 6}px`;
-  resetButton.style.top = `${marginTop + tileSize * 7.5}px`;
+  resetButton.style.top = `${marginTop + tileSize * yPos}px`;
   resetButton.style.left = `${
     marginLeft + canvasScreen.width / 2 - tileSize * 3
   }px`;
@@ -60,8 +66,13 @@ export function resetButton(pauseMenu) {
     soulResource.classList.add("disable");
     const levelText = document.getElementById("levelText");
     levelText.classList.add("disable");
+    const hpLvl = document.getElementById("hpLvl");
+    hpLvl.classList.add("disable");
+    initIsGod();
     drawBackGameBackground(ctxmainMenuCanvas, mainMenuCanvas, true);
     setTimeout(() => {
+      gameOverScreen ? gameOverScreen.classList.add("disable") : null
+      resetButton.classList.add("disable");
       pauseMenu.classList.add("disable");
       mainMenu.classList.remove("disable");
       mainMenuCanvas.classList.remove("disable");
@@ -75,7 +86,7 @@ function resumeButton() {
   const resumeButtonImg = new Image();
   resumeButtonImg.src = "./src/images/menuButtonStartAsGod.png";
   resumeButton.appendChild(resumeButtonImg);
-  resumeButton.classList.add("resumeButton")
+  resumeButton.classList.add("resumeButton");
   resumeButton.style.height = `${tileSize}px`;
   resumeButton.style.width = `${tileSize * 6}px`;
   resumeButton.style.top = `${marginTop + tileSize * 6}px`;
