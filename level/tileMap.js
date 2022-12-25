@@ -67,7 +67,7 @@ export class TileMap {
           this.map[row][column] = "0";
         }
 
-        if (tile === "1") {
+        if (tile === "player") {
           if (
             !this.players.some(
               (player) =>

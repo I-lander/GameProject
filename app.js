@@ -249,9 +249,9 @@ function animate(timestamp) {
   monsters.forEach((monster, index) => {
     drawLifeBar(ctxScreen, monster);
 
-    // When a monster has no possibility to move, it is transformed into bomb
+    monster.update(ctxScreen);
+    
     if (!monster.path || monster.path.length === 0) {
-      monster.findingPath();
       monsters.push(
         new Monster(
           monster.x - tileSize / 2,
@@ -263,8 +263,6 @@ function animate(timestamp) {
       );
       monsters.splice(index, 1);
     }
-
-    monster.update(ctxScreen);
 
     // Touch player
 

@@ -52,16 +52,13 @@ const findPath = (start, target, type) => {
         continue;
       }
       if (
-        (type === "ground" &&
-          SOLID_ELEMENTS.includes(tile) &&
-          !FRANCHISSABLE_ELEMENTS.includes(tile)) 
+        type === "ground" &&
+        SOLID_ELEMENTS.includes(tile) &&
+        !FRANCHISSABLE_ELEMENTS.includes(tile)
       ) {
         continue;
       }
       if (type === "air" && tile === "mountain") {
-        continue;
-      }
-      if (type === "bomb" && tile === "player") {
         continue;
       }
 

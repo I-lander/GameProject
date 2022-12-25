@@ -18,7 +18,6 @@ const playerPos = {
   y: Math.floor(mapSizeY / 2),
 };
 
-let path = [];
 let spawnGroundRate = 0.2;
 
 let localPauseDelta = 0;
@@ -91,7 +90,6 @@ function spawnMonsters() {
     }
   }
 
-  path = [];
   return;
 }
 

@@ -14,7 +14,7 @@ function createMap() {
       map[row].push("0");
     }
   }
-  map[mapCenterY][mapCenterX] = "1";
+  map[mapCenterY][mapCenterX] = "player";
 }
 
 export { createMap, map, mapSizeX, mapSizeY };

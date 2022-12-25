@@ -1,4 +1,4 @@
-import { monsters, tileMap } from "../../app.js";
+import { monsters, tileMap, soundMute } from "../../app.js";
 import { ASSETS } from "../../core/loadAssets.js";
 import { playSound } from "../../core/utils.js";
 
@@ -19,7 +19,9 @@ function deleteFromElementArray(elementArray, bombPos) {
     }
     if (element.position.x === bombPos.x && element.position.y === bombPos.y) {
       elementArray.splice(i, 1);
-      playSound("bombSound");
+    const bombSound = ASSETS["bombSound"].cloneNode()
+    !soundMute ? bombSound.play() : null;
+
     }
   }
 }
