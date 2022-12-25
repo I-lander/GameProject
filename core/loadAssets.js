@@ -2,7 +2,7 @@ import { screenInit } from "../UI/ScreenInit.js";
 
 const SOUNDS = [
   "mainLoop",
-  "addTile",
+  "addTileSound",
   "clic",
   "damage",
   "godDamage",

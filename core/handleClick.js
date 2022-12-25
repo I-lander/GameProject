@@ -1,5 +1,6 @@
 import {
   cleanMap,
+  isGod,
   selectedBtn,
   tileMap,
   inversePause,
@@ -25,8 +26,8 @@ import { getNumberOfElement, playSound } from "./utils.js";
 export const thunders = [];
 
 export function handleClick(event) {
-  if(event.x > gameScreen.width){
-    return
+  if (event.x > gameScreen.width) {
+    return;
   }
   if (selectedBtn) {
     CARD_ELEMENTS.some((card) => card.type === selectedBtn.type);
@@ -42,21 +43,23 @@ export function handleClick(event) {
   const x = event.x - xZero;
   const y = event.y - yZero;
   const clickPositionInGrid = tileMap.getPosition(x, y);
-  if (selectedBtn.value > tileMap.players[0].stats.soulResource) {
-     lowResources.push(new LowResource()) 
+  if (
+    selectedBtn.value > tileMap.players[0].stats.soulResource ||
+    (getNumberOfElement(cardSelected) >= cardSelected.maximum && !isGod)
+  ) {
+    lowResources.push(new LowResource());
     return;
   }
   if (
     tileMap.map[clickPositionInGrid.y][clickPositionInGrid.x] === "green" &&
-    CARD_ELEMENTS.some((card) => card.type === selectedBtn.type)
-    // &&
-    // getNumberOfElement(cardSelected) < cardSelected.maximum
+    CARD_ELEMENTS.some((card) => card.type === selectedBtn.type) &&
+    (getNumberOfElement(cardSelected) < cardSelected.maximum || isGod)
   ) {
-    emptyLowResourcesArray()
+    emptyLowResourcesArray();
     tileMap.map[clickPositionInGrid.y][clickPositionInGrid.x] =
       selectedBtn.type;
     tileMap.players[0].stats.soulResource -= parseInt(selectedBtn.value);
-    tileMap.players[0].updateHp(true)
+    tileMap.players[0].updateHp(true);
     cleanMap();
     updateSelectedBtn(undefined);
     renderCardDescription(selectedBtn);
@@ -67,7 +70,7 @@ export function handleClick(event) {
     monsters.forEach((monster) => {
       monster.findingPath();
     });
-    playSound("addTile");
+    playSound("addTileSound");
 
     inversePause();
     for (let button of cardButtons) {
@@ -108,8 +111,8 @@ export function handleClick(event) {
     tileMap.map[clickPositionInGrid.y][clickPositionInGrid.x] =
       selectedBtn.type;
     bombMecanics(clickPositionInGrid);
-    tileMap.players[0].updateHp(true)
-tileMap.players[0].stats.soulResource -= parseInt(selectedBtn.value);
+    tileMap.players[0].updateHp(true);
+    tileMap.players[0].stats.soulResource -= parseInt(selectedBtn.value);
     updateSelectedBtn(undefined);
     renderCardDescription(selectedBtn);
     const closeButton = document.getElementById("closeButton");

@@ -114,7 +114,7 @@ document.getElementById("startBtn").addEventListener("click", () => {
   startGame();
 });
 
-let isGod = false;
+export let isGod = false;
 
 export function initIsGod () {
   isGod = false;
