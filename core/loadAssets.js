@@ -31,6 +31,7 @@ const IMAGES = [
   "musicMute",
   "menuButtonStart",
   "menuButtonStartAsGod",
+  "addTile"
 ];
 
 export const ASSETS = [];

@@ -259,6 +259,7 @@ canvas {
   background-image: url("./src/images/playButton.png");
   background-size: contain;
 }
+
 .fastForward:active {
   background-image: url("./src/images/fastForwardButton-clicked.png");
   background-size: contain;
@@ -273,4 +274,17 @@ canvas {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+
+.addTileBtn:active {
+  background-image: url("./src/images/addTile-clicked.png");
+  background-size: contain;
+}
+
+.addTileBtn {
+  background-image: url("./src/images/addTile.png");
+  background-size: contain;
+  border: none;
+  background-color: transparent;
 }

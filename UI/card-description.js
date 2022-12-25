@@ -1,5 +1,6 @@
 import {
   gameScreen,
+  lowResources,
   pixelUnit,
   selectedBtn,
   sideScreen,
@@ -8,6 +9,7 @@ import {
 } from "../app.js";
 import { CARD_ELEMENTS } from "../core/constants/tiles.js";
 import { ASSETS } from "../core/loadAssets.js";
+import { LowResource } from "../core/lowResource.js";
 import { getNumberOfElement } from "../core/utils.js";
 import { marginLeft, marginTop } from "./ScreenInit.js";
 
@@ -34,19 +36,19 @@ function renderCardDescription(selectedCard = undefined) {
     cardDescription.innerHTML = "";
     return;
   }
-  cardDescription.innerHTML = ""
-  
+  cardDescription.innerHTML = "";
+
   const NumberColor =
     getNumberOfElement(cardSelected) < cardSelected.maximum ? "black" : "red";
 
   const cardDescriptionHeader = document.createElement("div");
   cardDescription.appendChild(cardDescriptionHeader);
   cardDescriptionHeader.style.backgroundColor = "white";
-  cardDescriptionHeader.style.position = "absolute"
-  cardDescriptionHeader.style.width = `${tileSize* 9.5 - 12*pixelUnit}px`
-  cardDescriptionHeader.style.height = `${tileSize}px`
-  cardDescriptionHeader.style.top = `${ 4*pixelUnit}px`
-  cardDescriptionHeader.style.left = `${ 4*pixelUnit}px`
+  cardDescriptionHeader.style.position = "absolute";
+  cardDescriptionHeader.style.width = `${tileSize * 9.5 - 12 * pixelUnit}px`;
+  cardDescriptionHeader.style.height = `${tileSize}px`;
+  cardDescriptionHeader.style.top = `${4 * pixelUnit}px`;
+  cardDescriptionHeader.style.left = `${4 * pixelUnit}px`;
 
   const cardValue = document.createElement("p");
   cardDescriptionHeader.appendChild(cardValue);
@@ -69,7 +71,6 @@ function renderCardDescription(selectedCard = undefined) {
   numberVsMax.innerHTML = `<span style="color:${NumberColor}">${getNumberOfElement(
     cardSelected
   )}</span>/${cardSelected.maximum}`;
-  // numberVsMax.innerHTML = "99/99"
   numberVsMax.style.position = "absolute";
   numberVsMax.style.fontSize = `${14 * pixelUnit}px`;
   numberVsMax.style.height = `${tileSize}px`;
@@ -99,9 +100,47 @@ function renderCardDescription(selectedCard = undefined) {
   cardDescription.append(cardDescriptionText);
   cardDescriptionText.innerHTML = `${cardSelected.description}`;
   cardDescriptionText.style.color = "white";
-  cardDescriptionText.style.margin = `${tileSize * 1.75}px ${tileSize/2}px`;
+  cardDescriptionText.style.margin = `${tileSize * 1.75}px ${tileSize / 2}px`;
   cardDescriptionText.style.lineHeight = `${tileSize / 2}px`;
   cardDescriptionText.style.fontSize = `${10 * pixelUnit}px`;
+
+  const cardDescriptionFooter = document.createElement("div");
+  cardDescription.appendChild(cardDescriptionFooter);
+  cardDescriptionFooter.style.backgroundColor = "rgba(50,50,50,1)";
+  cardDescriptionFooter.style.color = "white";
+  cardDescriptionFooter.style.position = "absolute";
+  cardDescriptionFooter.style.width = `${tileSize * 9.5 - 15 * pixelUnit}px`;
+  cardDescriptionFooter.style.height = `${tileSize}px`;
+  cardDescriptionFooter.style.top = `${
+    tileSize * 7 - containerMargin * pixelUnit - 36 * pixelUnit
+  }px`;
+  cardDescriptionFooter.style.left = `${4 * pixelUnit}px`;
+  cardDescriptionFooter.style.display = "flex";
+  cardDescriptionFooter.style.alignItems = "center";
+  cardDescriptionFooter.style.paddingLeft = `${4 * pixelUnit}px`;
+  cardDescriptionFooter.innerHTML = `Increase max tile for ${cardSelected.increaseMax}`;
+
+  const addTileBtn = document.createElement("button");
+  addTileBtn.classList.add("addTileBtn");
+  cardDescriptionFooter.appendChild(addTileBtn);
+  addTileBtn.style.position = "absolute";
+  addTileBtn.style.top = `0px`;
+  addTileBtn.style.right = `${4 * pixelUnit}px`;
+  addTileBtn.style.width = `${tileSize}px`;
+  addTileBtn.style.height = `${tileSize}px`;
+  addTileBtn.onclick = () => {
+    if (cardSelected.increaseMax > tileMap.players[0].stats.soulResource) {
+      lowResources.push(new LowResource());
+      return;
+    }
+    ++cardSelected.maximum
+    tileMap.players[0].stats.soulResource -= cardSelected.increaseMax
+    numberVsMax.innerHTML = `<span style="color:${NumberColor}">${getNumberOfElement(
+      cardSelected
+    )}</span>/${cardSelected.maximum}`;
+    tileMap.players[0].drawsoulResource()
+
+  };
 }
 
 export { renderCardDescription };

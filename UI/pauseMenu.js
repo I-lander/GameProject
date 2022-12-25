@@ -83,6 +83,7 @@ export function resetButton(isGameOver = false) {
 
 function resumeButton() {
   const resumeButton = document.getElementById("resumeButton");
+  const resetButton = document.getElementById("resetButton");
   const resumeButtonImg = new Image();
   resumeButtonImg.src = "./src/images/menuButtonStartAsGod.png";
   resumeButton.appendChild(resumeButtonImg);
@@ -96,6 +97,7 @@ function resumeButton() {
   resumeButton.style.fontSize = `${tileSize * 0.55}px`;
   resumeButton.style.padding = `${9.5 * pixelUnit}px`;
   resumeButton.onclick = () => {
+    resetButton.classList.add("disable");
     pauseMenu.classList.add("disable");
     !selectedBtn ? updatePause(false) : null;
     updateStatusText(pixelUnit);

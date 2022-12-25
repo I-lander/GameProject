@@ -3,7 +3,8 @@ const CARD_ELEMENTS = [
     type: "spawnPoints",
     value: -10,
     title: "Spawn",
-    maximumDefault : 999,
+    increaseMax: 10,
+    maximumDefault: 999,
     maximum: 999,
     description:
       "Generate a spawning point.</br>Monster will start to pop from it.</br>Posing this tile will generate 10 manas.",
@@ -12,7 +13,8 @@ const CARD_ELEMENTS = [
     type: "mountain",
     value: 5,
     title: "Mountain",
-    maximumDefault : 4,
+    increaseMax: 10,
+    maximumDefault: 4,
     maximum: 99,
     description:
       "A natural obstacle that will block path for any attacking monsters.</br></br>Each mountain increases the God's maximum HP.",
@@ -21,7 +23,8 @@ const CARD_ELEMENTS = [
     type: "thunder",
     value: 50,
     title: "Thunder",
-    maximumDefault : 4,
+    increaseMax: 10,
+    maximumDefault: 4,
     maximum: 99,
     description:
       "Create a lightning that strike monsters and deals 10 damages to all monsters in its area.",
@@ -30,7 +33,8 @@ const CARD_ELEMENTS = [
     type: "river",
     value: 50,
     title: "River",
-    maximumDefault : 4,
+    increaseMax: 10,
+    maximumDefault: 4,
     maximum: 99,
     description: "The ground monster walking in it is drowned.",
   },
@@ -38,7 +42,8 @@ const CARD_ELEMENTS = [
     type: "village",
     value: 20,
     title: "Village",
-    maximumDefault : 4,
+    increaseMax: 10,
+    maximumDefault: 4,
     maximum: 99,
     description: "Generate 5 mana every 5 seconds.",
   },
@@ -46,7 +51,8 @@ const CARD_ELEMENTS = [
     type: "tower",
     value: 30,
     title: "Tower",
-    maximumDefault : 4,
+    increaseMax: 10,
+    maximumDefault: 4,
     maximum: 99,
     description: "A tower that will shoot on monsters.",
   },
@@ -54,7 +60,8 @@ const CARD_ELEMENTS = [
     type: "bomb",
     value: 20,
     title: "Bomb",
-    maximumDefault : 4,
+    increaseMax: 10,
+    maximumDefault: 4,
     maximum: 99,
     description: "Destroy an element on the grid.",
   },
@@ -62,7 +69,8 @@ const CARD_ELEMENTS = [
     type: "lava",
     value: 30,
     title: "Lava",
-    maximumDefault : 4,
+    increaseMax: 10,
+    maximumDefault: 4,
     maximum: 99,
     description: "Any monster that pass through it take damage.",
   },
@@ -70,7 +78,8 @@ const CARD_ELEMENTS = [
     type: "desert",
     value: 30,
     title: "Desert",
-    maximumDefault : 4,
+    increaseMax: 10,
+    maximumDefault: 4,
     maximum: 99,
     description: "Any monster that pass through it are slowed down.",
   },
@@ -78,7 +87,8 @@ const CARD_ELEMENTS = [
     type: "tree",
     value: 100,
     title: "Tree",
-    maximumDefault : 4,
+    increaseMax: 10,
+    maximumDefault: 4,
     maximum: 99,
     description: "Heal 1 HP every 5 seconds.",
   },
@@ -86,16 +96,17 @@ const CARD_ELEMENTS = [
     type: "star",
     value: 20,
     title: "Star",
-    maximumDefault : 4,
+    increaseMax: 10,
+    maximumDefault: 4,
     maximum: 99,
     description: "Force monster to follow their path.",
   },
 ];
 
-function resetTileCards () {
-for(let card of CARD_ELEMENTS){
-  card.maximum = card.maximumDefault
-}
+function resetTileCards() {
+  for (let card of CARD_ELEMENTS) {
+    card.maximum = card.maximumDefault;
+  }
 }
 
 // Elements that ground monster must dodge
@@ -113,4 +124,9 @@ const SOLID_ELEMENTS = [
 
 const FRANCHISSABLE_ELEMENTS = ["lava", "river", "desert", "star"];
 
-export { CARD_ELEMENTS, SOLID_ELEMENTS, FRANCHISSABLE_ELEMENTS, resetTileCards };
+export {
+  CARD_ELEMENTS,
+  SOLID_ELEMENTS,
+  FRANCHISSABLE_ELEMENTS,
+  resetTileCards,
+};
