@@ -51,6 +51,9 @@ export class Monster {
     this.path = findPath(this.startVec, this.targetVec, this.stats.type); // Create the path
 
     this.lastLavaDamage = 0;
+    this.lavaCooldown = 1000
+
+    this.desertFactor = 0.5
 
     this.distance = 0;
     this.position = tileMap.getPosition(this.x, this.y);
@@ -195,7 +198,7 @@ export class Monster {
       calculateInterval(
         timestamp,
         this.lastLavaDamage,
-        1000,
+        this.lavaCooldown,
         this.localPauseDelta
       ) &&
       currentTile === "lava"
@@ -228,7 +231,7 @@ export class Monster {
         x: dx === 0 ? 0 : Math.cos(angle),
         y: dy === 0 ? 0 : Math.sin(angle),
       };
-      let slowDownFactor = currentTile === "desert" ? 0.5 : 1;
+      let slowDownFactor = currentTile === "desert" ? this.desertFactor : 1;
 
       this.x +=
         this.velocity.x *

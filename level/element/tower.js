@@ -64,7 +64,7 @@ export class Tower {
         calculateInterval(
           timestamp,
           this.lastAttack,
-          1000 - BONUS.TOWER_ATTACK_RATE,
+          1000 - BONUS.TOWER_COOLDOWN,
           this.localPauseDelta
         )
       ) {

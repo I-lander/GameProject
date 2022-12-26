@@ -1,10 +1,16 @@
 const CARD_ELEMENTS = [
   {
+    type: "godTile",
+    title: "GOD",
+    description:
+      "Our dear Lord.</br>This is US.",
+  },
+  {
     type: "spawnPoints",
     value: -10,
     title: "Spawn",
+    increaseBy: 0,
     increaseMax: 50,
-    maximumDefault: 999,
     maximum: 999,
     description:
       "Generate a spawning point.</br>Monster will start to pop from it.</br>Posing this tile will generate 10 manas.",
@@ -13,9 +19,9 @@ const CARD_ELEMENTS = [
     type: "mountain",
     value: 5,
     title: "Mountain",
+    increaseBy: 0,
     increaseMax: 50,
-    maximumDefault: 6,
-    maximum: 99,
+    maximum: 6,
     description:
       "A natural obstacle that will block path for any attacking monsters.</br></br>Each mountain increases the God's maximum HP.",
   },
@@ -30,27 +36,27 @@ const CARD_ELEMENTS = [
     type: "river",
     value: 50,
     title: "River",
+    increaseBy: 0,
     increaseMax: 150,
-    maximumDefault: 4,
-    maximum: 99,
+    maximum: 4,
     description: "The ground monster walking in it is drowned.",
   },
   {
     type: "village",
     value: 20,
     title: "Village",
+    increaseBy: 0,
     increaseMax: 50,
-    maximumDefault: 3,
-    maximum: 99,
+    maximum: 3,
     description: "Generate 5 mana every 5 seconds.",
   },
   {
     type: "tower",
     value: 30,
     title: "Tower",
+    increaseBy: 0,
     increaseMax: 50,
-    maximumDefault: 4,
-    maximum: 99,
+    maximum: 4,
     description: "A tower that will shoot on monsters.",
   },
   {
@@ -63,43 +69,43 @@ const CARD_ELEMENTS = [
     type: "lava",
     value: 30,
     title: "Lava",
+    increaseBy: 0,
     increaseMax: 50,
-    maximumDefault: 4,
-    maximum: 99,
+    maximum: 4,
     description: "Any monster that pass through it take damage.",
   },
   {
     type: "desert",
     value: 30,
     title: "Desert",
+    increaseBy: 0,
     increaseMax: 50,
-    maximumDefault: 4,
-    maximum: 99,
+    maximum: 4,
     description: "Any monster that pass through it are slowed down.",
   },
   {
     type: "tree",
     value: 100,
     title: "Tree",
+    increaseBy: 0,
     increaseMax: 50,
-    maximumDefault: 4,
-    maximum: 99,
+    maximum: 4,
     description: "Heal 1 HP every 5 seconds.",
   },
   {
     type: "star",
     value: 20,
     title: "Star",
-    increaseMax: 75,
-    maximumDefault: 4,
-    maximum: 99,
+    increaseBy: 0,
+    increaseMax: 50,
+    maximum: 4,
     description: "Force monster to follow their path.",
   },
 ];
 
 function resetTileCards() {
   for (let card of CARD_ELEMENTS) {
-    card.maximum = card.maximumDefault;
+    card.increaseBy = 0;
   }
 }
 

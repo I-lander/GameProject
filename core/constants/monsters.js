@@ -60,7 +60,7 @@ const MONSTERS_STATS = [
     type: "bomb",
     level: 9999,
     hp: 150,
-    force: 3,
+    force: 1,
     speed: 2.5,
   },
 ];

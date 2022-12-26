@@ -228,7 +228,7 @@ function animate(timestamp) {
 
   tileMap.draw(ctxScreen); // draw the map
   const mainPlayer = tileMap.players[0];
-  isGod ? (mainPlayer.stats.soulResource = 9999) : null;
+  isGod ? (mainPlayer.stats.soulResource = 99999999) : null;
   isGod ? (mainPlayer.maxHp = 9999) : null;
   isGod ? (mainPlayer.stats.hp = 9999) : null;
   spawnMonsters(); // method that handle any spawning monsters

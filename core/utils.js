@@ -111,6 +111,9 @@ export function calculateInterval(
 export { possibilityForClick };
 
 export function getNumberOfElement(element) {
+  if (!element) {
+    return;
+  }
   const array = tileMap.elements.find((e) => {
     return e.type === element.type;
   });

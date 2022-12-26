@@ -126,7 +126,7 @@ class Player {
         calculateInterval(
           timestamp,
           this.lastAttack,
-          1000 - BONUS.GOD_ATTACK_RATE,
+          1000 - BONUS.GOD_COOLDOWN,
           this.localPauseDelta
         )
       ) {
@@ -239,7 +239,6 @@ class Player {
     if (isClicked) {
       setTimeout(() => {
         this.maxHp = 30 + tileMap.mountains.length * 5;
-        
       }, 100);
     }
 

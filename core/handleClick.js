@@ -11,8 +11,11 @@ import {
   lowResources,
   emptyLowResourcesArray,
   gameScreen,
+  isPause,
+  updatePause,
 } from "../app.js";
 import { bombMecanics } from "../level/element/bomb.js";
+import { mapSizeX, mapSizeY } from "../level/map.js";
 import { Thunder } from "../player/thunder.js";
 import { Particle } from "../player/visualEffects.js";
 import { cardButtons } from "../UI/card-creation.js";
@@ -44,8 +47,26 @@ export function handleClick(event) {
   const y = event.y - yZero;
   const clickPositionInGrid = tileMap.getPosition(x, y);
   if (
-    selectedBtn.value > tileMap.players[0].stats.soulResource ||
-    (getNumberOfElement(cardSelected) >= cardSelected.maximum && !isGod)
+    clickPositionInGrid.x === Math.floor(mapSizeX / 2) &&
+    clickPositionInGrid.y === Math.floor(mapSizeY / 2)
+  ) {
+    const isPaused = isPause;
+    const closeButton = document.getElementById("closeButton");
+    closeButton ? closeButton.click() : null;
+    setTimeout(() => {
+      isPaused ? updatePause(true) : updatePause(false);
+    }, 150);
+    updateSelectedBtn({ type: "godTile" });
+    renderCardDescription(selectedBtn);
+    return;
+  } else if (selectedBtn && selectedBtn.type === "godTile") {
+    updateSelectedBtn(undefined);
+    renderCardDescription(selectedBtn);
+    updatePause(false);
+  }
+  if (
+    selectedBtn && selectedBtn.value > tileMap.players[0].stats.soulResource ||
+    (cardSelected && getNumberOfElement(cardSelected) >= cardSelected.maximum && !isGod)
   ) {
     lowResources.push(new LowResource());
     return;

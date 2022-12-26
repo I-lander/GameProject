@@ -12,6 +12,7 @@ import {
   mainMenu,
   mainMenuCanvas,
   initIsGod,
+  updateSelectedBtn,
 } from "../app.js";
 import { ASSETS } from "../core/loadAssets.js";
 import { playSound } from "../core/utils.js";
@@ -54,6 +55,7 @@ export function resetButton(isGameOver = false) {
   resetButton.onclick = () => {
     const buttonContainer = document.getElementById("buttonContainer");
     buttonContainer.innerHTML = "";
+    updateSelectedBtn(undefined)
     resetCardContainer();
     musicMuteElement(tileSize, true);
     soundMuteElement(tileSize, true);

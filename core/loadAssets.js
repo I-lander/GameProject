@@ -31,7 +31,14 @@ const IMAGES = [
   "musicMute",
   "menuButtonStart",
   "menuButtonStartAsGod",
-  "addTile"
+  "addTile",
+  "statsBtn",
+  "descriptionBtn",
+  "cooldownIcon",
+  "forceIcon",
+  "rangeIcon",
+  "speedIcon",
+  "godTile",
 ];
 
 export const ASSETS = [];

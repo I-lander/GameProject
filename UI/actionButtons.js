@@ -37,7 +37,7 @@ export function createActionButton(pixelUnit) {
 
   const playButton = document.getElementById("play");
   playButton.onclick = function () {
-    if (isPause && !selectedBtn) {
+    if (isPause && !selectedBtn || selectedBtn.type === "godTile") {
       inversePause();
     }
     if (!selectedBtn) {
