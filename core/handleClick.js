@@ -65,16 +65,29 @@ export function handleClick(event) {
     updatePause(false);
   }
   if (
-    selectedBtn && selectedBtn.value > tileMap.players[0].stats.soulResource ||
-    (cardSelected && getNumberOfElement(cardSelected) >= cardSelected.maximum && !isGod)
+    (selectedBtn &&
+      selectedBtn.value > tileMap.players[0].stats.soulResource)
   ) {
-    lowResources.push(new LowResource());
+    lowResources.push(new LowResource("resource"));
     return;
   }
+
+  if (
+    cardSelected &&
+    getNumberOfElement(cardSelected) >=
+      cardSelected.maximum + cardSelected.increaseBy &&
+    !isGod
+  ) {
+    lowResources.push(new LowResource("maxTile"));
+    return;
+  }
+
   if (
     tileMap.map[clickPositionInGrid.y][clickPositionInGrid.x] === "green" &&
     CARD_ELEMENTS.some((card) => card.type === selectedBtn.type) &&
-    (getNumberOfElement(cardSelected) < cardSelected.maximum || isGod)
+    (getNumberOfElement(cardSelected) <
+      cardSelected.maximum + +cardSelected.increaseBy ||
+      isGod)
   ) {
     emptyLowResourcesArray();
     tileMap.map[clickPositionInGrid.y][clickPositionInGrid.x] =

@@ -41,8 +41,11 @@ function renderCardDescription(selectedCard = undefined) {
   if (!cardSelected) {
     return;
   }
-  const NumberColor =
-    getNumberOfElement(cardSelected) < cardSelected.maximum ? "black" : "red";
+  let numberColor =
+    getNumberOfElement(cardSelected) <
+    cardSelected.maximum + cardSelected.increaseBy
+      ? "black"
+      : "red";
 
   const cardDescriptionHeader = document.createElement("div");
   cardDescription.appendChild(cardDescriptionHeader);
@@ -72,7 +75,7 @@ function renderCardDescription(selectedCard = undefined) {
   const numberVsMax = document.createElement("div");
   cardDescriptionHeader.appendChild(numberVsMax);
   if (cardSelected.maximum) {
-    numberVsMax.innerHTML = `<span style="color:${NumberColor}">${getNumberOfElement(
+    numberVsMax.innerHTML = `<span style="color:${numberColor}">${getNumberOfElement(
       cardSelected
     )}</span>/${cardSelected.maximum + cardSelected.increaseBy}`;
   }
@@ -140,7 +143,7 @@ function renderCardDescription(selectedCard = undefined) {
       if (
         increaseCardCost(cardSelected) > tileMap.players[0].stats.soulResource
       ) {
-        lowResources.push(new LowResource());
+        lowResources.push(new LowResource("resource"));
         return;
       }
       tileMap.players[0].stats.soulResource -= increaseCardCost(
@@ -148,7 +151,12 @@ function renderCardDescription(selectedCard = undefined) {
         true
       );
       ++cardSelected.increaseBy;
-      numberVsMax.innerHTML = `<span style="color:${NumberColor}">${getNumberOfElement(
+      numberColor =
+        getNumberOfElement(cardSelected) <
+        cardSelected.maximum + cardSelected.increaseBy
+          ? "black"
+          : "red";
+      numberVsMax.innerHTML = `<span style="color:${numberColor}">${getNumberOfElement(
         cardSelected
       )}</span>/${cardSelected.maximum + cardSelected.increaseBy}`;
       cardDescriptionFooterText.innerHTML = `Increase max tile for ${increaseCardCost(
@@ -176,9 +184,9 @@ function renderCardDescriptionText(cardSelected) {
   cardDescription.append(cardDescriptionText);
   cardDescriptionText.style.position = "absolute";
   cardDescriptionText.style.color = "white";
-  cardDescriptionText.style.width = `${tileSize * 9.5 - 16 * pixelUnit}px`;
+  cardDescriptionText.style.width = `${tileSize * 8.5 - 16 * pixelUnit}px`;
   cardDescriptionText.style.height = `${tileSize * 3}px`;
-  cardDescriptionText.style.top = `${tileSize * 2.1}px`;
+  cardDescriptionText.style.top = `${tileSize * 1.50}px`;
   cardDescriptionText.style.left = `${8 * pixelUnit}px`;
   cardDescriptionText.style.lineHeight = `${tileSize / 2}px`;
   cardDescriptionText.style.fontSize = `${10 * pixelUnit}px`;
@@ -193,6 +201,8 @@ function cardDescriptionSwitchBtn(cardDescriptionText, cardSelected) {
   const cardDescription = document.getElementById("cardDescription");
   cardDescription.appendChild(switchBtn);
   switchBtn.classList.add("switchBtn");
+  switchBtn.style.width = `${tileSize}px`;
+  switchBtn.style.height = `${tileSize}px`;
   const switchBtnImg = isDescText
     ? ASSETS["statsBtn"]
     : ASSETS["descriptionBtn"];

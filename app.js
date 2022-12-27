@@ -30,6 +30,7 @@ function inversePause() {
 
 function updatePause(bool) {
   isPause = bool;
+  updateStatusText(pixelUnit);
 }
 
 export { isPause, inversePause, updatePause };
