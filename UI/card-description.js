@@ -171,7 +171,7 @@ function renderCardDescription(selectedCard = undefined) {
 export function increaseCardCost(cardSelected, update) {
   let cost = cardSelected.increaseMax;
   cost >= 9999 ? (cost = 9999) : cost;
-  update ? (cardSelected.increaseMax += cardSelected.increaseMax * 0.1) : null;
+  update ? (cardSelected.increaseMax += cardSelected.increaseMax * 0.5) : null;
   return Math.floor(cost);
 }
 
