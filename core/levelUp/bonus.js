@@ -11,7 +11,7 @@ const BONUS = {
 
 export function resetBonus() {
   for (let bonus in BONUS) {
-    BONUS.bonus = 0;
+    BONUS[bonus] = 0;
   }
 }
 

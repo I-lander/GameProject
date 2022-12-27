@@ -14,6 +14,7 @@ import {
   initIsGod,
   updateSelectedBtn,
 } from "../app.js";
+import { resetBonus } from "../core/levelUp/bonus.js";
 import { ASSETS } from "../core/loadAssets.js";
 import { playSound } from "../core/utils.js";
 import { updateStatusText } from "./actionButtons.js";
@@ -34,7 +35,7 @@ export function handlePauseMenu() {
 }
 
 export function resetButton(isGameOver = false) {
-  const yPos = isGameOver ? 9 : 7.5
+  const yPos = isGameOver ? 9 : 7.5;
   const pauseMenu = document.getElementById("pauseMenu");
   const resetButton = document.getElementById("resetButton");
   const gameOverScreen = document.getElementById("gameOverScreen");
@@ -55,8 +56,9 @@ export function resetButton(isGameOver = false) {
   resetButton.onclick = () => {
     const buttonContainer = document.getElementById("buttonContainer");
     buttonContainer.innerHTML = "";
-    updateSelectedBtn(undefined)
+    updateSelectedBtn(undefined);
     resetCardContainer();
+    resetBonus();
     musicMuteElement(tileSize, true);
     soundMuteElement(tileSize, true);
     buttonContainer.style.height = "0px";
@@ -73,7 +75,7 @@ export function resetButton(isGameOver = false) {
     initIsGod();
     drawBackGameBackground(ctxmainMenuCanvas, mainMenuCanvas, true);
     setTimeout(() => {
-      gameOverScreen ? gameOverScreen.classList.add("disable") : null
+      gameOverScreen ? gameOverScreen.classList.add("disable") : null;
       resetButton.classList.add("disable");
       pauseMenu.classList.add("disable");
       mainMenu.classList.remove("disable");
@@ -101,7 +103,9 @@ function resumeButton() {
   resumeButton.onclick = () => {
     resetButton.classList.add("disable");
     pauseMenu.classList.add("disable");
-    !selectedBtn ? updatePause(false) : null;
+    if (!selectedBtn || selectedBtn.type === "godTile") {
+      updatePause(false);
+    }
     updateStatusText(pixelUnit);
     const soundsOption = document.getElementById("soundsOption");
     soundsOption.classList.add("disable");

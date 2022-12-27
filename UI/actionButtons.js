@@ -13,10 +13,13 @@ import {
   soundMute,
   musicMuteFunction,
   soundMuteFunction,
+  updateSelectedBtn,
+  cleanMap,
 } from "../app.js";
 import { ASSETS } from "../core/loadAssets.js";
 import { playSound, speedFactor, updateSpeedFactore } from "../core/utils.js";
 import { resetCardContainer } from "./card-creation.js";
+import { renderCardDescription } from "./card-description.js";
 import { handlePauseMenu } from "./pauseMenu.js";
 import { drawBackGameBackground, marginLeft, marginTop } from "./ScreenInit.js";
 
@@ -28,7 +31,7 @@ export function createActionButton(pixelUnit) {
 
   const pauseButton = document.getElementById("pause");
   pauseButton.onclick = function () {
-    if (!selectedBtn) {
+    if (!selectedBtn || selectedBtn.type === "godTile") {
       inversePause();
     }
     updateStatusText(pixelUnit);
@@ -37,12 +40,23 @@ export function createActionButton(pixelUnit) {
 
   const playButton = document.getElementById("play");
   playButton.onclick = function () {
-    if (isPause && !selectedBtn || selectedBtn.type === "godTile") {
-      inversePause();
+    if (
+      (isPause && !selectedBtn) ||
+      (selectedBtn && selectedBtn.type === "godTile")
+    ) {
+      updatePause(false);
     }
     if (!selectedBtn) {
       updateSpeedFactore(1);
       updateStatusText(pixelUnit);
+    }
+    if (selectedBtn) {
+      const closeButton = document.getElementById("closeButton");
+      closeButton ? closeButton.click() : null;
+      cleanMap();
+      updateSelectedBtn(undefined);
+      renderCardDescription(selectedBtn);
+      updatePause(false);
     }
   };
 

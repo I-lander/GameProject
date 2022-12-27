@@ -113,54 +113,48 @@ const CARD_FOR_LEVEL_UP = [
       BONUS.LAVA_FORCE < -2 ? (BONUS.LAVA_FORCE = -2) : null;
     };
   },
-  class TowerSpeedUpgrade {
-    id = "TowerSpeedUpgrade";
+  class TowerCooldownUpgrade {
+    id = "TowerCooldownUpgrade";
     tile = "tower";
     bonus = "cooldownUp";
     isBonus = true;
-    description = `All towers gain + 1 speed.</br> Maximum speed :  7 bonus</br></br>Current speed : ${
-      BONUS.TOWER_COOLDOWN / 100
-    }`;
-    function = () => {
-      BONUS.TOWER_COOLDOWN < 700 ? (BONUS.TOWER_COOLDOWN += 100) : null;
-    };
-  },
-  class TowerSpeedDowngrade {
-    id = "TowerSpeedDowngrade";
-    tile = "tower";
-    bonus = "cooldownDown";
-    isBonus = false;
-    description = `Towers lose + 1 speed.</br> Minimum speed bonus : -7</br></br>Current speed : ${
-      BONUS.TOWER_COOLDOWN / 100
-    }`;
+    description = `Towers shoot cooldown is decreased of 0.1 sec.`;
+
     function = () => {
       BONUS.TOWER_COOLDOWN -= 100;
       BONUS.TOWER_COOLDOWN < -700 ? (BONUS.TOWER_COOLDOWN = -700) : null;
     };
   },
-  class GodSpeedUpgrade {
-    id = "GodSpeedUpgrade";
+  class TowerCooldownDowngrade {
+    id = "TowerCooldownDowngrade";
+    tile = "tower";
+    bonus = "cooldownDown";
+    isBonus = false;
+    description = `Towers shoot cooldown is increased of 0.1 sec.`;
+    function = () => {
+      BONUS.TOWER_COOLDOWN < 700 ? (BONUS.TOWER_COOLDOWN += 100) : null;
+    };
+  },
+  class GodCooldownUpgrade {
+    id = "GodCooldownUpgrade";
     tile = "godTile";
     bonus = "cooldownUp";
     isBonus = true;
-    description = `God gains + 1 speed.</br> Maximum speed bonus : 7</br></br>Current speed : ${
-      BONUS.GOD_COOLDOWN / 100
-    }`;
-    function = () => {
-      BONUS.GOD_COOLDOWN < 700 ? (BONUS.TOWER_COOLDOWN += 100) : null;
-    };
-  },
-  class GodSpeedDowngrade {
-    id = "GodSpeedDowngrade";
-    tile = "godTile";
-    bonus = "cooldownDown";
-    isBonus = false;
-    description = `God lose + 1 speed.</br> Minimum speed bonus : -7</br></br>Current speed : ${
-      BONUS.GOD_COOLDOWN / 100
-    }`;
+    description = `God shoot cooldown is decreased of 0.1 sec.`;
+
     function = () => {
       BONUS.GOD_COOLDOWN -= 100;
       BONUS.GOD_COOLDOWN < -700 ? (BONUS.TOWER_COOLDOWN = -700) : null;
+    };
+  },
+  class GodCooldownDowngrade {
+    id = "GodCooldownDowngrade";
+    tile = "godTile";
+    bonus = "cooldownDown";
+    isBonus = false;
+    description = `God shoot cooldown is increased of 0.1 sec.`;
+    function = () => {
+      BONUS.GOD_COOLDOWN < 700 ? (BONUS.GOD_COOLDOWN += 100) : null;
     };
   },
   class GodRangeDowngrade {

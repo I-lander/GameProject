@@ -186,7 +186,7 @@ function renderCardDescriptionText(cardSelected) {
   cardDescriptionText.style.color = "white";
   cardDescriptionText.style.width = `${tileSize * 8.5 - 16 * pixelUnit}px`;
   cardDescriptionText.style.height = `${tileSize * 3}px`;
-  cardDescriptionText.style.top = `${tileSize * 1.50}px`;
+  cardDescriptionText.style.top = `${tileSize * 1.5}px`;
   cardDescriptionText.style.left = `${8 * pixelUnit}px`;
   cardDescriptionText.style.lineHeight = `${tileSize / 2}px`;
   cardDescriptionText.style.fontSize = `${10 * pixelUnit}px`;
@@ -269,7 +269,6 @@ function cardDescriptionStats(cardDescriptionText, cardSelected) {
       range: `${2}`,
     },
   ];
-
   cardDescriptionText.classList.add("cardDescriptionText");
   cardDescriptionText.style.top = `${tileSize * 1.75}px`;
 
