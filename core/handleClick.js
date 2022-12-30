@@ -162,7 +162,7 @@ export function handleClick(event) {
         new Particle(x, y, Math.random() * 2 * pixelUnit, {
           x: Math.random() - 0.5,
           y: Math.random() - 0.5,
-        })
+        },"white")
       );
     }
   }

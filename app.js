@@ -291,7 +291,7 @@ function animate(timestamp) {
           new Particle(monster.x, monster.y, Math.random() * 2 * pixelUnit, {
             x: Math.random() - 0.5,
             y: Math.random() - 0.5,
-          })
+          }, "white")
         );
       }
 
