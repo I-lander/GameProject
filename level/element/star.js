@@ -37,7 +37,6 @@ export class Star {
         this.x + tileSize / 2 - particle.x,
         this.y + tileSize / 2 - particle.y
       );
-      console.log(distance);
       if (distance <= 5 * pixelUnit) {
         this.particlesArray.splice(i, 1);
       }

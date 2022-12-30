@@ -1,7 +1,7 @@
 import { Player } from "../player/player.js";
 import { createMap, map, mapSizeX, mapSizeY } from "./map.js";
 import { Mountain } from "./element/mountain.js";
-import { Village } from "./element/village.js";
+import { Temple } from "./element/temple.js";
 import { Tower } from "./element/tower.js";
 import { SpawnPoint } from "./spawningSpawnPoints.js";
 import { Star } from "./element/star.js";
@@ -24,9 +24,9 @@ export class TileMap {
     this.mountain.src = "./src/images/mountain.png";
     this.mountains = [];
 
-    this.village = new Image();
-    this.village.src = "./src/images/village.png";
-    this.villages = [];
+    this.temple = new Image();
+    this.temple.src = "./src/images/temple.png";
+    this.temples = [];
 
     this.tree = new Image();
     this.tree.src = "./src/images/tree.png";
@@ -113,9 +113,9 @@ export class TileMap {
           }
         }
 
-        if (tile === "village") {
+        if (tile === "temple") {
           ctx.drawImage(
-            this.village,
+            this.temple,
             column * this.tileSize,
             row * this.tileSize,
             this.tileSize,
@@ -131,13 +131,13 @@ export class TileMap {
             );
           }
           if (
-            !this.villages.some(
-              (village) =>
-                village.position.x === column && village.position.y === row
+            !this.temples.some(
+              (temple) =>
+                temple.position.x === column && temple.position.y === row
             )
           ) {
-            let village = new Village(column, row);
-            this.villages.push(village);
+            let temple = new Temple(column, row);
+            this.temples.push(temple);
           }
         }
 
@@ -323,13 +323,13 @@ export class TileMap {
             let spawnPoint = new SpawnPoint(column, row);
             this.spawnPoints.push(spawnPoint);
           }
-        }        
+        }
       }
     }
 
     this.deletableElements = [
       this.mountains,
-      this.villages,
+      this.temples,
       this.trees,
       this.towers,
       this.stars,
@@ -337,7 +337,7 @@ export class TileMap {
 
     this.elements = [
       { type: "mountain", element: this.mountains },
-      { type: "village", element: this.villages },
+      { type: "temple", element: this.temples },
       { type: "tree", element: this.trees },
       { type: "tower", element: this.towers },
       { type: "star", element: this.stars },
@@ -350,7 +350,7 @@ export class TileMap {
   init() {
     this.players = [];
     this.mountains = [];
-    this.villages = [];
+    this.temples = [];
     this.towers = [];
     this.trees = [];
     this.spawnPoints = [];

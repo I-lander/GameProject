@@ -2,8 +2,7 @@ const CARD_ELEMENTS = [
   {
     type: "godTile",
     title: "GOD",
-    description:
-      "Our dear Lord.</br>This is US.",
+    description: "Our dear Lord.</br>This is US.",
   },
   {
     type: "spawnPoints",
@@ -42,9 +41,9 @@ const CARD_ELEMENTS = [
     description: "The ground monster walking in it is drowned.",
   },
   {
-    type: "village",
+    type: "temple",
     value: 20,
-    title: "Village",
+    title: "Temple",
     increaseBy: 0,
     increaseMax: 10,
     maximum: 3,
@@ -115,7 +114,7 @@ const SOLID_ELEMENTS = [
   "mountain",
   "river",
   "tower",
-  "village",
+  "temple",
   "desert",
   "tree",
   "lava",

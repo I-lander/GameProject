@@ -241,7 +241,7 @@ function cardDescriptionStats(cardDescriptionText, cardSelected) {
       range: `${2.5 + BONUS.TOWER_RANGE / tileSize}`,
     },
     {
-      tile: "village",
+      tile: "temple",
       force: `${5} hp`,
       cooldown: `${5000 / 1000} sec`,
     },

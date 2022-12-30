@@ -78,7 +78,7 @@ function possibilityForClick() {
           tile !== "spawnPoints" &&
           tile !== "mountain" &&
           tile !== "tower" &&
-          tile !== "village" &&
+          tile !== "temple" &&
           tile !== "star" &&
           tile !== "tree" &&
           (row === 0 ||

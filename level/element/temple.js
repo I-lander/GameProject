@@ -1,8 +1,15 @@
-import { tileSize, tileMap, pixelUnit, delta, gameScreen, soundMute } from "../../app.js";
+import {
+  tileSize,
+  tileMap,
+  pixelUnit,
+  delta,
+  gameScreen,
+  soundMute,
+} from "../../app.js";
 import { ASSETS } from "../../core/loadAssets.js";
 import { calculateInterval } from "../../core/utils.js";
 
-export class Village {
+export class Temple {
   constructor(x, y, image) {
     this.x = x * tileSize;
     this.y = y * tileSize;
@@ -19,15 +26,13 @@ export class Village {
     this.lastUpdate = 0;
     this.ismanaGenerated = false;
     this.manasToFeed = [];
-    this.resourcePopingAudio = ASSETS["resourcePoping"]
+    this.resourcePopingAudio = ASSETS["resourcePoping"];
   }
 
   update(ctx) {
     let timestamp = Date.now();
-    this.drawLoadingCircle(ctx,timestamp);
-    if (
-      calculateInterval(timestamp, this.lastUpdate, 50)
-    ) {
+    this.drawLoadingCircle(ctx, timestamp);
+    if (calculateInterval(timestamp, this.lastUpdate, 50)) {
       this.stats.manaLoad++;
       this.lastUpdate = timestamp;
     }
@@ -36,7 +41,7 @@ export class Village {
     }
   }
 
-  drawLoadingCircle(ctx,timestamp) {
+  drawLoadingCircle(ctx, timestamp) {
     let x = this.x + tileSize / 2;
     let y = this.y;
     const barRatio = this.stats.manaLoad / this.stats.maxMana;
@@ -52,9 +57,9 @@ export class Village {
     ctx.restore();
     if (barRatio >= 1 && !this.ismanaGenerated) {
       this.ismanaGenerated = true;
-      const localResourcePopingAudio = this.resourcePopingAudio.cloneNode()
-      localResourcePopingAudio.volume = .5
-      !soundMute ? localResourcePopingAudio.play() : null
+      const localResourcePopingAudio = this.resourcePopingAudio.cloneNode();
+      localResourcePopingAudio.volume = 0.5;
+      !soundMute ? localResourcePopingAudio.play() : null;
       const mana = new ManaToFeed(x, y);
       this.manasToFeed.push(mana);
     }

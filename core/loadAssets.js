@@ -16,7 +16,7 @@ const IMAGES = [
   "bullet",
   "cardLevelUp",
   "mountain",
-  "village",
+  "temple",
   "tree",
   "tower",
   "desert",

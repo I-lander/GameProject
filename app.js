@@ -117,7 +117,7 @@ document.getElementById("startBtn").addEventListener("click", () => {
 
 export let isGod = false;
 
-export function initIsGod () {
+export function initIsGod() {
   isGod = false;
 }
 
@@ -258,7 +258,7 @@ function animate(timestamp) {
     drawLifeBar(ctxScreen, monster);
 
     monster.update(ctxScreen);
-    
+
     if (!monster.path || monster.path.length === 0) {
       monsters.push(
         new Monster(
@@ -288,10 +288,16 @@ function animate(timestamp) {
     if (monster.stats.hp <= 0) {
       for (let i = 0; i < 20; i++) {
         particles.push(
-          new Particle(monster.x, monster.y, Math.random() * 2 * pixelUnit, {
-            x: Math.random() - 0.5,
-            y: Math.random() - 0.5,
-          }, "white")
+          new Particle(
+            monster.x,
+            monster.y,
+            Math.random() * 2 * pixelUnit,
+            {
+              x: Math.random() - 0.5,
+              y: Math.random() - 0.5,
+            },
+            "white"
+          )
         );
       }
 
@@ -316,9 +322,9 @@ function animate(timestamp) {
     star.update(ctxScreen);
   }
 
-  for (let i = 0; i < tileMap.villages.length; i++) {
-    const village = tileMap.villages[i];
-    village.update(ctxScreen);
+  for (let i = 0; i < tileMap.temples.length; i++) {
+    const temple = tileMap.temples[i];
+    temple.update(ctxScreen);
   }
 
   for (let i = 0; i < tileMap.trees.length; i++) {

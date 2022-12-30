@@ -28,7 +28,7 @@ const maxCardPerLign = 5;
 
 const cardDeck = [
   "mountain",
-  "village",
+  "temple",
   "tree",
   "tower",
   "desert",
