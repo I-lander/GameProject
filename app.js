@@ -6,6 +6,7 @@ import { resetTileCards } from "./core/constants/tiles.js";
 import {
   drawSideScreenBackground,
   drawBackGameBackground,
+  screenInit,
 } from "./UI/ScreenInit.js";
 import { Monster } from "./player/NPCs/monster.js";
 import { drawLifeBar } from "./player/utils.js";
@@ -22,27 +23,23 @@ import { playSound } from "./core/utils.js";
 // Declare & export the variable used to pause the game
 // Declare & export the function that update pause status
 
-let isPause = true;
-function inversePause() {
+export let isPause = true;
+export function inversePause() {
   isPause = !isPause;
   updateStatusText(pixelUnit);
 }
 
-function updatePause(bool) {
+export function updatePause(bool) {
   isPause = bool;
   updateStatusText(pixelUnit);
 }
 
-export { isPause, inversePause, updatePause };
-
 // Declare & export arrays used to store game elements
 
-let monsters;
-let damageTexts;
-let lowResources = [];
-let particles = [];
-
-export { monsters, particles, damageTexts, lowResources };
+export let monsters;
+export let damageTexts;
+export let lowResources = [];
+export let particles = [];
 
 export function emptyLowResourcesArray() {
   lowResources = [];
@@ -52,68 +49,42 @@ export function emptyLowResourcesArray() {
 
 // Declare & export the canvas variables used to draw on.
 
-const canvasScreen = document.getElementById("canvasScreen");
-const ctxScreen = canvasScreen.getContext("2d");
+export const canvasScreen = document.getElementById("canvasScreen");
+export const ctxScreen = canvasScreen.getContext("2d");
+export const mainMenuCanvas = document.getElementById("mainMenuCanvas");
+export const ctxmainMenuCanvas = canvasScreen.getContext("2d");
 
-const mainMenuCanvas = document.getElementById("mainMenuCanvas");
-const ctxmainMenuCanvas = canvasScreen.getContext("2d");
-
-ctxScreen.imageSmoothingEnabled = false;
-
-export { ctxScreen, canvasScreen, mainMenuCanvas, ctxmainMenuCanvas };
 // Create and initialize the game screen and map
 
-const tileMap = new TileMap();
+export let musicMute = false;
+export let soundMute = false;
 
-let musicMute = false;
-let soundMute = false;
-
-function musicMuteFunction() {
+export function musicMuteFunction() {
   musicMute = !musicMute;
 }
-function soundMuteFunction() {
+export function soundMuteFunction() {
   soundMute = !soundMute;
 }
 
-export { musicMuteFunction, soundMuteFunction, musicMute, soundMute };
+export let tileMap;
 
-loadAssets(canvasScreen);
+export let delta = 0;
+export let pauseDelta = 0;
+export let levelUp = true;
+export let selectedBtn;
 
-const beforeInit = document.getElementById("beforeInit");
-beforeInit.classList.add("disable");
+export function inverseLeveUp() {
+  levelUp = !levelUp;
+  updateStatusText(pixelUnit);
+}
 
-// Declare & export the variable use to uniformization of any sprite
-// The tileSize is use to calibrate screen size and elements size
-
-const tileSize = tileMap.tileSize;
-document.documentElement.style.setProperty("--tileSize", tileSize + "px");
-const pixelUnit = tileSize / 32;
-const gameScreen = {
-  width: mapSizeX * tileSize,
-  height: mapSizeY * tileSize,
-};
-
-const sideScreen = {
-  width: canvasScreen.width - gameScreen.width,
-  height: canvasScreen.height,
-};
-
-export { tileMap, tileSize, pixelUnit, gameScreen, sideScreen };
-
-// As this method need the tileSize variable it must be execute after its declaration
-
-drawBackGameBackground(ctxmainMenuCanvas, mainMenuCanvas, true);
-
-// Declare the variable containing the main menu is order to hide it
+export function updateSelectedBtn(btn) {
+  selectedBtn = btn;
+}
 
 export const mainMenu = document.getElementById("mainMenu");
 
 // Handle click on start game button
-
-document.getElementById("startBtn").addEventListener("click", () => {
-  playSound("clic");
-  startGame();
-});
 
 export let isGod = false;
 
@@ -121,11 +92,61 @@ export function initIsGod() {
   isGod = false;
 }
 
-document.getElementById("startBtnAsGod").addEventListener("click", () => {
-  isGod = true;
-  playSound("clic");
-  startGame();
-});
+export let tileSize;
+export let pixelUnit;
+export let gameScreen;
+export let sideScreen;
+
+let musicPause = false;
+
+async function initWorld() {
+  await loadAssets(canvasScreen);
+
+  window.addEventListener("blur", () => {
+    ASSETS["mainLoop"].pause();
+    musicPause = true;
+    isPause = true;
+    updateStatusText(pixelUnit);
+  });
+
+  window.addEventListener("focus", (event) => {
+    musicPause = false;
+  });
+
+  canvasScreen.addEventListener("click", (event) => {
+    handleClick(event);
+  });
+
+  document.getElementById("startBtn").addEventListener("click", () => {
+    playSound("clic");
+    startGame();
+  });
+
+  document.getElementById("startBtnAsGod").addEventListener("click", () => {
+    isGod = true;
+    playSound("clic");
+    startGame();
+  });
+
+  tileMap = new TileMap();
+  screenInit(canvasScreen);
+
+  tileSize = tileMap.tileSize;
+  document.documentElement.style.setProperty("--tileSize", tileSize + "px");
+  pixelUnit = tileSize / 32;
+  gameScreen = {
+    width: mapSizeX * tileSize,
+    height: mapSizeY * tileSize,
+  };
+
+  sideScreen = {
+    width: canvasScreen.width - gameScreen.width,
+    height: canvasScreen.height,
+  };
+
+  drawBackGameBackground(ctxmainMenuCanvas, mainMenuCanvas, true);
+}
+initWorld();
 
 // Method used to initialize the variable to start the game with clean values
 
@@ -160,40 +181,17 @@ export function startGame() {
   animate();
 }
 
-// Declare elements used to maintain stable speed for the animation
-
 let lastFrameTimeMs = 0; // The last time the loop was run
 let lastTextFrameTimeMs = 0;
 let lastFrameBeforePause = 0;
 let maxFPS = 90; // The maximum FPS we want to allow
 let deltaFactor = 10;
-let delta = 0;
-let pauseDelta = 0;
-let levelUp = true;
-
-function inverseLeveUp() {
-  levelUp = !levelUp;
-  updateStatusText(pixelUnit);
-}
-
-let selectedBtn;
-
-function updateSelectedBtn(btn) {
-  selectedBtn = btn;
-}
-
-export { delta, pauseDelta, inverseLeveUp };
-
-const mainLoop = ASSETS["mainLoop"];
-let musicPause = false;
-
-// Game Loop method use to create the animation
 
 function animate(timestamp) {
   if (musicPause) {
-    mainLoop.pause();
+    ASSETS["mainLoop"].pause();
   } else {
-    !musicMute ? mainLoop.play() : mainLoop.pause();
+    !musicMute ? ASSETS["mainLoop"].play() : ASSETS["mainLoop"].pause();
   }
   if (isPause) {
     pauseDelta = timestamp - lastFrameBeforePause;
@@ -322,6 +320,11 @@ function animate(timestamp) {
     star.update(ctxScreen);
   }
 
+  for (let i = 0; i < tileMap.rivers.length; i++) {
+    const river = tileMap.rivers[i];
+    river.update(ctxScreen);
+  }
+
   for (let i = 0; i < tileMap.temples.length; i++) {
     const temple = tileMap.temples[i];
     temple.update(ctxScreen);
@@ -413,16 +416,7 @@ function animate(timestamp) {
   requestAnimationFrame(animate);
 }
 
-// Declare & export the button pressed in order to delete it after it was used
-// Declare & export function to update this button
-
-export { selectedBtn, updateSelectedBtn };
-
-canvasScreen.addEventListener("click", (event) => {
-  handleClick(event);
-});
-
-function cleanMap() {
+export function cleanMap() {
   for (let row = 0; row < mapSizeY; row++) {
     for (let column = 0; column < mapSizeX; column++) {
       let tile = tileMap.map[row][column];
@@ -432,16 +426,3 @@ function cleanMap() {
     }
   }
 }
-
-export { cleanMap };
-
-window.addEventListener("blur", () => {
-  mainLoop.pause();
-  musicPause = true;
-  isPause = true;
-  updateStatusText(pixelUnit);
-});
-
-window.addEventListener("focus", (event) => {
-  musicPause = false;
-});

@@ -7,6 +7,7 @@ import { SpawnPoint } from "./spawningSpawnPoints.js";
 import { Star } from "./element/star.js";
 import { selectedBtn } from "../app.js";
 import { Tree } from "./element/tree.js";
+import { River } from "./element/river.js";
 
 export class TileMap {
   constructor() {
@@ -41,7 +42,7 @@ export class TileMap {
     this.lavas = [];
 
     this.river = new Image();
-    this.river.src = "./src/images/river.png";
+    this.river.src = "./src/images/riverAnimation.png";
     this.rivers = [];
 
     this.desert = new Image();
@@ -249,13 +250,6 @@ export class TileMap {
         }
 
         if (tile === "river") {
-          ctx.drawImage(
-            this.river,
-            column * this.tileSize,
-            row * this.tileSize,
-            this.tileSize,
-            this.tileSize
-          );
           if (selectedBtn && selectedBtn.type === "bomb") {
             ctx.drawImage(
               this.greenTileFull,
@@ -270,8 +264,17 @@ export class TileMap {
               (river) => river.column === column && river.row === row
             )
           ) {
-            let river = { column: column, row: row };
+            let river = new River(column, row, this.river);
             this.rivers.push(river);
+          }
+          if (selectedBtn && selectedBtn.type === "bomb") {
+            ctx.drawImage(
+              this.greenTileFull,
+              column * this.tileSize,
+              row * this.tileSize,
+              this.tileSize,
+              this.tileSize
+            );
           }
         }
 

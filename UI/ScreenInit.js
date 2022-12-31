@@ -95,6 +95,9 @@ function screenInit(canvasScreen) {
   mainMenuCanvas.height = gameScreen.height;
   mainMenuCanvas.style.top = `${marginTop}px`;
   mainMenuCanvas.style.left = `${marginLeft}px`;
+
+  const beforeInit = document.getElementById("beforeInit");
+  beforeInit.classList.add("disable");
 }
 
 function drawSideScreenBackground(ctx, screen, sideScreen) {
