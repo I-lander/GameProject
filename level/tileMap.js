@@ -261,7 +261,7 @@ export class TileMap {
           }
           if (
             !this.rivers.some(
-              (river) => river.column === column && river.row === row
+              (river) => river.position.x === column && river.position.y=== row
             )
           ) {
             let river = new River(column, row, this.river);

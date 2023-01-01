@@ -17,9 +17,7 @@ export class River {
     this.spriteSize = 32;
     this.frameX = 0;
     this.frameY = 0;
-    this.minFrame = 0;
-    this.maxFrame = this.horizontalFrame * this.verticalFrame;
-    this.frameRate = 1;
+    this.frameRate = 5;
     this.lastFrame = 0;
   }
 
@@ -39,7 +37,7 @@ export class River {
       tileSize,
       tileSize
     );
-    if (calculateInterval(timestamp, this.lastFrame, 3000)) {
+    if (calculateInterval(timestamp, this.lastFrame, 1000 / this.frameRate)) {
       this.frameX = this.frameX < horizontalFrame - 1 ? this.frameX + 1 : 0;
       this.lastFrame = timestamp;
     }
