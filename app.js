@@ -325,6 +325,11 @@ function animate(timestamp) {
     river.update(ctxScreen);
   }
 
+  for (let i = 0; i < tileMap.lavas.length; i++) {
+    const lava = tileMap.lavas[i];
+    lava.update(ctxScreen);
+  }
+
   for (let i = 0; i < tileMap.temples.length; i++) {
     const temple = tileMap.temples[i];
     temple.update(ctxScreen);

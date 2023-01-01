@@ -145,6 +145,14 @@ export function renderScreenOnce() {
     const spawnPoint = tileMap.spawnPoints[i];
     spawnPoint.update(ctxScreen);
   }
+  for (let i = 0; i < tileMap.rivers.length; i++) {
+    const river = tileMap.rivers[i];
+    river.update(ctxScreen);
+  }
+  for (let i = 0; i < tileMap.lavas.length; i++) {
+    const lava = tileMap.lavas[i];
+    lava.update(ctxScreen);
+  }
   cleanMap();
   selectedBtn ? possibilityForClick() : null;
 

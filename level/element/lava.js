@@ -3,13 +3,13 @@ import { BONUS } from "../../core/levelUp/bonus.js";
 import { calculateInterval } from "../../core/utils.js";
 import { Particle } from "../../player/visualEffects.js";
 
-export class River {
+export class Lava {
   constructor(x, y, image) {
     this.x = x * tileSize;
     this.y = y * tileSize;
     this.position = { x, y };
     this.position = { x: x, y: y };
-    this.type = "river";
+    this.type = "lava";
     this.stats = {
       range: tileSize * 2.5,
     };

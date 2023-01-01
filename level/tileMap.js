@@ -8,6 +8,7 @@ import { Star } from "./element/star.js";
 import { selectedBtn } from "../app.js";
 import { Tree } from "./element/tree.js";
 import { River } from "./element/river.js";
+import { Lava } from "./element/lava.js";
 
 export class TileMap {
   constructor() {
@@ -38,7 +39,7 @@ export class TileMap {
     this.towers = [];
 
     this.lava = new Image();
-    this.lava.src = "./src/images/lava.png";
+    this.lava.src = "./src/images/lavaAnimation.png";
     this.lavas = [];
 
     this.river = new Image();
@@ -197,13 +198,6 @@ export class TileMap {
         }
 
         if (tile === "lava") {
-          ctx.drawImage(
-            this.lava,
-            column * this.tileSize,
-            row * this.tileSize,
-            this.tileSize,
-            this.tileSize
-          );
           if (selectedBtn && selectedBtn.type === "bomb") {
             ctx.drawImage(
               this.greenTileFull,
@@ -215,11 +209,20 @@ export class TileMap {
           }
           if (
             !this.lavas.some(
-              (lava) => lava.column === column && lava.row === row
+              (lava) => lava.position.x === column && lava.position.y=== row
             )
           ) {
-            let lava = { column: column, row: row };
+            let lava = new Lava(column, row, this.lava);
             this.lavas.push(lava);
+          }
+          if (selectedBtn && selectedBtn.type === "bomb") {
+            ctx.drawImage(
+              this.greenTileFull,
+              column * this.tileSize,
+              row * this.tileSize,
+              this.tileSize,
+              this.tileSize
+            );
           }
         }
         if (tile === "desert") {
