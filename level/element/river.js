@@ -37,7 +37,10 @@ export class River {
       tileSize,
       tileSize
     );
-    if (calculateInterval(timestamp, this.lastFrame, 1000 / this.frameRate)) {
+    if (
+      calculateInterval(timestamp, this.lastFrame, 1000 / this.frameRate) &&
+      !isPause
+    ) {
       this.frameX = this.frameX < horizontalFrame - 1 ? this.frameX + 1 : 0;
       this.lastFrame = timestamp;
     }
