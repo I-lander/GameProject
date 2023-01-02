@@ -20,8 +20,9 @@ import { ASSETS, loadAssets } from "./core/loadAssets.js";
 import { renderCardDescription } from "./UI/card-description.js";
 import { playSound } from "./core/utils.js";
 
-// Declare & export the variable used to pause the game
-// Declare & export the function that update pause status
+///
+/// esbuild  --bundle --outfile=bundle.js app.js
+///
 
 export let isPause = true;
 export function inversePause() {
@@ -34,8 +35,6 @@ export function updatePause(bool) {
   updateStatusText(pixelUnit);
 }
 
-// Declare & export arrays used to store game elements
-
 export let monsters;
 export let damageTexts;
 export let lowResources = [];
@@ -47,14 +46,10 @@ export function emptyLowResourcesArray() {
   previousText ? previousText.remove() : null;
 }
 
-// Declare & export the canvas variables used to draw on.
-
 export const canvasScreen = document.getElementById("canvasScreen");
 export const ctxScreen = canvasScreen.getContext("2d");
 export const mainMenuCanvas = document.getElementById("mainMenuCanvas");
 export const ctxmainMenuCanvas = canvasScreen.getContext("2d");
-
-// Create and initialize the game screen and map
 
 export let musicMute = false;
 export let soundMute = false;
@@ -83,8 +78,6 @@ export function updateSelectedBtn(btn) {
 }
 
 export const mainMenu = document.getElementById("mainMenu");
-
-// Handle click on start game button
 
 export let isGod = false;
 
@@ -148,8 +141,6 @@ async function initWorld() {
 }
 initWorld();
 
-// Method used to initialize the variable to start the game with clean values
-
 function init() {
   resetBonus();
   resetTileCards();
@@ -159,8 +150,6 @@ function init() {
   damageTexts = [];
   particles = [];
 }
-
-// Method used to start the game after clicking on the start game button
 
 export function startGame() {
   init();
@@ -237,8 +226,6 @@ function animate(timestamp) {
     levelUpScreen(levelUp);
   }
 
-  // Delete particles when too small
-
   particles.forEach((particle, index) => {
     particle.update(ctxScreen);
     if (particle.radius < 0) {
@@ -250,7 +237,6 @@ function animate(timestamp) {
     const spawnPoint = tileMap.spawnPoints[i];
     spawnPoint.update(ctxScreen);
   }
-  // Loop on all monsters to update / draw it
 
   monsters.forEach((monster, index) => {
     drawLifeBar(ctxScreen, monster);
@@ -281,8 +267,6 @@ function animate(timestamp) {
       monster.stats.hp = 0;
     }
 
-    // Handle the death for monsters when hp === 0
-
     if (monster.stats.hp <= 0) {
       for (let i = 0; i < 20; i++) {
         particles.push(
@@ -299,14 +283,11 @@ function animate(timestamp) {
         );
       }
 
-      // Remove the monster from the array
       monsters = monsters.filter((item) => {
         return item !== monster;
       });
     }
   });
-
-  // Loop on the damage text array to delete when needed
 
   damageTexts.forEach((damageText, damageTextIndex) => {
     damageText.draw(ctxScreen);
@@ -390,7 +371,6 @@ function animate(timestamp) {
         gameOverScreen(mainPlayer.level);
       }, 300);
     }
-    // Loop on any player's projectiles & monsters to check if it touch an monster
     player.projectiles.forEach((projectile, projectileIndex) => {
       monsters.forEach((monster, index) => {
         const distance = Math.hypot(

@@ -98,7 +98,7 @@ canvas {
 .buttonsTile {
   background-size: cover;
   background-repeat: no-repeat;
-  background-image: url("./src/images/emptyCard.png");;
+  background-image: url("./src/images/emptyCard.png");
 }
 
 .buttonContainer,
