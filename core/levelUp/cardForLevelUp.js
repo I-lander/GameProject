@@ -30,7 +30,7 @@ const CARD_FOR_LEVEL_UP = [
   },
   class GainResources {
     id = "GainResources";
-    tile = "tileBlank";
+    tile = "resourceTile";
     bonus = "bonus";
     bonusType = "bonus";
     description = "Gain 100 soul resources.";
