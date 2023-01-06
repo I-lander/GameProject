@@ -124,13 +124,16 @@ canvas {
   position: fixed;
   color: white;
   background-color: rgba(0, 0, 0, 0.75);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
 }
 
 .levelUpScreen button {
-  position: absolute;
   background-color: transparent;
   border: none;
-  color: black;
+  color: white;
 }
 
 .levelUpScreen img {
@@ -149,6 +152,14 @@ canvas {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.cardForLevelUp {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 .actionButtons button {

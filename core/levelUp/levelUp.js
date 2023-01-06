@@ -11,38 +11,23 @@ import { ASSETS } from "../loadAssets.js";
 import { playSound } from "../utils.js";
 import { CARD_FOR_LEVEL_UP } from "./cardForLevelUp.js";
 
-const choices = 2;
+const choices = 3;
 
 function levelUpScreen() {
   let buttons = [];
-  let cards = [];
 
   tileMap.players[0].level++;
   const levelUpScreen = document.getElementById("levelUpScreen");
-  const levelNumber = document.getElementById("levelNumber");
-
-  levelNumber.innerText = "Level : " + tileMap.players[0].level;
-  levelNumber.style.position = "absolute";
-  levelNumber.style.width = `${gameScreen.width}px`;
-  levelNumber.style.margin = `${tileSize / 2}px`;
-  levelNumber.style.textAlign = "center";
-  levelNumber.style.fontSize = `${10 * pixelUnit}px`;
-
-  const isBonus = Math.random() < 0.5 ? true : false;
 
   levelUpScreen.classList.remove("disable");
   for (let card = 0; card < choices; card++) {
-    drawCards(levelUpScreen, cards, buttons, isBonus);
+    drawCards(levelUpScreen, buttons);
   }
 }
 
-function drawCards(levelUpScreen, cards, buttons, isBonus) {
-  const buttonSize = { width: 256 * pixelUnit, height: 384 * pixelUnit };
-  const Xpos =
-    tileSize * 2 +
-    buttonSize.width * buttons.length +
-    buttons.length * tileSize;
-  const Ypos = tileSize * 2;
+function drawCards(levelUpScreen, buttons) {
+  let cardDiv = [];
+  const buttonSize = { width: 384 * pixelUnit, height: 128 * pixelUnit };
 
   let cardForSelectionArray = [];
 
@@ -50,73 +35,110 @@ function drawCards(levelUpScreen, cards, buttons, isBonus) {
     cardForSelectionArray.push(new card());
   });
 
-  const cardForSelection = cardForSelectionArray.filter((card) => {
-    return card.isBonus === isBonus;
+  const cardBonusForSelection = cardForSelectionArray.filter((card) => {
+    return card.bonusType === "bonus";
   });
-  let card =
-    cardForSelection[Math.floor(Math.random() * cardForSelection.length)];
-    // cardForSelection[0];
+  const cardPenaltyForSelection = cardForSelectionArray.filter((card) => {
+    return card.bonusType === "penalty";
+  });
+  let cardBonus =
+    cardBonusForSelection[
+      Math.floor(Math.random() * cardBonusForSelection.length)
+    ];
+  let cardPenalty =
+    cardPenaltyForSelection[
+      Math.floor(Math.random() * cardPenaltyForSelection.length)
+    ];
 
-  while (cards.some((existingCard) => existingCard.id === card.id)) {
-    card =
-      cardForSelection[Math.floor(Math.random() * cardForSelection.length)];
-  }
-  cards.push(card);
+  // while (cards.some((existingCard) => existingCard.id === cardBonus.id)) {
+  //   cardBonus =
+  //     cardBonusForSelection[Math.floor(Math.random() * cardBonusForSelection.length)];
+  // // }
+  cardDiv.push(cardBonus);
+  cardDiv.push(cardPenalty);
 
-  const cardImg = ASSETS["cardLevelUp"].cloneNode()
+  const cardImg = ASSETS["cardLevelUp"].cloneNode();
   const newButton = document.createElement("button");
+  newButton.classList.add("cardForLevelUp");
+
+  const bonus = tileSize;
+
   levelUpScreen.appendChild(newButton);
   newButton.appendChild(cardImg);
-  cardImg.style.width = "100%"
-  cardImg.style.height = "100%"
-  cardImg.style.left = "0px"
-  cardImg.style.top = "0px"
+  cardImg.style.width = "100%";
+  cardImg.style.height = "100%";
   newButton.id = `cardLevelUp_${buttons.length}`;
   newButton.style.width = `${buttonSize.width}px`;
-  newButton.style.height = `${buttonSize.height}px`;
+  newButton.style.height = `${buttonSize.height}px !important`;
+  // newButton.style.marginBottom = `${tileSize}px`;
 
-
-  newButton.style.left = `${Xpos}px`;
-  newButton.style.top = `${Ypos}px`;
   newButton.style.width = `${buttonSize.width}px`;
   newButton.style.height = `${buttonSize.height}px`;
 
-  const cardTile = document.createElement("img");
-  const tile = (buttonSize.width * 2) / 3;
-  newButton.append(cardTile);
-  cardTile.src = `./src/images/${card.tile}.png`;
-  cardTile.style.width = `${tile}px`;
-  cardTile.style.height = `${tile}px`;
-  cardTile.style.top = `${0 * pixelUnit}px`;
-  cardTile.style.left = `${0 * pixelUnit}px`;
+  const cardBonusTile = document.createElement("img");
+  newButton.append(cardBonusTile);
+  cardBonusTile.src = `./src/images/${cardBonus.tile}.png`;
+  cardBonusTile.style.width = `${tileSize * 2}px`;
+  cardBonusTile.style.height = `${tileSize * 2}px`;
+  cardBonusTile.style.top = `${0 * pixelUnit}px`;
+  cardBonusTile.style.left = `${0 * pixelUnit}px`;
 
-  const cardBonus = document.createElement("img");
-  newButton.append(cardBonus);
-  const bonus = tile / 2;
-  cardBonus.src = `./src/images/${card.bonus}.png`;
-  cardBonus.style.width = `${bonus}px`;
-  cardBonus.style.height = `${bonus}px`;
-  cardBonus.style.top = `${tile / 2}px`;
-  cardBonus.style.left = `${tile}px`;
+  const cardBonusType = document.createElement("img");
+  newButton.append(cardBonusType);
+  cardBonusType.src = `./src/images/${cardBonus.bonus}Icon.png`;
+  cardBonusType.style.width = `${bonus}px`;
+  cardBonusType.style.height = `${bonus}px`;
+  cardBonusType.style.left = `${tileSize * 2.5}px`;
+  cardBonusType.style.top = `${tileSize / 2}px`;
 
-  const cardDescription = document.createElement("p");
-  newButton.append(cardDescription);
-  const buttonUnit = tile / 32;
-  cardDescription.innerHTML = card.description;
-  cardDescription.style.width = `${buttonSize.width - 16 * buttonUnit}px`;
-  cardDescription.style.top = `${tile + 4 * buttonUnit}px`;
-  cardDescription.style.left = `${buttonUnit * 8}px`;
-  cardDescription.style.textAlign = "center";
-  cardDescription.style.fontSize = `${9 * pixelUnit}px`;
-  cardDescription.style.lineHeight = `${tileSize / 2}px`;
+  const cardBonusDescription = document.createElement("p");
+  newButton.append(cardBonusDescription);
+  cardBonusDescription.innerHTML = cardBonus.description;
+  cardBonusDescription.style.width = `${
+    buttonSize.width - tileSize * 4 - 4 * pixelUnit
+  }px`;
+  cardBonusDescription.style.height = `${buttonSize.height / 2}px`;
+  cardBonusDescription.style.top = `${0}px`;
+  cardBonusDescription.style.left = `${tileSize * 4}px`;
+  cardBonusDescription.style.textAlign = "center";
+  cardBonusDescription.style.fontSize = `${9 * pixelUnit}px`;
+  cardBonusDescription.style.lineHeight = `${tileSize / 2}px`;
+
+  const cardPenaltyTile = document.createElement("img");
+  newButton.append(cardPenaltyTile);
+  cardPenaltyTile.src = `./src/images/${cardPenalty.tile}.png`;
+  cardPenaltyTile.style.width = `${tileSize * 2}px`;
+  cardPenaltyTile.style.height = `${tileSize * 2}px`;
+  cardPenaltyTile.style.top = `${tileSize * 2}px`;
+  cardPenaltyTile.style.left = `${0 * pixelUnit}px`;
+
+  const cardPenaltyType = document.createElement("img");
+  newButton.append(cardPenaltyType);
+  cardPenaltyType.src = `./src/images/${cardPenalty.bonus}Icon.png`;
+  cardPenaltyType.style.width = `${bonus}px`;
+  cardPenaltyType.style.height = `${bonus}px`;
+  cardPenaltyType.style.left = `${tileSize * 2.5}px`;
+  cardPenaltyType.style.top = `${tileSize * 2.5}px`;
+
+  const cardPenaltyDescription = document.createElement("p");
+  newButton.append(cardPenaltyDescription);
+  cardPenaltyDescription.innerHTML = cardPenalty.description;
+  cardPenaltyDescription.style.width = `${
+    buttonSize.width - tileSize * 4 - 4 * pixelUnit
+  }px`;
+  cardPenaltyDescription.style.height = `${buttonSize.height / 2}px`;
+  cardPenaltyDescription.style.top = `${buttonSize.height / 2}px`;
+  cardPenaltyDescription.style.left = `${tileSize * 4}px`;
+  cardPenaltyDescription.style.textAlign = "center";
+  cardPenaltyDescription.style.fontSize = `${9 * pixelUnit}px`;
+  cardPenaltyDescription.style.lineHeight = `${tileSize / 2}px`;
 
   newButton.onclick = () => {
-    card.function();
-    card.id === "PlaceSpawnPoint" || card.id === "Spawn"
-      ? null
-      : generateSpawn();
+    cardBonus.function();
+    cardPenalty.function();
+    generateSpawn();
     levelUpScreen.classList.add("disable");
-    playSound("clic")
+    playSound("clic");
     inverseLeveUp();
     inversePause();
   };

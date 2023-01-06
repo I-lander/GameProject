@@ -16,7 +16,7 @@ const CARD_FOR_LEVEL_UP = [
     id = "PlaceSpawnPoint";
     tile = "spawnTile";
     bonus = "bonusBlank";
-    isBonus = true;
+    bonusType = "other";
     description =
       "Place an spawn point anywhere in the screen border.</br>Gain 3 soul resources.";
     function = () => {
@@ -31,30 +31,28 @@ const CARD_FOR_LEVEL_UP = [
   class GainResources {
     id = "GainResources";
     tile = "tileBlank";
-    bonus = "bonusUp";
-    isBonus = true;
-    description = "Gain 100 soul resources.</br>Lose 10 PV.";
+    bonus = "bonus";
+    bonusType = "bonus";
+    description = "Gain 100 soul resources.";
     function = () => {
       tileMap.players[0].stats.soulResource += 100;
-      tileMap.players[0].stats.hp -= 10;
     };
   },
   class GainLife {
     id = "GainLife";
     tile = "healthCross";
-    bonus = "bonusUp";
-    isBonus = true;
-    description = "Gain 10 HP.</br>Lose 100 soul resources .";
+    bonus = "bonus";
+    bonusType = "bonus";
+    description = "Gain 10 HP.";
     function = () => {
-      tileMap.players[0].stats.soulResource -= 100;
       tileMap.players[0].stats.hp += 10;
     };
   },
   class TowerForceUpgrade {
     id = "TowerForceUpgrade";
     tile = "tower";
-    bonus = "forceUp";
-    isBonus = true;
+    bonus = "force";
+    bonusType = "bonus";
     description = "All towers gain + 1 attack.";
     function = () => {
       BONUS.TOWER_FORCE += 1;
@@ -63,8 +61,8 @@ const CARD_FOR_LEVEL_UP = [
   class TowerForceDowngrade {
     id = "TowerForceDowngrade";
     tile = "tower";
-    bonus = "forceDown";
-    isBonus = false;
+    bonus = "force";
+    bonusType = "penalty";
     description = "All towers lose 1 attack.</br>Minimum force bonus : -2";
     function = () => {
       BONUS.TOWER_FORCE -= 1;
@@ -74,8 +72,8 @@ const CARD_FOR_LEVEL_UP = [
   class GodForceUpgrade {
     id = "GodForceUpgrade";
     tile = "godTile";
-    bonus = "forceUp";
-    isBonus = true;
+    bonus = "force";
+    bonusType = "bonus";
     description = "God gains + 1 attack.";
     function = () => {
       BONUS.GOD_FORCE += 1;
@@ -84,8 +82,8 @@ const CARD_FOR_LEVEL_UP = [
   class GodForceDowngrade {
     id = "GodForceDowngrade";
     tile = "godTile";
-    bonus = "forceDown";
-    isBonus = false;
+    bonus = "force";
+    bonusType = "penalty";
     description = "God lose 1 attack.</br>Minimum force bonus : -2";
     function = () => {
       BONUS.GOD_FORCE -= 1;
@@ -95,8 +93,8 @@ const CARD_FOR_LEVEL_UP = [
   class LavaForceUpgrade {
     id = "LavaForceUpgrade";
     tile = "lava";
-    bonus = "forceUp";
-    isBonus = true;
+    bonus = "force";
+    bonusType = "bonus";
     description = `Lava gains + 1 attack.`;
     function = () => {
       BONUS.LAVA_FORCE += 1;
@@ -105,8 +103,8 @@ const CARD_FOR_LEVEL_UP = [
   class LavaForceDowngrade {
     id = "LavaForceDowngrade";
     tile = "lava";
-    bonus = "forceDown";
-    isBonus = false;
+    bonus = "force";
+    bonusType = "penalty";
     description = "Lava lose 1 attack.</br>Minimum force bonus : -2";
     function = () => {
       BONUS.LAVA_FORCE -= 1;
@@ -116,8 +114,8 @@ const CARD_FOR_LEVEL_UP = [
   class TowerCooldownUpgrade {
     id = "TowerCooldownUpgrade";
     tile = "tower";
-    bonus = "cooldownUp";
-    isBonus = true;
+    bonus = "cooldown";
+    bonusType = "bonus";
     description = `Towers shoot cooldown is decreased of 0.1 sec.`;
 
     function = () => {
@@ -128,8 +126,8 @@ const CARD_FOR_LEVEL_UP = [
   class TowerCooldownDowngrade {
     id = "TowerCooldownDowngrade";
     tile = "tower";
-    bonus = "cooldownDown";
-    isBonus = false;
+    bonus = "cooldown";
+    bonusType = "penalty";
     description = `Towers shoot cooldown is increased of 0.1 sec.`;
     function = () => {
       BONUS.TOWER_COOLDOWN < 700 ? (BONUS.TOWER_COOLDOWN += 100) : null;
@@ -138,8 +136,8 @@ const CARD_FOR_LEVEL_UP = [
   class GodCooldownUpgrade {
     id = "GodCooldownUpgrade";
     tile = "godTile";
-    bonus = "cooldownUp";
-    isBonus = true;
+    bonus = "cooldown";
+    bonusType = "bonus";
     description = `God shoot cooldown is decreased of 0.1 sec.`;
 
     function = () => {
@@ -150,8 +148,8 @@ const CARD_FOR_LEVEL_UP = [
   class GodCooldownDowngrade {
     id = "GodCooldownDowngrade";
     tile = "godTile";
-    bonus = "cooldownDown";
-    isBonus = false;
+    bonus = "cooldown";
+    bonusType = "penalty";
     description = `God shoot cooldown is increased of 0.1 sec.`;
     function = () => {
       BONUS.GOD_COOLDOWN < 700 ? (BONUS.GOD_COOLDOWN += 100) : null;
@@ -160,8 +158,8 @@ const CARD_FOR_LEVEL_UP = [
   class GodRangeDowngrade {
     id = "GodRangeDowngrade";
     tile = "godTile";
-    bonus = "rangeDown";
-    isBonus = false;
+    bonus = "range";
+    bonusType = "penalty";
     description = `God range is shortened.`;
     function = () => {
       BONUS.GOD_RANGE -= 0.5 * tileSize;
@@ -173,8 +171,8 @@ const CARD_FOR_LEVEL_UP = [
   class GodRangeUpgrade {
     id = "GodRangeUpgrade";
     tile = "godTile";
-    bonus = "rangeUp";
-    isBonus = true;
+    bonus = "range";
+    bonusType = "bonus";
     description = `God range is expended.`;
     function = () => {
       BONUS.GOD_RANGE += 0.5 * tileSize;
@@ -184,8 +182,8 @@ const CARD_FOR_LEVEL_UP = [
   class TowerRangeDowngrade {
     id = "TowerRangeDowngrade";
     tile = "tower";
-    bonus = "rangeDown";
-    isBonus = false;
+    bonus = "range";
+    bonusType = "penalty";
     description = `Tower range is shortened.`;
     function = () => {
       BONUS.TOWER_RANGE -= 0.5 * tileSize;
@@ -197,8 +195,8 @@ const CARD_FOR_LEVEL_UP = [
   class TowerRangeUpgrade {
     id = "TowerRangeUpgrade";
     tile = "tower";
-    bonus = "rangeUp";
-    isBonus = true;
+    bonus = "range";
+    bonusType = "bonus";
     description = `Tower range is expended.`;
     function = () => {
       BONUS.TOWER_RANGE += 0.5 * tileSize;
@@ -210,8 +208,8 @@ const CARD_FOR_LEVEL_UP = [
   class StarRangeUpgrade {
     id = "StarRangeUpgrade";
     tile = "star";
-    bonus = "rangeUp";
-    isBonus = true;
+    bonus = "range";
+    bonusType = "bonus";
     description = `Star range is expended.`;
     function = () => {
       BONUS.STAR_RANGE += 0.5 * tileSize;
@@ -223,8 +221,8 @@ const CARD_FOR_LEVEL_UP = [
   class StarRangeDowngrade {
     id = "StarRangeDowngrade";
     tile = "star";
-    bonus = "rangeDown";
-    isBonus = false;
+    bonus = "range";
+    bonusType = "penalty";
     description = `Star range is shortened.`;
     function = () => {
       BONUS.STAR_RANGE -= 0.5 * tileSize;
