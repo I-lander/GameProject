@@ -26,7 +26,6 @@ function levelUpScreen() {
 }
 
 function drawCards(levelUpScreen, buttons) {
-  let cardDiv = [];
   const buttonSize = { width: 384 * pixelUnit, height: 128 * pixelUnit };
 
   let cardForSelectionArray = [];
@@ -50,12 +49,11 @@ function drawCards(levelUpScreen, buttons) {
       Math.floor(Math.random() * cardPenaltyForSelection.length)
     ];
 
-  // while (cards.some((existingCard) => existingCard.id === cardBonus.id)) {
-  //   cardBonus =
-  //     cardBonusForSelection[Math.floor(Math.random() * cardBonusForSelection.length)];
-  // // }
-  cardDiv.push(cardBonus);
-  cardDiv.push(cardPenalty);
+  while (cardBonus.tile === cardPenalty.tile && cardPenalty.bonus === cardPenalty.bonus) {
+    console.log(cardPenalty);
+    cardPenalty =
+    cardPenaltyForSelection[Math.floor(Math.random() * cardPenaltyForSelection.length)];
+  }
 
   const cardImg = ASSETS["cardLevelUp"].cloneNode();
   const newButton = document.createElement("button");
@@ -70,7 +68,6 @@ function drawCards(levelUpScreen, buttons) {
   newButton.id = `cardLevelUp_${buttons.length}`;
   newButton.style.width = `${buttonSize.width}px`;
   newButton.style.height = `${buttonSize.height}px !important`;
-  // newButton.style.marginBottom = `${tileSize}px`;
 
   newButton.style.width = `${buttonSize.width}px`;
   newButton.style.height = `${buttonSize.height}px`;
