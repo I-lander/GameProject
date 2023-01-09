@@ -50,7 +50,6 @@ function drawCards(levelUpScreen, buttons) {
     ];
 
   while (cardBonus.tile === cardPenalty.tile && cardPenalty.bonus === cardPenalty.bonus) {
-    console.log(cardPenalty);
     cardPenalty =
     cardPenaltyForSelection[Math.floor(Math.random() * cardPenaltyForSelection.length)];
   }
@@ -138,6 +137,7 @@ function drawCards(levelUpScreen, buttons) {
     playSound("clic");
     inverseLeveUp();
     inversePause();
+    levelUpScreen.innerHTML = ""
   };
 
   buttons.push(newButton);

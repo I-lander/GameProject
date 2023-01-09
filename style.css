@@ -122,7 +122,7 @@ canvas {
 
 .levelUpScreen {
   position: fixed;
-  color: white;
+  color: black;
   background-color: rgba(0, 0, 0, 0.75);
   display: flex;
   justify-content: space-around;
@@ -133,7 +133,6 @@ canvas {
 .levelUpScreen button {
   background-color: transparent;
   border: none;
-  color: white;
 }
 
 .levelUpScreen img {
