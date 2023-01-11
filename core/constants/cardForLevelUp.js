@@ -1,8 +1,6 @@
 import {
-  cleanMap,
   ctxScreen,
   inversePause,
-  pixelUnit,
   tileMap,
   tileSize,
   updateSelectedBtn,
@@ -38,6 +36,16 @@ const CARD_FOR_LEVEL_UP = [
       tileMap.players[0].stats.soulResource += 100;
     };
   },
+  class LoseResources {
+    id = "LoseResources";
+    tile = "resourceTile";
+    bonus = "penalty";
+    bonusType = "penalty";
+    description = "Lose 100 soul resources.";
+    function = () => {
+      tileMap.players[0].stats.soulResource -= 100;
+    };
+  },
   class GainLife {
     id = "GainLife";
     tile = "healthCross";
@@ -63,7 +71,7 @@ const CARD_FOR_LEVEL_UP = [
     tile = "tower";
     bonus = "force";
     bonusType = "penalty";
-    description = "All towers lose 1 attack.</br>Minimum force bonus : -2";
+    description = "All towers lose 1 attack.";
     function = () => {
       BONUS.TOWER_FORCE -= 1;
       BONUS.TOWER_FORCE < -2 ? (BONUS.TOWER_FORCE = -2) : null;
@@ -84,7 +92,7 @@ const CARD_FOR_LEVEL_UP = [
     tile = "godTile";
     bonus = "force";
     bonusType = "penalty";
-    description = "God lose 1 attack.</br>Minimum force bonus : -2";
+    description = "God lose 1 attack.";
     function = () => {
       BONUS.GOD_FORCE -= 1;
       BONUS.GOD_FORCE < -2 ? (BONUS.GOD_FORCE = -2) : null;
@@ -105,10 +113,31 @@ const CARD_FOR_LEVEL_UP = [
     tile = "lava";
     bonus = "force";
     bonusType = "penalty";
-    description = "Lava lose 1 attack.</br>Minimum force bonus : -2";
+    description = "Lava lose 1 attack.";
     function = () => {
       BONUS.LAVA_FORCE -= 1;
       BONUS.LAVA_FORCE < -2 ? (BONUS.LAVA_FORCE = -2) : null;
+    };
+  },
+  class TempleForceUpgrade {
+    id = "TempleForceUpgrade";
+    tile = "temple";
+    bonus = "force";
+    bonusType = "bonus";
+    description = `Temple generate one more resource.`;
+    function = () => {
+      BONUS.TEMPLE_FORCE += 1;
+    };
+  },
+  class TempleForceDowngrade {
+    id = "TempleForceDowngrade";
+    tile = "temple";
+    bonus = "force";
+    bonusType = "penalty";
+    description = "Temple generate one less more resource.";
+    function = () => {
+      BONUS.TEMPLE_FORCE -= 1;
+      BONUS.TEMPLE_FORCE < -4 ? (BONUS.TEMPLE_FORCE = -4) : null;
     };
   },
   class TowerCooldownUpgrade {
@@ -131,6 +160,28 @@ const CARD_FOR_LEVEL_UP = [
     description = `Towers shoot cooldown is increased of 0.1 sec.`;
     function = () => {
       BONUS.TOWER_COOLDOWN < 700 ? (BONUS.TOWER_COOLDOWN += 100) : null;
+    };
+  },
+  class TempleCooldownUpgrade {
+    id = "TempleCooldownUpgrade";
+    tile = "temple";
+    bonus = "cooldown";
+    bonusType = "bonus";
+    description = `Temples shoot cooldown is decreased of 0.1 sec.`;
+
+    function = () => {
+      BONUS.TEMPLE_COOLDOWN -= 10;
+      BONUS.TEMPLE_COOLDOWN < -40 ? (BONUS.TEMPLE_COOLDOWN = -40) : null;
+    };
+  },
+  class TempleCooldownDowngrade {
+    id = "TempleCooldownDowngrade";
+    tile = "temple";
+    bonus = "cooldown";
+    bonusType = "penalty";
+    description = `Temples shoot cooldown is increased of 0.1 sec.`;
+    function = () => {
+      BONUS.TEMPLE_COOLDOWN < 70 ? (BONUS.TEMPLE_COOLDOWN += 10) : null;
     };
   },
   class GodCooldownUpgrade {

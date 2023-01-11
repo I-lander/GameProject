@@ -14,7 +14,7 @@ import { Projectile } from "./projectile.js";
 import { calculateInterval, playSound } from "../core/utils.js";
 import { DrawDamage } from "./utils.js";
 import { marginLeft, marginTop } from "../UI/ScreenInit.js";
-import { BONUS } from "../core/levelUp/bonus.js";
+import { BONUS } from "../core/constants/bonus.js";
 import { ASSETS } from "../core/loadAssets.js";
 class Player {
   constructor(x, y, position, radius, image) {

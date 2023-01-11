@@ -14,7 +14,7 @@ import { calculateInterval, speedFactor } from "../../core/utils.js";
 
 import findPath from "./findPath.js";
 import { MONSTERS_STATS } from "../../core/constants/monsters.js";
-import { BONUS } from "../../core/levelUp/bonus.js";
+import { BONUS } from "../../core/constants/bonus.js";
 import { ASSETS } from "../../core/loadAssets.js";
 
 const bombArray = [];
@@ -51,9 +51,9 @@ export class Monster {
     this.path = findPath(this.startVec, this.targetVec, this.stats.type); // Create the path
 
     this.lastLavaDamage = 0;
-    this.lavaCooldown = 1000
+    this.lavaCooldown = 1000;
 
-    this.desertFactor = 0.5
+    this.desertFactor = 0.5;
 
     this.distance = 0;
     this.position = tileMap.getPosition(this.x, this.y);

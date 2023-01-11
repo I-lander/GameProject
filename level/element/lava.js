@@ -1,5 +1,5 @@
 import { tileSize, pixelUnit, particles, isPause } from "../../app.js";
-import { BONUS } from "../../core/levelUp/bonus.js";
+import { BONUS } from "../../core/constants/bonus.js";
 import { calculateInterval } from "../../core/utils.js";
 import { Particle } from "../../player/visualEffects.js";
 
@@ -37,7 +37,10 @@ export class Lava {
       tileSize,
       tileSize
     );
-    if (calculateInterval(timestamp, this.lastFrame, 1000 / this.frameRate) && !isPause) {
+    if (
+      calculateInterval(timestamp, this.lastFrame, 1000 / this.frameRate) &&
+      !isPause
+    ) {
       this.frameX = this.frameX < horizontalFrame - 1 ? this.frameX + 1 : 0;
       this.lastFrame = timestamp;
     }

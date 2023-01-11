@@ -47,7 +47,7 @@ const CARD_ELEMENTS = [
     increaseBy: 0,
     increaseMax: 10,
     maximum: 3,
-    description: "Generate 5 mana every 5 seconds.",
+    description: "Generate resources.",
   },
   {
     type: "tower",
@@ -89,7 +89,7 @@ const CARD_ELEMENTS = [
     increaseBy: 0,
     increaseMax: 10,
     maximum: 4,
-    description: "Heal 1 HP every 5 seconds.",
+    description: "Heals.",
   },
   {
     type: "star",

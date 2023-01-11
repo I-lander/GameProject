@@ -1,5 +1,5 @@
 import { tileSize, pixelUnit, particles, isPause } from "../../app.js";
-import { BONUS } from "../../core/levelUp/bonus.js";
+import { BONUS } from "../../core/constants/bonus.js";
 import { calculateInterval } from "../../core/utils.js";
 import { Particle } from "../../player/visualEffects.js";
 

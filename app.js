@@ -11,11 +11,11 @@ import {
 import { Monster } from "./player/NPCs/monster.js";
 import { drawLifeBar } from "./player/utils.js";
 import { mapSizeX, mapSizeY } from "./level/map.js";
-import { levelUpScreen } from "./core/levelUp/levelUp.js";
+import { levelUpScreen } from "./UI/levelUp.js";
 import { createActionButton, updateStatusText } from "./UI/actionButtons.js";
 import { handleClick, thunders } from "./core/handleClick.js";
 import { gameOverScreen } from "./UI/gameOverScreen.js";
-import { resetBonus } from "./core/levelUp/bonus.js";
+import { resetBonus } from "./core/constants/bonus.js";
 import { ASSETS, loadAssets } from "./core/loadAssets.js";
 import { renderCardDescription } from "./UI/card-description.js";
 import { playSound } from "./core/utils.js";

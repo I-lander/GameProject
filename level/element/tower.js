@@ -7,7 +7,7 @@ import {
 } from "../../app.js";
 import { Projectile } from "../../player/projectile.js";
 import { calculateInterval } from "../../core/utils.js";
-import { BONUS } from "../../core/levelUp/bonus.js";
+import { BONUS } from "../../core/constants/bonus.js";
 import { ASSETS } from "../../core/loadAssets.js";
 
 export class Tower {

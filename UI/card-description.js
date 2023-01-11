@@ -8,7 +8,7 @@ import {
   tileSize,
 } from "../app.js";
 import { CARD_ELEMENTS } from "../core/constants/tiles.js";
-import { BONUS } from "../core/levelUp/bonus.js";
+import { BONUS } from "../core/constants/bonus.js";
 import { ASSETS } from "../core/loadAssets.js";
 import { LowResource } from "../core/lowResource.js";
 import { getNumberOfElement, playSound } from "../core/utils.js";
@@ -242,8 +242,8 @@ function cardDescriptionStats(cardDescriptionText, cardSelected) {
     },
     {
       tile: "temple",
-      force: `${5} hp`,
-      cooldown: `${5000 / 1000} sec`,
+      force: `${5 + BONUS.TEMPLE_FORCE} resources`,
+      cooldown: `${(50 + BONUS.TEMPLE_COOLDOWN) / 10} sec`,
     },
     {
       tile: "tree",

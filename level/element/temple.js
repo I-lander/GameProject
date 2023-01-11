@@ -6,6 +6,7 @@ import {
   gameScreen,
   soundMute,
 } from "../../app.js";
+import { BONUS } from "../../core/constants/bonus.js";
 import { ASSETS } from "../../core/loadAssets.js";
 import { calculateInterval } from "../../core/utils.js";
 
@@ -32,7 +33,9 @@ export class Temple {
   update(ctx) {
     let timestamp = Date.now();
     this.drawLoadingCircle(ctx, timestamp);
-    if (calculateInterval(timestamp, this.lastUpdate, 50)) {
+    if (
+      calculateInterval(timestamp, this.lastUpdate, 50 + BONUS.TEMPLE_COOLDOWN)
+    ) {
       this.stats.manaLoad++;
       this.lastUpdate = timestamp;
     }
@@ -41,7 +44,7 @@ export class Temple {
     }
   }
 
-  drawLoadingCircle(ctx, timestamp) {
+  drawLoadingCircle(ctx) {
     let x = this.x + tileSize / 2;
     let y = this.y;
     const barRatio = this.stats.manaLoad / this.stats.maxMana;
@@ -55,6 +58,7 @@ export class Temple {
     ctx.fillStyle = "white";
     ctx.fill();
     ctx.restore();
+
     if (barRatio >= 1 && !this.ismanaGenerated) {
       this.ismanaGenerated = true;
       const localResourcePopingAudio = this.resourcePopingAudio.cloneNode();
@@ -67,7 +71,8 @@ export class Temple {
       this.manasToFeed[i].update(ctx);
       if (this.manasToFeed[i].x >= this.manasToFeed[i].targetX) {
         this.manasToFeed.splice(i, 1);
-        tileMap.players[0].stats.soulResource += this.stats.manaBonus;
+        tileMap.players[0].stats.soulResource +=
+          this.stats.manaBonus + BONUS.TEMPLE_FORCE;
         this.ismanaGenerated = false;
       }
     }

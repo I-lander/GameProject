@@ -14,7 +14,7 @@ import {
   initIsGod,
   updateSelectedBtn,
 } from "../app.js";
-import { resetBonus } from "../core/levelUp/bonus.js";
+import { resetBonus } from "../core/constants/bonus.js";
 import { ASSETS } from "../core/loadAssets.js";
 import { playSound } from "../core/utils.js";
 import { updateStatusText } from "./actionButtons.js";

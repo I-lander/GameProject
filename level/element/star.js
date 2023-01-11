@@ -1,5 +1,5 @@
 import { tileSize, pixelUnit, particles } from "../../app.js";
-import { BONUS } from "../../core/levelUp/bonus.js";
+import { BONUS } from "../../core/constants/bonus.js";
 import { Particle } from "../../player/visualEffects.js";
 
 export class Star {

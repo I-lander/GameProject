@@ -4,14 +4,13 @@ import {
   pixelUnit,
   inversePause,
   inverseLeveUp,
-  gameScreen,
-} from "../../app.js";
-import { generateSpawn } from "../../player/NPCs/spawn.js";
-import { ASSETS } from "../loadAssets.js";
-import { playSound } from "../utils.js";
-import { CARD_FOR_LEVEL_UP } from "./cardForLevelUp.js";
+} from "../app.js";
+import { generateSpawn } from "../player/NPCs/spawn.js";
+import { ASSETS } from "../core/loadAssets.js";
+import { playSound } from "../core/utils.js";
+import { CARD_FOR_LEVEL_UP } from "../core/constants/cardForLevelUp.js";
 
-const choices = 3;
+const choices = 2;
 
 function levelUpScreen() {
   let buttons = [];
@@ -49,9 +48,14 @@ function drawCards(levelUpScreen, buttons) {
       Math.floor(Math.random() * cardPenaltyForSelection.length)
     ];
 
-  while (cardBonus.tile === cardPenalty.tile && cardPenalty.bonus === cardPenalty.bonus) {
+  while (
+    cardBonus.tile === cardPenalty.tile &&
+    cardPenalty.bonus === cardPenalty.bonus
+  ) {
     cardPenalty =
-    cardPenaltyForSelection[Math.floor(Math.random() * cardPenaltyForSelection.length)];
+      cardPenaltyForSelection[
+        Math.floor(Math.random() * cardPenaltyForSelection.length)
+      ];
   }
 
   const cardImg = ASSETS["cardLevelUp"].cloneNode();
@@ -137,7 +141,7 @@ function drawCards(levelUpScreen, buttons) {
     playSound("clic");
     inverseLeveUp();
     inversePause();
-    levelUpScreen.innerHTML = ""
+    levelUpScreen.innerHTML = "";
   };
 
   buttons.push(newButton);
