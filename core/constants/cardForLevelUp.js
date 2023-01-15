@@ -134,10 +134,31 @@ const CARD_FOR_LEVEL_UP = [
     tile = "temple";
     bonus = "force";
     bonusType = "penalty";
-    description = "Temple generate one less more resource.";
+    description = "Temple generate one less resource.";
     function = () => {
       BONUS.TEMPLE_FORCE -= 1;
       BONUS.TEMPLE_FORCE < -4 ? (BONUS.TEMPLE_FORCE = -4) : null;
+    };
+  },
+  class TreeForceUpgrade {
+    id = "TreeForceUpgrade";
+    tile = "tree";
+    bonus = "force";
+    bonusType = "bonus";
+    description = `Tree generate one more resource.`;
+    function = () => {
+      BONUS.TREE_FORCE += 1;
+    };
+  },
+  class TreeForceDowngrade {
+    id = "TreeForceDowngrade";
+    tile = "tree";
+    bonus = "force";
+    bonusType = "penalty";
+    description = "Tree generate one less more resource.</br> Be carefull, if value negative, it will hit and not heal.";
+    function = () => {
+      BONUS.TREE_FORCE -= 1;
+      BONUS.TREE_FORCE < -2 ? (BONUS.TREE_FORCE = -2) : null;
     };
   },
   class TowerCooldownUpgrade {
@@ -182,6 +203,28 @@ const CARD_FOR_LEVEL_UP = [
     description = `Temples shoot cooldown is increased of 0.1 sec.`;
     function = () => {
       BONUS.TEMPLE_COOLDOWN < 70 ? (BONUS.TEMPLE_COOLDOWN += 10) : null;
+    };
+  },
+  class TreeCooldownUpgrade {
+    id = "TreeCooldownUpgrade";
+    tile = "tree";
+    bonus = "cooldown";
+    bonusType = "bonus";
+    description = `Trees shoot cooldown is decreased of 0.1 sec.`;
+
+    function = () => {
+      BONUS.TREE_COOLDOWN -= 10;
+      BONUS.TREE_COOLDOWN < -40 ? (BONUS.TREE_COOLDOWN = -40) : null;
+    };
+  },
+  class TreeCooldownDowngrade {
+    id = "TreeCooldownDowngrade";
+    tile = "tree";
+    bonus = "cooldown";
+    bonusType = "penalty";
+    description = `Trees shoot cooldown is increased of 0.1 sec.`;
+    function = () => {
+      BONUS.TREE_COOLDOWN < 70 ? (BONUS.TREE_COOLDOWN += 10) : null;
     };
   },
   class GodCooldownUpgrade {

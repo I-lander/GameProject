@@ -1,4 +1,5 @@
 import { tileSize, tileMap, pixelUnit, delta, gameScreen } from "../../app.js";
+import { BONUS } from "../../core/constants/bonus.js";
 import { calculateInterval } from "../../core/utils.js";
 
 export class Tree {
@@ -10,7 +11,6 @@ export class Tree {
     this.stats = {
       healthLoad: 0,
       maxHealth: 100,
-      loadSpeed: 20,
       healthBonus: 1,
     };
     this.isAttack = false;
@@ -25,7 +25,7 @@ export class Tree {
     let timestamp = Date.now();
     this.drawLoadingHealth(ctx);
     if (
-      calculateInterval(timestamp, this.lastUpdate, 1000 / this.stats.loadSpeed)
+      calculateInterval(timestamp, this.lastUpdate, 50 + BONUS.TREE_COOLDOWN)
     ) {
       this.stats.healthLoad++;
       this.lastUpdate = timestamp;
@@ -33,7 +33,7 @@ export class Tree {
     if (this.stats.healthLoad > this.stats.maxHealth) {
       this.stats.healthLoad = 0;
       if (tileMap.players[0].stats.hp < tileMap.players[0].maxHp) {
-        tileMap.players[0].stats.hp += this.stats.healthBonus;
+        tileMap.players[0].stats.hp += this.stats.healthBonus + BONUS.TREE_FORCE;
       }
       const health = new HealthToFeed(this.x, this.y);
       this.healthsToFeed.push(health);
@@ -43,7 +43,7 @@ export class Tree {
       this.healthsToFeed[i].update(ctx);
       if (this.healthsToFeed[i].x >= this.healthsToFeed[i].targetX) {
         this.healthsToFeed.splice(i, 1);
-        tileMap.players[0].stats.healthResource += this.stats.healthBonus;
+        tileMap.players[0].stats.healthResource += this.stats.healthBonus + BONUS.TREE_FORCE;
         this.ishealthGenerated = false;
       }
     }

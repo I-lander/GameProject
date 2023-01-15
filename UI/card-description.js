@@ -247,8 +247,8 @@ function cardDescriptionStats(cardDescriptionText, cardSelected) {
     },
     {
       tile: "tree",
-      force: `${5} hp`,
-      cooldown: `${5000 / 1000} sec`,
+      force: `${1 + BONUS.TREE_FORCE} hp`,
+      cooldown: `${(50 + BONUS.TREE_COOLDOWN) / 10} sec`,
     },
     {
       tile: "lava",
