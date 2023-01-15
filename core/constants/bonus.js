@@ -10,7 +10,11 @@ const BONUS = {
   TREE_COOLDOWN: 0,
   GOD_RANGE: 0,
   LAVA_FORCE: 0,
+  LAVA_COOLDOWN: 0,
   STAR_RANGE: 0,
+  THUNDER_FORCE: 0,
+  THUNDER_RANGE: 0,
+  DESERT_SPEED: 0,
 };
 
 export function resetBonus() {

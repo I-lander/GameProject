@@ -253,11 +253,11 @@ function cardDescriptionStats(cardDescriptionText, cardSelected) {
     {
       tile: "lava",
       force: `${3 + BONUS.LAVA_FORCE}`,
-      cooldown: `${1000 / 1000} sec`,
+      cooldown: `${(1000 + BONUS.LAVA_COOLDOWN) / 1000} sec`,
     },
     {
       tile: "desert",
-      speed: `${0.5}`,
+      speed: `${0.5 + BONUS.DESERT_SPEED}`,
     },
     {
       tile: "star",
@@ -265,8 +265,8 @@ function cardDescriptionStats(cardDescriptionText, cardSelected) {
     },
     {
       tile: "thunder",
-      force: `${100}`,
-      range: `${2}`,
+      force: `${100 + BONUS.THUNDER_FORCE}`,
+      range: `${2 + BONUS.THUNDER_RANGE / tileSize}`,
     },
   ];
   cardDescriptionText.classList.add("cardDescriptionText");

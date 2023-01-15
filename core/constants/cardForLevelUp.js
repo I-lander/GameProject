@@ -77,6 +77,27 @@ const CARD_FOR_LEVEL_UP = [
       BONUS.TOWER_FORCE < -2 ? (BONUS.TOWER_FORCE = -2) : null;
     };
   },
+  class ThunderForceUpgrade {
+    id = "ThunderForceUpgrade";
+    tile = "thunder";
+    bonus = "force";
+    bonusType = "bonus";
+    description = "All Thunders gain + 1 attack.";
+    function = () => {
+      BONUS.THUNDER_FORCE += 10;
+    };
+  },
+  class ThunderForceDowngrade {
+    id = "ThunderForceDowngrade";
+    tile = "thunder";
+    bonus = "force";
+    bonusType = "penalty";
+    description = "All Thunders lose 1 attack.";
+    function = () => {
+      BONUS.THUNDER_FORCE -= 10;
+      BONUS.THUNDER_FORCE < -90 ? (BONUS.THUNDER_FORCE = -90) : null;
+    };
+  },
   class GodForceUpgrade {
     id = "GodForceUpgrade";
     tile = "godTile";
@@ -155,7 +176,8 @@ const CARD_FOR_LEVEL_UP = [
     tile = "tree";
     bonus = "force";
     bonusType = "penalty";
-    description = "Tree generate one less more resource.</br> Be carefull, if value negative, it will hit and not heal.";
+    description =
+      "Tree generate one less more resource.</br> Be carefull, if value negative, it will hit and not heal.";
     function = () => {
       BONUS.TREE_FORCE -= 1;
       BONUS.TREE_FORCE < -2 ? (BONUS.TREE_FORCE = -2) : null;
@@ -236,7 +258,7 @@ const CARD_FOR_LEVEL_UP = [
 
     function = () => {
       BONUS.GOD_COOLDOWN -= 100;
-      BONUS.GOD_COOLDOWN < -700 ? (BONUS.TOWER_COOLDOWN = -700) : null;
+      BONUS.GOD_COOLDOWN < -700 ? (BONUS.GOD_COOLDOWN = -700) : null;
     };
   },
   class GodCooldownDowngrade {
@@ -247,6 +269,28 @@ const CARD_FOR_LEVEL_UP = [
     description = `God shoot cooldown is increased of 0.1 sec.`;
     function = () => {
       BONUS.GOD_COOLDOWN < 700 ? (BONUS.GOD_COOLDOWN += 100) : null;
+    };
+  },
+  class LavaCooldownUpgrade {
+    id = "LavaCooldownUpgrade";
+    tile = "lava";
+    bonus = "cooldown";
+    bonusType = "bonus";
+    description = `Lava cooldown is decreased of 0.1 sec.`;
+
+    function = () => {
+      BONUS.LAVA_COOLDOWN -= 100;
+      BONUS.LAVA_COOLDOWN < -700 ? (BONUS.LAVA_COOLDOWN = -700) : null;
+    };
+  },
+  class LavaCooldownDowngrade {
+    id = "LavaCooldownDowngrade";
+    tile = "lava";
+    bonus = "cooldown";
+    bonusType = "penalty";
+    description = `Lava cooldown is increased of 0.1 sec.`;
+    function = () => {
+      BONUS.LAVA_COOLDOWN < 700 ? (BONUS.LAVA_COOLDOWN += 100) : null;
     };
   },
   class GodRangeDowngrade {
@@ -323,6 +367,53 @@ const CARD_FOR_LEVEL_UP = [
       BONUS.STAR_RANGE < -2 * tileSize
         ? (BONUS.STAR_RANGE = -2 * tileSize)
         : null;
+    };
+  },
+  class ThunderRangeUpgrade {
+    id = "ThunderRangeUpgrade";
+    tile = "thunder";
+    bonus = "range";
+    bonusType = "bonus";
+    description = `Thunder range is expended.`;
+    function = () => {
+      BONUS.THUNDER_RANGE += 0.5 * tileSize;
+      BONUS.THUNDER_RANGE > 2 * tileSize
+        ? (BONUS.THUNDER_RANGE = 2 * tileSize)
+        : null;
+    };
+  },
+  class ThunderRangeDowngrade {
+    id = "ThunderRangeDowngrade";
+    tile = "thunder";
+    bonus = "range";
+    bonusType = "penalty";
+    description = `Thunder range is shortened.`;
+    function = () => {
+      BONUS.THUNDER_RANGE -= 0.5 * tileSize;
+      BONUS.THUNDER_RANGE < -2 * tileSize
+        ? (BONUS.THUNDER_RANGE = -2 * tileSize)
+        : null;
+    };
+  },
+  class DesertSpeedUpgrade {
+    id = "DesertSpeedUpgrade";
+    tile = "desert";
+    bonus = "speed";
+    bonusType = "bonus";
+    description = "Increase desert slowness.";
+    function = () => {
+      BONUS.DESERT_SPEED === 0.1 ? null : (BONUS.DESERT_SPEED -= 0.1);
+    };
+  },
+  class DesertSpeedDowngrade {
+    id = "DesertSpeedDowngrade";
+    tile = "desert";
+    bonus = "speed";
+    bonusType = "penalty";
+    description =
+      "Decrease desert slowness.</br>If superior to 1, monster speed will be increased.";
+    function = () => {
+      BONUS.DESERT_SPEED += 0.1;
     };
   },
 ];

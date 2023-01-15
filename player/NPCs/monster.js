@@ -198,7 +198,7 @@ export class Monster {
       calculateInterval(
         timestamp,
         this.lastLavaDamage,
-        this.lavaCooldown,
+        this.lavaCooldown + BONUS.LAVA_COOLDOWN,
         this.localPauseDelta
       ) &&
       currentTile === "lava"
@@ -231,7 +231,7 @@ export class Monster {
         x: dx === 0 ? 0 : Math.cos(angle),
         y: dy === 0 ? 0 : Math.sin(angle),
       };
-      let slowDownFactor = currentTile === "desert" ? this.desertFactor : 1;
+      let slowDownFactor = currentTile === "desert" ? this.desertFactor + BONUS.DESERT_SPEED : 1;
 
       this.x +=
         this.velocity.x *

@@ -1,4 +1,5 @@
 import { tileSize, pixelUnit, monsters } from "../app.js";
+import { BONUS } from "../core/constants/bonus.js";
 import { hitMonsters } from "./utils.js";
 
 class Thunder {
@@ -31,8 +32,8 @@ class Thunder {
 
     monsters.forEach((monster, index) => {
       monster.distance = Math.hypot(this.x - monster.x, this.y - monster.y);
-      if (monster.distance < this.radius - monster.hitBox) {
-        hitMonsters(monster, this.damage);
+      if (monster.distance < this.radius + BONUS.THUNDER_RANGE - monster.hitBox) {
+        hitMonsters(monster, this.damage + BONUS.THUNDER_FORCE);
       }
     });
 

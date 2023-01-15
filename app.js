@@ -15,7 +15,7 @@ import { levelUpScreen } from "./UI/levelUp.js";
 import { createActionButton, updateStatusText } from "./UI/actionButtons.js";
 import { handleClick, thunders } from "./core/handleClick.js";
 import { gameOverScreen } from "./UI/gameOverScreen.js";
-import { resetBonus } from "./core/constants/bonus.js";
+import { BONUS, resetBonus } from "./core/constants/bonus.js";
 import { ASSETS, loadAssets } from "./core/loadAssets.js";
 import { renderCardDescription } from "./UI/card-description.js";
 import { playSound } from "./core/utils.js";
@@ -324,7 +324,7 @@ function animate(timestamp) {
   for (let i = 0; i < thunders.length; i++) {
     const thunder = thunders[i];
     thunder.update(ctxScreen);
-    if (thunder.radius >= thunder.maxRadius) {
+    if (thunder.radius >= thunder.maxRadius + BONUS.THUNDER_RANGE) {
       thunders.splice(i, 1);
     }
   }
