@@ -238,6 +238,16 @@ function animate(timestamp) {
     spawnPoint.update(ctxScreen);
   }
 
+  for (let i = 0; i < tileMap.rivers.length; i++) {
+    const river = tileMap.rivers[i];
+    river.update(ctxScreen);
+  }
+
+  for (let i = 0; i < tileMap.lavas.length; i++) {
+    const lava = tileMap.lavas[i];
+    lava.update(ctxScreen);
+  }
+  
   monsters.forEach((monster, index) => {
     drawLifeBar(ctxScreen, monster);
 
@@ -299,16 +309,6 @@ function animate(timestamp) {
   for (let i = 0; i < tileMap.stars.length; i++) {
     const star = tileMap.stars[i];
     star.update(ctxScreen);
-  }
-
-  for (let i = 0; i < tileMap.rivers.length; i++) {
-    const river = tileMap.rivers[i];
-    river.update(ctxScreen);
-  }
-
-  for (let i = 0; i < tileMap.lavas.length; i++) {
-    const lava = tileMap.lavas[i];
-    lava.update(ctxScreen);
   }
 
   for (let i = 0; i < tileMap.temples.length; i++) {
